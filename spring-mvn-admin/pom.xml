@@ -37,4 +37,8 @@
 			</plugin> 
 		</plugins>
   </build>
+  <modules>
+  	<module>spring-mvn-core</module>
+  	<module>spring-mvn-web</module>
+  </modules>
 </project>
