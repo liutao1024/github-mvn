@@ -26,5 +26,6 @@
   <modules>
   	<module>spring-mvn-core-loan</module>
     <module>spring-mvn-core-deposit</module>
+    <module>spring-mvn-core-fund</module>
   </modules>
 </project>
