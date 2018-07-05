@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>spring</groupId>
+    <artifactId>spring-mvn-admin</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <!-- <groupId>spring</groupId> -->
+  <artifactId>spring-mvn-core</artifactId>
+  <!-- <version>0.0.1-SNAPSHOT</version> -->
+  <packaging>pom</packaging>
+  <name>spring-mvn-core</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <dependency>
+    	<groupId>spring</groupId>
+    	<artifactId>spring-mvn-base</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+    	<groupId>spring</groupId>
+    	<artifactId>spring-mvn-comm</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+  <modules>
+    <module>spring-mvn-core-account</module>
+    <module>spring-mvn-core-deposit</module>
+  	<module>spring-mvn-core-loan</module>
+    <module>spring-mvn-core-fund</module>
+  </modules>
+</project>

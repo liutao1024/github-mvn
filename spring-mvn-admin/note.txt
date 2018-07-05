@@ -1,0 +1,96 @@
+相关连接写在了印象笔记上,而且在配置文件spring.xml,spring-mvc.xml,spring-hibernate.xml上均有说明
+大体对springMvc的理解以及配置都他妈的不清楚有点懵逼
+20180524:
+	在Eclipse上不启动tomcat时,要访问数据库时需要连接jdbc,而启动tomcat后使用hibernate或者MyBatis那就是通过
+ 对应的配置文件获取连接的了,本项目使用hibernate其配置文件中有sessionFactory这个东西,在服务实现时
+ 需要从容器中获取的连接(说法不知道对不对)
+ 在DaoImpl中直接注解进Dao的写法为什么会一直报找不到对应的bean呢?
+ 	就是因为没有获取过配置中的sessionFactory导致根本就没有作用----这波解释不知道对不对
+如何做联合主键实例的查询:https://zhidao.baidu.com/question/565247522236913324.html
+					https://zhidao.baidu.com/question/585571446275200965.html
+大致意思是要先做一个联合主键类,即:SysUser是已cropno+userid为主键那么就建一个只有这两个字段的类SysUserPK 
+现在出现问题是:按上述文档改造后用session的get(Class class, Serializable id)时报错,如何修改?
+关于表实例entity插入时报主键       为什么数据库建表sys_user和建表sys_auth不一样,前者有唯一索引而后者没有:
+			因为前者在创建时有主键PK而后者没有,从sys_role表(也没有索引)看出来的,直接将sys_userPK类
+			删除,将表结构删除启动试试,结果还是有唯一所以两个,原来是由于在entity类中Id列的@Column注解中
+				加了unique=true,详细说明查看SysUser类
+那这样就没法根据主键来查询唯一实例了?	---直接在service中定义findOneByPrimeKey方法(),
+											并在其实现类中调用getByHql实现	
+											
+关于hibernate在数据库中创建实例对应表时列的顺序问题?	
+后续还有session的方法的扩展------等待探索,目前都是从工作项目中copy过来的一些东西
+
+以上解决了hibernate创建实例以及它的增删查改处理,下面将进行mvc的处理	
+每次启动时都会有这行
+validateJarFile(D:\apache-tomcat-7.0.86\webapps\spring-mvc-maven\WEB-INF\lib\javax.servlet-api-3.1.0.jar) 
+- jar not loaded. See Servlet Spec 3.0, section 10.7.2. Offending class: javax/servlet/Servlet.class
+但是tomcat都启动成功了?????
+sysUserRole需要设置参数---20180525
+增加CommUtilRepository类(Spring Data Jpa)配置serviceImpl继承该接口后启动项目报错不能自动注入
+Could not autowire field: private cn.spring.mvc.global.comm.CommUtilRepository 
+				cn.spring.mvc.global.comm.CommServiceImpl.commUtilRepository; 
+nested exception is org.springframework.beans.factory.NoUniqueBeanDefinitionException: 
+	No qualifying bean of type [cn.spring.mvc.global.comm.CommUtilRepository] is defined: 
+		expected single matching bean but found 2: CommUtilRepository,sysAuthServiceImpl
+通过对比方向spring-hibernate.xml中没有jap的配置,加上试试	这些都他妈的白干了草!!!
+现在重新出发:
+表的查询分几种情况:  1.通过主键查询,2.通过几个字段查询,3分页查询
+
+20180527遇到的问题::???
+根据模版查询实体并按照sort排序---------
+现在的问题是,SysRole能自动在库里建表而SysAuth不能
+新建的SysMyTest从SysAuth考过来的不行,但是如果是从SysRole中考过来的就可以????
+现在是创建test实例时
+权限编号后面只有一个列时可以创建处理,增加一个就不行了?????????????
+这个实例只能有4个例?多了就建不出来	
+
+感觉应该是heibrnt出BUG了,这个实例开始都能创建出来的为什么就在今天就出先这些问题了
+建出来的表所有列都是主键是几个意思
+看到springmvc_hibernate_error.log日志中有两句
+[sspringmvc_hibernate][ERROR] [2018-05-28 09:15:08] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(261) | HHH000388: Unsuccessful: create table liutao.sys_auth (regist_cd varchar(255) not null, auth_type varchar(255) not null, auth_cd varchar(255) not null, auth_url varchar(255) not null, iconfg varchar(255) not null, menu_name varchar(255) not null, parent_auth_cd varchar(255) not null, rank integer not null, sortno integer not null, target_flag varchar(255) not null, primary key (regist_cd, auth_type, auth_cd, auth_url, iconfg, menu_name, parent_auth_cd, rank, sortno, target_flag))
+[sspringmvc_hibernate][ERROR] [2018-05-28 09:15:08] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(262) | Specified key was too long; max key length is 3072 bytes
+大致的意思就是说建这个表时的建表语句是:
+creat table sys_auth (regist_cd varchar(255) not null,auth_type varchar(255) not null
+			....所有字段都不能为空),primeKey (regist_cd, auth_type,...所有字段都是主键),
+然后主键的长度最长只能是	3072个字节	,你这些字段长度都是255加起来大于了3072
+可能是之前想整合jpa的时候修改spring-hiberant.xml配置改出问题了   
+结果他妈的entity类上加了@IdClass注解的原因,这尼玛就尴尬了
+
+
+拿不到其他的菜单----sys_auth_role中没有配权限
+
+批量执行到BatchJob10001.java的第41行访问数据库的时候就不在往下执行了??????????	
+-----感觉是Spring在执行定时任务BatchInitializer时是整合了Spring+MVC+Heibrnt是能进行数据库访问的,它将
+	定时任务BatchJob10001启动时没能整合heibrnt导致数据库访问出问题??
+	搜索Quartz如何整合heibrnt
+	
+普通类中需要获取Spring容器中的bean对象	
+通过继承父类BatchManger在实例化Service时,调用父类的getService()方法,获取实例化对象
+		 *  这样就能获取到Spring容器中的bean对象
+		 *  想办法service实例化时不需要调用父类的方法
+		 *  在父类中直接搞好,子类中还像之前那样写
+		 *  		可以考虑反射取到注解来进行实例化
+		 *  父类中能取到所有的子类吗?
+		 *  ------这样子运行到子类时同样为null,由于父类中通过反射实例化一个子类并给子类属性赋值成功,
+		 *  当定时任务执行到子类时是实例化的一个新的子类,所以同样为空,可以考虑的是实现单列模式??????
+现在先不考虑了感觉有点走太远了------------20180604
+现在的实现是所有通过BatchInitializer启动起来的job任务需要继承BatchManger类
+且类的属性是在service的需要通过service类获取Spring容器中的对应的bean对象
+
+
+定时任务完成---
+后续需要做一个从web端发起的批量任务管理类用于处理手动触发的批量
+	将tomcat实现点击Eclipse上的tomcat就执行不需要点击运行×
+	理清楚cron的如何设置,登记cath到的错误信息
+	
+研究一下分页用的是limit ?, ? 起始记录行到最大记录数
+
+make all project to the modles
+
+
+-----------20180613
+1.根据接口文件将接口的input内容从requestDataMap中取出来,并赋值给掉用的方法,
+还是通过反射做,但是发射如何给方法传参数需要百度 
+2.接口定义在xml中,输入字段和输出字段从xml中取出,输入字段在requestMap中获取后并赋值
+	输出字段在也是在xml中取出后,根据asktyp来决定怎么组?(是待count的list的Map还是仅仅是返回的是一个Map)
+---xml或者其他什么文件(目前最简单的是txt文件取到String按逗号','进行分割,但是这样定义接口感觉怪怪的)

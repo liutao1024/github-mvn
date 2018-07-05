@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+	<!-- 加载配置文件 -->
+	<context:property-placeholder location="classpath:config.properties" />
+	<!-- 扫描service自动注入为bean -->
+	<context:component-scan base-package="cn.spring.mvc.base,
+										  cn.spring.mvc.base.entity.service.impl,
+										  cn.spring.mvc.batch.entity.service.impl,
+										  cn.spring.mvc.core.entity.service.impl,
+										  cn.spring.mvc.batch.entity.service.impl,
+										  cn.spring.mvc.web.entity.service.impl" />
+	<!-- 将所有的service注入到spring容器中供其他类调用 
+		包括comm下的CommDao,CommServiceImpl,以及各模块下的impl
+	 -->
+	<!-- 将SpringContextUtil交给spring管理 -->
+	<bean id="springContextUtil" class="cn.spring.mvc.comm.util.SpringContextUtil"></bean>	
+	<!-- <bean id="coreServerImpl" class="cn.spring.mvc.server.service.CoreServerImpl"></bean> -->
+	
+	<!-- 将SocketManager交给spring管理,在Spring容器启动时,启动服务器类 -->
+	<!-- <bean id="socketManager" class="cn.spring.mvc.server.SocketManager" scope="singleton"  init-method="initializeServer"></bean> -->						  
+</beans>
