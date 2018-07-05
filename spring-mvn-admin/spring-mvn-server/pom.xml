@@ -12,15 +12,37 @@
   <!-- <version>0.0.1-SNAPSHOT</version> -->
   <name>spring-mvn-server</name>
   <url>http://maven.apache.org</url>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+
   <dependencies>
-    <!-- <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency> -->
+    <dependency>
+    	<groupId>spring</groupId>
+    	<artifactId>spring-mvn-base</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+    	<groupId>spring</groupId>
+    	<artifactId>spring-mvn-comm</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+    	<groupId>core</groupId>
+    	<artifactId>spring-mvn-core-account</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+    	<groupId>core</groupId>
+    	<artifactId>spring-mvn-core-deposit</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+    	<groupId>core</groupId>
+    	<artifactId>spring-mvn-core-fund</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+    	<groupId>core</groupId>
+    	<artifactId>spring-mvn-core-loan</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 </project>

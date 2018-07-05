@@ -28,7 +28,8 @@
     <dependency>
 		<groupId>javax.servlet</groupId>
 		<artifactId>javax.servlet-api</artifactId>
-		<version>3.1.0</version>
+		<version>4.0.1</version>
+		<scope>provided</scope>
 	</dependency>
 	<dependency>
 		<groupId>javax.servlet</groupId>
@@ -40,6 +41,46 @@
 		<groupId>javax.servlet</groupId>
 		<artifactId>jstl</artifactId>
 		<version>1.2</version>
+	</dependency>
+	<dependency>
+		<groupId>spring</groupId>
+		<artifactId>spring-mvn-base</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>spring</groupId>
+		<artifactId>spring-mvn-comm</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>core</groupId>
+		<artifactId>spring-mvn-core-account</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>core</groupId>
+		<artifactId>spring-mvn-core-deposit</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>core</groupId>
+		<artifactId>spring-mvn-core-fund</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>core</groupId>
+		<artifactId>spring-mvn-core-loan</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>spring</groupId>
+		<artifactId>spring-mvn-server</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>spring</groupId>
+		<artifactId>spring-mvn-task</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
   </dependencies>
   <build>

@@ -16,6 +16,10 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
-    
+    <dependency>
+    	<groupId>spring</groupId>
+    	<artifactId>spring-mvn-base</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 </project>

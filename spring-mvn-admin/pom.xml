@@ -12,8 +12,15 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+ 	<spring.version>4.1.1.RELEASE</spring.version><!-- jdk1.8需要srping4.0以上才支持 -->
+ 	<jersey.version>2.6</jersey.version>  
+    <jersey-spring.version>2.23.1</jersey-spring.version>  
+	<servlet-api-version>3.1.0</servlet-api-version>
+	<hibernate.version>4.3.8.Final</hibernate.version>
+	<jackson.version>2.5.0</jackson.version>
+	<logback.version>1.1.1</logback.version>  
+    <jcloverslf4j.version>1.7.6</jcloverslf4j.version>  
   </properties>
-
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -21,6 +28,196 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
+    <!-- servlet -->
+    <dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>javax.servlet-api</artifactId>
+		<version>4.0.1</version>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>servlet-api</artifactId>
+		<version>3.0-alpha-1</version>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>jstl</artifactId>
+		<version>1.2</version>
+	</dependency>
+     <!-- 注入DBCPJDBC依赖 -->
+	<dependency>  
+	    <groupId>commons-dbcp</groupId>  
+	    <artifactId>commons-dbcp</artifactId>  
+    	<version>1.4</version>  
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-lang3</artifactId>
+	    <version>3.1</version><!--$NO-MVN-MAN-VER$-->
+	</dependency>
+	<!-- org.apache.xmlbeans/xmlbeans/2.6.0 XmlBeans maven依赖 -->
+	<dependency>
+	    <groupId>org.apache.xmlbeans</groupId>
+	    <artifactId>xmlbeans</artifactId>
+	    <version>2.6.0</version>
+	</dependency>
+	<!-- 添加Spring依赖开始 -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-core</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-web</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-webmvc</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+  	 	<groupId>org.springframework</groupId>
+   		<artifactId>spring-tx</artifactId>
+   		<version>${spring.version}</version>
+  	</dependency>
+  	<dependency>
+   		<groupId>org.springframework</groupId>
+   		<artifactId>spring-jdbc</artifactId>
+   		<version>${spring.version}</version>
+  	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-tx</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<version>${spring.version}</version>
+		<scope>test</scope>
+	</dependency>
+	<!-- 关系型数据库整合时需配置 如hibernate jpa等 -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-aop</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-orm</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<!-- hibernate开始 -->
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-core</artifactId>
+		<version>${hibernate.version}</version>
+	</dependency>
+	<dependency>
+  		<groupId>org.hibernate</groupId>
+  		<artifactId>hibernate-entitymanager</artifactId>
+  		<version>${hibernate.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-ehcache</artifactId>
+		<version>${hibernate.version}</version>
+	</dependency>
+	<!-- 二级缓存ehcache开始 -->
+	<dependency>
+		<groupId>net.sf.ehcache</groupId>
+		<artifactId>ehcache</artifactId>
+		<version>2.9.0</version>
+	</dependency>
+	<!-- log4j开始 -->
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>1.2.17</version>
+	</dependency>
+	<!-- mysql连接开始 -->
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>5.1.34</version>
+	</dependency>
+	<!-- c3p0数据源开始 -->
+	<dependency>
+		<groupId>com.mchange</groupId>
+		<artifactId>c3p0</artifactId>
+		<version>0.9.5-pre10</version>
+	</dependency>
+	<!-- json开始 -->
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>fastjson</artifactId>
+		<version>1.2.3</version>
+	</dependency>
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-annotations</artifactId>
+		<version>${jackson.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-core</artifactId>
+		<version>${jackson.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-databind</artifactId>
+		<version>${jackson.version}</version>
+	</dependency>
+	<!-- aop开始 -->
+	<dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjweaver</artifactId>
+		<version>1.8.4</version>
+	</dependency>
+	<!-- aop结束 -->
+	<!-- StringUtils依赖 -->
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-lang3</artifactId>
+	    <version>3.0</version>
+	</dependency>
+	<!-- 定时任务依赖 20180601 -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context-support</artifactId>
+	    <version>4.2.6.RELEASE</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.quartz-scheduler</groupId>
+	    <artifactId>quartz</artifactId>
+	    <version>2.3.0</version>
+	</dependency>
+	<dependency>
+	<!-- dom4j依赖用于解析接口的xml配置文件 -->
+    <groupId>dom4j</groupId>
+	    <artifactId>dom4j</artifactId>
+	    <version>1.6.1</version>
+	</dependency>
+	<!-- 不知道的依赖 -->
+	<dependency>
+	    <groupId>org.springframework.data</groupId>
+	    <artifactId>spring-data-mongodb</artifactId>
+	    <version>1.7.0.RELEASE</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework.data</groupId>
+	    <artifactId>spring-data-jpa</artifactId>
+	    <version>1.8.0.RC1</version>
+	</dependency> 
   </dependencies>
   <build>
   		<plugins>
