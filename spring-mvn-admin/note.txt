@@ -94,3 +94,6 @@ make all project to the modles
 2.接口定义在xml中,输入字段和输出字段从xml中取出,输入字段在requestMap中获取后并赋值
 	输出字段在也是在xml中取出后,根据asktyp来决定怎么组?(是待count的list的Map还是仅仅是返回的是一个Map)
 ---xml或者其他什么文件(目前最简单的是txt文件取到String按逗号','进行分割,但是这样定义接口感觉怪怪的)
+
+
+需要操作非web项目如何部署到服务器上+httpclient实现通讯
