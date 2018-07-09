@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/common/taglib.jsp"%>
-<div aria-hidden="true" style="display: none;" id="edit_setting"
-	class="modal fade" tabindex="-1" data-width="900">
+<div aria-hidden="true" style="display: none;" id="edit_setting" class="modal fade" tabindex="-1" data-width="900">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
