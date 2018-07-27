@@ -96,4 +96,8 @@ make all project to the modles
 ---xml或者其他什么文件(目前最简单的是txt文件取到String按逗号','进行分割,但是这样定义接口感觉怪怪的)
 
 
-需要操作非web项目如何部署到服务器上+httpclient实现通讯
+需要操作非web项目如何部署到服务器上+httpclient实现通讯 
+jenkins好像可以将Java项目编译扔在服务器上并运行起来这个需要进一步去研究
+
+
+将spring-mvn-web项目中引用的其他项目均大成jar放在maven的私服上去

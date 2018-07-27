@@ -475,8 +475,10 @@ public class SystemController {
 	
 	
 	/**
-	 * 查询
-	 * @param reqmap
+	 * @author LiuTao @date 2018年7月18日 下午3:25:54 
+	 * @Title: allRole 
+	 * @Description: 查询所有角色信息 sys_role表
+	 * @param reqMap
 	 * @return
 	 */
 	@RequestMapping(value="/allRole")
@@ -503,7 +505,18 @@ public class SystemController {
 		return rstMap;
 	}
 	
-	
+//	/**
+//	 * @author LiuTao @date 2018年7月19日 上午10:19:49 
+//	 * @Title: allRoleAuth 
+//	 * @Description: TODO(Describe) 
+//	 * @param reqMap
+//	 * @return
+//	 */
+//	@RequestMapping(value = "/role_auth")
+//	public Map<String, Object> allRoleAuth(@RequestParam Map<String,Object> reqMap){
+//		 Map<String, Object> rstMap = new HashMap<String, Object>();
+//		 return rstMap;
+//	}
 	
 	
 	/**---------------------------------------分隔符------------------------------------------------*/

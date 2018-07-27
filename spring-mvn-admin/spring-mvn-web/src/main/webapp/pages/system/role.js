@@ -41,8 +41,7 @@ var Role = function() {
 		/*
 		 * 初始化table
 		 */
-		rolegrid
-				.init({
+		rolegrid.init({
 					src : table,
 					deleteData : sendData,
 					onSuccess : function(rolegrid) {
@@ -130,17 +129,19 @@ var Role = function() {
 		var sendData = [ "regist_cd", "authType", "roleCd" ];
 		// 绑定删除事件
 		rolegrid.bindTableDelete(sendData);
+		// 绑定编辑事件按钮
 		rolegrid.bindTableEdit(sendData, toEditModal);
 		// 绑定权限设置列表
 		rolegrid.addBindEvent(".edit_setting", "click", sendData,
 				function(data) {
-					// 显示配置窗口
-					loadSubPage(data);
-					$("#edit_setting").modal("show");
-					$("#editModal").on("hide.bs.modal", function() {
-						rolegrid.submitFilter();
-					});
-				});
+						// 显示配置窗口
+						loadSubPage(data);
+						$("#edit_setting").modal("show");
+						$("#editModal").on("hide.bs.modal", function() {
+							rolegrid.submitFilter();
+						});
+					}
+		);
 
 		// 新增窗口
 		$("#add_btn").bind("click", function() {
@@ -162,8 +163,7 @@ var Role = function() {
 		/*
 		 * 表单验证方法
 		 */
-		var roleValid = Sunline.getValidate($("form", "#editModal"), function(
-				form) {
+		var roleValid = Sunline.getValidate($("form", "#editModal"), function(form) {
 			var data = {};
 			$.each($("input", editform), function(i, n) {
 				data[n.name] = n.value;
@@ -189,12 +189,12 @@ var Role = function() {
 			regist_cd : {
 				required : true,
 				rangelength : [ 2, 19 ]
-			},
+			}/*,
 			authType : {
 				required : true,
 				maxlength : 1,
 				number : true
-			},
+			}*/,
 			roleCd : {
 				required : true,
 				rangelength : [ 2, 19 ]
@@ -215,7 +215,7 @@ var Role = function() {
 		rolecontent.html('');
 		$.ajax({
 			type : "GET",
-			url : "../auth/role_auth",
+			url : "auth/role_auth",
 			dataType : "html",
 			success : function(res) {
 				rolecontent.html(res);
