@@ -79,11 +79,6 @@
 		<artifactId>spring-webmvc</artifactId>
 		<version>${spring.version}</version>
 	</dependency>
-	<dependency>
-  	 	<groupId>org.springframework</groupId>
-   		<artifactId>spring-tx</artifactId>
-   		<version>${spring.version}</version>
-  	</dependency>
   	<dependency>
    		<groupId>org.springframework</groupId>
    		<artifactId>spring-jdbc</artifactId>
@@ -185,11 +180,11 @@
 	</dependency>
 	<!-- aop结束 -->
 	<!-- StringUtils依赖 -->
-	<dependency>
+	<!-- <dependency>
 	    <groupId>org.apache.commons</groupId>
 	    <artifactId>commons-lang3</artifactId>
 	    <version>3.0</version>
-	</dependency>
+	</dependency> -->
 	<!-- 定时任务依赖 20180601 -->
 	<dependency>
 	    <groupId>org.springframework</groupId>
