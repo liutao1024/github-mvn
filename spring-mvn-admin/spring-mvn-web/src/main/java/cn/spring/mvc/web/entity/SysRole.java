@@ -29,6 +29,8 @@ public class SysRole implements Serializable{
 	@Id
 	@Column(name = "auth_cd")
 	private String auth_cd;  //权限编号
+	@Column(name = "role_name")
+	private String role_name;  //角色名称
 
 	public SysRole(){
 		
@@ -73,12 +75,21 @@ public class SysRole implements Serializable{
 	public void setAuth_cd(String auth_cd) {
 		this.auth_cd = auth_cd;
 	}
+	
+	public String getRole_name() {
+		return role_name;
+	}
+
+	public void setRole_name(String role_name) {
+		this.role_name = role_name;
+	}
 
 	@Override
 	public int hashCode(){
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((role_cd == null) ? 0 : role_cd.hashCode());
+		result = prime * result + ((role_name == null) ? 0 : role_name.hashCode());
 		result = prime * result + ((auth_cd == null) ? 0 : auth_cd.hashCode());
 		result = prime * result + ((regist_cd == null) ? 0 : regist_cd.hashCode());
 		result = prime * result + ((auth_type == null) ? 0 : auth_type.hashCode());

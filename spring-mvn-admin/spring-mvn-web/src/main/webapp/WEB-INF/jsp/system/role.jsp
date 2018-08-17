@@ -29,9 +29,8 @@
 						<tr role="row" class="heading">
 							<th width="16%">注册机构号</th>
 							<th width="16%">权限类型</th>
-							<th width="16%">角色号</th>
-							<!-- <th width="16%">角色名称</th> -->
-
+							<th width="16%">角色编号</th>
+							<th width="16%">角色名称</th>
 							<th width="36%" colspan="3">操作</th>
 						</tr>
 						<tr role="row" class="filter">
@@ -42,9 +41,9 @@
 							<td><input type="text"
 								class="form-control form-filter input-sm" name="q_roleCd"
 								id="q_roleCd" /></td>
-							<!-- <td><input type="text"
+							<td><input type="text"
 								class="form-control form-filter input-sm" name="q_roleName"
-								id="q_roleName" /></td> -->
+								id="q_roleName" /></td>
 
 							<td colspan="3">
 								<button class="btn btn-sm yellow filter-submit margin-bottom">
@@ -63,18 +62,15 @@
 		</div>
 		<div class="inbox-content"></div>
 		<!-- 修改操作员弹出窗口 -->
-		<div id="editModal" class="modal fade" tabindex="-1"
-			data-backdrop="static" data-keyboard="false">
+		<div id="editModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
 			<div class="modal-header">
-				<button type="button" class="close closeModal" data-dismiss="modal"
-					aria-hidden="true"></button>
+				<button type="button" class="close closeModal" data-dismiss="modal" aria-hidden="true"></button>
 				<h4 class="modal-title">角色信息</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-md-12">
-						<form class="form-horizontal" role="form" id="edit_form"
-							action="/services/rest/auth/saverole" method="post">
+						<form class="form-horizontal" role="form" id="edit_form" action="/services/rest/auth/saverole" method="post">
 							<div class="form-body">
 								<div class="alert alert-danger display-hide">
 									<button class="close" data-close="alert"></button>
@@ -95,7 +91,7 @@
 								<div class="form-group">
 									<label class="col-md-3 control-label">权限类型</label>
 									<div class="col-md-9">
-										<input type="hidden" id="authType" name="authType" readOnly
+										<input type="hidden" id="auth_type" name="auth_type" readOnly
 											class="form-control input-inline input-medium" maxlength="19"
 											placeholder="输入权限类型">
 									</div>
@@ -103,7 +99,7 @@
 								<div class="form-group">
 									<label class="col-md-3 control-label">角色编号</label>
 									<div class="col-md-9">
-										<input type="text" id="roleCd" name="roleCd" readOnly
+										<input type="text" id="role_cd" name="role_cd" readOnly
 											class="form-control input-inline input-medium" maxlength="19"
 											placeholder="输入角色编号">
 									</div>
@@ -111,7 +107,7 @@
 								<div class="form-group">
 									<label class="col-md-3 control-label">角色名称</label>
 									<div class="col-md-9">
-										<input type="text" id="roleName" name="roleName"
+										<input type="text" id="role_name" name="role_name"
 											class="form-control input-inline input-medium" maxlength="50"
 											placeholder="输入角色名称">
 									</div>

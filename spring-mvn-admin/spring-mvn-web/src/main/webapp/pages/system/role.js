@@ -1,5 +1,5 @@
 var Role = function() {
-//	var authTypeDict = Sunline.getDict("authType");
+	var authTypeDict = Sunline.getDict("D_AUTHTP");
 	var rolecontent = $('.inbox-content');
 	var handleTable = function() {
 		var rolegrid = new Datatable();
@@ -11,14 +11,14 @@ var Role = function() {
 		var toEditModal = function(nRowA) {
 			// 赋值
 			$('#regist_cd', editform).attr("readOnly", true);
-			$('#authType', editform).attr("readOnly", true);
-			$('#roleCd', editform).attr("readOnly", true);
+			$('#auth_type', editform).attr("readOnly", true);
+			$('#role_cd', editform).attr("readOnly", true);
 			$('#regist_cd').val($(nRowA[0]).text());
-			$('#authType').val($(nRowA[1]).text().substring($(nRowA[1]).text().indexOf("[") + 1, $(nRowA[1]).text().indexOf("]"))).trigger("change");
-			$('#roleCd').val($(nRowA[2]).text());
-			$('#roleName').val($(nRowA[3]).text());
+			$('#auth_type').val($(nRowA[1]).text().substring($(nRowA[1]).text().indexOf("[") + 1, $(nRowA[1]).text().indexOf("]"))).trigger("change");
+			$('#role_cd').val($(nRowA[2]).text());
+			$('#role_name').val($(nRowA[3]).text());
 			$('#queryAuth').val($(nRowA[4]).text());
-			editUrl = "auth/saverole";
+			editUrl = "auth/updateSysRole";
 			$("#editModal").modal('show');
 			$("#editModal").on("hide.bs.modal", function() {
 				$(".alert-success", $('form', $("#editModal"))).hide();
@@ -30,14 +30,14 @@ var Role = function() {
 		/*
 		 * 获取字典
 		 */
-//		$("#authType").select2({
-//			data : authTypeDict
-//		});
-//		$("#q_authType").select2({
-//			data : authTypeDict,
-//			allowClear : true,
-//			placeholder : "请选择"
-//		});
+		$("#auth_type").select2({
+			data : authTypeDict
+		});
+		$("#q_authType").select2({
+			data : authTypeDict,
+			allowClear : true,
+			placeholder : "请选择"
+		});
 		/*
 		 * 初始化table
 		 */
@@ -64,7 +64,7 @@ var Role = function() {
 								{
 									"data" : "auth_type",
 									"sortable" : false,
-									"searchable" : false/*,
+									"searchable" : false,
 									"render" : function(data, type, full) {
 										for (var i = 0; i < authTypeDict.length; i++) {
 											if (authTypeDict[i].id == data) {
@@ -72,18 +72,18 @@ var Role = function() {
 											}
 										}
 										return data;
-									}*/
+									}
 								},
 								{
 									"data" : "role_cd",
 									"sortable" : false,
 									"searchable" : false
-								}/*,
+								},
 								{
-									"data" : "roleName",
+									"data" : "role_name",
 									"sortable" : false,
 									"searchable" : false
-								}*/,
+								},
 								{
 									"data" : null,
 									"sortable" : false,
@@ -92,9 +92,9 @@ var Role = function() {
 										return "<a class='edit' href='javascript:;' data-src='"
 												+ data.regist_cd
 												+ ","
-												+ data.authType
+												+ data.auth_type
 												+ ","
-												+ data.roleCd + "'>编辑 </a>";
+												+ data.role_cd + "'>编辑 </a>";
 									}
 								},
 								{
@@ -105,9 +105,9 @@ var Role = function() {
 										return "<a class='edit_setting' href='javascript:;' data-src='"
 												+ data.regist_cd
 												+ ","
-												+ data.authType
+												+ data.auth_type
 												+ ","
-												+ data.roleCd + "'>配置权限</a>";
+												+ data.role_cd + "'>配置权限</a>";
 									}
 								},
 								{
@@ -118,15 +118,15 @@ var Role = function() {
 										return "<a class='delete' href='javascript:;' data-src='"
 												+ data.regist_cd
 												+ ","
-												+ data.authType
+												+ data.auth_type
 												+ ","
-												+ data.roleCd + "'>删除 </a>";
+												+ data.role_cd + "'>删除 </a>";
 									}
 								} ]
 					}
 				});
 
-		var sendData = [ "regist_cd", "authType", "roleCd" ];
+		var sendData = [ "regist_cd", "auth_type", "role_cd" ];
 		// 绑定删除事件
 		rolegrid.bindTableDelete(sendData);
 		// 绑定编辑事件按钮
@@ -149,7 +149,7 @@ var Role = function() {
 			$('input', editform).val("");
 			$('input[name="regist_cd"]', editform).attr("readOnly", true);
 			$("#regist_cd").val($.cookie("registCd"));
-			editUrl = "auth/addrole";
+			editUrl = "auth/addRole";
 			$("#editModal").modal('show');
 			$("#editModal").on("hide.bs.modal", function() {
 				$(".alert-success", $('form', $("#editModal"))).hide();
@@ -174,8 +174,8 @@ var Role = function() {
 					$('.alert-success', editform).show();
 					$('.alert-danger', editform).hide();
 					$('#regist_cd', editform).attr("readOnly", true);
-					$('#authType', editform).attr("readOnly", true);
-					$('#roleCd', editform).attr("readOnly", true);
+					$('#auth_type', editform).attr("readOnly", true);
+					$('#role_cd', editform).attr("readOnly", true);
 				} else {
 					$('.alert-success', editform).hide();
 					$('.alert-danger', editform).show();

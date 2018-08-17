@@ -440,12 +440,6 @@ public class SystemController {
 	}
 	
 	/**
-	 * //根据 SifSysRole查询 SifSysRoleAuth查询菜单权限
-	 * @param sifSysRole
-	 * @return
-	 */
-	
-	/**
 	 * @author LiuTao @date 2018年6月24日 上午10:29:39 
 	 * @Title: allAuthRole 
 	 * @Description: TODO(Describe) 
@@ -504,7 +498,55 @@ public class SystemController {
 		}
 		return rstMap;
 	}
-	
+	/**
+	 * @author LiuTao @date 2018年8月17日 下午5:11:17 
+	 * @Title: addSysRole 
+	 * @Description: 保存sysRole 
+	 * @param sysRole
+	 * @return
+	 */
+	@RequestMapping(value="/addRole")
+	@Transactional(propagation = Propagation.REQUIRED)	
+	public Map<String,String> addSysRole(@RequestBody SysRole sysRole){
+		Map<String,String> rstMap=new HashMap<String, String>();
+		SysRole addSysRole = new SysRole();
+		try {
+			addSysRole = sysRoleServiceImpl.saveEntity(sysRole);
+		} catch (Throwable e) {
+			rstMap.put("ret", "error");
+			rstMap.put("msg", sysRole.getRole_cd() + "已存在,新增失败");
+			return rstMap;
+		}
+		if(addSysRole == null){
+			rstMap.put("ret", "error");
+			rstMap.put("msg",  sysRole.getRole_cd() + "新增失败，请联系管理员");
+			return rstMap;
+		}
+		rstMap.put("ret", "success");
+		rstMap.put("msg", addSysRole.getRole_cd()+ "新增成功");
+		return rstMap;		
+	}
+	@RequestMapping(value="/updateSysRole")
+	public Map<String, String> updateSysRole(@RequestBody SysRole sysRole){
+		Map<String,String> rstMap=new HashMap<String, String>();
+		//用主键查询即可不然这样用实体类去查的话有改变的永远查不到呢
+		SysRole updateSysRole = sysRoleServiceImpl.selectOneEntity(sysRole);
+		updateSysRole.setAuth_cd(sysRole.getAuth_cd());
+		updateSysRole.setAuth_type(sysRole.getAuth_type());
+		updateSysRole.setRegist_cd(sysRole.getRegist_cd());
+		updateSysRole.setRole_cd(sysRole.getRole_cd());
+		updateSysRole.setRole_name(sysRole.getRole_name());
+		
+		try {
+			sysRoleServiceImpl.updateEntity(updateSysRole);
+			rstMap.put("ret", "success");
+			rstMap.put("msg", updateSysRole.getRole_cd() + "更新成功");
+		} catch (Exception e) {
+			rstMap.put("ret", "error");
+			rstMap.put("msg", updateSysRole.getRole_cd() + "更新失败:");
+		}
+		return rstMap;
+	}
 //	/**
 //	 * @author LiuTao @date 2018年7月19日 上午10:19:49 
 //	 * @Title: allRoleAuth 

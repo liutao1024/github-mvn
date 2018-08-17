@@ -334,6 +334,9 @@ var Datatable = function() {
 				});
 			});
 		},
+		/**
+		 * 绑定编辑按钮
+		 */
 		bindTableEdit : function(dataKey, editForm) {
 			table.on('click', '.edit', function(e) {
 				//获取选中行数据
