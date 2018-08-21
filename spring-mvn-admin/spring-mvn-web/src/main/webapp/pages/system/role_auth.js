@@ -1,8 +1,8 @@
-var authRole= function() {
+var sysRoleAuth= function() {
 
 	var handleTable = function(roledata) {
 		var authgrid = new Datatable();
-		var url = Sunline.ajaxPath("auth/sysAuthRole");
+		var url = Sunline.ajaxPath("auth/showSysRoleAuth");
 		var editUrl;
 		var table = $("#role_auth_ajax");
 		var setAuthform = $("#setAuthModal");
@@ -23,7 +23,6 @@ var authRole= function() {
 		if (!Sunline.isNull(roledata.role_cd)) {
 			authgrid.setAjaxParam('role_cd', roledata.role_cd);
 		}
-		
 		authgrid.init({
 					src : table,
 					deleteData : sendData,
@@ -91,8 +90,6 @@ var authRole= function() {
 								} ]
 					}
 				});
-		alert("20180821---1");
-
 		var sendData = [ "regist_cd", "auth_type", "role_cd", "auth_cd" ];
 		// 绑定删除事件
 		authgrid.bindTableDelete(sendData);

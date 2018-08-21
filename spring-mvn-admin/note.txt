@@ -87,6 +87,11 @@ creat table sys_auth (regist_cd varchar(255) not null,auth_type varchar(255) not
 
 make all project to the modles
 
+-----------20180821
+sys_Role页面权限信息展示按钮一直跳转不过去的BUG在role.js217行有解释,连接是启发点(灵感来源)
+https://www.jb51.net/article/88495.htm
+清空按钮将原来设置好的默认值都清空掉了导致所有的参数都没有了用null去设值,报空指针异常
+解决:加载页面时就给一些input设置好值,在清空时带这些input标签的值去Controller中做为条件,--那么C中就需要区分或者不区分,id用一样的
 
 -----------20180613
 1.根据接口文件将接口的input内容从requestDataMap中取出来,并赋值给掉用的方法,

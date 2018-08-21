@@ -19,8 +19,7 @@
 								<button id='add_Auth_btn'
 									class='btn btn-sm green table-group-action-submit'>新增</button>
 							</div>
-							<table class="table table-striped table-bordered table-hover"
-								id="role_auth_ajax">
+							<table class="table table-striped table-bordered table-hover" id="role_auth_ajax">
 								<thead>
 									<tr role="row" class="heading">
 										<th width="20%">注册机构号</th>
@@ -31,16 +30,15 @@
 									</tr>
 									<tr role="row" class="filter">
 										<td><input type="hidden"
-											class="form-control form-filter input-sm" id="qq_registerCd" /></td>
+											class="form-control form-filter input-sm" id="q_regist_cd" /></td>
 										<td><input type="hidden"
-											class="form-control form-filter input-sm" id="qq_authType" /></td>
+											class="form-control form-filter input-sm" id="q_auth_type" /></td>
 										<td><input type="hidden"
-											class="form-control form-filter input-sm" id="qq_roleCd" /></td>
+											class="form-control form-filter input-sm" id="q_role_cd" /></td>
 										<td><input type="text"
-											class="form-control form-filter input-sm" name="qq_authCd" /></td>
+											class="form-control form-filter input-sm" name="q_auth_cd" /></td>
 										<td>
-											<button class="btn btn-sm yellow filter-submit margin-bottom"
-												id="find_btn">
+											<button class="btn btn-sm yellow filter-submit margin-bottom" id="find_btn">
 												<i class="fa fa-search"></i> 查询
 											</button>
 											<button class="btn btn-sm red filter-cancel">
@@ -130,4 +128,4 @@
 		</div>
 	</div>
 </div>
-<script src="${ctx}/pages/system/auth_role.js"></script>
+<script src="${ctx}/pages/system/role_auth.js"></script>

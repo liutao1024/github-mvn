@@ -35,16 +35,9 @@
 						</tr>
 						<tr role="row" class="filter">
 							<td></td>
-							<td><input type="hidden"
-								class="form-control form-filter input-sm" name="q_authType"
-								id="q_authType" /></td>
-							<td><input type="text"
-								class="form-control form-filter input-sm" name="q_roleCd"
-								id="q_roleCd" /></td>
-							<td><input type="text"
-								class="form-control form-filter input-sm" name="q_roleName"
-								id="q_roleName" /></td>
-
+							<td><input type="hidden" class="form-control form-filter input-sm" name="q_authType" id="q_authType" /></td>
+							<td><input type="text" class="form-control form-filter input-sm" name="q_roleCd" id="q_roleCd" /></td>
+							<td><input type="text" class="form-control form-filter input-sm" name="q_roleName" id="q_roleName" /></td>
 							<td colspan="3">
 								<button class="btn btn-sm yellow filter-submit margin-bottom">
 									<i class="fa fa-search"></i> 查询
@@ -128,9 +121,9 @@
 </div>
 
 <script src="${ctx}/pages/system/role.js"></script>
-<script src="${ctx}/pages/system/auth_role.js"></script>
+<script src="${ctx}/pages/system/role_auth.js"></script>
 <script>
 	jQuery(document).ready(function() {
-		Role.init();
+		sysRole.init();
 	});
 </script>
