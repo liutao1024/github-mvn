@@ -1,4 +1,4 @@
-var Role = function() {
+var sysRole = function() {
 	var authTypeDict = Sunline.getDict("D_AUTHTP");
 	var rolecontent = $('.inbox-content');
 	var handleTable = function() {
@@ -31,7 +31,9 @@ var Role = function() {
 		 * 获取字典
 		 */
 		$("#auth_type").select2({
-			data : authTypeDict
+			data : authTypeDict,
+			allowClear : true,
+			placeholder : "请选择"
 		});
 		$("#q_authType").select2({
 			data : authTypeDict,
@@ -135,13 +137,11 @@ var Role = function() {
 				function(data) {
 						// 显示配置窗口
 						loadSubPage(data);
-						alert("20180821----2");
 						$("#edit_setting").modal("show");
-						alert("20180821----3");
+						$("#q_regist_cd").val(data.regist_cd);
 						$("#editModal").on("hide.bs.modal", function() {
 							rolegrid.submitFilter();
 						});
-						alert("20180821----4");
 					}
 		);
 
@@ -215,21 +215,22 @@ var Role = function() {
 
 	var loadSubPage = function(data) {
 		rolecontent.html('');
-//		$.ajax({
-//			type : "GET",
-//			url : "../../auth/allSysAuthRole",
-//			dataType : "html",
-//			success : function(res) {
-//				rolecontent.html(res);
+		$.ajax({
+			type : "GET",
+			//妈的类似于一个菜单请求需要显示一个Controller返回一个ModelAndView
+			url : Sunline.getBasePath() + "/menuUrl/system/role_auth",
+			dataType : "html",
+			success : function(res) {
+				rolecontent.html(res);
 				rolecontent.ready(function() {
-					authRole.init(data);
+					sysRoleAuth.init(data);
 					Metronic.initUniform();
 				});
-//			},
-//			error : function(xhr, ajaxOptions, thrownError) {
-//			},
-//			async : false
-//		});
+			},
+			error : function(xhr, ajaxOptions, thrownError) {
+			},
+			async : false
+		});
 	}
 
 

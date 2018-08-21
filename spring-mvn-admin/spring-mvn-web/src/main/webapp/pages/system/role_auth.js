@@ -1,17 +1,24 @@
-var authRole= function() {
+var sysRoleAuth= function() {
 
 	var handleTable = function(roledata) {
 		var authgrid = new Datatable();
-		var url = Sunline.ajaxPath("auth/sysAuthRole");
+		var url = Sunline.ajaxPath("auth/showSysRoleAuth");
 		var editUrl;
 		var table = $("#role_auth_ajax");
 		var setAuthform = $("#setAuthModal");
 		var authTypeDict = Sunline.getDict("D_AUTHTP");
-		var authDict = Sunline.getDict(roledata.auth_type, "/auth", "auth_cd", "menu_name");
-		$("#Auth_authCd").select2({
-			data : authDict
+		var authcdDict = Sunline.getDict(roledata.auth_type, "/auth", "auth_cd", "menu_name");
+		$("#auth_cd").select2({
+			data : authcdDict,
+			allowClear : true,
+			placeholder : "请选择"
 		});
-		/*
+		$("#auth_type").select2({
+			data : authTypeDict,
+			allowClear : true,
+			placeholder : "请选择"
+		});
+		/**
 		 * 初始化table
 		 */
 		if (!Sunline.isNull(roledata.regist_cd)) {
@@ -23,7 +30,6 @@ var authRole= function() {
 		if (!Sunline.isNull(roledata.role_cd)) {
 			authgrid.setAjaxParam('role_cd', roledata.role_cd);
 		}
-		
 		authgrid.init({
 					src : table,
 					deleteData : sendData,
@@ -66,9 +72,9 @@ var authRole= function() {
 									"sortable" : false,
 									"searchable" : false,
 									"render" : function(data, type, full) {
-										for (var i = 0; i < authDict.length; i++) {
-											if (authDict[i].id == data) {
-												return authDict[i].text;
+										for (var i = 0; i < authcdDict.length; i++) {
+											if (authcdDict[i].id == data) {
+												return authcdDict[i].text;
 											}
 										}
 										return data;
@@ -91,8 +97,6 @@ var authRole= function() {
 								} ]
 					}
 				});
-		alert("20180821---1");
-
 		var sendData = [ "regist_cd", "auth_type", "role_cd", "auth_cd" ];
 		// 绑定删除事件
 		authgrid.bindTableDelete(sendData);
@@ -104,9 +108,9 @@ var authRole= function() {
 		
 		// 新增窗口
 		$("#add_Auth_btn", $("#add_btn_set")).bind("click", function() {
-			$('#Auth_registerCd', setAuthform).val(roledata.registerCd);
-			$('#Auth_authType', setAuthform).val(roledata.authType);
-			$('#Auth_roleCd', setAuthform).val(roledata.roleCd);
+			$('#regist_cd', setAuthform).val(roledata.regist_cd);
+			$('#auth_type', setAuthform).select2("val", roledata.auth_type);
+			$('#role_cd', setAuthform).val(roledata.role_cd);
 			editUrl = "auth/addRoleAuth";
 			setAuthform.modal('show');
 			setAuthform.on("hide.bs.modal", function() {

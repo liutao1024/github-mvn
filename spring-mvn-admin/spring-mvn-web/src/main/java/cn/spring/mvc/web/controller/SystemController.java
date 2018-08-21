@@ -517,8 +517,7 @@ public class SystemController {
 		if(CommUtil.isNotNull(updateSysRole)){
 			updateSysRole.setRole_name(sysRole.getRole_name());
 			try {
-				//saveOrUpdate的原理是:先用entity的中实体类的主键去表中查询,若存在着update,否则insert
-				sysRoleServiceImpl.saveOrUpdate(updateSysRole);//草这儿主键有问题一直更新不了
+				sysRoleServiceImpl.saveOrUpdate(updateSysRole);
 				rstMap.put("ret", "success");
 				rstMap.put("msg", updateSysRole.getRole_cd() + "更新成功");
 			} catch (Exception e) {
@@ -528,6 +527,34 @@ public class SystemController {
 		}else {
 			rstMap.put("ret", "error");
 			rstMap.put("msg", sysRole.getRole_cd() + "更新失败");
+		}
+		return rstMap;
+	}
+	/**
+	 * @author LiuTao @date 2018年7月19日 上午10:19:49 
+	 * @Title: showSysRoleAuth 
+	 * @Description: TODO(Describe) 
+	 * @param reqMap
+	 * @return
+	 */
+	@RequestMapping(value = "/showSysRoleAuth")
+	public Map<String, Object> showSysRoleAuth(@RequestParam Map<String,Object> reqMap){
+		Map<String, Object> rstMap = new HashMap<String, Object>();
+		System.out.println(reqMap.toString());
+		SysRoleAuth sysRoleAuth=new SysRoleAuth();
+		sysRoleAuth.setRegist_cd(reqMap.get("regist_cd").toString());
+		sysRoleAuth.setRole_cd(reqMap.get("role_cd").toString());
+		sysRoleAuth.setAuth_type(reqMap.get("auth_type").toString());
+		if(reqMap.get("q_auth_cd")!=null&&reqMap.get("q_auth_cd")!=""){
+			sysRoleAuth.setAuth_cd(reqMap.get("q_auth_cd").toString());
+		}
+		int page = Integer.parseInt((String) reqMap.get("start"));
+		int size = Integer.parseInt((String) reqMap.get("length"));
+		Map<String, Object> listWithCount = sysRoleAuthServiceImpl.findAllByEntityPageSizeWithCount(sysRoleAuth, page, size);
+		try {
+			rstMap = CommUtil.transSrcMapToWebMap(listWithCount);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return rstMap;
 	}
@@ -560,18 +587,7 @@ public class SystemController {
 		return rstMap;		
 	}
 	
-	/**
-	 * @author LiuTao @date 2018年7月19日 上午10:19:49 
-	 * @Title: allSysAuthRole 
-	 * @Description: TODO(Describe) 
-	 * @param reqMap
-	 * @return
-	 */
-	@RequestMapping(value = "/allSysAuthRole")
-	public Map<String, Object> allSysAuthRole(@RequestParam Map<String,Object> reqMap){
-		 Map<String, Object> rstMap = new HashMap<String, Object>();
-		 return rstMap;
-	}
+	
 	
 	
 	/**---------------------------------------分隔符------------------------------------------------*/
