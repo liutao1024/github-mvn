@@ -53,6 +53,7 @@ public interface BaseService<T> {
 	 * @return
 	 */
 	public abstract List<T> findAllByHql(String hqlStr);
+	public abstract T findOneByHql(String hqlStr);
 	/**
 	 * @author LiuTao @date 2018年5月30日 下午4:21:11 
 	 * @Title: findAllBySql 
@@ -61,6 +62,7 @@ public interface BaseService<T> {
 	 * @return
 	 */
 	public abstract List<T> findAllBySql(String sqlStr);
+	public abstract T findOneBySql(String sqlStr);
 
 	/**
 	 * @author LiuTao @date 2018年5月30日 下午6:06:14 
@@ -70,7 +72,6 @@ public interface BaseService<T> {
 	 * @return
 	 */
 	public abstract List<T> findAll(T entity);
-	
 	public abstract List<T> findAllByEntityPageSize(T entity, int page, int size);
 	public abstract List<T> findAllByHqlPageSize(String hqlStr, int page, int size);
 	public abstract List<T> findAllBySqlPageSize(String sqlStr, int page, int size);

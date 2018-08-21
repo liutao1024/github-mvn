@@ -103,24 +103,24 @@ public class SystemController {
 		 * 一个柜员可能对应多个角色
 		 */
 		List<SysUserRole> sysUserRoleList = sysUserRoleServiceImpl.queryEntitiesByEntityParamMap(sysUserRole);
-		List<SysRoleAuth> sysAuthRoleList = new ArrayList<SysRoleAuth>();
-		SysRoleAuth sysAuthRole = new SysRoleAuth();
+		List<SysRoleAuth> sysRoleAuthList = new ArrayList<SysRoleAuth>();
+		SysRoleAuth sysRoleAuth = new SysRoleAuth();
 		for (SysUserRole theSysUserRole : sysUserRoleList) {
 			/**通过角色来查询 角色权限
 			 * 一个角色可能会有多个 权限
 			 */
-			sysAuthRole.setRegist_cd(theSysUserRole.getRegist_cd());
-			sysAuthRole.setAuth_type(theSysUserRole.getAuth_type());
-			sysAuthRole.setRole_cd(theSysUserRole.getRole_cd());
-			sysAuthRoleList.addAll(sysRoleAuthServiceImpl.selectAllEntities(sysAuthRole));
+			sysRoleAuth.setRegist_cd(theSysUserRole.getRegist_cd());
+			sysRoleAuth.setAuth_type(theSysUserRole.getAuth_type());
+			sysRoleAuth.setRole_cd(theSysUserRole.getRole_cd());
+			sysRoleAuthList.addAll(sysRoleAuthServiceImpl.selectAllEntities(sysRoleAuth));
 		}
 		//权限去重复
-		HashSet<SysRoleAuth> hashSet = new HashSet<SysRoleAuth>(sysAuthRoleList);
-		sysAuthRoleList.clear();
-		sysAuthRoleList.addAll(hashSet);
+		HashSet<SysRoleAuth> hashSet = new HashSet<SysRoleAuth>(sysRoleAuthList);
+		sysRoleAuthList.clear();
+		sysRoleAuthList.addAll(hashSet);
 		int k = 0;
-		strArray = new String[sysAuthRoleList.size()];
-		for (SysRoleAuth theSysAuthRole : sysAuthRoleList) {
+		strArray = new String[sysRoleAuthList.size()];
+		for (SysRoleAuth theSysAuthRole : sysRoleAuthList) {
 			strArray[k] = theSysAuthRole.getAuth_cd();//菜单编号
 			k++;
 		}
@@ -503,26 +503,31 @@ public class SystemController {
 		rstMap.put("msg", addSysRole.getRole_cd()+ "新增成功");
 		return rstMap;		
 	}
+	/**
+	 * @author LiuTao @date 2018年8月21日 下午3:08:08 
+	 * @Title: updateSysRole 
+	 * @Description: TODO(sys_role表具体什么作用不是很清楚呢!) 
+	 * @param sysRole
+	 * @return
+	 */
 	@RequestMapping(value="/updateSysRole")
 	public Map<String, String> updateSysRole(@RequestBody SysRole sysRole){
 		Map<String,String> rstMap=new HashMap<String, String>();
-		//用主键查询即可不然这样用实体类去查的话有改变的永远查不到呢
-		
-		SysRole updateSysRole = new SysRole();
-		updateSysRole.setAuth_cd(sysRole.getAuth_cd());
-		updateSysRole.setAuth_type(sysRole.getAuth_type());
-		updateSysRole.setRegist_cd(sysRole.getRegist_cd());
-		updateSysRole.setRole_cd(sysRole.getRole_cd());
-		updateSysRole = sysRoleServiceImpl.selectOneEntity(updateSysRole);
-		updateSysRole.setRole_name(sysRole.getRole_name());
-		try {
-			//saveOrUpdate的原理是:先用entity的中实体类的主键去表中查询,若存在着update,否则insert
-			sysRoleServiceImpl.saveOrUpdate(updateSysRole);//草这儿主键有问题一直更新不了
-			rstMap.put("ret", "success");
-			rstMap.put("msg", updateSysRole.getRole_cd() + "更新成功");
-		} catch (Exception e) {
+		SysRole updateSysRole = sysRoleServiceImpl.selectOneByPrimeKey(sysRole.getRegist_cd(), sysRole.getAuth_type(), sysRole.getRole_cd());
+		if(CommUtil.isNotNull(updateSysRole)){
+			updateSysRole.setRole_name(sysRole.getRole_name());
+			try {
+				//saveOrUpdate的原理是:先用entity的中实体类的主键去表中查询,若存在着update,否则insert
+				sysRoleServiceImpl.saveOrUpdate(updateSysRole);//草这儿主键有问题一直更新不了
+				rstMap.put("ret", "success");
+				rstMap.put("msg", updateSysRole.getRole_cd() + "更新成功");
+			} catch (Exception e) {
+				rstMap.put("ret", "error");
+				rstMap.put("msg", updateSysRole.getRole_cd() + "更新失败");
+			}
+		}else {
 			rstMap.put("ret", "error");
-			rstMap.put("msg", updateSysRole.getRole_cd() + "更新失败:");
+			rstMap.put("msg", sysRole.getRole_cd() + "更新失败");
 		}
 		return rstMap;
 	}

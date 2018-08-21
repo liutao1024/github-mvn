@@ -38,6 +38,7 @@ import cn.spring.mvc.comm.tools.MD5Tool;
 import cn.spring.mvc.comm.util.CommUtil;
 import cn.spring.mvc.server.SocketHandlerImpl;
 import cn.spring.mvc.web.entity.SysDict;
+import cn.spring.mvc.web.entity.SysRole;
 import cn.spring.mvc.web.entity.SysUser;
 import cn.spring.mvc.web.entity.service.SysRoleAuthService;
 import cn.spring.mvc.web.entity.service.SysAuthService;
@@ -75,6 +76,15 @@ public class SpringMVCHeibrntTest {
 		
 	}
 	
+	
+	@Test
+	public void TestListSize(){
+		SysRole s = sysRoleServiceImpl.selectOneByPrimeKey("001", "1", "120");
+		System.out.println(s);
+		s.setRole_name("你好");
+		sysRoleServiceImpl.saveOrUpdate(s);
+	}
+
 	
 	@Test
 	public void TestImpl(){

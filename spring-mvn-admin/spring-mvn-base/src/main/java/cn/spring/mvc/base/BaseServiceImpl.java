@@ -203,12 +203,24 @@ public class BaseServiceImpl<T> implements BaseService<T>{
 	public List<T> findAllByHql(String hqlStr) {
 		return commDaoImpl.findAllByHql(hqlStr);
 	}
+	@Override
+	public T findOneByHql(String hqlStr) {
+		return commDaoImpl.findOneByHql(hqlStr);
+	}
 
 
 	@Override
 	public List<T> findAllBySql(String sqlStr) {
 		return (List<T>) commDaoImpl.findAllBySql(sqlStr);
 	}
+	/**
+	 * @author LiuTao 
+	 */
+	@Override
+	public T findOneBySql(String sqlStr) {
+		return commDaoImpl.findOneBySql(sqlStr);
+	}
+	
 	@Override
 	public List<T> findAll(T entity){
 		String hqlStr = "from " + entity.getClass().getSimpleName() ;

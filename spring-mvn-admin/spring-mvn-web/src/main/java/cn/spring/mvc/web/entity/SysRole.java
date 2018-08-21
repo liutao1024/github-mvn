@@ -26,7 +26,7 @@ public class SysRole implements Serializable{
 	@Id
 	@Column(name = "role_cd")
 	private String role_cd;  //角色编号
-	@Id
+	
 	@Column(name = "auth_cd")
 	private String auth_cd;  //权限编号
 	@Column(name = "role_name")
@@ -36,11 +36,10 @@ public class SysRole implements Serializable{
 		
 	}
 	
-	public SysRole(String regist_cd, String auth_type, String role_cd, String auth_cd){
+	public SysRole(String regist_cd, String auth_type, String role_cd){
 		this.regist_cd = regist_cd;
 		this.auth_type = auth_type;
 		this.role_cd = role_cd;
-		this.auth_cd = auth_cd;
 	}
 	
 	
@@ -125,6 +124,6 @@ public class SysRole implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "SysRole [regist_cd=" + regist_cd + ", auth_type=" + auth_type + ", auth_cd=" + auth_cd + ", role_cd=" + role_cd + "]";
+		return "SysRole [regist_cd=" + regist_cd + ", auth_type=" + auth_type + ", auth_cd=" + auth_cd + ", role_cd=" + role_cd + ", role_name=" + role_name + "]";
 	}
 }
