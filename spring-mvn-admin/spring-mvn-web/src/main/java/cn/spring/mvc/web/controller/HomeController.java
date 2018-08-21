@@ -1,8 +1,5 @@
 package cn.spring.mvc.web.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.spring.mvc.web.entity.service.SysRoleService;
@@ -55,17 +51,6 @@ public class HomeController {
 		modelAndView.setViewName("/login/index");
 		return modelAndView;
 	}
-	/**
-	 * @author LiuTao @date 2018年7月19日 上午10:19:49 
-	 * @Title: allRoleAuth 
-	 * @Description: TODO(Describe) 
-	 * @param reqMap
-	 * @return
-	 */
-	@RequestMapping(value = "auth/role_auth")
-	public Map<String, Object> allRoleAuth(@RequestParam Map<String,Object> reqMap){
-		 Map<String, Object> rstMap = new HashMap<String, Object>();
-		 return rstMap;
-	}
+	
 }
 

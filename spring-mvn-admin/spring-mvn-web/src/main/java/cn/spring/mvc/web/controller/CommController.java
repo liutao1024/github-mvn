@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.spring.mvc.web.entity.SysAuth;
 import cn.spring.mvc.web.entity.SysDict;
 import cn.spring.mvc.web.entity.SysRole;
+import cn.spring.mvc.web.entity.service.SysAuthService;
 import cn.spring.mvc.web.entity.service.SysDictService;
 import cn.spring.mvc.web.entity.service.SysRoleService;
 /**
@@ -27,6 +29,8 @@ public class CommController {
 	private SysDictService sysDictServiceImpl;
 	@Autowired
 	private SysRoleService sysRoleServiceImpl;
+	@Autowired
+	private SysAuthService sysAuthServiceImpl;
 	
 	/**
 	 * @author LiuTao @date 2018年6月5日 下午2:40:13 
@@ -87,7 +91,10 @@ public class CommController {
 		case "role"://需要从其他表中取的枚举值的字典类型
 			dictList = (List<T>) sysRoleServiceImpl.findAll(new SysRole());
 			break;
-
+		case "auth":
+			dictList = (List<T>) sysAuthServiceImpl.findAll(new SysAuth());
+			break;
+			
 		default://配在sys_dict表中的枚举值
 			dictList = (List<T>) sysDictServiceImpl.selectAllByDictType(dictUrl);
 			break;

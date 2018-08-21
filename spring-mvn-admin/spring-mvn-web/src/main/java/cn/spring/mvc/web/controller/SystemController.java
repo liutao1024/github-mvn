@@ -530,15 +530,17 @@ public class SystemController {
 	public Map<String, String> updateSysRole(@RequestBody SysRole sysRole){
 		Map<String,String> rstMap=new HashMap<String, String>();
 		//用主键查询即可不然这样用实体类去查的话有改变的永远查不到呢
-		SysRole updateSysRole = sysRoleServiceImpl.selectOneEntity(sysRole);
+		
+		SysRole updateSysRole = new SysRole();
 		updateSysRole.setAuth_cd(sysRole.getAuth_cd());
 		updateSysRole.setAuth_type(sysRole.getAuth_type());
 		updateSysRole.setRegist_cd(sysRole.getRegist_cd());
 		updateSysRole.setRole_cd(sysRole.getRole_cd());
+		updateSysRole = sysRoleServiceImpl.selectOneEntity(updateSysRole);
 		updateSysRole.setRole_name(sysRole.getRole_name());
-		
 		try {
-			sysRoleServiceImpl.updateEntity(updateSysRole);
+			//saveOrUpdate的原理是:先用entity的中实体类的主键去表中查询,若存在着update,否则insert
+			sysRoleServiceImpl.saveOrUpdate(updateSysRole);//草这儿主键有问题一直更新不了
 			rstMap.put("ret", "success");
 			rstMap.put("msg", updateSysRole.getRole_cd() + "更新成功");
 		} catch (Exception e) {
@@ -547,18 +549,18 @@ public class SystemController {
 		}
 		return rstMap;
 	}
-//	/**
-//	 * @author LiuTao @date 2018年7月19日 上午10:19:49 
-//	 * @Title: allRoleAuth 
-//	 * @Description: TODO(Describe) 
-//	 * @param reqMap
-//	 * @return
-//	 */
-//	@RequestMapping(value = "/role_auth")
-//	public Map<String, Object> allRoleAuth(@RequestParam Map<String,Object> reqMap){
-//		 Map<String, Object> rstMap = new HashMap<String, Object>();
-//		 return rstMap;
-//	}
+	/**
+	 * @author LiuTao @date 2018年7月19日 上午10:19:49 
+	 * @Title: allSysAuthRole 
+	 * @Description: TODO(Describe) 
+	 * @param reqMap
+	 * @return
+	 */
+	@RequestMapping(value = "/allSysAuthRole")
+	public Map<String, Object> allSysAuthRole(@RequestParam Map<String,Object> reqMap){
+		 Map<String, Object> rstMap = new HashMap<String, Object>();
+		 return rstMap;
+	}
 	
 	
 	/**---------------------------------------分隔符------------------------------------------------*/

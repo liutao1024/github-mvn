@@ -128,6 +128,7 @@
 </div>
 
 <script src="${ctx}/pages/system/role.js"></script>
+<script src="${ctx}/pages/system/auth_role.js"></script>
 <script>
 	jQuery(document).ready(function() {
 		Role.init();

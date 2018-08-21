@@ -51,7 +51,6 @@ var Role = function() {
 					dataTable : { // here you can define a typical datatable
 						"ajax" : {
 							"url" : url, // ajax source
-
 						},
 						"bDestroy" : true,
 						"bServerSide" : true,
@@ -215,15 +214,14 @@ var Role = function() {
 		rolecontent.html('');
 		$.ajax({
 			type : "GET",
-			url : "auth/role_auth",
+			url : "../../auth/allSysAuthRole",
 			dataType : "html",
 			success : function(res) {
 				rolecontent.html(res);
 				rolecontent.ready(function() {
-					role_auth.init(data)
+					authRole.init(data);
 					Metronic.initUniform();
 				});
-				;
 			},
 			error : function(xhr, ajaxOptions, thrownError) {
 			},

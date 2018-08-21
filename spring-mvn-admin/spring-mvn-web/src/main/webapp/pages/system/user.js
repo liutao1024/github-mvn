@@ -16,7 +16,7 @@ var User = function () {
  	 	//select字典获取	
  		var userstDict=Sunline.getDict("D_USERST");
  		var userlvDict=Sunline.getDict("D_USERLV");
- 		var brchnoDict=Sunline.getDict("","/D_BRCHNO","dictId","dictName");
+ 		var brchnoDict=Sunline.getDict("","/D_BRCHNO","dictId","dictName");//sys_dict
  		$("#userst").select2({
  			data:userstDict,
  			allowClear:true

@@ -14,13 +14,10 @@ var Datatable = function() {
 	var the;
 
 	var countSelectedRecords = function() {
-		var selected = $(
-				'tbody > tr > td:nth-child(1) input[type="checkbox"]:checked',
-				table).size();
+		var selected = $('tbody > tr > td:nth-child(1) input[type="checkbox"]:checked', table).size();
 		var text = tableOptions.dataTable.language.metronicGroupActions;
 		if (selected > 0) {
-			$('.table-group-actions > span', tableWrapper).text(
-					text.replace("_TOTAL_", selected));
+			$('.table-group-actions > span', tableWrapper).text(text.replace("_TOTAL_", selected));
 		} else {
 			$('.table-group-actions > span', tableWrapper).text("");
 		}
@@ -34,27 +31,27 @@ var Datatable = function() {
 			}
 			the = this;
 			// default settings
-			options = $.extend(true,
-							{	src : "", // actual table  
+			options = $.extend(true, {	
+								src : "", // actual table
 								filterApplyAction : "filter",
 								filterCancelAction : "filter_cancel",
 								resetGroupActionInputOnSuccess : true,
 								loadingMessage : '加载中...',
 								dataTable : {
-									"dom" : "<'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'<'table-group-actions pull-right'>>r><'table-scrollable't><'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'>>", // datatable layout
-									"pageLength" : 10, // default records per page
+									"dom" : "<'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'<'table-group-actions pull-right'>>r><'table-scrollable't><'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'>>", // datatable
+																																																					// layout
+									"pageLength" : 10, // default records per // page
 									"lengthMenu" : [ [ 10, 20 ], [ 10, 20 ] ],
 									"language" : { // language settings
 										// metronic spesific
 										"metronicGroupActions" : "_TOTAL_ 记录被选择:  ",
-										"metronicAjaxRequestGeneralError" : "不能完成请求，请检查网络链接",
-
+										"metronicAjaxRequestGeneralError" : "不能完成请求,请检查网络链接",
 										// data tables spesific
 										"lengthMenu" : "<span class='seperator'>|</span>显示 _MENU_ 条记录",
 										"info" : "<span class='seperator'>|</span>共 _TOTAL_ 条记录",
 										"infoEmpty" : "没有数据可显示",
 										"emptyTable" : "没有可用记录",
-										"zeroRecords" : "抱歉， 没有找到",
+										"zeroRecords" : "抱歉, 没有找到",
 										"infoFiltered" : "(从 _MAX_ 条记录中过滤)",
 										"paginate" : {
 											"previous" : "上页",
@@ -65,18 +62,32 @@ var Datatable = function() {
 											"pageOf" : "页  总页数"
 										}
 									},
-
-									//"orderCellsTop": true,
-									"pagingType" : "bootstrap_extended", // pagination type(bootstrap, bootstrap_full_number or bootstrap_extended)
-									"autoWidth" : false, // disable fixed width and enable fluid table
-									"processing" : false, // enable/disable display message box on record load
-									"serverSide" : true, // enable/disable server side ajax loading
+									// "orderCellsTop": true,
+									"pagingType" : "bootstrap_extended", // pagination
+																			// type(bootstrap,
+																			// bootstrap_full_number
+																			// or
+																			// bootstrap_extended)
+									"autoWidth" : false, // disable fixed
+															// width and enable
+															// fluid table
+									"processing" : false, // enable/disable
+															// display message
+															// box on record
+															// load
+									"serverSide" : true, // enable/disable
+															// server side ajax
+															// loading
 
 									"ajax" : { // define ajax settings
 										"url" : "", // ajax URL
 										"type" : "POST", // request type
 										"timeout" : 20000,
-										"data" : function(data) { // add request parameters before submit
+										"data" : function(data) { // add
+																	// request
+																	// parameters
+																	// before
+																	// submit
 											$.each(ajaxParams, function(key, value) {
 												data[key] = value;
 											});
@@ -88,7 +99,11 @@ var Datatable = function() {
 														boxed : true
 													});
 										},
-										"dataSrc" : function(res) { // Manipulate the data returned from the server
+										"dataSrc" : function(res) { // Manipulate
+																	// the data
+																	// returned
+																	// from the
+																	// server
 											if (res.customActionMessage) {
 												Metronic.alert({
 															type : (res.customActionStatus == 'OK' ? 'success' : 'danger'),
@@ -113,7 +128,10 @@ var Datatable = function() {
 											Metronic.unblockUI(tableContainer);
 											return res.data;
 										},
-										"error" : function(data) { // handle general connection errors
+										"error" : function(data) { // handle
+																	// general
+																	// connection
+																	// errors
 											if (tableOptions.onError) {
 												tableOptions.onError.call(undefined, the);
 											}
@@ -127,9 +145,21 @@ var Datatable = function() {
 											Metronic.unblockUI(tableContainer);
 										}
 									},
-									"drawCallback" : function(oSettings) { // run some code on table redraw
-										if (tableInitialized === false) { // check if table has been initialized
-											tableInitialized = true; // set table initialized
+									"drawCallback" : function(oSettings) { // run
+																			// some
+																			// code
+																			// on
+																			// table
+																			// redraw
+										if (tableInitialized === false) { // check
+																			// if
+																			// table
+																			// has
+																			// been
+																			// initialized
+											tableInitialized = true; // set
+																		// table
+																		// initialized
 											table.show(); // display table
 										}
 										Metronic.initUniform($('input[type="checkbox"]', table)); // reinitialize uniform checkboxes on each table reload
@@ -139,16 +169,13 @@ var Datatable = function() {
 							}, options);
 
 			tableOptions = options;
-
-			//判断是否为demo模式，默认datatable是请求到服务器上，在没有服务器的情况下，加载blockui会一直堵塞，所以demo模式下修改serverSide变量为false
+			//判断是否为demo模式,默认datatable是请求到服务器上,在没有服务器的情况下,加载blockui会一直堵塞,所以demo模式下修改serverSide变量为false
 			if (Sunline.getIsDemo()) {
 				tableOptions.dataTable.serverSide = false;
 			}
-
 			// create table's jquery object
 			table = $(options.src);
 			tableContainer = table.parents(".table-container");
-
 			// apply the special class that used to restyle the default datatable
 			var tmp = $.fn.dataTableExt.oStdClasses;
 
@@ -186,11 +213,9 @@ var Datatable = function() {
 							});
 
 			// handle row's checkbox click
-			table.on('change', 'tbody > tr > td:nth-child(1) input[type="checkbox"]',
-					function() {
-						countSelectedRecords();
-					});
-
+			table.on('change', 'tbody > tr > td:nth-child(1) input[type="checkbox"]', function() {
+											countSelectedRecords();
+										});
 			// handle filter submit button click
 			table.on('click', '.filter-submit', function(e) {
 				e.preventDefault();
@@ -203,27 +228,24 @@ var Datatable = function() {
 			});
 
 		},
-		//        tablesumbit:function(subfunc){      	  
-		//        	table.on('click', '.filter-submit', subfunc);
-		//        },
+//        tablesumbit:function(subfunc){      	  
+//        	table.on('click', '.filter-submit', subfunc);
+//        },
 
 		submitFilter : function() {
 			the.setAjaxParam("action", tableOptions.filterApplyAction);
 			// get all typeable inputs
-			$('textarea.form-filter, select.form-filter, input.form-filter:not([type="radio"],[type="checkbox"])',
-					table).each(function() {
+			$('textarea.form-filter, select.form-filter, input.form-filter:not([type="radio"],[type="checkbox"])', table).each(function() {
 				the.setAjaxParam($(this).attr("name"), $(this).val());
 			});
 
 			// get all checkboxes
-			$('input.form-filter[type="checkbox"]:checked', table).each(
-					function() {
+			$('input.form-filter[type="checkbox"]:checked', table).each(function() {
 						the.addAjaxParam($(this).attr("name"), $(this).val());
 					});
 
 			// get all radio buttons
-			$('input.form-filter[type="radio"]:checked', table).each(
-					function() {
+			$('input.form-filter[type="radio"]:checked', table).each(function() {
 						the.setAjaxParam($(this).attr("name"), $(this).val());
 					});
 
@@ -231,8 +253,7 @@ var Datatable = function() {
 		},
 
 		resetFilter : function() {
-			$('textarea.form-filter, select.form-filter, input.form-filter',
-					table).each(function() {
+			$('textarea.form-filter, select.form-filter, input.form-filter',table).each(function() {
 				$(this).val("");
 			});
 			$('input.form-filter[type="checkbox"]', table).each(function() {
@@ -249,11 +270,9 @@ var Datatable = function() {
 
 		getSelectedRows : function() {
 			var rows = [];
-			$('tbody > tr > td:nth-child(1) input[type="checkbox"]:checked',
-					table).each(function() {
+			$('tbody > tr > td:nth-child(1) input[type="checkbox"]:checked', table).each(function() {
 				rows.push($(this).parent().parent().parent().parent());
 			});
-
 			return rows;
 		},
 
@@ -297,13 +316,14 @@ var Datatable = function() {
 		getTable : function() {
 			return table;
 		},
-
+		/**
+		 * 绑定删除事件
+		 */
 		bindTableDelete : function(dataKey, confirmMessage, retfunc) {
 			confirmMessage = Sunline.isNull(confirmMessage) ? "确定要删除该条数据 ?" : confirmMessage;
 			table.on('click', '.delete', function(e) {
 				e.preventDefault();
 				var delObj = $(this);
-
 				bootbox.confirm(confirmMessage, function(result) {
 					if (!result) {
 						return;
@@ -355,10 +375,10 @@ var Datatable = function() {
 		},
 		/**
 		 * 增加数据表格中的事件
-		 * selector:时间对象，写法同jQuery 选择器
-		 * event:事件类型，如 click ,dbclick,mouseenter等
+		 * selector:时间对象,写法同jQuery 选择器
+		 * event:事件类型,如 click ,dbclick,mouseenter等
 		 * dataKey：主键
-		 * handler:事件触发的方法，data:主键ID值
+		 * handler:事件触发的方法,data:主键ID值
 		 */
 		addBindEvent : function(selector, event, dataKey, handler) {
 			table.on(event, selector, function(e) {
@@ -378,6 +398,9 @@ var Datatable = function() {
 				handler(data);
 			});
 		},
+		/**
+		 * 绑定编辑事件
+		 */
 		bindSettingEdit : function(event, dataKey, editForm) {
 			table.on('click', event, function(e) {
 				//获取选中行数据
