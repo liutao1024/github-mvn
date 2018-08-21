@@ -9,15 +9,15 @@ import org.springframework.stereotype.Service;
 
 import cn.spring.mvc.base.BaseServiceImpl;
 import cn.spring.mvc.comm.util.CommUtil;
-import cn.spring.mvc.web.entity.SysAuthRole;
-import cn.spring.mvc.web.entity.service.SysAuthRoleService;
+import cn.spring.mvc.web.entity.SysRoleAuth;
+import cn.spring.mvc.web.entity.service.SysRoleAuthService;
 
-@Service("SysAuthRoleService")
-public class SysAuthRoleServiceImpl extends  BaseServiceImpl<SysAuthRole> implements SysAuthRoleService {
+@Service("SysRoleAuthService")
+public class SysRoleAuthServiceImpl extends  BaseServiceImpl<SysRoleAuth> implements SysRoleAuthService {
 
 	@Override
-	public boolean checkUnique(SysAuthRole sysAuthRole) {
-		List<SysAuthRole> list = this.selectAllEntities(sysAuthRole);
+	public boolean checkUnique(SysRoleAuth sysAuthRole) {
+		List<SysRoleAuth> list = this.selectAllEntities(sysAuthRole);
 		boolean rst = false;
 		if(CommUtil.isNotNull(list) && list.size() == 1 ){
 			rst = true;
@@ -27,26 +27,26 @@ public class SysAuthRoleServiceImpl extends  BaseServiceImpl<SysAuthRole> implem
 
 	@Override
 	public List<String> getSysAuthRoleListByRegistCdAndAuthTypeAndRoleCd(String registCd, String authType, String roleCd) {
-		SysAuthRole sysAuthRole = new SysAuthRole();
+		SysRoleAuth sysAuthRole = new SysRoleAuth();
 		sysAuthRole.setRegist_cd(registCd);
 		sysAuthRole.setAuth_type(authType);
 		sysAuthRole.setRole_cd(roleCd);
-		List<SysAuthRole> list = this.selectAllEntities(sysAuthRole);
+		List<SysRoleAuth> list = this.selectAllEntities(sysAuthRole);
 		List<String> strList = new ArrayList<String>();
-		for(SysAuthRole theSysAuthRole : list){
+		for(SysRoleAuth theSysAuthRole : list){
 			strList.add(theSysAuthRole.getAuth_cd());
 		}
 		return strList;
 	}
 
 	@Override
-	public SysAuthRole selectOneByPrimeKey(String registCd, String authType, String roleCd, String authCd) {
-		SysAuthRole sysAuthRole = new SysAuthRole(registCd, authType, roleCd, authCd);
+	public SysRoleAuth selectOneByPrimeKey(String registCd, String authType, String roleCd, String authCd) {
+		SysRoleAuth sysAuthRole = new SysRoleAuth(registCd, authType, roleCd, authCd);
 		return this.selectOneEntity(sysAuthRole);
 	}
 
 	@Override
-	public Page<SysAuthRole> queryEntitiesByTemplateWithPage(SysAuthRole sysAuthRole, Pageable pageable) {
+	public Page<SysRoleAuth> queryEntitiesByTemplateWithPage(SysRoleAuth sysAuthRole, Pageable pageable) {
 		pageable.getOffset();
 		pageable.getPageNumber();
 		pageable.getPageSize();

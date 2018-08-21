@@ -36,17 +36,17 @@ public class CommUtil {
 			long count = (long) srcMap.get("count");
 			int page = (int) srcMap.get("page");
 			int size = (int) srcMap.get("size");
-			if(list.isEmpty()){//data主体
-				rstMap.put("iDisplayStart", page);
-				rstMap.put("iDisplayLength", size);
-				rstMap.put("iColumns", list.size());
-				rstMap.put("sEcho", System.currentTimeMillis());
-				rstMap.put("data", list);
-//				rstMap.put("iTotalDisplayRecords", count);
-//				rstMap.put("iTotalRecords", count);
-				rstMap.put("customActionMessage", "暂无返回数据数据");
-				rstMap.put("customActionStatus", "ok");
-			}else {
+//			if(list.isEmpty()){//data主体
+//				rstMap.put("iDisplayStart", page);
+//				rstMap.put("iDisplayLength", size);
+//				rstMap.put("iColumns", list.size());
+//				rstMap.put("sEcho", System.currentTimeMillis());
+//				rstMap.put("data", list);
+////				rstMap.put("iTotalDisplayRecords", count);
+////				rstMap.put("iTotalRecords", count);
+//				rstMap.put("customActionMessage", "暂无返回数据数据");
+//				rstMap.put("customActionStatus", "ok");
+//			}else {
 				rstMap.put("iDisplayStart", page);
 				rstMap.put("iDisplayLength", size);
 				rstMap.put("iColumns", list.size());
@@ -54,7 +54,7 @@ public class CommUtil {
 				rstMap.put("data", list);
 				rstMap.put("iTotalDisplayRecords", count);
 				rstMap.put("iTotalRecords", count);
-			}
+//			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

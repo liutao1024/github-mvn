@@ -3,7 +3,7 @@ var Role = function() {
 	var rolecontent = $('.inbox-content');
 	var handleTable = function() {
 		var rolegrid = new Datatable();
-		var url = Sunline.ajaxPath("auth/allRole");
+		var url = Sunline.ajaxPath("auth/showAllSysRole");
 		var editUrl;
 		var table = $("#role_ajax");
 		var editform = $("#edit_form");
@@ -135,10 +135,13 @@ var Role = function() {
 				function(data) {
 						// 显示配置窗口
 						loadSubPage(data);
+						alert("20180821----2");
 						$("#edit_setting").modal("show");
+						alert("20180821----3");
 						$("#editModal").on("hide.bs.modal", function() {
 							rolegrid.submitFilter();
 						});
+						alert("20180821----4");
 					}
 		);
 
@@ -148,7 +151,7 @@ var Role = function() {
 			$('input', editform).val("");
 			$('input[name="regist_cd"]', editform).attr("readOnly", true);
 			$("#regist_cd").val($.cookie("registCd"));
-			editUrl = "auth/addRole";
+			editUrl = "auth/addSysRole";
 			$("#editModal").modal('show');
 			$("#editModal").on("hide.bs.modal", function() {
 				$(".alert-success", $('form', $("#editModal"))).hide();
@@ -212,21 +215,21 @@ var Role = function() {
 
 	var loadSubPage = function(data) {
 		rolecontent.html('');
-		$.ajax({
-			type : "GET",
-			url : "../../auth/allSysAuthRole",
-			dataType : "html",
-			success : function(res) {
-				rolecontent.html(res);
+//		$.ajax({
+//			type : "GET",
+//			url : "../../auth/allSysAuthRole",
+//			dataType : "html",
+//			success : function(res) {
+//				rolecontent.html(res);
 				rolecontent.ready(function() {
 					authRole.init(data);
 					Metronic.initUniform();
 				});
-			},
-			error : function(xhr, ajaxOptions, thrownError) {
-			},
-			async : false
-		});
+//			},
+//			error : function(xhr, ajaxOptions, thrownError) {
+//			},
+//			async : false
+//		});
 	}
 
 

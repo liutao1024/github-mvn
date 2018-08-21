@@ -2,7 +2,7 @@ var authRole= function() {
 
 	var handleTable = function(roledata) {
 		var authgrid = new Datatable();
-		var url = Sunline.ajaxPath("auth/allroleauth");
+		var url = Sunline.ajaxPath("auth/sysAuthRole");
 		var editUrl;
 		var table = $("#role_auth_ajax");
 		var setAuthform = $("#setAuthModal");

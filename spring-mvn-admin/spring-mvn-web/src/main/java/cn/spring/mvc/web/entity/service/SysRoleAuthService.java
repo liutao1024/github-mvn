@@ -6,15 +6,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import cn.spring.mvc.base.BaseService;
-import cn.spring.mvc.web.entity.SysAuthRole;
+import cn.spring.mvc.web.entity.SysRoleAuth;
 
-public interface SysAuthRoleService extends BaseService<SysAuthRole>{
+public interface SysRoleAuthService extends BaseService<SysRoleAuth>{
 	/**
 	 * 检查主键是否唯一
 	 * @param id 主键对象
 	 * @return 是否唯一
 	 */
-	public boolean checkUnique(SysAuthRole sysAuthRole);
+	public boolean checkUnique(SysRoleAuth sysAuthRole);
 	/**
 	 * 获取系统角色下的操作员列表
 	 * @param registerCd
@@ -33,13 +33,13 @@ public interface SysAuthRoleService extends BaseService<SysAuthRole>{
 	 * @param authCd
 	 * @return
 	 */
-	public SysAuthRole selectOneByPrimeKey(String registCd, String authType, String roleCd, String authCd);
+	public SysRoleAuth selectOneByPrimeKey(String registCd, String authType, String roleCd, String authCd);
 	/**
 	 * 根据模版分页查询实体
 	 * @param tmp 模版对象
 	 * @param pageable 分页排序模版
 	 * @return 查询到的实体对象集合
 	 */
-	public Page<SysAuthRole> queryEntitiesByTemplateWithPage(SysAuthRole sysAuthRole,Pageable pageable);
+	public Page<SysRoleAuth> queryEntitiesByTemplateWithPage(SysRoleAuth sysAuthRole,Pageable pageable);
 	
 }

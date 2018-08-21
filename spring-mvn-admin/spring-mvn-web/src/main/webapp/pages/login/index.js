@@ -7,7 +7,7 @@ var Index = function() {
 	var handleUser = function() {
 		var rqdata;//在请求目标中发现的无效字符,有效字符是在RFC 7230和RFC 3986中定义的
 		Sunline.ajaxRouter(
-				"auth/userInfo", 
+				"auth/sysUserInfo", 
 				rqdata, 
 				"GET", 
 				function(data) {
@@ -102,7 +102,7 @@ var Index = function() {
 						data.passwd = $("#oldpwd", mod).val();
 						data.nwpswd = $("#passwd", mod).val();
 						Sunline.ajaxRouter(
-								"auth/updatePasswd", 
+								"auth/updatePassWord", 
 								data, 
 								"post",
 								function(ret) {

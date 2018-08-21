@@ -29,11 +29,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import cn.spring.mvc.comm.tools.MD5Tool;
 import cn.spring.mvc.comm.util.CommUtil;
 import cn.spring.mvc.web.entity.SysAuth;
-import cn.spring.mvc.web.entity.SysAuthRole;
+import cn.spring.mvc.web.entity.SysRoleAuth;
 import cn.spring.mvc.web.entity.SysRole;
 import cn.spring.mvc.web.entity.SysUser;
 import cn.spring.mvc.web.entity.SysUserRole;
-import cn.spring.mvc.web.entity.service.SysAuthRoleService;
+import cn.spring.mvc.web.entity.service.SysRoleAuthService;
 import cn.spring.mvc.web.entity.service.SysAuthService;
 import cn.spring.mvc.web.entity.service.SysRoleService;
 import cn.spring.mvc.web.entity.service.SysUserRoleService;
@@ -55,7 +55,7 @@ public class SystemController {
 	@Autowired
 	private SysUserRoleService sysUserRoleServiceImpl;
 	@Autowired
-	private SysAuthRoleService sysAuthRoleServiceImpl;
+	private SysRoleAuthService sysRoleAuthServiceImpl;
 	@Autowired
 	private SysAuthService sysAuthServiceImpl;
 	@Autowired
@@ -65,13 +65,13 @@ public class SystemController {
 	//5.检查柜员信息
 	/**
 	 * @author LiuTao @date 2018年5月1日 下午1:35:12 
-	 * @Title: getUserInfoController 
+	 * @Title: sysUserInfo 
 	 * @Description: TODO(前台获取session信息) 
 	 * @param user
 	 * @return
 	 */
-	@RequestMapping(value = "/userInfo", method=RequestMethod.GET)
-	public Map<String, Object> userInfoController(@ModelAttribute("SysUser") SysUser sysUser) {
+	@RequestMapping(value = "/sysUserInfo", method=RequestMethod.GET)
+	public Map<String, Object> sysUserInfo(@ModelAttribute("SysUser") SysUser sysUser) {
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		String userid = sysUser.getUserid();
 		if (CommUtil.isNull(userid)) {
@@ -85,7 +85,6 @@ public class SystemController {
 		}
 		return resMap;
 	}
-	
 	//6.获取柜员菜单
 	/**
 	 * @author LiuTao @date 2018年5月7日 下午6:00:36 
@@ -96,7 +95,6 @@ public class SystemController {
 	 */
 	@RequestMapping(value = "/menu")
 	public Map<String, Object> menuController(@ModelAttribute("SysUser") SysUser sysUser) {
-		
 		SysUserRole sysUserRole = new SysUserRole();
 		sysUserRole.setRegist_cd(sysUser.getRegistCd());
 		sysUserRole.setAuth_type(AUTHTYPE);// 菜单权限为2
@@ -105,8 +103,8 @@ public class SystemController {
 		 * 一个柜员可能对应多个角色
 		 */
 		List<SysUserRole> sysUserRoleList = sysUserRoleServiceImpl.queryEntitiesByEntityParamMap(sysUserRole);
-		List<SysAuthRole> sysAuthRoleList = new ArrayList<SysAuthRole>();
-		SysAuthRole sysAuthRole = new SysAuthRole();
+		List<SysRoleAuth> sysAuthRoleList = new ArrayList<SysRoleAuth>();
+		SysRoleAuth sysAuthRole = new SysRoleAuth();
 		for (SysUserRole theSysUserRole : sysUserRoleList) {
 			/**通过角色来查询 角色权限
 			 * 一个角色可能会有多个 权限
@@ -114,15 +112,15 @@ public class SystemController {
 			sysAuthRole.setRegist_cd(theSysUserRole.getRegist_cd());
 			sysAuthRole.setAuth_type(theSysUserRole.getAuth_type());
 			sysAuthRole.setRole_cd(theSysUserRole.getRole_cd());
-			sysAuthRoleList.addAll(sysAuthRoleServiceImpl.selectAllEntities(sysAuthRole));
+			sysAuthRoleList.addAll(sysRoleAuthServiceImpl.selectAllEntities(sysAuthRole));
 		}
 		//权限去重复
-		HashSet<SysAuthRole> hashSet = new HashSet<SysAuthRole>(sysAuthRoleList);
+		HashSet<SysRoleAuth> hashSet = new HashSet<SysRoleAuth>(sysAuthRoleList);
 		sysAuthRoleList.clear();
 		sysAuthRoleList.addAll(hashSet);
 		int k = 0;
 		strArray = new String[sysAuthRoleList.size()];
-		for (SysAuthRole theSysAuthRole : sysAuthRoleList) {
+		for (SysRoleAuth theSysAuthRole : sysAuthRoleList) {
 			strArray[k] = theSysAuthRole.getAuth_cd();//菜单编号
 			k++;
 		}
@@ -138,18 +136,17 @@ public class SystemController {
 		LOGGER.info("---------菜单" + sysAuthMap.toString());
 		return sysAuthMap;//返回的菜单内容
 	}
-	
 	//7.柜员退出
 	/**
 	 * @author LiuTao @date 2018年5月1日 上午11:52:54 
-	 * @Title: loginOutController 
+	 * @Title: logout
 	 * @Description: TODO(Describe) 
 	 * @param request
 	 * @param model
 	 * @param user
 	 */
 	@RequestMapping(value = "/logout")
-	public void logoutController(HttpServletRequest request,Model model, @ModelAttribute("SysUser") SysUser sysUser) {
+	public void logout(HttpServletRequest request,Model model, @ModelAttribute("SysUser") SysUser sysUser) {
 		String registCd = sysUser.getRegistCd();
 		String userid = sysUser.getUserid();
 		SysUser logoutSysUser = sysUserServiceImpl.selectOneByPrimeKey(registCd, userid);
@@ -166,14 +163,14 @@ public class SystemController {
 	}
 	/**
 	 * @author LiuTao @date 2018年5月7日 下午7:56:41 
-	 * @Title: toDoListController 
+	 * @Title: toDoList 
 	 * @Description: TODO(查询待办事件) 
 	 * @param reqmap 查询条件输入
 	 * @param user
 	 * @return
 	 */
 	@RequestMapping(value = "/to-do-list")
-	public Map<String, Object> toDoListController(@RequestParam Map<String, Object> reqmap, @ModelAttribute("SysUser") SysUser sysUser) {
+	public Map<String, Object> toDoList(@RequestParam Map<String, Object> reqmap, @ModelAttribute("SysUser") SysUser sysUser) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List <String> rolecdList  = new ArrayList<String>();
 		
@@ -216,14 +213,14 @@ public class SystemController {
 	}
 	/**
 	 * @author LiuTao @date 2018年5月29日 下午10:32:02 
-	 * @Title: updatePasswd 
+	 * @Title: updatePassWord 
 	 * @Description: TODO(Describe) 
 	 * @param requestMap
 	 * @param sysUser
 	 * @return
 	 */
-	@RequestMapping(value = "/updatePasswd")
-	public Map<String, Object> updatePasswdController(@RequestBody Map<String, Object> requestMap, @ModelAttribute("SysUser") SysUser sysUser){
+	@RequestMapping(value = "/updatePassWord")
+	public Map<String, Object> updatePassWord(@RequestBody Map<String, Object> requestMap, @ModelAttribute("SysUser") SysUser sysUser){
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		SysUser theSysUser = sysUserServiceImpl.selectOneByPrimeKey(sysUser.getRegistCd(), sysUser.getUserid());
 		String oldPasswd = requestMap.get("passwd").toString();
@@ -242,7 +239,39 @@ public class SystemController {
 		}
 		return resMap;
 	}
-	@RequestMapping(value = "/allUser")
+	/**---------------------------------------SysUser------------------------------------------------*/
+	/**
+	 * @author LiuTao @date 2018年6月5日 下午3:48:10 
+	 * @Title: addSysUser 
+	 * @Description: 新增柜员
+	 * @param sysUserNew
+	 * @param sysUser
+	 * @return
+	 */
+	@RequestMapping(value = "/addSysUser")
+	public Map<String, Object> addSysUser(@RequestBody SysUser sysUserNew, @ModelAttribute("SysUser") SysUser sysUser){
+		Map<String, Object> rstMap = new HashMap<String, Object>();
+		sysUserNew.setRegistCd(sysUser.getRegistCd());
+		sysUserNew.setPasswd(PASSWD);
+		sysUserNew.setStatus("1");
+		try {
+			sysUserServiceImpl.add(sysUserNew);
+			rstMap.put("ret", "success");
+			rstMap.put("msg", "新增柜员成功");
+		} catch (Throwable e) {
+			rstMap.put("msg", e.getMessage());
+		}
+		return rstMap;
+	}
+	/**
+	 * @author LiuTao @date 2018年8月21日 下午12:40:08 
+	 * @Title: showAllSysUser 
+	 * @Description: TODO(Describe) 
+	 * @param resMap
+	 * @param sysUser
+	 * @return
+	 */
+	@RequestMapping(value = "/showAllSysUser")
 	public Map<String, Object> showAllSysUser(@RequestParam Map<String, Object> resMap, @ModelAttribute("SysUser") SysUser sysUser){
 		Map<String, Object> rstMap = new HashMap<String, Object>();
 		String hqlStr = "from SysUser where regist_cd = '"+ sysUser.getRegistCd()+"'";
@@ -264,14 +293,14 @@ public class SystemController {
 	}
 	/**
 	 * @author LiuTao @date 2018年6月6日 上午11:52:40 
-	 * @Title: delUser 
+	 * @Title: deleteSysUser 
 	 * @Description: 注销柜员 
 	 * @param user
 	 * @param cuser
 	 * @return
 	 */
-	@RequestMapping(value = "/allUser", method = { RequestMethod.DELETE })
-	public Map<String, Object> delUser(@RequestBody SysUser user, @ModelAttribute("SysUser") SysUser cuser) {
+	@RequestMapping(value = "/deleteSysUser", method = { RequestMethod.DELETE })
+	public Map<String, Object> deleteSysUser(@RequestBody SysUser user, @ModelAttribute("SysUser") SysUser cuser) {
 		Map<String, Object> rstMap = new HashMap<String, Object>();
 		SysUser offSysUser = sysUserServiceImpl.selectOneByPrimeKey(cuser.getRegistCd(), user.getUserid());
 		offSysUser.setStatus("0");
@@ -285,6 +314,54 @@ public class SystemController {
 		return rstMap;
 	}
 	/**
+	 * @author LiuTao @date 2018年6月5日 下午4:22:51 
+	 * @Title: updateSysUser 
+	 * @Description: 更新柜员信息
+	 * @param sysUserUp
+	 * @param sysUser
+	 * @return
+	 */
+	@RequestMapping(value = "/updateSysUser")
+	public Map<String, Object> updateSysUser(@RequestBody SysUser sysUserUp, @ModelAttribute("SysUser") SysUser sysUser){
+		Map<String, Object> rstMap = new HashMap<String, Object>();
+		SysUser newUser = sysUserServiceImpl.selectOneByPrimeKey(sysUser.getRegistCd(), sysUserUp.getUserid());
+		newUser.setUserna(sysUserUp.getUserna());
+		newUser.setBrchno(sysUserUp.getBrchno());
+		newUser.setMaxert(sysUserUp.getMaxert());
+		newUser.setUserst(sysUserUp.getUserst());
+		newUser.setUserlv(sysUserUp.getUserlv());
+		try {
+			sysUserServiceImpl.update(newUser);
+			rstMap.put("ret", "success");
+			rstMap.put("msg", "修改柜员成功");
+		} catch (Exception e) {
+			rstMap.put("msg", e.getMessage());
+		}
+		return rstMap;
+	}
+	/**
+	 * @author LiuTao @date 2018年6月6日 上午11:20:38 
+	 * @Title: updateSysUserPassWord 
+	 * @Description: 重置柜员密码 
+	 * @param ajaxSysUser
+	 * @param sessionSysUser
+	 * @return
+	 */
+	@RequestMapping(value = "/updateSysUserPassWord")
+	public Map<String,Object> updateSysUserPassWord(@RequestBody SysUser ajaxSysUser, @ModelAttribute("SysUser") SysUser sessionSysUser){
+		Map<String, Object> rstMap = new HashMap<String, Object>();
+		SysUser updateSysUser = sysUserServiceImpl.selectOneByPrimeKey(sessionSysUser.getRegistCd(), ajaxSysUser.getUserid());
+		updateSysUser.setPasswd(PASSWD);
+		try {
+			sysUserServiceImpl.saveOrUpdate(updateSysUser);
+			rstMap.put("ret", "success");
+			rstMap.put("msg", "修改柜员成功");
+		} catch (Exception e) {
+			rstMap.put("msg", e.getMessage());
+		}
+		return rstMap;
+	}
+	/**
 	 * @author LiuTao @date 2018年5月30日 下午9:31:28 
 	 * @Title: showAllSysUserRole 
 	 * @Description: TODO(Describe) 
@@ -292,7 +369,7 @@ public class SystemController {
 	 * @param sysUser
 	 * @return
 	 */
-	@RequestMapping(value = "/allUserRole")
+	@RequestMapping(value = "/showAllSysUserRole")
 	public Map<String, Object> showAllSysUserRole(@RequestParam Map<String, Object> reqMap, @ModelAttribute("SysUser") SysUser sysUser){
 		Map<String, Object> rstMap = new HashMap<String, Object>();
 		SysUserRole sysUserRole = new SysUserRole();
@@ -310,14 +387,14 @@ public class SystemController {
 	}
 	/**
 	 * @author LiuTao @date 2018年6月6日 下午2:49:16 
-	 * @Title: delUserRole 
+	 * @Title: deleteSysUserRole 
 	 * @Description: 删除柜员角色
-	 * @param sifSysRoleUser
+	 * @param SysRoleUser
 	 * @return
 	 */
-	@RequestMapping(value = "/allUserRole", method = {RequestMethod.DELETE })
+	@RequestMapping(value = "/deleteSysUserRole", method = {RequestMethod.DELETE })
 	@Transactional(propagation = Propagation.REQUIRED)
-	public Map<String, String> delSysUserRole(@RequestBody SysUserRole sysUserRole) {
+	public Map<String, String> deleteSysUserRole(@RequestBody SysUserRole sysUserRole) {
 		Map<String, String> rstMap = new HashMap<String, String>();
 		try {
 			sysUserRoleServiceImpl.deleteEntity(sysUserRole);
@@ -338,9 +415,9 @@ public class SystemController {
 	 * @param sysUser
 	 * @return
 	 */
-	@RequestMapping(value = "/addUserRole")
+	@RequestMapping(value = "/addSysUserRole")
 	@Transactional(propagation = Propagation.REQUIRED)
-	public Map<String, String> addUserRole(@RequestBody SysUserRole sysUserRole,@ModelAttribute("SysUser") SysUser sysUser) {
+	public Map<String, String> addSysUserRole(@RequestBody SysUserRole sysUserRole,@ModelAttribute("SysUser") SysUser sysUser) {
 		/**
 		 * 保存roleUser
 		 */
@@ -354,7 +431,7 @@ public class SystemController {
 		SysUserRole userRole = sysUserRoleServiceImpl.selectOneEntity(newSysUserRole);
 		if (CommUtil.isNotNull(userRole)) {
 			rstMap.put("ret", "error");
-			rstMap.put("msg", "角色已不存在,新增失败");
+			rstMap.put("msg", "角色已存在,新增失败");
 		}else {
 			try {
 				sysUserRoleServiceImpl.saveOrUpdate(newSysUserRole);
@@ -367,116 +444,16 @@ public class SystemController {
 		}
 		return rstMap;
 	}
-	/**
-	 * @author LiuTao @date 2018年6月5日 下午3:48:10 
-	 * @Title: addUser 
-	 * @Description: 新增柜员
-	 * @param sysUserNew
-	 * @param sysUser
-	 * @return
-	 */
-	@RequestMapping(value = "/adduser")
-	public Map<String, Object> addUser(@RequestBody SysUser sysUserNew, @ModelAttribute("SysUser") SysUser sysUser){
-		Map<String, Object> rstMap = new HashMap<String, Object>();
-		sysUserNew.setRegistCd(sysUser.getRegistCd());
-		sysUserNew.setPasswd(PASSWD);
-		sysUserNew.setStatus("1");
-		try {
-			sysUserServiceImpl.add(sysUserNew);
-			rstMap.put("ret", "success");
-			rstMap.put("msg", "新增柜员成功");
-		} catch (Throwable e) {
-			rstMap.put("msg", e.getMessage());
-		}
-		return rstMap;
-	}
-	/**
-	 * @author LiuTao @date 2018年6月5日 下午4:22:51 
-	 * @Title: updateUser 
-	 * @Description: 更新柜员信息
-	 * @param sysUserUp
-	 * @param sysUser
-	 * @return
-	 */
-	@RequestMapping(value = "/upuser")
-	public Map<String, Object> updateUser(@RequestBody SysUser sysUserUp, @ModelAttribute("SysUser") SysUser sysUser){
-		Map<String, Object> rstMap = new HashMap<String, Object>();
-		SysUser newUser = sysUserServiceImpl.selectOneByPrimeKey(sysUser.getRegistCd(), sysUserUp.getUserid());
-		newUser.setUserna(sysUserUp.getUserna());
-		newUser.setBrchno(sysUserUp.getBrchno());
-		newUser.setMaxert(sysUserUp.getMaxert());
-		newUser.setUserst(sysUserUp.getUserst());
-		newUser.setUserlv(sysUserUp.getUserlv());
-		try {
-			sysUserServiceImpl.update(newUser);
-			rstMap.put("ret", "success");
-			rstMap.put("msg", "修改柜员成功");
-		} catch (Exception e) {
-			rstMap.put("msg", e.getMessage());
-		}
-		return rstMap;
-	}
-	/**
-	 * @author LiuTao @date 2018年6月6日 上午11:20:38 
-	 * @Title: upUserPasswd 
-	 * @Description: 重置柜员密码 
-	 * @param ajaxSysUser
-	 * @param sessionSysUser
-	 * @return
-	 */
-	@RequestMapping(value = "/urpswd")
-	public Map<String,Object> upUserPasswd(@RequestBody SysUser ajaxSysUser, @ModelAttribute("SysUser") SysUser sessionSysUser){
-		Map<String, Object> rstMap = new HashMap<String, Object>();
-		SysUser updateSysUser = sysUserServiceImpl.selectOneByPrimeKey(sessionSysUser.getRegistCd(), ajaxSysUser.getUserid());
-		updateSysUser.setPasswd(PASSWD);
-		try {
-			sysUserServiceImpl.saveOrUpdate(updateSysUser);
-			rstMap.put("ret", "success");
-			rstMap.put("msg", "修改柜员成功");
-		} catch (Exception e) {
-			rstMap.put("msg", e.getMessage());
-		}
-		return rstMap;
-	}
-	
-	/**
-	 * @author LiuTao @date 2018年6月24日 上午10:29:39 
-	 * @Title: allAuthRole 
-	 * @Description: TODO(Describe) 
-	 * @param reqMap
-	 * @return
-	 */
-	@RequestMapping(value="/allAuthRole")
-	public Map<String, Object> allAuthRole(@RequestParam Map<String,Object> reqMap){
-		Map<String, Object> rstMap = new HashMap<String, Object>();
-		SysAuthRole authRole = new SysAuthRole();
-//		authRole.setRegist_cd(reqMap.get("roleCd").toString());
-//		authRole.setAuth_type(reqMap.get("authType").toString());
-//		authRole.setRegist_cd(reqMap.get("registCd").toString());
-		if (reqMap.get("qq_authCd") != null && reqMap.get("qq_authCd") != "") {
-			authRole.setAuth_cd(reqMap.get("qq_authCd").toString());
-		}
-		int page = Integer.parseInt((String) reqMap.get("start"));
-		int size = Integer.parseInt((String) reqMap.get("length"));
-		Map<String, Object> listWithCount = sysAuthRoleServiceImpl.findAllByEntityPageSizeWithCount(authRole, page, size);
-		try {
-			rstMap = CommUtil.transSrcMapToWebMap(listWithCount);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return rstMap;		
-	}
-	
-	
+	/**---------------------------------------SysRole------------------------------------------------*/
 	/**
 	 * @author LiuTao @date 2018年7月18日 下午3:25:54 
-	 * @Title: allRole 
+	 * @Title: showAllSysRole 
 	 * @Description: 查询所有角色信息 sys_role表
 	 * @param reqMap
 	 * @return
 	 */
-	@RequestMapping(value="/allRole")
-	public Map<String, Object> allRole(@RequestParam Map<String,Object> reqMap){
+	@RequestMapping(value="/showAllSysRole")
+	public Map<String, Object> showAllSysRole(@RequestParam Map<String,Object> reqMap){
 	    Map<String, Object> rstMap = new HashMap<String, Object>();
 		SysRole sysRole = new SysRole();
 		if (reqMap.get("q_authType") != null && reqMap.get("q_authType") != "") {
@@ -485,9 +462,9 @@ public class SystemController {
 		if (reqMap.get("q_roleCd") != null && reqMap.get("q_roleCd") != "") {
 			sysRole.setRole_cd(reqMap.get("q_roleCd").toString());
 		}
-//		if(reqMap.get("q_roleName")!=null&&reqMap.get("q_roleName")!=""){
-//			sysRole.setRoleName(reqMap.get("q_roleName").toString());
-//		}
+		if(reqMap.get("q_roleName")!=null&&reqMap.get("q_roleName")!=""){
+			sysRole.setRole_name(reqMap.get("q_roleName").toString());
+		}
 		int page = Integer.parseInt((String) reqMap.get("start"));
 		int size = Integer.parseInt((String) reqMap.get("length"));	
 		Map<String, Object> listWithCount = sysRoleServiceImpl.findAllByEntityPageSizeWithCount(sysRole, page, size);
@@ -505,7 +482,7 @@ public class SystemController {
 	 * @param sysRole
 	 * @return
 	 */
-	@RequestMapping(value="/addRole")
+	@RequestMapping(value="/addSysRole")
 	@Transactional(propagation = Propagation.REQUIRED)	
 	public Map<String,String> addSysRole(@RequestBody SysRole sysRole){
 		Map<String,String> rstMap=new HashMap<String, String>();
@@ -549,6 +526,35 @@ public class SystemController {
 		}
 		return rstMap;
 	}
+	/**---------------------------------------SysAuth------------------------------------------------*/
+	/**
+	 * @author LiuTao @date 2018年6月24日 上午10:29:39 
+	 * @Title: showAllSysRoleAuth 
+	 * @Description: TODO(Describe) 
+	 * @param reqMap
+	 * @return
+	 */
+	@RequestMapping(value="/showAllSysRoleAuth")
+	public Map<String, Object> showAllSysRoleAuth(@RequestParam Map<String,Object> reqMap){
+		Map<String, Object> rstMap = new HashMap<String, Object>();
+		SysRoleAuth authRole = new SysRoleAuth();
+//		authRole.setRegist_cd(reqMap.get("roleCd").toString());
+//		authRole.setAuth_type(reqMap.get("authType").toString());
+//		authRole.setRegist_cd(reqMap.get("registCd").toString());
+		if (reqMap.get("qq_authCd") != null && reqMap.get("qq_authCd") != "") {
+			authRole.setAuth_cd(reqMap.get("qq_authCd").toString());
+		}
+		int page = Integer.parseInt((String) reqMap.get("start"));
+		int size = Integer.parseInt((String) reqMap.get("length"));
+		Map<String, Object> listWithCount = sysRoleAuthServiceImpl.findAllByEntityPageSizeWithCount(authRole, page, size);
+		try {
+			rstMap = CommUtil.transSrcMapToWebMap(listWithCount);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rstMap;		
+	}
+	
 	/**
 	 * @author LiuTao @date 2018年7月19日 上午10:19:49 
 	 * @Title: allSysAuthRole 

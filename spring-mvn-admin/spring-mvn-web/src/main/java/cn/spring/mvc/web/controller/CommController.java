@@ -82,7 +82,13 @@ public class CommController {
 		List<SysDict> sysDictList = sysDictServiceImpl.selectAllByDictType(sysDict.getDictType());
 		return sysDictList;
 	}
-	
+	/**
+	 * @author LiuTao @date 2018年8月21日 上午11:57:32 
+	 * @Title: toGetDictsByDictUrl 
+	 * @Description: TODO(Describe) 
+	 * @param dictUrl
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/dict/{dictUrl}")
 	public <T> List<T> toGetDictsByDictUrl(@PathVariable("dictUrl") String dictUrl){

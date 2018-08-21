@@ -39,7 +39,7 @@ import cn.spring.mvc.comm.util.CommUtil;
 import cn.spring.mvc.server.SocketHandlerImpl;
 import cn.spring.mvc.web.entity.SysDict;
 import cn.spring.mvc.web.entity.SysUser;
-import cn.spring.mvc.web.entity.service.SysAuthRoleService;
+import cn.spring.mvc.web.entity.service.SysRoleAuthService;
 import cn.spring.mvc.web.entity.service.SysAuthService;
 import cn.spring.mvc.web.entity.service.SysRoleService;
 import cn.spring.mvc.web.entity.service.SysUserRoleService;
@@ -57,7 +57,7 @@ public class SpringMVCHeibrntTest {
 	@Autowired
 	private SysRoleService sysRoleServiceImpl;
 	@Autowired
-	private SysAuthRoleService sysAuthRoleServiceImpl;
+	private SysRoleAuthService sysRoleAuthServiceImpl;
 	@Autowired
 	private SysUserRoleService sysUserRoleServiceImpl;
 	@Autowired 

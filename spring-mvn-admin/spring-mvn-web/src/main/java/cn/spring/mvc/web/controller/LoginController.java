@@ -26,13 +26,13 @@ public class LoginController {
 	//2重置登录状态
 	/**
 	 * @author LiuTao @date 2018年5月23日 上午10:12:36 
-	 * @Title: resetController 
+	 * @Title: reset 
 	 * @Description: TODO(Describe) 
 	 * @param sysUser
 	 * @return
 	 */
 	@RequestMapping(value="/reset")
-	public Map<String, Object> resetController(@RequestBody SysUser sysUser) {
+	public Map<String, Object> reset(@RequestBody SysUser sysUser) {
 		Map<String, Object> resMap = new HashMap<String, Object>();//
 		String cropno = sysUser.getRegistCd();
 		String userid = sysUser.getUserid();
@@ -76,7 +76,7 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping(value="/loginCheck")
-	public Map<String, Object> loginCheckController(@RequestBody SysUser sysUser, Model model){
+	public Map<String, Object> loginCheck(@RequestBody SysUser sysUser, Model model){
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		String cropno = sysUser.getRegistCd();
 		String userid = sysUser.getUserid();

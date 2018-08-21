@@ -20,8 +20,7 @@
 			<div class="table-container">
 				<div class="table-actions-wrapper">
 					<span> </span>
-					<button id="add_new_person"
-						class="btn btn-sm green table-group-action-submit">新增柜员<i class="fa fa-plus"></i>
+					<button id="add_new_person" class="btn btn-sm green table-group-action-submit">新增柜员<i class="fa fa-plus"></i>
 					</button>
 				</div>
 				<table class="table table-striped table-bordered table-hover" id="person_ajax">

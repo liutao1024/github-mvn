@@ -13,8 +13,8 @@ import javax.persistence.Table;
  * @Description: TODO(系统权限表)
  */
 @Entity
-@Table(name = "sys_auth_role")
-public class SysAuthRole implements Serializable{
+@Table(name = "sys_role_auth")
+public class SysRoleAuth implements Serializable{
 	/**@Fields serialVersionUID : TODO(Describe) 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -35,11 +35,11 @@ public class SysAuthRole implements Serializable{
 	@Column(name = "auth_cd")
 	private String auth_cd;  //权限编号
 
-	public SysAuthRole(){
+	public SysRoleAuth(){
 		
 	}
 	
-	public SysAuthRole(String regist_cd, String auth_type, String role_cd, String auth_cd){
+	public SysRoleAuth(String regist_cd, String auth_type, String role_cd, String auth_cd){
 		this.regist_cd = regist_cd;
 		this.auth_type = auth_type;
 		this.role_cd = role_cd;
@@ -104,7 +104,7 @@ public class SysAuthRole implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SysAuthRole other = (SysAuthRole) obj;
+		SysRoleAuth other = (SysRoleAuth) obj;
 		if (auth_cd == null) {
 			if (other.auth_cd != null)
 				return false;

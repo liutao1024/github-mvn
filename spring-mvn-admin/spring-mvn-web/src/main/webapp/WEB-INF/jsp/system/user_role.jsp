@@ -5,16 +5,14 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close closeModal" data-dismiss="modal"
-					aria-hidden="true"></button>
+				<button type="button" class="close closeModal" data-dismiss="modal" aria-hidden="true"></button>
 				<h4 class="modal-title">角色信息</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="table-container" id="add_role_set">
-							<table class="table table-striped table-bordered table-hover"
-								id="role_auth_ajax">
+							<table class="table table-striped table-bordered table-hover" id="role_auth_ajax">
 								<thead>
 									<tr role="row" class="heading">
 										<th width="20%">注册机构号</th>
@@ -39,8 +37,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" data-dismiss="modal"
-						class="btn btn-default closeModal">关闭</button>
+					<button type="button" class="btn btn-default closeModal" data-dismiss="modal" >关闭</button>
 					<button type="button" class="btn blue" id="sub_btn">保存</button>
 				</div>
 			</div>
@@ -69,7 +66,7 @@
 						<div class="form-group">
 							<label class="col-md-3 control-label">角色</label>
 							<div class="col-md-9">
-								<input type="text" id="Auth_roleCd"  name="auth_type"  class="select-close-1 form-control input-inline input-medium" maxlength="19" placeholder="输入角色编号">
+								<input type="text" id="sys_role"  name="sys_role"  class="select-close-1 form-control input-inline input-medium" maxlength="19" placeholder="输入角色编号">
 							</div>
 						</div>							
 					</div>

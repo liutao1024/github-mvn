@@ -1,16 +1,16 @@
 var User = function () {
 	var handleTable = function () {
-		var grid = new Datatable();
-		var url = Sunline.ajaxPath("auth/allUser"); 
+		var sysUserTable = new Datatable();
+		var url = Sunline.ajaxPath("auth/showAllSysUser"); 
 		var editUrl;
-		var table=$("#person_ajax");
+		var userTable=$("#person_ajax");
 	    var editform = $("#edit_form");
-	    var roleurl =  Sunline.ajaxPath("auth/allUserRole");
- 		var editroleurl;
- 		var roletable = $("#role_auth_ajax");
- 		var setgrid = new Datatable();
+	    var sysUserRoleRUrl =  Sunline.ajaxPath("auth/showAllSysUserRole");
+ 		var editSysRoleUrl;
+ 		var userRoleTable = $("#role_auth_ajax");
+ 		var sysUserRoleTable = new Datatable();
  		var setRoleform = $("#setRoleModal");
- 		var sendRoleData = ["regist_d", "auth_type", "role_cd", "user_cd"];
+ 		var sendRoleData = ["regist_cd", "auth_type", "role_cd", "user_cd"];
 	    var userdata;
 
  	 	//select字典获取	
@@ -40,17 +40,19 @@ var User = function () {
 			$('#maxert').val($(nRowA[3]).text());  
 			$('#userst').val($(nRowA[4]).text().substring($(nRowA[4]).text().indexOf("[")+1,$(nRowA[4]).text().indexOf("]"))).trigger("change");
 			$('#userlv').val($(nRowA[5]).text().substring($(nRowA[5]).text().indexOf("[")+1,$(nRowA[5]).text().indexOf("]"))).trigger("change");
-			 editUrl = "auth/upuser"; 
+			 editUrl = "auth/updateSysUser"; 
            	$("#editModal").modal('show');
 		}
-		
-		grid.init({
-	        src: table,
+		/**
+		 * 初始化sysUserTable
+		 */
+		sysUserTable.init({
+	        src: userTable,
 	        deleteData: sendData,
-	        onSuccess: function (grid) {
+	        onSuccess: function (sysUserTable) {
 	            
 	        },
-	        onError: function (grid) {
+	        onError: function (sysUserTable) {
 	            
 	        },
 	        dataTable: {  
@@ -136,26 +138,26 @@ var User = function () {
 		            	"sortable": false,
 		            	"searchable": false,
 		            	"render": function (data, type, full) {
-		            		return "<a class='deluser' href='javascript:;' data-src='" + data.userid + "'>注销</a>";
+		            		return "<a class='deleteSysUser' href='javascript:;' data-src='" + data.userid + "'>注销</a>";
 		            	}
 		            }
 	            ]
 	        }
 	    });
-		 var sendData = ["userid","brchno"];
+		var sendData = ["userid","brchno"];
 		 //绑定注销事件
-        grid.addBindEvent(".deluser","click",sendData, function(data){      
+        sysUserTable.addBindEvent(".deleteSysUser","click",sendData, function(data){      
         	var redata={};
-        	redata.userid=data.userid
+        	redata.userid=data.userid;
         	bootbox.confirm("确定要注销此用户么?", function(result) {
         		if(!result){
         			return;
         		}
-        		Sunline.ajaxRouter("auth/allUser",redata,"DELETE",function(data,status){ 
+        		Sunline.ajaxRouter("auth/deleteSysUser",redata,"DELETE",function(data,status){ 
         			$('.msg', editform).text(data.retMsg);
         			if(data.ret=="success"){
         				bootbox.alert("注销成功");
-        				grid.submitFilter();
+        				sysUserTable.submitFilter();
         			}else{		
         				bootbox.alert(data.msg);							
         			}
@@ -164,25 +166,38 @@ var User = function () {
         		},"json");
         	});
         });
-        grid.bindTableEdit(sendData,toEditModal);
-        //绑定角色设置列表
-        grid.addBindEvent(".edit_setting","click",sendData, function(data){   
+        sysUserTable.bindTableEdit(sendData,toEditModal);
+        //绑定配置角色列表
+        sysUserTable.addBindEvent(".edit_setting", "click", sendData, function(data){   
         	userdata=data;
-     		setgrid.setAjaxParam('user_cd', userdata.userid);
-     		setgridInit(); 
+     		sysUserRoleTable.setAjaxParam('user_cd', userdata.userid);
+     		sysUserRoleTableInit(); 
         	$("#edit_setting").modal("show");   
-        	var roleDict=Sunline.getDict("","/role","auth_type","role_cd");
- 	 		$("#Auth_roleCd").select2({
- 	 			data:roleDict
+        	var sysRoleDict=Sunline.getDict("","/role","auth_type","role_cd");
+ 	 		$("#sys_role").select2({
+ 	 			data:sysRoleDict
  	 		});
- 	 		// 绑定删除事件
- 	 		setgrid.bindTableDelete(sendRoleData, null, function(data) {      
- 	        	bootbox.alert(data.msg);
- 	        	setgrid.submitFilter();
+ 	 		// 绑定删除用户角色事件
+ 	 		sysUserRoleTable.addBindEvent(".deleteSysUserRole", "click", sendRoleData, function(data) {   
+ 	 			var deletData = {};
+ 	 			deletData.regist_cd = data.regist_cd;
+ 	 			deletData.auth_type = data.auth_type;
+ 	 			deletData.role_cd = data.role_cd;
+ 	 			deletData.user_cd = data.user_cd;
+ 	 			Sunline.ajaxRouter("auth/deleteSysUserRole", deletData, "DELETE",function(data,status){ 
+        			if(data.ret=="success"){
+        				bootbox.alert(data.msg);
+        				sysUserRoleTable.submitFilter();
+        			}else{		
+        				bootbox.alert(data.msg);							
+        			}
+        		},function(){
+        			bootbox.alert("请求失败");	
+        		},"json");
 	 	 	});	
- 	 		 // 绑定新增userrole窗口
+ 	 		 // 绑定新增sysUserRole窗口
  	 		$("#add_role_btn", $("#add_role_set")).live("click", function() {
- 	 			editroleurl = "auth/addUserRole";
+ 	 			editSysRoleUrl = "auth/addSysUserRole";
  	 			setRoleform.modal('show');
  	 			return false;
  	 		});
@@ -193,14 +208,14 @@ var User = function () {
          	  $(".select-close-1").select2("close");
            });
         //重置密码
-        grid.addBindEvent(".rspword","click",sendData, function(data){  
+        sysUserTable.addBindEvent(".rspword","click", sendData, function(data){  
           var redata={};
           redata.userid=data.userid
     	  bootbox.confirm("确定要重置密码?", function(result) {
             	if(!result){
             		return;
             	}
-            	Sunline.ajaxRouter("auth/urpswd",redata,"post",function(data,status){ 
+            	Sunline.ajaxRouter("auth/updateSysUserPassWord",redata,"post",function(data,status){ 
  					$('.msg', editform).text(data.retMsg);
  					if(data.ret=="success"){
  						bootbox.alert("重置成功");
@@ -291,10 +306,9 @@ var User = function () {
           	editerror.hide();
           	editsuccess.hide();      
          	$('.form-group').removeClass('has-error').removeClass("has-success");
-         	$('input',editform).val("").trigger("change");
-         	 editUrl = "auth/adduser"; 
+         	$('input', editform).val("").trigger("change");
+         	 editUrl = "auth/addSysUser"; 
          	$("#editModal").modal('show');	        	
-         	
         }); 
          
         //编辑表单验证结束             
@@ -311,14 +325,14 @@ var User = function () {
          	editerror.hide();
          	editsuccess.hide();      
         	$('.form-group').removeClass('has-error').removeClass("has-success");
-        	grid.submitFilter();       	
+        	sysUserTable.submitFilter();       	
         });   
         	
         //关闭角色配置userrole	
         $("#edit_setting").on("hide.bs.modal",function(){
         	$("#role_auth_ajax").off("click",".delete");
         	$("#add_role_btn", $("#add_role_set")).die("click");
-        	setgrid.clearAjaxParams;       	
+        	sysUserRoleTable.clearAjaxParams;       	
         }); 
         /*
  		 * 角色表单验证方法
@@ -364,11 +378,11 @@ var User = function () {
  				         * 返回也必须是json对象
  				         */
  						var data = {};
- 						var acd=$("#Auth_roleCd").select2('data');
+ 						var acd=$("#sys_role").select2('data');
  						data['role_cd']=acd.text.substring(0,acd.text.indexOf("["));
- 						data['auth_type']=$("#Auth_roleCd").select2('data').id;
+ 						data['auth_type']=$("#sys_role").select2('data').id;
  						data.user_cd=userdata.userid;
- 						Sunline.ajaxRouter(editroleurl, data, "post", function(
+ 						Sunline.ajaxRouter(editSysRoleUrl, data, "post", function(
  								data, status) {
  							$('.msg', setRoleform).text(data.msg);
  							if (data.ret == "success") {
@@ -397,27 +411,26 @@ var User = function () {
  					roleediterror.hide();
  					roleeditsuccess.hide();
  					$('.form-group', setRoleform).removeClass('has-error').removeClass("has-success");
- 					setgrid.submitFilter();
+ 					sysUserRoleTable.submitFilter();
  				}); 		
  		/**
- 		 * 初始化table
+ 		 * 初始化sysUserRoleTable
  		 */
- 		var setgridInit = function() {
- 			$("#add_role_set").append(
- 					"<div class='table-actions-wrapper'><span></span>"
+ 		var sysUserRoleTableInit = function() {
+ 			$("#add_role_set").append("<div class='table-actions-wrapper'><span></span>"
  					+ "<button id='add_role_btn' class='btn btn-sm green table-group-action-submit'>新增</button></div>");
- 			setgrid.init({
- 				src : roletable,
+ 			sysUserRoleTable.init({
+ 				src : userRoleTable,
  				deleteData : sendRoleData,
- 				onSuccess : function(setgrid) {
+ 				onSuccess : function(sysUserRoleTable) {
  					
  				},
- 				onError : function(setgrid) {
+ 				onError : function(sysUserRoleTable) {
  					
  				},
  				dataTable : {
  					"ajax" : {
- 						"url" : roleurl, 
+ 						"url" : sysUserRoleRUrl, 
  					},
  					"bDestroy" : true,
  					"bServerSide" : true,
@@ -447,18 +460,16 @@ var User = function () {
  					            	 "sortable" : false,
  					            	 "searchable" : false,
  					            	 "render" : function(data, type, full) {
- 					            		 return "<a class='delete' href='javascript:;' data-src='"
+ 					            		 return "<a class='deleteSysUserRole' href='javascript:;' data-src='"
  					            		 		+ data.regist_cd + ","
 												+ data.auth_type + ","
 												+ data.role_cd +","
 												+ data.user_cd+"'>删除 </a>";
  					            	 }
  					             } ]
- 				}
+ 					}
  			});	 		
-
  		};
- 		
 	}
 	return {
 		init: function () {
