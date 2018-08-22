@@ -139,7 +139,6 @@ var sysRole = function() {
 						// 显示配置窗口
 						loadSubPage(data);
 						$("#edit_setting").modal("show");
-						$("#q_regist_cd").val(data.regist_cd);
 						$("#editModal").on("hide.bs.modal", function() {
 							rolegrid.submitFilter();
 						});

@@ -561,7 +561,6 @@ public class SystemController {
 	@RequestMapping(value = "/showSysRoleAuth")
 	public Map<String, Object> showSysRoleAuth(@RequestParam Map<String,Object> reqMap){
 		Map<String, Object> rstMap = new HashMap<String, Object>();
-//		System.out.println(reqMap.toString());
 		SysRoleAuth sysRoleAuth=new SysRoleAuth();
 		sysRoleAuth.setRegist_cd(reqMap.get("regist_cd").toString());
 		sysRoleAuth.setRole_cd(reqMap.get("role_cd").toString());
@@ -629,7 +628,6 @@ public class SystemController {
 		}
 		return rstMap;
 	}
-	
 	/**---------------------------------------SysAuth------------------------------------------------*/
 	/**
 	 * @author LiuTao @date 2018年6月24日 上午10:29:39 
