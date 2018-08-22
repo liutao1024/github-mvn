@@ -342,11 +342,11 @@ var Datatable = function() {
 						url : tableOptions.dataTable.ajax.url,
 						dataType : "json",
 						success : function(d) {
-							if (d.retCode != '0000') {
-								bootbox.alert(d.retMsg);
+							if (d.ret != 'success') {
+								bootbox.alert(d.msg);
 								return;
 							}
-							bootbox.alert("删除成功", function() {
+							bootbox.alert(d.msg, function() {
 								_dataTable.fnDeleteRow(nRow);
 							});
 						}

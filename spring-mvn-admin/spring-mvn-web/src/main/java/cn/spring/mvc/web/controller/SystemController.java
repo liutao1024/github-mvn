@@ -417,7 +417,7 @@ public class SystemController {
 	 */
 	@RequestMapping(value = "/addSysUserRole")
 	@Transactional(propagation = Propagation.REQUIRED)
-	public Map<String, String> addSysUserRole(@RequestBody SysUserRole sysUserRole,@ModelAttribute("SysUser") SysUser sysUser) {
+	public Map<String, String> addSysUserRole(@RequestBody SysUserRole sysUserRole, @ModelAttribute("SysUser") SysUser sysUser) {
 		/**
 		 * 保存roleUser
 		 */
@@ -453,9 +453,10 @@ public class SystemController {
 	 * @return
 	 */
 	@RequestMapping(value="/showAllSysRole")
-	public Map<String, Object> showAllSysRole(@RequestParam Map<String,Object> reqMap){
+	public Map<String, Object> showAllSysRole(@RequestParam Map<String,Object> reqMap, @ModelAttribute("SysUser") SysUser sysUser){
 	    Map<String, Object> rstMap = new HashMap<String, Object>();
 		SysRole sysRole = new SysRole();
+//		sysRole.setRegist_cd(sysUser.getRegistCd());
 		if (reqMap.get("q_authType") != null && reqMap.get("q_authType") != "") {
 			sysRole.setAuth_type(reqMap.get("q_authType").toString());
 		}
@@ -474,6 +475,26 @@ public class SystemController {
 			e.printStackTrace();
 		}
 		return rstMap;
+	}
+	/**
+	 * @author LiuTao @date 2018年8月22日 下午1:19:18 
+	 * @Title: deleteSysRole 
+	 * @Description: 删除角色信息 
+	 * @param sysRole
+	 * @return
+	 */
+	@RequestMapping(value="/showAllSysRole", method = {RequestMethod.DELETE})
+	public Map<String, Object> deleteSysRole(@RequestBody SysRole sysRole){
+	    Map<String, Object> rstMap = new HashMap<String, Object>();
+		try {
+			sysRoleServiceImpl.deleteEntity(sysRole);
+			rstMap.put("ret", "success");
+			rstMap.put("msg", sysRole.getRole_cd() + "删除成功");
+		} catch (Exception e) {
+			rstMap.put("ret", "error");
+			rstMap.put("msg", sysRole.getRole_cd() + "删除失败");
+		}
+	    return rstMap;
 	}
 	/**
 	 * @author LiuTao @date 2018年8月17日 下午5:11:17 
@@ -496,7 +517,7 @@ public class SystemController {
 		}
 		if(addSysRole == null){
 			rstMap.put("ret", "error");
-			rstMap.put("msg",  sysRole.getRole_cd() + "新增失败，请联系管理员");
+			rstMap.put("msg",  sysRole.getRole_cd() + "新增失败,请联系管理员");
 			return rstMap;
 		}
 		rstMap.put("ret", "success");
@@ -540,7 +561,7 @@ public class SystemController {
 	@RequestMapping(value = "/showSysRoleAuth")
 	public Map<String, Object> showSysRoleAuth(@RequestParam Map<String,Object> reqMap){
 		Map<String, Object> rstMap = new HashMap<String, Object>();
-		System.out.println(reqMap.toString());
+//		System.out.println(reqMap.toString());
 		SysRoleAuth sysRoleAuth=new SysRoleAuth();
 		sysRoleAuth.setRegist_cd(reqMap.get("regist_cd").toString());
 		sysRoleAuth.setRole_cd(reqMap.get("role_cd").toString());
@@ -558,6 +579,57 @@ public class SystemController {
 		}
 		return rstMap;
 	}
+	/**
+	 * @author LiuTao @date 2018年8月22日 上午10:03:14 
+	 * @Title: addSysRoleAuth 
+	 * @Description: TODO(Describe) 
+	 * @param sysRoleAuth
+	 * @return
+	 */
+	@RequestMapping(value = "/addSysRoleAuth")
+	@Transactional(propagation = Propagation.REQUIRED)	
+	public Map<String,String> addSysRoleAuth(@RequestBody SysRoleAuth sysRoleAuth) {
+		Map<String,String> rstMap=new HashMap<String, String>();
+		SysRoleAuth addSysRoleAuth = new SysRoleAuth();
+		try {
+			addSysRoleAuth = sysRoleAuthServiceImpl.saveEntity(sysRoleAuth);
+		} catch (Throwable e) {
+			rstMap.put("ret", "error");
+			rstMap.put("msg", sysRoleAuth.getRole_cd() + "已存在,新增失败");
+			return rstMap;
+		}
+		if(addSysRoleAuth == null){
+			rstMap.put("ret", "error");
+			rstMap.put("msg",  sysRoleAuth.getRole_cd() + "新增失败,请联系管理员");
+			return rstMap;
+		}
+		rstMap.put("ret", "success");
+		rstMap.put("msg", addSysRoleAuth.getRole_cd()+ "新增成功");
+		return rstMap;	
+
+	}
+	/**
+	 * @author LiuTao @date 2018年8月22日 上午11:50:08 
+	 * @Title: deleteSysRoleAuth 
+	 * @Description: 删除sys_role_auth记录 
+	 * @param reqMap
+	 * @return
+	 */
+	@RequestMapping(value = "/showSysRoleAuth", method = {RequestMethod.DELETE})
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Map<String, Object> deleteSysRoleAuth(@RequestBody SysRoleAuth sysRoleAuth){
+		Map<String, Object> rstMap = new HashMap<String, Object>();
+		try {
+			sysRoleAuthServiceImpl.deleteEntity(sysRoleAuth);
+			rstMap.put("ret", "success");
+			rstMap.put("msg", sysRoleAuth.getAuth_cd() + "删除成功");
+		} catch (Exception e) {
+			rstMap.put("ret", "error");
+			rstMap.put("msg", sysRoleAuth.getAuth_cd() + "删除失败");
+		}
+		return rstMap;
+	}
+	
 	/**---------------------------------------SysAuth------------------------------------------------*/
 	/**
 	 * @author LiuTao @date 2018年6月24日 上午10:29:39 
@@ -570,9 +642,9 @@ public class SystemController {
 	public Map<String, Object> showAllSysRoleAuth(@RequestParam Map<String,Object> reqMap){
 		Map<String, Object> rstMap = new HashMap<String, Object>();
 		SysRoleAuth authRole = new SysRoleAuth();
-//		authRole.setRegist_cd(reqMap.get("roleCd").toString());
-//		authRole.setAuth_type(reqMap.get("authType").toString());
-//		authRole.setRegist_cd(reqMap.get("registCd").toString());
+		authRole.setRegist_cd(reqMap.get("roleCd").toString());
+		authRole.setAuth_type(reqMap.get("authType").toString());
+		authRole.setRegist_cd(reqMap.get("registCd").toString());
 		if (reqMap.get("qq_authCd") != null && reqMap.get("qq_authCd") != "") {
 			authRole.setAuth_cd(reqMap.get("qq_authCd").toString());
 		}

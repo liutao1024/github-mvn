@@ -7,27 +7,7 @@ var sysRole = function() {
 		var editUrl;
 		var table = $("#role_ajax");
 		var editform = $("#edit_form");
-		// 修改窗口
-		var toEditModal = function(nRowA) {
-			// 赋值
-			$('#regist_cd', editform).attr("readOnly", true);
-			$('#auth_type', editform).attr("readOnly", true);
-			$('#role_cd', editform).attr("readOnly", true);
-			$('#regist_cd').val($(nRowA[0]).text());
-			$('#auth_type').val($(nRowA[1]).text().substring($(nRowA[1]).text().indexOf("[") + 1, $(nRowA[1]).text().indexOf("]"))).trigger("change");
-			$('#role_cd').val($(nRowA[2]).text());
-			$('#role_name').val($(nRowA[3]).text());
-			$('#queryAuth').val($(nRowA[4]).text());
-			editUrl = "auth/updateSysRole";
-			$("#editModal").modal('show');
-			$("#editModal").on("hide.bs.modal", function() {
-				$(".alert-success", $('form', $("#editModal"))).hide();
-				$('.alert-danger', $('form', $("#editModal"))).hide();
-				$(".msg", $('form', $("#editModal"))).text("");
-				rolegrid.submitFilter();
-			});
-		}
-		/*
+		/**
 		 * 获取字典
 		 */
 		$("#auth_type").select2({
@@ -40,6 +20,27 @@ var sysRole = function() {
 			allowClear : true,
 			placeholder : "请选择"
 		});
+		
+		// 修改窗口
+		var toEditModal = function(nRowA) {
+			// 赋值
+			$('#regist_cd', editform).attr("readOnly", true);
+			$('#auth_type', editform).attr("readOnly", true);
+			$('#role_cd', editform).attr("readOnly", true);
+			$('#regist_cd').val($(nRowA[0]).text());
+			$('#auth_type').val($(nRowA[1]).text().substring($(nRowA[1]).text().indexOf("[") + 1, $(nRowA[1]).text().indexOf("]"))).trigger("change");
+			$('#role_cd').val($(nRowA[2]).text());
+			$('#role_name').val($(nRowA[3]).text());
+			editUrl = "auth/updateSysRole";
+			$("#editModal").modal('show');
+			$("#editModal").on("hide.bs.modal", function() {
+				$(".alert-success", $('form', $("#editModal"))).hide();
+				$('.alert-danger', $('form', $("#editModal"))).hide();
+				$(".msg", $('form', $("#editModal"))).text("");
+				rolegrid.submitFilter();
+			});
+		}
+		
 		/*
 		 * 初始化table
 		 */

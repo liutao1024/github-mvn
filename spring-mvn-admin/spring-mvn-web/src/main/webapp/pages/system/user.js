@@ -272,14 +272,14 @@ var User = function () {
                  icon.removeClass("fa-warning").addClass("fa-check");
              },
              submitHandler: function (form) {
-            	  	/**
-        	         * 提交数据,必须是json对象
-        	         * 返回也必须是json对象
-        	         */
- 		        	var data={};
- 	           	 $.each($("input",editform),function(i,n){    	           		
- 	           		 data[n.name]=n.value;
- 	           	 });
+        	  	/**
+    	         * 提交数据,必须是json对象
+    	         * 返回也必须是json对象
+    	         */
+ 		        var data={};
+ 	           	$.each($("input",editform),function(i,n){    	           		
+ 	           		data[n.name]=n.value;
+ 	           	});
  	           	Sunline.ajaxRouter(editUrl,data,"post",function(data,status){ 
  					$('.msg', editform).text(data.msg);
  					if(data.ret=="success"){
@@ -475,6 +475,5 @@ var User = function () {
 		init: function () {
 			handleTable();     
 		}
-	
 	};
 }();

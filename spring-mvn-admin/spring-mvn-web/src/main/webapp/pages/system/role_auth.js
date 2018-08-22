@@ -7,13 +7,13 @@ var sysRoleAuth= function() {
 		var table = $("#role_auth_ajax");
 		var setAuthform = $("#setAuthModal");
 		var authTypeDict = Sunline.getDict("D_AUTHTP");
-		var authcdDict = Sunline.getDict(roledata.auth_type, "/auth", "auth_cd", "menu_name");
-		$("#auth_cd").select2({
-			data : authcdDict,
+		var authCdDict = Sunline.getDict(roledata.auth_type, "/auth", "auth_cd", "menu_name");
+		$("#add_auth_cd").select2({
+			data : authCdDict,
 			allowClear : true,
 			placeholder : "请选择"
 		});
-		$("#auth_type").select2({
+		$("#add_auth_type").select2({
 			data : authTypeDict,
 			allowClear : true,
 			placeholder : "请选择"
@@ -72,9 +72,9 @@ var sysRoleAuth= function() {
 									"sortable" : false,
 									"searchable" : false,
 									"render" : function(data, type, full) {
-										for (var i = 0; i < authcdDict.length; i++) {
-											if (authcdDict[i].id == data) {
-												return authcdDict[i].text;
+										for (var i = 0; i < authCdDict.length; i++) {
+											if (authCdDict[i].id == data) {
+												return authCdDict[i].text;
 											}
 										}
 										return data;
@@ -108,10 +108,12 @@ var sysRoleAuth= function() {
 		
 		// 新增窗口
 		$("#add_Auth_btn", $("#add_btn_set")).bind("click", function() {
-			$('#regist_cd', setAuthform).val(roledata.regist_cd);
-			$('#auth_type', setAuthform).select2("val", roledata.auth_type);
-			$('#role_cd', setAuthform).val(roledata.role_cd);
-			editUrl = "auth/addRoleAuth";
+			$(".alert-success", $('form', setAuthform)).hide();
+			$('.alert-danger', $('form', setAuthform)).hide();
+			$('#add_regist_cd', setAuthform).val(roledata.regist_cd);
+			$('#add_auth_type', setAuthform).select2("val", roledata.auth_type);
+			$('#add_role_cd', setAuthform).val(roledata.role_cd);
+			editUrl = "auth/addSysRoleAuth";
 			setAuthform.modal('show');
 			setAuthform.on("hide.bs.modal", function() {
 				$(".alert-success", $('form', setAuthform)).hide();
@@ -126,51 +128,60 @@ var sysRoleAuth= function() {
 			$("#edit_auth_form").submit();
 		});
 
-		/*
+		/**
 		 * 表单验证方法
 		 */
-		var roleValid = Sunline.getValidate($("form", setAuthform), function(form) {
-			var data = {};
-			$.each($("input", setAuthform), function(i, n) {
-				data[n.name] = n.value;
-			});
-
-			Sunline.ajaxRouter(editUrl, data, "post", function(data, status) {
-				$('.msg', setAuthform).text(data.msg);
-				if (data.ret == "success") {
-					$('.alert-success', setAuthform).show();
-					$('.alert-danger', setAuthform).hide();
-					$('#registerCd', setAuthform).attr("readOnly", true);
-					$('#authType', setAuthform).attr("readOnly", true);
-					$('#roleCd', setAuthform).attr("readOnly", true);
-				} else {
-					$('.alert-success', setAuthform).hide();
-					$('.alert-danger', setAuthform).show();
-				}
-			}, function() {
-				$('.msg', setAuthform).text("请求出错!");
-				$('.alert-success', setAuthform).hide();
-				$('.alert-danger', setAuthform).show();
-			}, "json");
-		}, { // 验证规则
-			registerCd : {
-				required : true,
-				rangelength : [ 2, 19 ]
-			},
-			authType : {
-				required : true,
-				maxlength : 1,
-				number : true
-			},
-			roleCd : {
-				required : true,
-				rangelength : [ 2, 19 ]
-			},
-			authCd : {
-				required : true,
-				rangelength : [ 2, 19 ]
-			}
-		});
+		var roleValid = Sunline.getValidate($("form", setAuthform), 
+				function(form) {
+					var data = {};
+					$.each($("input", setAuthform), function(i, n) {
+						//from表单中input标签的id和实体类的变量不一致,在此处理为一致的
+						data[(n.name).substring(4)] = n.value;
+					});
+					Sunline.ajaxRouter(
+							editUrl, //请求URL
+							data, //数据
+							"post", //请求类型
+							function(data, status) {//success函数
+								$('.msg', setAuthform).text(data.msg);
+								if (data.ret == "success") {
+									$('.alert-success', setAuthform).show();
+									$('.alert-danger', setAuthform).hide();
+									$('#add_regist_cd', setAuthform).attr("readOnly", true);
+									$('#add_auth_type', setAuthform).attr("readOnly", true);
+									$('#add__role_cd', setAuthform).attr("readOnly", true);
+								} else {
+									$('.alert-success', setAuthform).hide();
+									$('.alert-danger', setAuthform).show();
+								}
+							}, 
+							function() {//errror函数
+								$('.msg', setAuthform).text("请求出错!");
+								$('.alert-success', setAuthform).hide();
+								$('.alert-danger', setAuthform).show();
+							}, 
+							"json"//数据类型
+							);
+				},
+				{ // 验证规则
+					add_regist_cd : {
+						required : true,
+						rangelength : [ 2, 19 ]
+					},
+					add_auth_type : {
+						required : true,
+						maxlength : 1,
+						number : true
+					},
+					add_role_cd : {
+						required : true,
+						rangelength : [ 2, 19 ]
+					},
+					add_auth_cd : {
+						required : true,
+						rangelength : [ 2, 19 ]
+					}
+				});
 	}
 
 	return {

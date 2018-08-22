@@ -79,7 +79,7 @@
 						<div class="form-group">
 							<label class="col-md-3 control-label">注册机构号</label>
 							<div class="col-md-9">
-								<input type="text" id="regist_cd" name="regist_cd" readOnly 
+								<input type="text" id="add_regist_cd" name="add_regist_cd" readOnly 
 									class="form-control input-inline input-medium" maxlength="19">
 							</div>
 						</div>
@@ -87,21 +87,21 @@
 						<div class="form-group">
 							<label class="col-md-3 control-label">权限类型</label>
 							<div class="col-md-9">
-								<input type="text" id="auth_type" name="auth_type" readOnly
+								<input type="text" id="add_auth_type" name="add_auth_type" readOnly
 									class="form-control input-inline input-medium" maxlength="1">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-md-3 control-label">角色编号</label>
 							<div class="col-md-9">
-								<input type="text" id="role_cd" name="role_cd" readOnly
+								<input type="text" id="add_role_cd" name="add_role_cd" readOnly
 									class="form-control input-inline input-medium" maxlength="19">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-md-3 control-label">菜单权限</label>
 							<div class="col-md-9">
-								<input type="hidden" id="auth_cd" name="auth_cd"
+								<input type="hidden" id="add_auth_cd" name="add_auth_cd"
 									class="select-close-1 form-control input-inline input-medium" maxlength="19"
 									placeholder="选择权限编号">
 							</div>
