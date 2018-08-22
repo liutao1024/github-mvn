@@ -10,8 +10,8 @@
 			<div class="inputs">
 				<div class="portlet-input input-inline input-medium ">
 					<div class="input-icon right">
-						<i class="icon-magnifier"></i> <input type="text" id="qryApp"
-							class="form-control form-control-solid" placeholder="菜单名称查询">
+						<i class="icon-magnifier"></i> <input type="text"  placeholder="菜单名称查询" 
+							class="form-control form-control-solid" id="selectSysAuth">
 					</div>
 				</div>
 			</div>
@@ -19,10 +19,10 @@
 		<div class="portlet-body">
 		<div class="row">
 				<div class="col-md-9">
-					<button type="button" id="add_fu" class="btn blue">新增主菜单</button>
+					<button type="button" id="add_main_menu" class="btn blue">新增主菜单</button>
 				</div>
 			</div>
-			<div id="app_tree" class="tree-demo"></div>			
+			<div id="sys_auth_tree" class="tree-demo"></div>			
 		</div>
 	</div>
 </div>
@@ -49,49 +49,49 @@
 						<label class="col-md-3 control-label">菜单编号</label>
 						<div class="col-md-9">
 							<input type="text" class="form-control" readOnly maxlength="19"
-								placeholder="唯一标识菜单编号" id="menu_id" name="authCd">
+								placeholder="唯一标识菜单编号" id="auth_cd" name="auth_cd">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label">菜单名称</label>
 						<div class="col-md-9">
 							<input type="text" class="form-control" maxlength="50"
-								placeholder="菜单名称" id="menu_name" name="menuName">
+								placeholder="菜单名称" id="menu_name" name="menu_name">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-md-3">菜单层级</label>
 						<div class="col-md-9">
 							<input type="text" class="form-control" maxlength="1" readOnly
-								placeholder="菜单层级" id="menu_level" name="rank">
+								placeholder="菜单层级" id="rank" name="rank">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-md-3">父级</label>
 						<div class="col-md-9">
 							<input type="text" class="form-control" maxlength="19" readOnly
-								placeholder="父级菜单编号" id="menu_parent" name="parentAuthCd">
+								placeholder="父级菜单编号" id="parent_auth_cd" name="parent_auth_cd">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label">菜单图标</label>
 						<div class="col-md-9">
 							<input type="text" class="form-control" maxlength="19"
-								placeholder="Example:fa fa-th" id="menu_iconfg" name="iconfg">
+								placeholder="Example:fa fa-th" id="iconfg" name="iconfg">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label">菜单url</label>
 						<div class="col-md-9">
 							<input type="text" class="form-control" maxlength="100"
-								placeholder="Example:/prod/period" id="menu_url" name="authUrl">
+								placeholder="Example:/cust/period" id="auth_url" name="auth_url">
 						</div>
 					</div>
 				</div>
 				<div class="form-actions">
 					<div class="row">
 						<div class="col-md-offset-3 col-md-9">
-							<button type="button" id="update_btn" class="btn blue">保存</button>
+							<button type="button" id="update_button" class="btn blue">保存</button>
 							<button type="button" id="clear_update" class="btn red">清空</button>
 						</div>
 					</div>
@@ -126,7 +126,7 @@
 							<label class="col-md-3 control-label">菜单编号</label>
 							<div class="col-md-9">
 								<div>
-									<input type="text" id="add_app_cd" name="authCd"
+									<input type="text" id="add_auth_cd" name="auth_cd"
 										class="form-control input-medium" readOnly maxlength="19"
 										placeholder="输入编号" />
 
@@ -136,25 +136,22 @@
 						<div class="form-group">
 							<label class="col-md-3 control-label">菜单名称</label>
 							<div class="col-md-9">
-								<input type="text" id="add_branch_name" name="menuName"
-									class="form-control  input-medium" maxlength="19"
-									placeholder="输入菜单名称" />
+								<input type="text" class="form-control  input-medium" maxlength="19"
+									placeholder="输入菜单名称" id="add_menu_name" name="menu_name" />
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-md-3 control-label">菜单层级</label>
 							<div class="col-md-9">
-								<input type="text" readOnly class="form-control  input-medium"
-									maxlength="19" placeholder="菜单层级" id="add_menu_level"
-									name="rank" />
+								<input type="text" readOnly class="form-control  input-medium" maxlength="19" 
+									placeholder="菜单层级" id="add_rank" name="rank" />
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="control-label col-md-3">父级</label>
 							<div class="col-md-9">
-								<input type="text" id="add_parent" readOnly
-									class="form-control input-medium" placeholder="输入父级"
-									name="parentAuthCd" />
+								<input type="text" class="form-control input-medium" readOnly
+									placeholder="输入父级" id="add_parent_auth_cd" name="parent_auth_cd" />
 							</div>
 						</div>
 						<div class="form-group">
@@ -167,16 +164,14 @@
 						<div class="form-group">
 							<label class="col-md-3 control-label">菜单url</label>
 							<div class="col-md-9">
-								<input type="text" class="form-control input-medium"
-									placeholder="输入菜单url" name="authUrl">
+								<input type="text" class="form-control input-medium" placeholder="输入菜单url" name="auth_url">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-md-3 control-label">菜单排序</label>
 							<div class="col-md-9">
-								<input type="text" id="add_menu_sortno"
-									class="form-control input-medium" placeholder="输入菜单排序"
-									name="sort">
+								<input type="text" class="form-control input-medium" placeholder="输入菜单排序"
+									 id="add_sortno" name="sortno">
 							</div>
 						</div>
 					</div>

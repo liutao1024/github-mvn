@@ -647,7 +647,80 @@ public class SystemController {
 		rstMap.put("menu", reGetMenu(sysAuth, sysAuthList, sysAuth.getRank(), true));
 		return rstMap;		
 	}
-	
+	/**
+	 * @author LiuTao @date 2018年8月22日 下午9:18:33 
+	 * @Title: updateSysAuth 
+	 * @Description: TODO(Describe) 
+	 * @param sysAuth
+	 * @param sysUser
+	 * @return
+	 */
+	@RequestMapping(value="/updateSysAuth")
+	public Map<String, Object> updateSysAuth(@RequestBody SysAuth sysAuth, @ModelAttribute("SysUser") SysUser sysUser){
+		Map<String, Object> rstMap = new HashMap<String, Object>();
+		sysAuth.setRegist_cd(sysUser.getRegistCd());
+		try {
+			sysAuthServiceImpl.saveOrUpdate(sysAuth);
+			rstMap.put("ret", "success");
+			rstMap.put("msg", sysAuth.getAuth_cd() + "更新成功");
+		} catch (Exception e) {
+			rstMap.put("ret", "error");
+			rstMap.put("msg", sysAuth.getAuth_cd() + "更新失败");
+		}
+		return rstMap;
+	}
+	/**
+	 * @author LiuTao @date 2018年8月22日 下午9:19:06 
+	 * @Title: addSysAuth 
+	 * @Description: TODO(Describe) 
+	 * @param sysAuth
+	 * @param sysUser
+	 * @return
+	 */
+	@RequestMapping(value="/addSysAuth")
+	public Map<String, Object> addSysAuth(@RequestBody SysAuth sysAuth, @ModelAttribute("SysUser") SysUser sysUser){
+		Map<String, Object> rstMap = new HashMap<String, Object>();
+		sysAuth.setRegist_cd(sysUser.getRegistCd());
+		try {
+			sysAuthServiceImpl.saveEntity(sysAuth);
+			rstMap.put("ret", "success");
+			rstMap.put("msg", sysAuth.getAuth_cd() + "新增成功");
+		} catch (Throwable e) {
+			rstMap.put("ret", "error");
+			rstMap.put("msg", sysAuth.getAuth_cd() + "新增失败");
+		}
+		return rstMap;
+	}
+	/**
+	 * @author LiuTao @date 2018年8月22日 下午9:24:29 
+	 * @Title: deleteSysAuth 
+	 * @Description: TODO(Describe) 
+	 * @param sysAuth
+	 * @param sysUser
+	 * @return
+	 */
+	@RequestMapping(value="/deleteSysAuth")
+	public Map<String, Object> deleteSysAuth(@RequestBody SysAuth sysAuth, @ModelAttribute("SysUser") SysUser sysUser){
+		Map<String, Object> rstMap = new HashMap<String, Object>();
+		try {
+			sysAuth.setRegist_cd(sysUser.getRegistCd());
+			//1.删除sys_role_auth中的记录
+			SysRoleAuth sysRoleAuth = new SysRoleAuth();
+			sysRoleAuth.setRegist_cd(sysUser.getRegistCd());
+			sysRoleAuth.setAuth_cd(sysAuth.getAuth_cd());
+			sysRoleAuth.setAuth_type(sysAuth.getAuth_type());
+			List<SysRoleAuth> sysRoleAuthList = sysRoleAuthServiceImpl.findAllByEntity(sysRoleAuth);
+			sysRoleAuthServiceImpl.deleteEntities(sysRoleAuthList);
+			//2.再删除sys_auth中的记录
+			sysAuthServiceImpl.deleteEntity(sysAuth);
+			rstMap.put("ret", "success");
+			rstMap.put("msg", sysAuth.getAuth_cd() + "删除成功");
+		} catch (Throwable e) {
+			rstMap.put("ret", "error");
+			rstMap.put("msg", sysAuth.getAuth_cd() + "删除失败");
+		}
+		return rstMap;
+	}
 	
 	
 	

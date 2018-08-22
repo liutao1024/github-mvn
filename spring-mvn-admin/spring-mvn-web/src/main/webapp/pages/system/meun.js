@@ -3,10 +3,10 @@ var TheMeun = function() {
 	var handleTree = function(){
 		var sysAuthForm = $("#sysAuthForm");
 		var branchTree = new Tree();
-		var options = {	src: "#app_tree",
-						qrysrc: "#qryApp",
-						autoAppCd:autoAppCd,
-						selectedEvent:onSelectedNode
+		var options = {	src : "#sys_auth_tree",
+						qrysrc : "#selectSysAuth",
+						autoAppCd : autoAuthCd,
+						selectedEvent : onSelectedNode
 					};
 		/**
 		 * 获取菜单数据
@@ -69,7 +69,7 @@ var TheMeun = function() {
 	            		"新增":{
 	            			"label":"新增",
 	            			"action": function (data) {
-	            				$("#add_app_cd").attr("readOnly",true);
+	            				$("#add_auth_cd").attr("readOnly",true);
 	    						var inst = $.jstree.reference(data.reference),
 	    							obj = inst.get_node(data.reference);
 	    						var maxId=0;
@@ -84,14 +84,14 @@ var TheMeun = function() {
 		    							}
 		    						});
 		    						
-		    						$("#add_app_cd").val(parseFloat(maxId)+1);
-		    						$("#add_parent").val(obj.a_attr.id);
-		    						$("#add_menu_level").val(parseFloat(obj.a_attr.rank)+1);
+		    						$("#add_auth_cd").val(parseFloat(maxId)+1);
+		    						$("#add_parent_auth_cd").val(obj.a_attr.id);
+		    						$("#add_rank").val(parseFloat(obj.a_attr.rank)+1);
 	    						}else{
-	    							$("#add_menu_sortno").val(1);
-		    						$("#add_app_cd").val(obj.a_attr.id+"1");
-		    						$("#add_parent").val(obj.a_attr.id);
-		    						$("#add_menu_level").val(parseFloat(obj.a_attr.rank)+1);	    							
+	    							$("#add_sortno").val(1);
+		    						$("#add_auth_cd").val(obj.a_attr.id+"1");
+		    						$("#add_parent_auth_cd").val(obj.a_attr.id);
+		    						$("#add_rank").val(parseFloat(obj.a_attr.rank)+1);	    							
 	    						}	    						
 	    						$("#myModal").modal('show');    						
 	    					}
@@ -107,18 +107,22 @@ var TheMeun = function() {
 	    						sysAuth["auth_type"]="2";
 	    						if(inst.is_selected(obj)) {
 	    							inst.delete_node(inst.get_selected());
-	    							Sunline.ajaxRouter("auth/deleteSysAuth", sysAuth, "post", function(redata){ 	    			 				
-	    			 					if(redata.ret=="success"){						
-	    			 						bootbox.alert(redata.msg);
-	    			 					}else{			
-	    			 						bootbox.alert(redata.msg);
-	    			 					}
-	    			 					},function(){
-	    			 						bootbox.alert("请求失败");
-	    			 					},"json");
-	    							
-	    						}
-	    						else {
+	    							Sunline.ajaxRouter(
+	    									"auth/deleteSysAuth", 
+	    									sysAuth, 
+	    									"post", 
+	    									function(redata){ 	    			 				
+			    			 					if(redata.ret=="success"){						
+			    			 						bootbox.alert(redata.msg);
+			    			 					}else{			
+			    			 						bootbox.alert(redata.msg);
+			    			 					}
+			    			 				},
+			    			 				function(){
+			    			 					bootbox.alert("请求失败");
+			    			 				},
+			    			 				"json");
+	    						}else {
 	    							inst.delete_node(obj);
 	    						}
 	    					}
@@ -141,10 +145,10 @@ var TheMeun = function() {
 	/**
 	 * 获取appid方法
 	 */
-	var autoAppCd = function(obj){
-		$('#add_app_cd').val($('#menu_id').val());
-		$('#add_parent').val($('#menu_name').val());
-		$('#add_menu_level').val(parseInt($('#menu_level').val())+1);
+	var autoAuthCd = function(obj){
+		$('#add_auth_cd').val($('#auth_cd').val());
+		$('#add_parent_auth_cd').val($('#menu_name').val());
+		$('#add_rank').val(parseInt($('#rank').val())+1);
 	};
           
 	/**
@@ -182,12 +186,12 @@ var TheMeun = function() {
 						$(".alert-success", $('form', sysAuthForm)).hide();
 						$('.alert-danger', $('form', sysAuthForm)).hide();
 						findMenuData(menudata.menu,data.node.text,menu_s);
-						$('#menu_id').val(menu_s[0].auth_cd);
+						$('#auth_cd').val(menu_s[0].auth_cd);
 						$('#menu_name').val(data.node.text);
-						$('#menu_level').val(menu_s[0].rank);
-						$('#menu_url').val(menu_s[0].auth_url);
-						$('#menu_parent').val(menu_s[0].parent_auth_cd);		
-						$('#menu_iconfg').val(menu_s[0].iconfg);
+						$('#rank').val(menu_s[0].rank);
+						$('#auth_url').val(menu_s[0].auth_url);
+						$('#parent_auth_cd').val(menu_s[0].parent_auth_cd);		
+						$('#iconfg').val(menu_s[0].iconfg);
 					},
 					null,
 					"json",
@@ -221,9 +225,9 @@ var TheMeun = function() {
 	 * 
 	 */
 	var addFuMenu=function(){
-		$("#add_fu").click(function(){	
-			$("#add_app_cd").removeAttr("readOnly");
-			$("#add_menu_level").val(1);			
+		$("#add_main_menu").click(function(){	
+			$("#add_auth_cd").removeAttr("readOnly");
+			$("#add_rank").val(1);			
 			$("#myModal").modal('show');			
 		});	
 	};
@@ -301,33 +305,39 @@ var TheMeun = function() {
 		$.each($("input", addform), function(i, n) {
 			data[n.name] = n.value;
 		});
-		data["authType"] = "2"//菜单权限
-		Sunline.ajaxRouter("auth/addAuth", data, "post", function(redata) {
-			$('.msg', $("#myModal")).text(redata.msg);
-			if (redata.ret == "success") {
-				$('.alert-success', addform).show();
-				$('.alert-danger', addform).hide();
-			} else {
-				$('.alert-success', addform).hide();
-				$('.alert-danger', addform).show();
-			}
-		}, function() {
-			$('.alert-success', addform).hide();
-			$('.alert-danger', addform).show();
-		}, "json");
+		data["auth_type"] = "2"//菜单权限
+		Sunline.ajaxRouter(
+				"auth/addSysAuth", 
+				data, 
+				"post", 
+				function(redata) {
+					$('.msg', $("#myModal")).text(redata.msg);
+					if (redata.ret == "success") {
+						$('.alert-success', addform).show();
+						$('.alert-danger', addform).hide();
+					} else {
+						$('.alert-success', addform).hide();
+						$('.alert-danger', addform).show();
+					}
+				}, 
+				function() {
+					$('.alert-success', addform).hide();
+					$('.alert-danger', addform).show();
+				}, 
+				"json");
 
 	});
 	/**
 	 *修改提交按钮
 	 */
 	var updateForm = $("#update_form");
-	$("#update_btn").click(
+	$("#update_button").click(
 			function() {
 				var data = {};
 				$.each($("input", updateForm), function(i, n) {
 					data[n.name] = n.value;
 				});
-				data["authType"] = "2"//菜单权限
+				data["auth_type"] = "2"//菜单权限
 				Sunline.ajaxRouter("auth/updateSysAuth", data, "post",
 						function(redata) {
 							$('.msg', updateForm).text(redata.msg);

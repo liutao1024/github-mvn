@@ -39,6 +39,7 @@ import cn.spring.mvc.comm.util.CommUtil;
 import cn.spring.mvc.server.SocketHandlerImpl;
 import cn.spring.mvc.web.entity.SysDict;
 import cn.spring.mvc.web.entity.SysRole;
+import cn.spring.mvc.web.entity.SysRoleAuth;
 import cn.spring.mvc.web.entity.SysUser;
 import cn.spring.mvc.web.entity.service.SysRoleAuthService;
 import cn.spring.mvc.web.entity.service.SysAuthService;
@@ -76,6 +77,16 @@ public class SpringMVCHeibrntTest {
 		
 	}
 	
+	
+	@Test
+	public void TestFindAllByEntity(){
+		SysRoleAuth sysRoleAuth = new SysRoleAuth();
+		sysRoleAuth.setRegist_cd("001");
+		sysRoleAuth.setAuth_cd("203000011");
+		sysRoleAuth.setAuth_type("2");
+		List<SysRoleAuth> list = sysRoleAuthServiceImpl.findAllByEntity(sysRoleAuth);
+		System.out.println(list.get(0));
+	}
 	
 	@Test
 	public void TestListSize(){

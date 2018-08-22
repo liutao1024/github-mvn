@@ -72,6 +72,7 @@ public interface BaseService<T> {
 	 * @return
 	 */
 	public abstract List<T> findAll(T entity);
+	public abstract List<T> findAllByEntity(T entity);
 	public abstract List<T> findAllByEntityPageSize(T entity, int page, int size);
 	public abstract List<T> findAllByHqlPageSize(String hqlStr, int page, int size);
 	public abstract List<T> findAllBySqlPageSize(String sqlStr, int page, int size);

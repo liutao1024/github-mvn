@@ -227,6 +227,14 @@ public class BaseServiceImpl<T> implements BaseService<T>{
 		return commDaoImpl.findAllByHql(hqlStr);
 	}
 	
+	@Override
+	public List<T> findAllByEntity(T entity){
+		String entityName = entity.getClass().getSimpleName();
+		Map<String, Object> paramMap = BaseUtil.getParamMapWithOutNullValueByReflectObject(entity);
+		String hqlStr = BaseUtil.getSqlStrByEntityNameAndParamMap(entityName, paramMap);
+		return commDaoImpl.findAllByHqlParamMap(hqlStr, paramMap);
+	}
+	
 	/**
 	 * @author LiuTao @date 2018年5月30日 下午2:38:22 
 	 * @Title: getSuperClassGenricType 
