@@ -631,29 +631,20 @@ public class SystemController {
 	/**---------------------------------------SysAuth------------------------------------------------*/
 	/**
 	 * @author LiuTao @date 2018年6月24日 上午10:29:39 
-	 * @Title: showAllSysRoleAuth 
-	 * @Description: TODO(Describe) 
+	 * @Title: allSysAuth 
+	 * @Description: TODO(查询所有的菜单) 
 	 * @param reqMap
 	 * @return
 	 */
-	@RequestMapping(value="/showAllSysRoleAuth")
-	public Map<String, Object> showAllSysRoleAuth(@RequestParam Map<String,Object> reqMap){
+	@RequestMapping(value="/allSysAuth")
+	public Map<String, Object> allSysAuth(@ModelAttribute("SysUser") SysUser sysUser){
 		Map<String, Object> rstMap = new HashMap<String, Object>();
-		SysRoleAuth authRole = new SysRoleAuth();
-		authRole.setRegist_cd(reqMap.get("roleCd").toString());
-		authRole.setAuth_type(reqMap.get("authType").toString());
-		authRole.setRegist_cd(reqMap.get("registCd").toString());
-		if (reqMap.get("qq_authCd") != null && reqMap.get("qq_authCd") != "") {
-			authRole.setAuth_cd(reqMap.get("qq_authCd").toString());
-		}
-		int page = Integer.parseInt((String) reqMap.get("start"));
-		int size = Integer.parseInt((String) reqMap.get("length"));
-		Map<String, Object> listWithCount = sysRoleAuthServiceImpl.findAllByEntityPageSizeWithCount(authRole, page, size);
-		try {
-			rstMap = CommUtil.transSrcMapToWebMap(listWithCount);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SysAuth sysAuth = new SysAuth();
+		sysAuth.setAuth_type(AUTHTYPE);
+		sysAuth.setRank(1);
+		sysAuth.setRegist_cd(sysUser.getRegistCd());
+		List<SysAuth> sysAuthList = sysAuthServiceImpl.selectAllEntities(sysAuth);
+		rstMap.put("menu", reGetMenu(sysAuth, sysAuthList, sysAuth.getRank(), true));
 		return rstMap;		
 	}
 	
