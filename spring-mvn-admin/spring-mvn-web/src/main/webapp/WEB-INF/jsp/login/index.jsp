@@ -50,7 +50,7 @@
 									<li>
 										<a data-target="/bbs/waititems" href="#" style="color: #000"> 
 											<i class="fa fa-warning text-yellow">
-												<font id="BBSd" size="3" olor="red"></font>
+												<font id="BBSd" size="3" color="red"></font>
 											</i>
 										</a>
 									</li>
