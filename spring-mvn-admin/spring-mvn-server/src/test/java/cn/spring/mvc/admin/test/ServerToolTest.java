@@ -9,7 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import cn.spring.mvc.server.SocketHandlerImpl;
 import cn.spring.mvc.server.tools.ServerTool;
-import cn.spring.mvc.server.client.Client;
+import cn.spring.mvc.server.client.SocketClient;
 
 public class ServerToolTest {
 	
@@ -63,8 +63,8 @@ public class ServerToolTest {
 		requestMap.put("comm", commMap);
 		requestMap.put("request", srcMap);
 		
-		Client client = new Client();
-		JSONObject json = client.callClientReturnJson("127.0.0.1", 8088, requestMap);
+		SocketClient socketClient = new SocketClient();
+		JSONObject json = socketClient.callClientReturnJson("127.0.0.1", 8088, requestMap);
 		System.out.println(json);
 	}
 	

@@ -14,7 +14,7 @@ import com.alibaba.fastjson.JSONObject;
  * @ClassName: Client
  * @Description: 向外部发送报文并获得返回结果报文
  */
-public class Client {
+public class SocketClient {
 	/**
 	 * @author LiuTao @date 2018年6月13日 上午9:20:39 
 	 * @Title: callClientReturnString 

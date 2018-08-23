@@ -22,7 +22,15 @@ public class CoreServerImpl {
 	private static CustUserService custUserServiceImpl = applicationContext.getBean(CustUserService.class);
 	private static CustElectronService custElectronServiceImpl = applicationContext.getBean(CustElectronService.class);
 	private static CustAccountService custAccountServiceImpl = applicationContext.getBean(CustAccountService.class);
-	
+	/**
+	 * @author LiuTao @date 2018年8月23日 上午11:19:36 
+	 * @Title: queryCustUser 
+	 * @Description: TODO(Describe) 
+	 * @param idtftp
+	 * @param idtfno
+	 * @param custna
+	 * @return
+	 */
 	public static Map<String, Object> queryCustUser(String idtftp, String idtfno, String custna){
 		Map<String, Object> rstMap = new HashMap<String, Object>();
 		String hqlStr = "from CustUser";
@@ -44,7 +52,15 @@ public class CoreServerImpl {
 		rstMap.put("data", custUserList);
 		return rstMap;
 	}
-	
+	/**
+	 * @author LiuTao @date 2018年8月23日 上午11:19:41 
+	 * @Title: openAccount 
+	 * @Description: TODO(Describe) 
+	 * @param idtftp
+	 * @param idtfno
+	 * @param custna
+	 * @return
+	 */
 	public static Map<String, Object> openAccount(String idtftp, String idtfno, String custna){
 		System.out.println("CoreServerImpl.openAccount");
 		Map<String, Object> rstMap = new HashMap<String, Object>();

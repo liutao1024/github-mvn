@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 public class SocketServer {
 	/**
 	 * 共同的是将接口定义在本工程中去调用其所依赖的工程的service实现数据库的操作似乎可行,
-	 * 	也就是说这个项目也需要是spring+heibrnt项目,置于是否需要用到mvc好想就不一定了,
+	 * 	也就是说这个项目也需要是spring+heibrnt项目,置于是否需要用到mvc好像就不一定了,
 	 * 	而且还是需要通过tomcat进行发布,现在的问题是,如何实现java源码在linux环境中编译成class,
 	 * 	tomcat可以指向这些class和jsp实现低依赖高耦合哈哈哈哈自己都不晓得在说什么了
 	 * 几种猜想
