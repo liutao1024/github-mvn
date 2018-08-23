@@ -158,13 +158,14 @@
 							<label class="control-label col-md-3">菜单图标</label>
 							<div class="col-md-9">
 								<input type="text" class="form-control input-medium"
-									placeholder="输入菜单图标" name="iconfg">
+									placeholder="Example:fa fa-th" name="iconfg">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-md-3 control-label">菜单url</label>
 							<div class="col-md-9">
-								<input type="text" class="form-control input-medium" placeholder="输入菜单url" name="auth_url">
+								<input type="text" class="form-control input-medium" 
+								placeholder="Example:/cust/period" name="auth_url">
 							</div>
 						</div>
 						<div class="form-group">

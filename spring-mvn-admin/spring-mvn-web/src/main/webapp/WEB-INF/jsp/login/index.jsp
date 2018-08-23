@@ -30,58 +30,56 @@
 					<div class="top-menu">
 						<ul class="nav navbar-nav pull-right">
 							<!-- BEGIN USER LOGIN DROPDOWN -->
-							<li class="dropdown  dropdown-dark"><a href="#"
-								class="dropdown-toggle" data-toggle="dropdown"
-								data-hover="dropdown" data-close-others="true"> <span
-									class="label label-warning " id="BBSl"></span> <i
-									class="fa fa-bell-o"></i>
-							</a>
-								<ul class="dropdown-menu dropdown-menu-default"
-									data-handle-color="#637283"
-									style="background: rgb(252, 247, 252)">
+							<li class="dropdown  dropdown-dark">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
+									<span class="label label-warning " id="BBSl"></span> 
+									<i class="fa fa-bell-o"></i>
+								</a>
+								<ul class="dropdown-menu dropdown-menu-default" data-handle-color="#637283" style="background: rgb(252, 247, 252)">
 									<li class="divider"></li>
 									<!-- <li><a target-flag="N" data-target="/bbs/waititems" -->
-									<li><a data-target="/bbs/waititems"
-										href="#" style="color: #000"> <i
-											class="fa fa-users text-aqua"><font id="BBSw" size="3"
-												color="red"></font></i>
-									</a></li>
+									<li>
+										<a data-target="/bbs/waititems" href="#" style="color: #000"> 
+											<i class="fa fa-users text-aqua">
+												<font id="BBSw" size="3" color="red"></font>
+											</i>
+										</a>
+									</li>
 									<li class="divider"></li>
 									<!-- <li><a target-flag="N" data-target="/bbs/waititems" -->
-									<li><a data-target="/bbs/waititems"
-										href="#" style="color: #000"> <i
-											class="fa fa-warning text-yellow"><font id="BBSd" size="3"
-												color="red"></font></i>
-									</a></li>
+									<li>
+										<a data-target="/bbs/waititems" href="#" style="color: #000"> 
+											<i class="fa fa-warning text-yellow">
+												<font id="BBSd" size="3" olor="red"></font>
+											</i>
+										</a>
+									</li>
 									<li class="divider"></li>
 									<!-- <li><a target-flag="N" data-target="/fund/cleardm" href="#" -->
-									<li><a data-target="/fund/cleardm" href="#"
-										style="color: #000"> <i class="fa fa-warning text-yellow"><font
-												id="BBSm" size="3" color="red"></font></i>
-									</a></li>
-	
-	
+									<li>
+										<a data-target="/fund/cleardm" href="#" style="color: #000"> 
+											<i class="fa fa-warning text-yellow">
+												<font id="BBSm" size="3" color="red"></font>
+											</i>
+										</a>
+									</li>
 								</ul>
-							<li class="dropdown dropdown-user dropdown-dark"><a href="#"
-								class="dropdown-toggle" data-toggle="dropdown"
-								data-hover="dropdown" data-close-others="true"> <img alt=""
-									class="img-circle"
-									src="${ctx}/admin/styles/layout/img/avatar9.jpg"> <span
-									class="username username-hide-mobile"></span>
-							</a>
-								<ul class="dropdown-menu dropdown-menu-default"
-									data-handle-color="#637283"
-									style="background: rgb(252, 247, 252)">
-	
-									<li class="divider"></li>
-									<li><a href="#" id="resetpwd" style="color: #000"> <i
-											class="icon-key"></i> 修改密码
-									</a></li>
-									<li class="divider"></li>
-									<li><a href="#" id="logout" style="color: #000"> <i
-											class="icon-logout"></i> 退出
-									</a></li>
-								</ul></li>
+								<li class="dropdown dropdown-user dropdown-dark">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
+										<img alt="" class="img-circle" src="${ctx}/admin/styles/layout/img/avatar9.jpg"> 
+										<span class="username username-hide-mobile"></span>
+									</a>
+									<ul class="dropdown-menu dropdown-menu-default" data-handle-color="#637283" style="background: rgb(252, 247, 252)">
+										<li class="divider"></li>
+										<li>
+											<a href="#" id="resetpwd" style="color: #000"> <i class="icon-key"></i> 修改密码</a>
+										</li>
+										<li class="divider"></li>
+										<li>
+											<a href="#" id="logout" style="color: #000"> <i class="icon-logout"></i> 退出</a>
+										</li>
+									</ul>
+								</li>
 	
 							<!-- END USER LOGIN DROPDOWN -->
 						</ul>
@@ -93,13 +91,11 @@
 			<!-- BEGIN HEADER MENU -->
 			<div class="page-header-menu">
 				<div class="container">
-	
 					<!-- BEGIN MEGA MENU -->
 					<!-- DOC: Apply "hor-menu-light" class after the "hor-menu" class below to have a horizontal menu with white background -->
 					<!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the dropdown opening on mouse hover -->
 					<div class="hor-menu ">
-						<ul class="nav navbar-nav" id="menu">
-						</ul>
+						<ul class="nav navbar-nav" id="menu"></ul>
 					</div>
 					<!-- END MEGA MENU -->
 				</div>
