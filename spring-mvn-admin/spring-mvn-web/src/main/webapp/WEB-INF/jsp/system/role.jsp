@@ -11,7 +11,7 @@
 	<div class="portlet light">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="fa fa-user font-green-sharp"></i> <span
+				<i class="fa fa-cog font-green-sharp"></i> <span
 					class="caption-subject font-green-sharp bold uppercase">角色管理</span>
 				<span class="caption-helper">角色</span>
 			</div>

@@ -4,7 +4,7 @@
 	<div class="portlet light">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="fa fa-gift font-green-sharp"></i>
+				<i class="fa fa-user font-green-sharp"></i>
 				<span class="caption-subject font-green-sharp bold uppercase">客户信息</span>
 				<span class="caption-helper">客户基本信息...</span>
 			</div>
