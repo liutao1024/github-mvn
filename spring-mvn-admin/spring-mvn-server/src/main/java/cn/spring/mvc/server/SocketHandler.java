@@ -1,21 +1,20 @@
 package cn.spring.mvc.server;
 
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
 
-import com.alibaba.fastjson.JSONObject;
+import cn.spring.mvc.base.tools.BaseTool;
 
-@SuppressWarnings("unused")
+//@SuppressWarnings("unused")
 public class SocketHandler implements Runnable {
 	//Socket tools
 	private Socket socket;
-	private byte[] array = new byte[1024];  
+	//charSet - UTF-8
+	private String charSetStr = "UTF-8";
 	//Constructor Method
 	public SocketHandler(Socket socket) {
 		this.socket = socket;
@@ -23,7 +22,12 @@ public class SocketHandler implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("SocketHandler.run");
+		InputStreamReader inputStreamReader = null;
+		BufferedReader bufferedReader = null;
+		DataOutputStream outputStream = null;
+		String string = "";
+		String requestStr = ""; 
+		String responseStr = "";
 		try {
 			/**
 			 * 步骤: 
@@ -32,28 +36,42 @@ public class SocketHandler implements Runnable {
 			 * 3.对请求报文进行解析处理后,将处理结果通过Socket创建输出流 
 			 * 4.回复客户端"OK"
 			 */
-			DataInputStream inputStream = new DataInputStream(socket.getInputStream());
-			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(); 
-			System.out.println(socket.getInputStream());
-            int n;  
-            while((n = inputStream.read(array)) != -1){  
-            	byteArrayOutputStream.write(array, 0, n);           
-            }  
-            String requesStr = new String(byteArrayOutputStream.toByteArray()); 
-            socket.shutdownInput(); 
-            System.out.println("========请求json报文========" + requesStr);
-            String responseStr = SocketHandlerImpl.callInterface(requesStr);//responseMap.toString();
+			inputStreamReader = new InputStreamReader(socket.getInputStream(), charSetStr);//解决中文字符乱码问题
+			bufferedReader = new BufferedReader(inputStreamReader);
+			while((string = bufferedReader.readLine()) != null){
+				requestStr += string;
+			}
+			socket.shutdownInput();//socket数据传输完成后,关闭
+            System.out.println("========请求json报文========" + requestStr);
+            responseStr = SocketHandlerImpl.callInterface(requestStr);//responseMap.toString();
             System.out.println("========响应json报文========" + responseStr);
-            DataOutputStream outputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            outputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             outputStream.writeUTF(responseStr); 
+            inputStreamReader.close();
+            bufferedReader.close();
             outputStream.flush();  
             outputStream.close();  
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("服务器 run 异常: " + e.getMessage()); 
+			try {//some Exception in try return some message 
+				responseStr =  "{" + 
+									"\"comm\":{\"corecd\":\"\",\"mesage\":\"" + e.getMessage() + "\",\"asktyp\":\"\",\"status\":\"ERROR\"}," + 
+									"\"sys\":{\"servtp\":\"\",\"servno\":\"\",\"serial\":\"" + BaseTool.getSerial() + "\",\"corpno\":\"\"}" +
+							   "}";
+				outputStream.writeUTF(responseStr);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				System.out.println("服务器 run 异常--1: " + e.getMessage()); 
+			} 
+			System.out.println("服务器 run 异常--2: " + e.getMessage()); 
 		} finally {
 			if (socket != null) {
 				try {
+					inputStreamReader.close();
+		            bufferedReader.close();
+		            outputStream.flush();  
+		            outputStream.close(); 
 					socket.close();
 				} catch (IOException e) {
 					e.printStackTrace();
