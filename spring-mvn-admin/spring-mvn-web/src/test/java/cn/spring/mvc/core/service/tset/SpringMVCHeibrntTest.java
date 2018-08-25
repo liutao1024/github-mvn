@@ -24,6 +24,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -36,7 +37,9 @@ import cn.spring.mvc.batch.tools.BatchTools;
 import cn.spring.mvc.comm.tools.FileTool;
 import cn.spring.mvc.comm.tools.MD5Tool;
 import cn.spring.mvc.comm.util.CommUtil;
+import cn.spring.mvc.comm.util.SpringContextUtil;
 import cn.spring.mvc.server.SocketHandlerImpl;
+import cn.spring.mvc.web.entity.SysAuth;
 import cn.spring.mvc.web.entity.SysDict;
 import cn.spring.mvc.web.entity.SysRole;
 import cn.spring.mvc.web.entity.SysRoleAuth;
@@ -70,6 +73,23 @@ public class SpringMVCHeibrntTest {
 	 * @Test
 	 */
 	
+	
+	@Test
+	public void TestGetApplicationContext(){
+		ApplicationContext applicationContext = SpringContextUtil.getApplicationContext();
+		if(CommUtil.isNotNull(applicationContext)){
+			System.out.println("111"+applicationContext.getId());
+			SysAuthService s = applicationContext.getBean(SysAuthService.class);
+			SysAuth entity = new SysAuth();
+			entity.setRank(2);
+			List<SysAuth> m = s.findAllByEntity(entity);
+			for (SysAuth sysAuth : m) {
+				System.out.println(sysAuth);
+			}
+		}else {
+			System.out.println("applicationContext is null");
+		}
+	}
 	
 	
 	@Test

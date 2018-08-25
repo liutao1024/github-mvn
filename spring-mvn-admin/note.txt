@@ -128,4 +128,9 @@ sys_auth页面的树行显示怎么就多出来一个文件夹的图标已解决
 	那么问题就来了如何搭建一个nuex私服并且要maven从里面下载东西 [o(∩_∩)o 哈哈]		
 socket通讯时,消息进到SocketHandlerImpl.callInterface就停滞了,还有就是中文乱码问题(乱码问题解决)	
 进入不了CoreServerImpl.openAccount---------SocketHandlerImpl的113行	
+普通类中Controller中调用applocationContext是可以的但是在总要的问题是在将scketManager类加载spring.xml配置文件中
+作为一个bean启动时,tomcat都启动不全,因为网页都无法登录,虽然这个进程起来了,
+	1.spring容器没有启动好吗?
+	2.tomcat没启动好?
+	3.还是tomcat只能.....
 		
