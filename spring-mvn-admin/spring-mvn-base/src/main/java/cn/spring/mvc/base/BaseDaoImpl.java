@@ -56,7 +56,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	}
 
 	@Override
-	public T save(T entity) throws Throwable{
+	public T save(T entity) throws Exception{
 		if (entity != null) {
 			return (T) getCurrentSession().save(entity);
 		}
@@ -69,11 +69,11 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		}
 	}
 	@Override
-	public T saveEntity(T entity) throws Throwable {
+	public T saveEntity(T entity) throws Exception {
 		return (T) getCurrentSession().save(entity);
 	}
 	@Override
-	public List<T> saveEntities(List<T> entities) throws Throwable {
+	public List<T> saveEntities(List<T> entities) throws Exception {
 		List<T> retList = null;
 		for(T entity : entities){
 			retList.add(saveEntity(entity));

@@ -19,10 +19,10 @@ public abstract interface BaseDao<T> {
 	
 	public abstract Dialect getDialect();//获取数据库方言
 
-	public abstract T save(T entity) throws Throwable;//保存单个实体
+	public abstract T save(T entity) throws Exception;//保存单个实体
 	public abstract void saveOrUpdate(T entity);//单个实体保存或更新
-	public abstract T saveEntity (T entity) throws Throwable;//单个实体保存
-	public abstract List<T> saveEntities (List<T> entities) throws Throwable;//保存多个实体
+	public abstract T saveEntity (T entity) throws Exception;//单个实体保存
+	public abstract List<T> saveEntities (List<T> entities) throws Exception;//保存多个实体
 	public abstract void update(T entity);
 	public abstract void updateEntity (T entity);//单个实体更新
 	public abstract void updateEntities (List<T> entities);//列表更新

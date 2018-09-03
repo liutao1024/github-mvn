@@ -23,7 +23,6 @@ public class SocketHandlerImpl {
 	private static String SUCCESS = "SUCCESS";
 	
 	public static String callInterface(String jsonStr){
-		System.out.println("SocketHandlerImpl.callInterface");
 		String returnString = "";
 		String responseStatus = "";
 		String responseMesage = "";
@@ -103,14 +102,14 @@ public class SocketHandlerImpl {
 	//				
 	//			}
 				//迭代器获取requestDataMap中的参数作为传递的数据
-				for (Entry<String, Object> entry : requestDataMap.entrySet()) {
-					
-				}
+//				for (Entry<String, Object> entry : requestDataMap.entrySet()) {
+//					
+//				}
 				//将参数传入需要执行的方法签名如何实现------???未知???
 				Map<String, Object> rstMap = new HashMap<String, Object>();//调用接口后得到的map
 				//根据接口类型(asktyp)选择返回接口response的抓成方式
 				try {
-					rstMap = CoreServerImpl.openAccount((String) requestDataMap.get("idtftp"), (String) requestDataMap.get("idtfno"), (String) requestDataMap.get("custna"));
+					rstMap = CoreServerImpl.openAccount(corpno, (String) requestDataMap.get("idtftp"), (String) requestDataMap.get("idtfno"), (String) requestDataMap.get("custna"));
 //					rstMap.put("custno", SequenceTool.getSequence("USER"));
 					if("Q".equals(asktyp)){//Q 
 						responseDataMap.put("count", rstMap.size());
@@ -124,9 +123,9 @@ public class SocketHandlerImpl {
 					responseCommMap.put("asktyp", asktyp);
 					responseCommMap.put("status", responseStatus);
 					responseCommMap.put("mesage", responseMesage);
-				} catch (Exception e) {
+				} catch (Exception exception) {
 					responseStatus = ERROR;
-					responseMesage = e.getMessage();
+					responseMesage = exception.getMessage();
 					responseCommMap.put("corecd", corecd);
 					responseCommMap.put("asktyp", asktyp);
 					responseCommMap.put("status", responseStatus);

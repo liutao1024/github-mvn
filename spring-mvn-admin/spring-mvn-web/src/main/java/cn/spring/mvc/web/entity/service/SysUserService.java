@@ -7,7 +7,7 @@ import cn.spring.mvc.web.entity.SysUser;
 
 public interface SysUserService extends BaseService<SysUser>{
 
-	SysUser add(SysUser entity) throws Throwable;
+	SysUser add(SysUser entity) throws Exception;
 	
 	void delete(SysUser entity);
 	

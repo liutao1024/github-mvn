@@ -22,8 +22,8 @@ public interface BaseService<T> {
 	public abstract boolean isSQLServer();
 
 	//数据级接口
-	public abstract T saveEntity (T entity) throws Throwable;
-	public abstract List<T> saveEntities (List<T> entities) throws Throwable;
+	public abstract T saveEntity (T entity) throws Exception;
+	public abstract List<T> saveEntities (List<T> entities) throws Exception;
 	public abstract void saveOrUpdate(T entity);
 	public abstract void deleteEntity(T entity);
 	public abstract void deleteEntities(List<T> entities);

@@ -108,11 +108,11 @@ public class BaseServiceImpl<T> implements BaseService<T>{
 	}
 	//
 	@Override
-	public T saveEntity(T entity) throws Throwable {
+	public T saveEntity(T entity) throws Exception {
 		return commDaoImpl.saveEntity(entity);
 	}
 	@Override
-	public List<T> saveEntities(List<T> entities) throws Throwable {
+	public List<T> saveEntities(List<T> entities) throws Exception {
 		return commDaoImpl.saveEntities(entities);
 	}
 	@Override

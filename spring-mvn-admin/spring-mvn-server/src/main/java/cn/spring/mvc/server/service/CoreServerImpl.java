@@ -61,8 +61,8 @@ public class CoreServerImpl {
 	 * @param custna
 	 * @return
 	 */
-	public static Map<String, Object> openAccount(String idtftp, String idtfno, String custna){
-		System.out.println("CoreServerImpl.openAccount");
+	public static Map<String, Object> openAccount(String corpno, String idtftp, String idtfno, String custna) throws Exception{
+//		System.out.println("CoreServerImpl.openAccount");
 		Map<String, Object> rstMap = new HashMap<String, Object>();
 		String custno = SequenceTool.getSequence("USER");
 		String custac = SequenceTool.getSequence("ELECTRON");
@@ -75,22 +75,24 @@ public class CoreServerImpl {
 		custUser.setCustna(custna);
 		custUser.setCustno(custno);
 
+		custElectron.setCorpno(corpno);
 		custElectron.setCustac(custac);
-		custElectron.setCustna(custna);
 		custElectron.setCustno(custno);
+		custElectron.setCustna(custna);
 		
-		custAccount.setAcctna(custna);
+		custAccount.setCorpno(corpno);
 		custAccount.setAcctno(acctno);
 		custAccount.setCustno(custno);
 		custAccount.setCustac(custac);
+		custAccount.setAcctna(custna);
 		custAccount.setOnlnbl(0);
 		
 		try {
 			custUserServiceImpl.saveEntity(custUser);
 			custElectronServiceImpl.saveEntity(custElectron);
 			custAccountServiceImpl.saveEntity(custAccount);
-		} catch (Throwable e) {
-			rstMap.put("Exception", e);
+		} catch (Exception exception) {
+			throw exception;
 		}
 		rstMap.put("custno", custno);
 		rstMap.put("custac", custac);

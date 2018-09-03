@@ -12,7 +12,7 @@ import cn.spring.mvc.web.entity.service.SysUserService;
 public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysUserService{
 	
 	@Override
-	public SysUser add(SysUser entity) throws Throwable {
+	public SysUser add(SysUser entity) throws Exception {
 		return this.saveEntity(entity);
 	}
 	

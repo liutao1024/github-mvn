@@ -1,8 +1,11 @@
 package cn.spring.mvc.server.client;
 
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +18,7 @@ import com.alibaba.fastjson.JSONObject;
  * @Description: 向外部发送报文并获得返回结果报文
  */
 public class SocketClient {
+	private static final String charSet = "UTF-8";
 	/**
 	 * @author LiuTao @date 2018年6月13日 上午9:20:39 
 	 * @Title: callClientReturnString 
@@ -30,17 +34,18 @@ public class SocketClient {
 		//将requestMap转化为Json类型    
 		JSONObject requestJsonObject = new JSONObject(requestMap);
 		String requestStr = requestJsonObject.toString();
-		byte[] requestByte = requestStr.getBytes();
-		DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-		dataOutputStream.write(requestByte);
-		dataOutputStream.flush();
+		InputStream inputStream = socket.getInputStream();
+		OutputStream outputStream = socket.getOutputStream();
+		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, charSet));
+		bufferedWriter.write(requestStr);
+		bufferedWriter.flush();
 		socket.shutdownOutput();
 		//读取服务器端数据    
-		DataInputStream datInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream())); 
-		String responseStr = datInputStream.readUTF(); 
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, charSet));
+		String responseStr = bufferedReader.readLine();
 		socket.close();
-		System.out.println("输入的信息为："+requestStr); 
-		System.out.println("输出的信息为："+responseStr); 
+		System.out.println("输入的信息为："+ requestStr); 
+		System.out.println("输出的信息为："+ responseStr); 
 		return responseStr;
 	}
 	/**
@@ -98,8 +103,8 @@ public class SocketClient {
 		commMap.put("asktyp", "D");//请求类型:Q--查询(返回的是一个list),D--执行(返回的是一个结果)
 		
 		srcMap.put("idtftp", "01");
-		srcMap.put("idtfno", "501024199112030398");
-		srcMap.put("custna", "张家辉");
+		srcMap.put("idtfno", "521024199312030328");
+		srcMap.put("custna", "张三丰");
 		requestMap.put("sys", sysMap);
 		requestMap.put("comm", commMap);
 		requestMap.put("request", srcMap);
