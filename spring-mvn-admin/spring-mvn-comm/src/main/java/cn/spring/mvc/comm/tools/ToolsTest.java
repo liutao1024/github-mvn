@@ -1,11 +1,11 @@
 package cn.spring.mvc.comm.tools;
 
-import java.util.Set;
-import java.util.TreeMap;
+//import java.util.Set;
+//import java.util.TreeMap;
+//
+//import org.junit.Test;
 
-import org.junit.Test;
-
-public class ToolsTest {
+public class ToolsTest {/*
 	
 	
 	@Test
@@ -30,4 +30,4 @@ public class ToolsTest {
 		}
 		
 	}
-}
+*/}

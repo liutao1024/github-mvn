@@ -1,10 +1,10 @@
 package cn.spring.mvc.core.service.tset;
 
-import org.junit.Test;
+//import org.junit.Test;
+//
+//import cn.spring.mvc.base.util.BaseUtil;
 
-import cn.spring.mvc.base.util.BaseUtil;
-
-public class JustTest {
+public class JustTest {/*
 	
 	
 	@Test
@@ -35,4 +35,4 @@ public class JustTest {
 	}
 	
 	
-}
+*/}

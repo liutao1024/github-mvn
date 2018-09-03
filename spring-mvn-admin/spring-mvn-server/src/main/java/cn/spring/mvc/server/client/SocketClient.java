@@ -103,8 +103,8 @@ public class SocketClient {
 		commMap.put("asktyp", "D");//请求类型:Q--查询(返回的是一个list),D--执行(返回的是一个结果)
 		
 		srcMap.put("idtftp", "01");
-		srcMap.put("idtfno", "521024199312030328");
-		srcMap.put("custna", "张三丰");
+		srcMap.put("idtfno", "521024199812030328");
+		srcMap.put("custna", "张益达");
 		requestMap.put("sys", sysMap);
 		requestMap.put("comm", commMap);
 		requestMap.put("request", srcMap);

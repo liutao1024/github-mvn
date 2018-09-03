@@ -1,14 +1,14 @@
 package cn.spring.mvc.batch;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+//import java.io.File;
+//import java.util.ArrayList;
+//import java.util.List;
+//
+//import org.junit.Test;
+//
+//import cn.spring.mvc.batch.tools.BatchTools;
 
-import org.junit.Test;
-
-import cn.spring.mvc.batch.tools.BatchTools;
-
-public class TestBatch {
+public class TestBatch {/*
 	@Test
 	public void testBatch(){
 		List<String> staticFileList = new ArrayList<String>();
@@ -30,4 +30,4 @@ public class TestBatch {
 			System.out.println(e.getMessage());
 		}
 	}
-}
+*/}
