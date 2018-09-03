@@ -103,14 +103,15 @@ public class SocketClient {
 		commMap.put("asktyp", "D");//请求类型:Q--查询(返回的是一个list),D--执行(返回的是一个结果)
 		
 		srcMap.put("idtftp", "01");
-		srcMap.put("idtfno", "521024199812030328");
-		srcMap.put("custna", "张益达");
+		srcMap.put("idtfno", "511024198612030398");
+		srcMap.put("custna", "张家辉");
 		requestMap.put("sys", sysMap);
 		requestMap.put("comm", commMap);
 		requestMap.put("request", srcMap);
 		
 		try {
-			callClientReturnString("localhost", 8088, requestMap);
+//			callClientReturnString("localhost", 8088, requestMap);//本地
+			callClientReturnString("192.168.1.11", 8088, requestMap);//linux
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

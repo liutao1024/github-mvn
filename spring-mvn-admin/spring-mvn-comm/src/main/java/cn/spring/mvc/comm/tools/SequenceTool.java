@@ -18,7 +18,7 @@ public class SequenceTool {
 	 * @return
 	 */
 	public static String getSequence(String sequenceType){
-		String newSequence = null;
+		String sequence = null;
 		SystemSequence systemSequence = systemSequenceServiceImpl.selectOne(sequenceType);
 		if(CommUtil.isNotNull(systemSequence)){
 			String begin = systemSequence.getSequenceBegin();
@@ -43,9 +43,9 @@ public class SequenceTool {
 			systemSequence.setSequenceMiddle(newMiddle);
 			systemSequence.setSequenceEnd(newEnd);
 			systemSequenceServiceImpl.saveOrUpdate(systemSequence);
-			newSequence = newBegin + newMiddle + newEnd;
+			sequence = begin + middle + end;
 		}
-		return newSequence;
+		return sequence;
 	}
 	/**
 	 * @author LiuTao @date 2018年6月19日 下午10:54:28 
