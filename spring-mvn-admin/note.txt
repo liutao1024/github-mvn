@@ -138,4 +138,7 @@ socket通讯时,消息进到SocketHandlerImpl.callInterface就停滞了,还有�
 	
 将所有的项目中test的类注释掉并且每个项目各自打成jar,最后在web项目中执行mvn clean install 及最后形成的war包,放在tomcat
 下是可以被加载出来的,	
-		
+	
+经过以上的修改后,linux系统下通过git下拉的代码直接在spring-mvn-admin的目录中执行mvn clean install就生成了spring-mvn-web.war包
+	此包应该可以直接扔到tomcat的webapp下启动tomcat即可,(未验证)打开这个包里面有上级的几个jar包,
+	这样的代价是所有Test类均被屏蔽了,都设置成了skinp的为什么在打包时报org.JUnit.Test不存在
