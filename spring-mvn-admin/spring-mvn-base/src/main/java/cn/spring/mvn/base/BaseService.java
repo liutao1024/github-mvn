@@ -9,7 +9,7 @@ import cn.spring.mvn.base.util.BaseUtilHqlFilter;
 
 /**
  * @author LiuTao @date 2018年5月24日 下午5:32:32
- * @ClassName: CommService 
+ * @ClassName: BaseService 
  * @Description: TODO(Service类最基础的增删查改) 
  * @param <T>
  */

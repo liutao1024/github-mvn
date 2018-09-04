@@ -63,4 +63,60 @@ public class SystemSequence implements Serializable{
 	public void setSequenceStep(int sequenceStep) {
 		this.sequenceStep = sequenceStep;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((sequenceBegin == null) ? 0 : sequenceBegin.hashCode());
+		result = prime * result
+				+ ((sequenceEnd == null) ? 0 : sequenceEnd.hashCode());
+		result = prime * result
+				+ ((sequenceMiddle == null) ? 0 : sequenceMiddle.hashCode());
+		result = prime * result + sequenceStep;
+		result = prime * result
+				+ ((sequenceType == null) ? 0 : sequenceType.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SystemSequence other = (SystemSequence) obj;
+		if (sequenceBegin == null) {
+			if (other.sequenceBegin != null)
+				return false;
+		} else if (!sequenceBegin.equals(other.sequenceBegin))
+			return false;
+		if (sequenceEnd == null) {
+			if (other.sequenceEnd != null)
+				return false;
+		} else if (!sequenceEnd.equals(other.sequenceEnd))
+			return false;
+		if (sequenceMiddle == null) {
+			if (other.sequenceMiddle != null)
+				return false;
+		} else if (!sequenceMiddle.equals(other.sequenceMiddle))
+			return false;
+		if (sequenceStep != other.sequenceStep)
+			return false;
+		if (sequenceType == null) {
+			if (other.sequenceType != null)
+				return false;
+		} else if (!sequenceType.equals(other.sequenceType))
+			return false;
+		return true;
+	}
+	@Override
+	public String toString() {
+		return "SystemSequence [sequenceType=" + sequenceType
+				+ ", sequenceBegin=" + sequenceBegin + ", sequenceMiddle="
+				+ sequenceMiddle + ", sequenceEnd=" + sequenceEnd
+				+ ", sequenceStep=" + sequenceStep + "]";
+	}
+	
 }

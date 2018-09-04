@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+
+
 //import cn.spring.mvn.comm.tools.SequenceTool;
 import cn.spring.mvn.comm.util.CommUtil;
-import cn.spring.mvn.core.entity.CustUser;
-import cn.spring.mvn.core.entity.service.CustUserService;
+import cn.spring.mvn.core.account.entity.CustUser;
+import cn.spring.mvn.core.account.entity.service.CustUserService;
 import cn.spring.mvn.web.entity.SysUser;
 /**
  * @author LiuTao @date 2018年6月9日 下午10:21:54

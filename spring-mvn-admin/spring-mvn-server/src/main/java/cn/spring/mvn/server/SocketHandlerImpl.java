@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import cn.spring.mvn.base.entity.SystemTransaction;
 import cn.spring.mvn.base.tools.BaseTool;
 import cn.spring.mvn.comm.tools.SequenceTool;
 import cn.spring.mvn.comm.util.CommUtil;
@@ -109,8 +110,13 @@ public class SocketHandlerImpl {
 				Map<String, Object> rstMap = new HashMap<String, Object>();//调用接口后得到的map
 				//根据接口类型(asktyp)选择返回接口response的抓成方式
 				try {
-					//根据请求中comm中的corecd在交易定义表sys_
-					
+					/**
+					 * 根据请求中comm中的corecd+asktyp在交易定义表sys_transaction中查询是否存在,
+					 * 	1.存在,有且只有一条(主键)根据交易码获得是否执行标志transactionMark,
+					 * 		判断后反编译执行 transactionModule+transactionMethod
+					 * 	2.不存在,返回错误信息
+					 */
+//					SystemTransaction systemTransaction = 
 					
 					rstMap = CoreServerImpl.openAccount(corpno, (String) requestDataMap.get("idtftp"), (String) requestDataMap.get("idtfno"), (String) requestDataMap.get("custna"));
 //					rstMap.put("custno", SequenceTool.getSequence("USER"));

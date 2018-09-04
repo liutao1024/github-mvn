@@ -15,7 +15,7 @@ import org.dom4j.io.SAXReader;
 
 import cn.spring.mvn.server.tools.RequestMap;
 import cn.spring.mvn.base.util.BaseUtil;
-import cn.spring.mvn.core.entity.CustUser;
+import cn.spring.mvn.core.account.entity.CustUser;
 
 import com.alibaba.fastjson.JSONObject;
 

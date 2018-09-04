@@ -18,7 +18,7 @@ import cn.spring.mvn.base.util.BaseUtilHqlFilter;
 
 
 @Service
-@Repository("CommService")
+@Repository("BaseService")
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class BaseServiceImpl<T> implements BaseService<T>{
 	/**
@@ -39,7 +39,7 @@ public class BaseServiceImpl<T> implements BaseService<T>{
 	private Boolean booleanFour;
 	
 	@Autowired
-	private BaseDao<T> commDaoImpl;
+	private BaseDao<T> baseDaoImpl;
 	/**
 	 * <p>Title: </p> 
 	 * <p>Description: 构造函数</p>
@@ -52,7 +52,7 @@ public class BaseServiceImpl<T> implements BaseService<T>{
 	
 	@Override
 	public Dialect getDialect() {
-		return this.commDaoImpl.getDialect();
+		return this.baseDaoImpl.getDialect();
 	}
 	@Override
 	public boolean isMySQL() {
@@ -109,52 +109,52 @@ public class BaseServiceImpl<T> implements BaseService<T>{
 	//
 	@Override
 	public T saveEntity(T entity) throws Exception {
-		return commDaoImpl.saveEntity(entity);
+		return baseDaoImpl.saveEntity(entity);
 	}
 	@Override
 	public List<T> saveEntities(List<T> entities) throws Exception {
-		return commDaoImpl.saveEntities(entities);
+		return baseDaoImpl.saveEntities(entities);
 	}
 	@Override
 	public void saveOrUpdate(T entity) {
-		this.commDaoImpl.saveOrUpdate(entity);
+		this.baseDaoImpl.saveOrUpdate(entity);
 	}
 	@Override
 	public void deleteEntity(T entity) {
-		commDaoImpl.deleteEntity(entity);
+		baseDaoImpl.deleteEntity(entity);
 	}
 	@Override
 	public void deleteEntities(List<T> entities) {
-		commDaoImpl.deleteEntities(entities);
+		baseDaoImpl.deleteEntities(entities);
 	}
 	@Override
 	public T selectOneEntity(T entity) {
 		String entityName = entity.getClass().getSimpleName();
 		Map<String, Object> paramMap = BaseUtil.getParamMapWithOutNullValueByReflectObject(entity);
 		String hqlStr = BaseUtil.getSqlStrByEntityNameAndParamMap(entityName, paramMap);
-		return commDaoImpl.findOneByHqlParamMap(hqlStr, paramMap);
+		return baseDaoImpl.findOneByHqlParamMap(hqlStr, paramMap);
 	}
 	@Override
 	public List<T> selectAllEntities(T entity) {
 		String entityName = entity.getClass().getSimpleName();
 		Map<String, Object> paramMap = BaseUtil.getParamMapWithOutNullValueByReflectObject(entity);
 		String hqlStr = BaseUtil.getSqlStrByEntityNameAndParamMap(entityName, paramMap);
-		return commDaoImpl.findAllByHqlParamMap(hqlStr, paramMap);
+		return baseDaoImpl.findAllByHqlParamMap(hqlStr, paramMap);
 	}
 	@Override
 	public List<T> selectAllEntitiesWihtPageSize(T entity, int page, int size) {
 		String entityName = entity.getClass().getSimpleName();
 		Map<String, Object> paramMap = BaseUtil.getParamMapWithOutNullValueByReflectObject(entity);
 		String hqlStr = BaseUtil.getSqlStrByEntityNameAndParamMap(entityName, paramMap);
-		return commDaoImpl.findAllByHqlParamMapPageSize(hqlStr, paramMap, page, size);
+		return baseDaoImpl.findAllByHqlParamMapPageSize(hqlStr, paramMap, page, size);
 	}
 	@Override
 	public void updateEntity(T entity) {
-		commDaoImpl.updateEntity(entity);
+		baseDaoImpl.updateEntity(entity);
 	}
 	@Override
 	public void updateEntities(List<T> entities) {
-		commDaoImpl.updateEntities(entities);
+		baseDaoImpl.updateEntities(entities);
 	}
 
 	
@@ -162,13 +162,13 @@ public class BaseServiceImpl<T> implements BaseService<T>{
 	public List<T> findByFilter(BaseUtilHqlFilter hqlFilter) {
 		String str1 = ((Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]).getName();
 		String str2 = "select distinct t from " + str1 + " t";
-		return commDaoImpl.findAllByHqlParamMap(str2 + hqlFilter.getWhereAndOrderHql(), hqlFilter.getParams());
+		return baseDaoImpl.findAllByHqlParamMap(str2 + hqlFilter.getWhereAndOrderHql(), hqlFilter.getParams());
 	}
 	@Override
 	public List<T> findByFilter(BaseUtilHqlFilter hqlFilter, int page, int size) {
 		String str1 = ((Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]).getName();
 		String str2 = "select distinct t from " + str1 + " t";
-		return commDaoImpl.findAllByHqlParamMapPageSize(str2 + hqlFilter.getWhereAndOrderHql(), hqlFilter.getParams(), page, size);
+		return baseDaoImpl.findAllByHqlParamMapPageSize(str2 + hqlFilter.getWhereAndOrderHql(), hqlFilter.getParams(), page, size);
 	}
 	
 	@Override
@@ -177,11 +177,11 @@ public class BaseServiceImpl<T> implements BaseService<T>{
 	}
 	@Override
 	public void commit() {
-		this.commDaoImpl.commit();
+		this.baseDaoImpl.commit();
 	}
 	@Override
 	public void rollback() {
-		this.commDaoImpl.rollback();
+		this.baseDaoImpl.rollback();
 	}
 
 	
@@ -191,7 +191,7 @@ public class BaseServiceImpl<T> implements BaseService<T>{
 		String entityName = entity.getClass().getSimpleName();
 		Map<String, Object> paramMap = BaseUtil.getParamMapWithOutNullValueByReflectObject(entity);
 		String hqlStr = BaseUtil.getSqlStrByEntityNameAndParamMap(entityName, paramMap);
-		return commDaoImpl.countByHqlParamMap(hqlStr, paramMap);
+		return baseDaoImpl.countByHqlParamMap(hqlStr, paramMap);
 	}
 
 	@Override
@@ -201,30 +201,30 @@ public class BaseServiceImpl<T> implements BaseService<T>{
 	
 	@Override
 	public List<T> findAllByHql(String hqlStr) {
-		return commDaoImpl.findAllByHql(hqlStr);
+		return baseDaoImpl.findAllByHql(hqlStr);
 	}
 	@Override
 	public T findOneByHql(String hqlStr) {
-		return commDaoImpl.findOneByHql(hqlStr);
+		return baseDaoImpl.findOneByHql(hqlStr);
 	}
 
 
 	@Override
 	public List<T> findAllBySql(String sqlStr) {
-		return (List<T>) commDaoImpl.findAllBySql(sqlStr);
+		return (List<T>) baseDaoImpl.findAllBySql(sqlStr);
 	}
 	/**
 	 * @author LiuTao 
 	 */
 	@Override
 	public T findOneBySql(String sqlStr) {
-		return commDaoImpl.findOneBySql(sqlStr);
+		return baseDaoImpl.findOneBySql(sqlStr);
 	}
 	
 	@Override
 	public List<T> findAll(T entity){
 		String hqlStr = "from " + entity.getClass().getSimpleName() ;
-		return commDaoImpl.findAllByHql(hqlStr);
+		return baseDaoImpl.findAllByHql(hqlStr);
 	}
 	
 	@Override
@@ -232,7 +232,7 @@ public class BaseServiceImpl<T> implements BaseService<T>{
 		String entityName = entity.getClass().getSimpleName();
 		Map<String, Object> paramMap = BaseUtil.getParamMapWithOutNullValueByReflectObject(entity);
 		String hqlStr = BaseUtil.getSqlStrByEntityNameAndParamMap(entityName, paramMap);
-		return commDaoImpl.findAllByHqlParamMap(hqlStr, paramMap);
+		return baseDaoImpl.findAllByHqlParamMap(hqlStr, paramMap);
 	}
 	
 	/**
@@ -264,20 +264,20 @@ public class BaseServiceImpl<T> implements BaseService<T>{
 		String entityName = entity.getClass().getSimpleName();
 		Map<String, Object> paramMap = BaseUtil.getParamMapWithOutNullValueByReflectObject(entity);
 		String hqlStr = BaseUtil.getSqlStrByEntityNameAndParamMap(entityName, paramMap);
-		return commDaoImpl.findAllByHqlParamMapPageSize(hqlStr, paramMap, page, size);
+		return baseDaoImpl.findAllByHqlParamMapPageSize(hqlStr, paramMap, page, size);
 	}
 
 
 	@Override
 	public List<T> findAllByHqlPageSize(String hqlStr, int page, int size) {
-		List<T> list = commDaoImpl.findAllByHqlPageSize(hqlStr, page, size);
+		List<T> list = baseDaoImpl.findAllByHqlPageSize(hqlStr, page, size);
 		return list;
 	}
 
 
 	@Override
 	public List<T> findAllBySqlPageSize(String sqlStr, int page, int size) {
-		return (List<T>) commDaoImpl.findAllBySqlPageSize(sqlStr, page, size);
+		return (List<T>) baseDaoImpl.findAllBySqlPageSize(sqlStr, page, size);
 	}
 	
 	@Override

@@ -1,4 +1,4 @@
-package cn.spring.mvn.core.entity;
+package cn.spring.mvn.core.account.entity;
 
 import java.io.Serializable;
 

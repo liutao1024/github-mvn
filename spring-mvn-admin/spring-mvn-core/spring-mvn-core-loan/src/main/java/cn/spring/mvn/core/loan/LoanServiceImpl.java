@@ -4,7 +4,7 @@ package cn.spring.mvn.core.loan;
  * Hello world!
  *
  */
-public class Loan {
+public class LoanServiceImpl {
 	public static void main(String[] args) {
 		System.out.println("Hello World!");
 	}

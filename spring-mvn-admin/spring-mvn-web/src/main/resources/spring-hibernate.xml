@@ -13,8 +13,7 @@
 
 
 	<!-- 配置数据源 c3p0 -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		destroy-method="close">
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="${jdbc.driver}" />
 		<property name="jdbcUrl" value="${jdbc.url}" />
 		<property name="user" value="${jdbc.username}" />
@@ -56,7 +55,7 @@
 		</property>
 		<!-- 扫描hibernate注解配置的entity -->
 		<property name="packagesToScan" value="cn.spring.mvn.base.entity,
-											   cn.spring.mvn.core.entity,
+											   cn.spring.mvn.core.*.entity,
 											   cn.spring.mvn.batch.entity,
 											   cn.spring.mvn.web.entity" />
 	</bean>

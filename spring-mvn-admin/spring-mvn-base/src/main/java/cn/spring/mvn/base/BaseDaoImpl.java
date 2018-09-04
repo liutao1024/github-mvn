@@ -22,7 +22,7 @@ import cn.spring.mvn.base.util.BaseUtilNullValue;
 import cn.spring.mvn.base.util.BaseUtilResultTransFormer;
 
 
-@Repository("CommDao")
+@Repository("BaseDao")
 @SuppressWarnings({"unchecked", "rawtypes", "null"})
 public class BaseDaoImpl<T> implements BaseDao<T> {
 	/**@serialField 

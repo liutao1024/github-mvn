@@ -40,7 +40,7 @@ public interface SysUserRoleService extends BaseService<SysUserRole>{
 	/**
 	 * @author LiuTao @date 2018年5月26日 下午5:15:09 
 	 * @Title: queryEntitiesByParameterMap 
-	 * @Description: 通过参数查询List   已改写在CommDao里的接口
+	 * @Description: 通过参数查询List   已改写在BaseDao里的接口
 	 * @param parmMap
 	 * @return
 	 */

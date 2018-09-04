@@ -10,7 +10,7 @@ import org.hibernate.jdbc.ReturningWork;
 import org.hibernate.jdbc.Work;
 /**
  * @author LiuTao @date 2018年5月24日 下午5:31:46
- * @ClassName: CommDao 
+ * @ClassName: BaseDao 
  * @Description: TODO(Dao类最基础的增删查改) 
  * @param <T>
  */

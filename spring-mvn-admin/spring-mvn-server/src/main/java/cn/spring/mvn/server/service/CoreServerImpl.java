@@ -10,12 +10,12 @@ import cn.spring.mvn.base.util.BaseUtil;
 import cn.spring.mvn.comm.tools.SequenceTool;
 import cn.spring.mvn.comm.util.CommUtil;
 import cn.spring.mvn.comm.util.SpringContextUtil;
-import cn.spring.mvn.core.entity.CustAccount;
-import cn.spring.mvn.core.entity.CustElectron;
-import cn.spring.mvn.core.entity.CustUser;
-import cn.spring.mvn.core.entity.service.CustAccountService;
-import cn.spring.mvn.core.entity.service.CustElectronService;
-import cn.spring.mvn.core.entity.service.CustUserService;
+import cn.spring.mvn.core.account.entity.CustAccount;
+import cn.spring.mvn.core.account.entity.CustElectron;
+import cn.spring.mvn.core.account.entity.CustUser;
+import cn.spring.mvn.core.account.entity.service.CustAccountService;
+import cn.spring.mvn.core.account.entity.service.CustElectronService;
+import cn.spring.mvn.core.account.entity.service.CustUserService;
 
 public class CoreServerImpl {
 	private static ApplicationContext applicationContext = SpringContextUtil.getApplicationContext();
