@@ -7,7 +7,7 @@
     <!-- default-autowire="byName" default-lazy-init="false"此两个值可以不配置 -->  
     <description>Quartz Job Setting</description>  
   	<!-- A.配置调度的任务对应bean的id和自定义class-->  
- 	<bean id="batchQuartz" class="cn.spring.mvc.batch.task.BatchInitializer" />  
+ 	<bean id="batchQuartz" class="cn.spring.mvn.batch.task.BatchInitializer" />  
   	<!-- B.配置调度任务对应的bean的id和执行的方法,作业不并发调度-->  
  	<bean id="batchDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
     	<property name="targetObject" ref="batchQuartz" />  
@@ -26,7 +26,7 @@
   	
   	<!-- 将服务器的启动配置成一个定时任务在一份钟开始的时候启动,且只启动一次 -->
   	<!-- 
-  	<bean id="serverQuartz" class="cn.spring.mvc.batch.task.BatchInitializer" />  
+  	<bean id="serverQuartz" class="cn.spring.mvn.batch.task.BatchInitializer" />  
  	<bean id="serverDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
     	<property name="targetObject" ref="serverQuartz" />  
     	<property name="targetMethod" value="initializeBatch" />  

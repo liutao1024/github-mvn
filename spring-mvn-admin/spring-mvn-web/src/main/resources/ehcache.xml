@@ -14,7 +14,7 @@
 		overflowToDisk="true" memoryStoreEvictionPolicy="LRU">
 	</defaultCache>
 	<!-- Special objects setting. -->
-	<cache name="cn.spring.mvc.web.entity.*" maxElementsInMemory="2"
+	<cache name="cn.spring.mvn.web.entity.*" maxElementsInMemory="2"
 		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false"
 		overflowToDisk="false" maxElementsOnDisk="1000000" />
 

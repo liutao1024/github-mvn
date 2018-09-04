@@ -55,10 +55,10 @@
 			</props>
 		</property>
 		<!-- 扫描hibernate注解配置的entity -->
-		<property name="packagesToScan" value="cn.spring.mvc.base.entity,
-											   cn.spring.mvc.core.entity,
-											   cn.spring.mvc.batch.entity,
-											   cn.spring.mvc.web.entity" />
+		<property name="packagesToScan" value="cn.spring.mvn.base.entity,
+											   cn.spring.mvn.core.entity,
+											   cn.spring.mvn.batch.entity,
+											   cn.spring.mvn.web.entity" />
 	</bean>
 
 	<!-- 配置事务管理器 -->
@@ -97,13 +97,13 @@
 	<aop:config>
 		<!-- 配置切入点 -->
 		<!-- 第一个*代表所有的返回值类型;第二个*代表所有的类;第三个*代表类所有方法;..代表子或者孙子包;最后一个..代表所有的参数 -->
-		<aop:pointcut id="transactionPointcut" expression="execution(* cn.spring.mvc..*Impl.*(..))" />
+		<aop:pointcut id="transactionPointcut" expression="execution(* cn.spring.mvn..*Impl.*(..))" />
 					<!-- 对expression值的说明 : 路径下需要包含所有service和dao包
 											   因为他们的实现(impl)下需要获取事务处理(sessionFactory)变量
 											   由于不知道怎么配置多个源就只有这样配置,但是感觉说会不会对性能有影响呢一下扫描那么多的文件
 											  这些impl包下的东西都是需要访问数据库的注册成事务,又便于事务提交的  -->
 		<!-- 指定在txAdvice切入点应用txAdvice事务增强处理 -->
 		<aop:advisor advice-ref="transactionAdvice" pointcut-ref="transactionPointcut" /> 
-		<!-- <aop:advisor advice-ref="transactionAdvice" pointcut-ref="execution cn.spring.mvc.web.entity.service..*Impl.*(..))"/> -->
+		<!-- <aop:advisor advice-ref="transactionAdvice" pointcut-ref="execution cn.spring.mvn.web.entity.service..*Impl.*(..))"/> -->
 	</aop:config>
 </beans>
