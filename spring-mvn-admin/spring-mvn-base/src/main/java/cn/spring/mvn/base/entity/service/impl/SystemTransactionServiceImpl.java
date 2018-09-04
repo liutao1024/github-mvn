@@ -17,7 +17,7 @@ public class SystemTransactionServiceImpl extends BaseServiceImpl<SystemTransact
 		SystemTransaction transaction  = null;
 		String hqlStr = "from SystemTransaction where transactionCode = '" + corecd + "' and transactionType = '" + trantp + "'";
 		List<SystemTransaction> list = this.findAllByHql(hqlStr);
-		if(BaseUtil.isNotNull(list)){
+		if(BaseUtil.isNotNull(list) && list.size() > 0){
 			transaction = list.get(0);
 		}
 		return transaction;

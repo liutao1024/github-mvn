@@ -1,4 +1,4 @@
-package cn.spring.mvn.admin.test;
+package cn.spring.mvn.server;
 
 import java.io.File;
 import java.util.ArrayList;

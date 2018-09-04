@@ -18,7 +18,7 @@
 		包括comm下的CommDao,CommServiceImpl,以及各模块下的Impl
 	 -->
 	<!-- 将SpringContextUtil交给spring管理 20180823pm@22:47 -->
-	<bean id="springContextUtil" class="cn.spring.mvn.comm.util.SpringContextUtil" scope="singleton"></bean>	
+	<bean id="SpringContextUtil" class="cn.spring.mvn.comm.util.SpringContextUtil" scope="singleton"></bean>	
 	<!-- <bean id="coreServerImpl" class="cn.spring.mvn.server.service.CoreServerImpl"></bean> -->
 	
 	<!-- 将SocketManager交给spring管理,在Spring容器启动时,启动服务器类 -->

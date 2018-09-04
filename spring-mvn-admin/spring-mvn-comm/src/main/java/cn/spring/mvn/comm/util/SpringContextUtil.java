@@ -8,8 +8,8 @@ import org.springframework.context.ApplicationContextAware;
 @SuppressWarnings({"static-access", "rawtypes", "unchecked" })
 public class SpringContextUtil implements ApplicationContextAware{
 
-	private static ApplicationContext applicationContext;// Spring应用上下文环境
-	//下面的这个方法上加了@Override注解，原因是继承ApplicationContextAware接口是必须实现的方法
+	protected static ApplicationContext applicationContext;// Spring应用上下文环境
+	//下面的这个方法上加了@Override注解,原因是继承ApplicationContextAware接口是必须实现的方法
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;

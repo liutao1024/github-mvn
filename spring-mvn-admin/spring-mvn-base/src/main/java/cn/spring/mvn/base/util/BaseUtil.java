@@ -363,6 +363,24 @@ public class BaseUtil {
 		return !isNull(object);
 	}
 	/**
+	 * @author LiuTao @date 2018年5月22日 下午9:48:39 
+	 * @Title: equal 
+	 * @Description: TODO(判断对象是否是同一个对象) 
+	 * @param objectOne
+	 * @param objectTwo
+	 * @return
+	 */
+	public static boolean equal(Object objectOne, Object objectTwo) {
+		boolean rstBoolean = false;
+		if(objectOne == objectTwo){//是否同一对象
+			rstBoolean = true;
+		}else if(objectOne.equals(objectTwo)){//值是否相等
+			rstBoolean = true;
+		}
+		return rstBoolean;
+	}
+	
+	/**
 	 * @author LiuTao @date 2018年5月26日 下午9:18:06 
 	 * @Title: dealWith 
 	 * @Description: 若srcStr是以headStr开头的将开头的headStr去掉返回
@@ -376,4 +394,6 @@ public class BaseUtil {
 		}
 		return srcStr;
 	}
+	
+	
 }

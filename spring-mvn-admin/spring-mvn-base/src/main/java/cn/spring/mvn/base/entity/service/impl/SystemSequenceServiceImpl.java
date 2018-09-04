@@ -17,7 +17,7 @@ public class SystemSequenceServiceImpl extends BaseServiceImpl<SystemSequence> i
 		SystemSequence sequence  = null;
 		String hqlStr = "from SystemSequence where sequencetype = '" + sequenceType + "'";
 		List<SystemSequence> list = this.findAllByHql(hqlStr);
-		if(BaseUtil.isNotNull(list)){
+		if(BaseUtil.isNotNull(list) && list.size() > 0){
 			sequence = list.get(0);
 		}
 		return sequence;

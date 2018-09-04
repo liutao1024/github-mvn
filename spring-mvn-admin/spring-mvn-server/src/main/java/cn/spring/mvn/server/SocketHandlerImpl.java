@@ -4,10 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import cn.spring.mvn.base.entity.SystemTransaction;
+import cn.spring.mvn.base.entity.service.SystemTransactionService;
+import cn.spring.mvn.base.entity.service.impl.SystemTransactionServiceImpl;
+import cn.spring.mvn.base.tools.BaseReflection;
 import cn.spring.mvn.base.tools.BaseTool;
 import cn.spring.mvn.comm.tools.SequenceTool;
 import cn.spring.mvn.comm.util.CommUtil;
+import cn.spring.mvn.comm.util.SpringContextUtil;
+import cn.spring.mvn.core.account.AccountServiceImpl;
 import cn.spring.mvn.server.service.CoreServerImpl;
 import cn.spring.mvn.server.tools.ServerTool;
 
@@ -18,10 +25,11 @@ import cn.spring.mvn.server.tools.ServerTool;
  * 接口定义表字段:交易码,交易所在类,交易对应方法.....
  * 交易记录表字段:交易码,执行时间,执行结果,信息,输入报文,输出报文
  */
-@SuppressWarnings({ "unchecked", "unused" })
+@SuppressWarnings({"unchecked", "unused", "rawtypes"})
 public class SocketHandlerImpl {
 	private static String ERROR = "ERROR";
 	private static String SUCCESS = "SUCCESS";
+	private static SystemTransactionService systemTransactionServiceImpl = (SystemTransactionService) SpringContextUtil.getBean("SystemTransactionService");
 	
 	public static String callInterface(String jsonStr){
 		String returnString = "";
@@ -116,18 +124,30 @@ public class SocketHandlerImpl {
 					 * 		判断后反编译执行 transactionModule+transactionMethod
 					 * 	2.不存在,返回错误信息
 					 */
-//					SystemTransaction systemTransaction = 
-					
-					rstMap = CoreServerImpl.openAccount(corpno, (String) requestDataMap.get("idtftp"), (String) requestDataMap.get("idtfno"), (String) requestDataMap.get("custna"));
-//					rstMap.put("custno", SequenceTool.getSequence("USER"));
-					if("Q".equals(asktyp)){//Q 
-						responseDataMap.put("count", rstMap.size());
-						responseDataMap.put("data", rstMap);
-					}else {//D
-						responseDataMap.put("data", rstMap);
+					SystemTransaction systemTransaction = systemTransactionServiceImpl.selectOne(corecd, asktyp);
+					if(CommUtil.isNotNull(systemTransaction) && "YES".equals(systemTransaction.getRunmak())){
+						String module = systemTransaction.getModule();
+						String eclass = systemTransaction.getEclass();
+						String method = systemTransaction.getMethod();
+						String className = "cn.spring.mvn." + module + "." + eclass;
+						String methodName = method;
+						Class[] classes = {};//接口的输入输出都需要封装成类 input.class,output.class
+						Object[] objects = {};//input output
+						BaseReflection.executeMethodByClassNameAndMethodName(className, methodName, classes, objects);
+//						rstMap = AccountServiceImpl.queryCustUser("01", "", "测试");
+//						rstMap = CoreServerImpl.openAccount(corpno, (String) requestDataMap.get("idtftp"), (String) requestDataMap.get("idtfno"), (String) requestDataMap.get("custna"));
+//						rstMap.put("custno", SequenceTool.getSequence("USER"));
+						if("Q".equals(asktyp)){//Q 
+							responseDataMap.putAll(rstMap);
+						}else {//D
+							responseDataMap.put("data", rstMap);
+						}
+						responseStatus = SUCCESS;
+						responseMesage = "请求成功";
+					}else {
+						responseStatus = ERROR;
+						responseMesage = "表[sys_transaction],无对应记录!";
 					}
-					responseStatus = SUCCESS;
-					responseMesage = "请求成功";
 					responseCommMap.put("corecd", corecd);
 					responseCommMap.put("asktyp", asktyp);
 					responseCommMap.put("status", responseStatus);
