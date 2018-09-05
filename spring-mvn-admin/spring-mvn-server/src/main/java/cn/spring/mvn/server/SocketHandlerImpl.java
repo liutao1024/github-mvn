@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.spring.mvn.core.account.ObjectToMapTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.spring.mvn.base.entity.SystemTransaction;
@@ -11,10 +12,13 @@ import cn.spring.mvn.base.entity.service.SystemTransactionService;
 import cn.spring.mvn.base.entity.service.impl.SystemTransactionServiceImpl;
 import cn.spring.mvn.base.tools.BaseReflection;
 import cn.spring.mvn.base.tools.BaseTool;
+import cn.spring.mvn.base.util.BaseUtil;
 import cn.spring.mvn.comm.tools.SequenceTool;
 import cn.spring.mvn.comm.util.CommUtil;
 import cn.spring.mvn.comm.util.SpringContextUtil;
 import cn.spring.mvn.core.account.AccountServiceImpl;
+import cn.spring.mvn.core.account.Myinput;
+import cn.spring.mvn.core.account.Myoutput;
 import cn.spring.mvn.server.service.CoreServerImpl;
 import cn.spring.mvn.server.tools.ServerTool;
 
@@ -131,9 +135,12 @@ public class SocketHandlerImpl {
 						String method = systemTransaction.getMethod();
 						String className = "cn.spring.mvn." + module + "." + eclass;
 						String methodName = method;
-						Class[] classes = {};//接口的输入输出都需要封装成类 input.class,output.class
-						Object[] objects = {};//input output
+						Class[] classes = {Myinput.class, Myoutput.class};//接口的输入输出都需要封装成类 input.class,output.class
+						Myinput input = new Myinput();
+						Myoutput output = new Myoutput();
+						Object[] objects = {input, output};//input output
 						BaseReflection.executeMethodByClassNameAndMethodName(className, methodName, classes, objects);
+						rstMap = BaseUtil.objectToMap(output);
 //						rstMap = AccountServiceImpl.queryCustUser("01", "", "测试");
 //						rstMap = CoreServerImpl.openAccount(corpno, (String) requestDataMap.get("idtftp"), (String) requestDataMap.get("idtfno"), (String) requestDataMap.get("custna"));
 //						rstMap.put("custno", SequenceTool.getSequence("USER"));

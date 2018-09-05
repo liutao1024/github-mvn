@@ -4,11 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import cn.spring.mvn.base.tools.BaseReflection;
 import cn.spring.mvn.batch.QuartzManager;
 import cn.spring.mvn.batch.entity.SystemBatchTimeDispathControl;
 import cn.spring.mvn.batch.entity.service.SystemBatchTaskDispathControlService;
 import cn.spring.mvn.batch.entity.service.SystemBatchTimeDispathControlService;
-import cn.spring.mvn.batch.tools.BatchTools;
+//import cn.spring.mvn.batch.tools.BatchTools;
 /**
  * @author LiuTao @date 2018年6月2日 下午5:21:19
  * @ClassName: BatchJob 
@@ -76,7 +77,7 @@ public class BatchInitializer{
 					(day == null ? "*":day) +" "+ (month == null ? "":month) +" "+ (week == null ? "":week) +" "+ (year == null ? "*":year);
 			cron = "0/30 * * * * ?";//每分钟的每15秒执行一次  ----具体的cron配置不太会要看一看
 			try {
-				Class jobClass = BatchTools.getClassByClassName(className);
+				Class jobClass = BaseReflection.getClassByClassName(className);
 				QuartzManager.addOrModifyJobByCron(jobClass, jobName, jobGroupName, triggerGroupName, triggerGroupNumber, cron);
 				// TODO:登记成功信息
 			} catch (Exception e) {

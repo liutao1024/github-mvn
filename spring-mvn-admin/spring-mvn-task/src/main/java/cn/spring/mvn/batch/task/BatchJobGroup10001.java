@@ -12,12 +12,13 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import cn.spring.mvn.base.tools.BaseReflection;
 import cn.spring.mvn.batch.BatchManger;
 import cn.spring.mvn.batch.entity.SystemBatchTaskDispathControl;
 import cn.spring.mvn.batch.entity.SystemBatchTimeTaskDispathResult;
 import cn.spring.mvn.batch.entity.service.SystemBatchTaskDispathControlService;
 import cn.spring.mvn.batch.entity.service.SystemBatchTimeTaskDispathResultService;
-import cn.spring.mvn.batch.tools.BatchTools;
+//import cn.spring.mvn.batch.tools.BatchTools;
 
 @SuppressWarnings("rawtypes")
 public class BatchJobGroup10001 extends BatchManger implements Job{
@@ -109,7 +110,7 @@ public class BatchJobGroup10001 extends BatchManger implements Job{
 			Class[] classes = {};
 			Object[] objects = {};
 			try {
-				BatchTools.executeMethodByClassNameAndMethodName(jobClassName, jobMethodName, classes, objects);
+				BaseReflection.executeMethodByClassNameAndMethodName(jobClassName, jobMethodName, classes, objects);
 				// TODO:登记执行成功信息
 				status = "SUCCESS";//jobDataMap.getString("STATUS");
 			} catch (Exception e) {

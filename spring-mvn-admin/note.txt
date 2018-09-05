@@ -143,4 +143,6 @@ socket通讯时,消息进到SocketHandlerImpl.callInterface就停滞了,还有�
 	此包应该可以直接扔到tomcat的webapp下启动tomcat即可,(未验证)打开这个包里面有上级的几个jar包,
 	这样的代价是所有Test类均被屏蔽了,都设置成了skinp的为什么在打包时报org.JUnit.Test不存在
 	
-发现个BUG页面上修改cust_user时custno会修改
+发现个BUG页面上修改cust_user时custno会修改 √
+
+根据xml文件自动生成interface类 sunline是用的IDE的插件是否可以找到相同的插件

@@ -31,7 +31,7 @@ public class AccountServiceImpl extends SpringContextUtil {
 	 * @param custna
 	 * @return
 	 */
-	public static Map<String, Object> queryCustUser(String idtftp, String idtfno, String custna){
+	public static Map<String, Object> queryCustUserOne(String idtftp, String idtfno, String custna){
 		Map<String, Object> rstMap = new HashMap<String, Object>();
 		String hqlStr = "from CustUser where 1 = 1";
 		String appendStr = "";
@@ -51,5 +51,34 @@ public class AccountServiceImpl extends SpringContextUtil {
 		rstMap.put("count", custUserList.size());
 		rstMap.put("data", custUserList);
 		return rstMap;
+	}
+	/**
+	 * @author LiuTao @date 2018年9月5日 下午3:23:42 
+	 * @Title: queryCustUser 
+	 * @Description: TODO(Describe) 
+	 * @param idtftp
+	 * @param idtfno
+	 * @param custna
+	 * @return 
+	 * @return
+	 */
+	public static void queryCustUser(Myinput input, Myoutput output){
+		String hqlStr = "from CustUser where 1 = 1";
+		String appendStr = "";
+		if(CommUtil.isNotNull(input.getIdtptf())){
+			appendStr += " and idtftp = '" + input.getIdtptf() + "'";
+		}
+		if(CommUtil.isNotNull(input.getIdtfno())){
+			appendStr += " and idtfno = '" + input.getIdtfno() + "'";
+		}
+		if(CommUtil.isNotNull(input.getCustna())){
+			appendStr += " and custna like '%" + input.getCustna() + "%'";
+		}
+		if(CommUtil.isNotNull(appendStr)){
+			hqlStr = hqlStr + appendStr;
+		}
+		List<CustUser> custUserList = custUserServiceImpl.findAllByHql(hqlStr);
+		output.setCount(custUserList.size());
+		output.setData(custUserList);
 	}
 }
