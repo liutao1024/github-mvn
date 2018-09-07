@@ -16,6 +16,7 @@
  	<spring.version>5.0.8.RELEASE</spring.version><!-- jdk1.8需要srping4.0以上才支持 --> 
     <jersey-spring.version>2.23.1</jersey-spring.version> 
     <javax.servlet.api.version>4.0.1</javax.servlet.api.version> 
+    <servlet.api.version>3.0-alpha-1</servlet.api.version>
 	<hibernate.version>5.3.6.Final</hibernate.version>
 	<jackson.version>2.5.0</jackson.version>
 	<logback.version>1.1.1</logback.version> 
@@ -39,6 +40,12 @@
 	    <artifactId>javax.servlet-api</artifactId>
 	    <version>${javax.servlet.api.version}</version>
 	    <scope>provided</scope>
+	</dependency>
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>servlet-api</artifactId>
+		<version>${servlet.api.version}</version>
+		<scope>provided</scope>
 	</dependency>
     <!-- 注入DBCPJDBC依赖 -->
 	<dependency>  
