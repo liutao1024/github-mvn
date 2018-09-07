@@ -16,6 +16,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
+	<!-- org.apache.xmlbeans/xmlbeans/2.6.0 XmlBeans maven依赖 -->
+	<dependency>
+	    <groupId>org.apache.xmlbeans</groupId>
+	    <artifactId>xmlbeans</artifactId>
+	    <version>3.0.1</version>
+	</dependency>
     <dependency>
     	<groupId>spring</groupId>
     	<artifactId>spring-mvn-base</artifactId>

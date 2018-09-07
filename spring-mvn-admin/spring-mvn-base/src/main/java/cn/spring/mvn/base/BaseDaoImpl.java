@@ -23,7 +23,7 @@ import cn.spring.mvn.base.util.BaseUtilResultTransFormer;
 
 
 @Repository("BaseDao")
-@SuppressWarnings({"unchecked", "rawtypes", "null"})
+@SuppressWarnings({"unchecked", "rawtypes", "null", "deprecation"})
 public class BaseDaoImpl<T> implements BaseDao<T> {
 	/**@serialField 
 	 * 获取数据库连接
