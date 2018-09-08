@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Modifying;
+//import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -23,7 +23,7 @@ public interface SifSysParaRepository extends JpaRepository<SifSysPara, String>,
 	 * 根据注册机构号，切换对应系统的日期到下一日期
 	 * @param registerCd
 	 */
-	@Modifying
+//	@Modifying
 	@Query(value = "update SifSysPara para set para.lastSysDt = :lastSysDt,para.sysDt = :sysDt where para.registerCd = :registerCd")
 	public int switchSysDate(@Param("registerCd")String registerCd, @Param("lastSysDt")Date lastSysDt, @Param("sysDt")Date sysDt);
 	

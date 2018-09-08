@@ -14,15 +14,15 @@
   <name>spring-mvn-web Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <properties>
-    <jcloverslf4j.version>1.7.6</jcloverslf4j.version>
-    <jstl.version>1.2</jstl.version>
+    <!-- <jcloverslf4j.version>1.7.6</jcloverslf4j.version> -->
+    <!-- <jstl.version>1.2</jstl.version> -->
   </properties>
   
   <dependencies>
 	<dependency>
 		<groupId>javax.servlet</groupId>
 		<artifactId>jstl</artifactId>
-		<version>${jstl.version}</version>
+		<version>1.2</version>
 	</dependency>
 	<!-- 添加Spring依赖开始 -->
 	<dependency>

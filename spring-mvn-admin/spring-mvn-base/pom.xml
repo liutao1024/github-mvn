@@ -20,7 +20,7 @@
 	<dependency>
 	    <groupId>org.springframework.data</groupId>
 	    <artifactId>spring-data-jpa</artifactId>
-	    <version>2.0.9.RELEASE</version>
+	    <version>2.0.8.RELEASE</version><!-- 最新版本报错由于运行时解不开jar包 -->
 	</dependency>
   </dependencies>
 </project>
