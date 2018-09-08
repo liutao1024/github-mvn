@@ -1,11 +1,9 @@
 package cn.spring.mvn.web.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import cn.spring.mvn.comm.tools.MD5Tool;
 import cn.spring.mvn.comm.util.CommUtil;
-import cn.spring.mvn.comm.util.SpringContextUtil;
 import cn.spring.mvn.web.entity.SysUser;
 import cn.spring.mvn.web.entity.service.SysUserService;
 
@@ -36,20 +33,6 @@ public class LoginController {
 	 */
 	@RequestMapping(value="/reset")
 	public Map<String, Object> reset(@RequestBody SysUser sysUser) {
-		/**
-		 * 测试applicationContext 开始
-		 */
-		ApplicationContext applicationContext = SpringContextUtil.getApplicationContext();
-		SysUserService sysUserServiceImpl = (SysUserService) applicationContext.getBean(SysUserService.class);
-		SysUser entity = new SysUser();
-		List<SysUser> list = sysUserServiceImpl.findAll(entity);
-		for(SysUser user : list){
-			System.out.println("ddsad"+ user);
-		}
-		/**
-		 * 测试applicationContext 结束
-		 */
-		
 		Map<String, Object> resMap = new HashMap<String, Object>();//
 		String cropno = sysUser.getRegistCd();
 		String userid = sysUser.getUserid();

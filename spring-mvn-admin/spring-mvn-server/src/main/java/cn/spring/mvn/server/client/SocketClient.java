@@ -111,7 +111,7 @@ public class SocketClient {
 		
 		try {
 			callClientReturnString("localhost", 8088, requestMap);//本地
-//			callClientReturnString("192.168.1.11", 8088, requestMap);//linux
+			callClientReturnString("192.168.1.11", 8088, requestMap);//linux
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
