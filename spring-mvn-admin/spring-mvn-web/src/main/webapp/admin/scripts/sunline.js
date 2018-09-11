@@ -10,7 +10,9 @@ var Sunline = function() {
 			type : "danger",
 			message : "aJax通讯异常"
 		};
-		Metronic.alert(options);
+//		Metronic.alert(options);
+		//转到登录页面去 21080911 test 直接跳到登录页面
+		window.location.href = _basePath + "/home/path/login";
 	};
  
 	/**

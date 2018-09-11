@@ -45,7 +45,7 @@ var Datatable = function() {
 									"language" : { // language settings
 										// metronic spesific
 										"metronicGroupActions" : "_TOTAL_ 记录被选择:  ",
-										"metronicAjaxRequestGeneralError" : "不能完成请求,请检查网络链接",
+										"metronicAjaxRequestGeneralError" : "不能完成请求,请检查网络链接",//访问错误提示
 										// data tables spesific
 										"lengthMenu" : "<span class='seperator'>|</span>显示 _MENU_ 条记录",
 										"info" : "<span class='seperator'>|</span>共 _TOTAL_ 条记录",

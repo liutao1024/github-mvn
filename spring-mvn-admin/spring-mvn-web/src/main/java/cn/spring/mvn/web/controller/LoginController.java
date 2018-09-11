@@ -33,7 +33,6 @@ public class LoginController {
 	 */
 	@RequestMapping(value="/reset")
 	public Map<String, Object> reset(@RequestBody SysUser sysUser) {
-		System.out.println("123123213");
 		Map<String, Object> resMap = new HashMap<String, Object>();//
 		String cropno = sysUser.getRegistCd();
 		String userid = sysUser.getUserid();
