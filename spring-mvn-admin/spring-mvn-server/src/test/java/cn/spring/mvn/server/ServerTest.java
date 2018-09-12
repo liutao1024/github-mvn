@@ -12,6 +12,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
+import org.junit.Test;
 
 import cn.spring.mvn.server.tools.RequestMap;
 import cn.spring.mvn.base.util.BaseUtil;
@@ -19,11 +20,11 @@ import cn.spring.mvn.core.account.entity.CustUser;
 
 import com.alibaba.fastjson.JSONObject;
 
-public class Test {
+public class ServerTest {
 	
 	
 	@SuppressWarnings("unchecked")
-	@org.junit.Test
+	@Test
 	public void TestXml() {
 		try {
 			SAXReader reader = new SAXReader();
@@ -78,7 +79,7 @@ public class Test {
 	
 	
 	
-	@org.junit.Test
+	@Test
 	public void TestRequestMap(){
 		Map<String, Object> sys = new HashMap<String, Object>();
 		Map<String, Object> comm = new HashMap<String, Object>();
@@ -101,14 +102,14 @@ public class Test {
 		System.out.println(requestJ.toString());
 	}
 	
-	@org.junit.Test
+	@Test
 	public void TestStringToJson(){
 		String s = "{comm={mesage=新增成功, status=SUCCESS}, data=[{custna=渣渣辉, custno=979497772, opensq=763728388979454954773272}], sys={servtp=01, servno=02, cropno=001}}";
 		JSONObject json = (JSONObject) JSONObject.parse(s);
 		System.out.println(json);
 	}
 	
-	@org.junit.Test
+	@Test
 	public void TestMapAndJson(){
 		Map<String, Object> srcMap = new HashMap<String, Object>();
 		Map<String, Object> dstMap = new HashMap<String, Object>();

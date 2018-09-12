@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-//import org.junit.Test;
+import org.junit.Test;
 
 import cn.spring.mvn.base.util.BaseUtil;
 import cn.spring.mvn.core.account.Myinput;
@@ -13,7 +13,7 @@ import cn.spring.mvn.core.account.entity.CustUser;
 
 public class ObjectToMapTest {
 
-//	@Test
+	@Test
 	public void Test() {
 		Myinput i = new Myinput();
 		i.setCustna("123");

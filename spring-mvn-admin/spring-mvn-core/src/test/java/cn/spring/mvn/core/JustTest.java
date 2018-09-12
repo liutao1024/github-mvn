@@ -1,10 +1,10 @@
 package cn.spring.mvn.core;
 
-//import org.junit.Test;
+import org.junit.Test;
 
-public class JustTest {/*
+public class JustTest {
 	@Test
 	public void Test0001() {
 		System.out.println("adasdasdasd");
-	}*/
+	}
 }

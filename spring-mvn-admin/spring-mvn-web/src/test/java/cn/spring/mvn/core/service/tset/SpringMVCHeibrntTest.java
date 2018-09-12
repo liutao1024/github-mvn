@@ -1,61 +1,61 @@
 package cn.spring.mvn.core.service.tset;
-//
-//import java.beans.BeanInfo;
-//import java.beans.Introspector;
-//import java.beans.PropertyDescriptor;
-//import java.io.BufferedReader;
-//import java.io.File;
-//import java.io.FileInputStream;
-//import java.io.IOException;
-//import java.io.InputStreamReader;
-//import java.lang.annotation.Annotation;
-//import java.lang.reflect.AnnotatedType;
-//import java.lang.reflect.Field;
-//import java.lang.reflect.Method;
-//import java.lang.reflect.TypeVariable;
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//import java.util.UUID;
-//
-//import javax.persistence.Column;
-//
-//import org.apache.log4j.Logger;
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.context.ApplicationContext;
-//import org.springframework.test.context.ContextConfiguration;
-//import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-//
-//import cn.spring.mvc.base.util.BaseUtil;
-//import cn.spring.mvc.batch.QuartzManager;
-//import cn.spring.mvc.batch.entity.SystemBatchTaskDispathControl;
-//import cn.spring.mvc.batch.entity.service.SystemBatchTaskDispathControlService;
-//import cn.spring.mvc.batch.task.BatchJobGroup10001;
-//import cn.spring.mvc.batch.tools.BatchTools;
-//import cn.spring.mvc.comm.tools.FileTool;
-//import cn.spring.mvc.comm.tools.MD5Tool;
-//import cn.spring.mvc.comm.util.CommUtil;
-//import cn.spring.mvc.comm.util.SpringContextUtil;
-//import cn.spring.mvc.server.SocketHandlerImpl;
-//import cn.spring.mvc.web.entity.SysAuth;
-//import cn.spring.mvc.web.entity.SysDict;
-//import cn.spring.mvc.web.entity.SysRole;
-//import cn.spring.mvc.web.entity.SysRoleAuth;
-//import cn.spring.mvc.web.entity.SysUser;
-//import cn.spring.mvc.web.entity.service.SysRoleAuthService;
-//import cn.spring.mvc.web.entity.service.SysAuthService;
-//import cn.spring.mvc.web.entity.service.SysRoleService;
-//import cn.spring.mvc.web.entity.service.SysUserRoleService;
-//import cn.spring.mvc.web.entity.service.SysUserService;
-//
-//import com.alibaba.fastjson.JSON;
-//import com.alibaba.fastjson.JSONObject;
-//
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = { "classpath:spring.xml", "classpath:spring-hibernate.xml" })
-public class SpringMVCHeibrntTest {/*
+
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedType;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.TypeVariable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.persistence.Column;
+
+import org.apache.log4j.Logger;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import cn.spring.mvn.base.tools.BaseReflection;
+import cn.spring.mvn.base.util.BaseUtil;
+import cn.spring.mvn.batch.QuartzManager;
+import cn.spring.mvn.batch.entity.SystemBatchTaskDispathControl;
+import cn.spring.mvn.batch.entity.service.SystemBatchTaskDispathControlService;
+import cn.spring.mvn.batch.task.BatchJobGroup10001;
+import cn.spring.mvn.comm.tools.FileTool;
+import cn.spring.mvn.comm.tools.MD5Tool;
+import cn.spring.mvn.comm.util.CommUtil;
+import cn.spring.mvn.comm.util.SpringContextUtil;
+import cn.spring.mvn.server.SocketHandlerImpl;
+import cn.spring.mvn.web.entity.SysAuth;
+import cn.spring.mvn.web.entity.SysDict;
+import cn.spring.mvn.web.entity.SysRole;
+import cn.spring.mvn.web.entity.SysRoleAuth;
+import cn.spring.mvn.web.entity.SysUser;
+import cn.spring.mvn.web.entity.service.SysAuthService;
+import cn.spring.mvn.web.entity.service.SysRoleAuthService;
+import cn.spring.mvn.web.entity.service.SysRoleService;
+import cn.spring.mvn.web.entity.service.SysUserRoleService;
+import cn.spring.mvn.web.entity.service.SysUserService;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:spring.xml", "classpath:spring-hibernate.xml" })
+public class SpringMVCHeibrntTest {
 	private static final Logger LOGGER = Logger.getLogger(SpringMVCHeibrntTest.class);
 	@Autowired
 	private SysUserService sysUserServiceImpl;
@@ -69,9 +69,9 @@ public class SpringMVCHeibrntTest {/*
 	private SysAuthService sysAuthServiceImpl;
 	@Autowired
 	private SystemBatchTaskDispathControlService systemBatchTaskDispathControlImpl;
-	*//**
+	/**
 	 * @Test
-	 *//*
+	 */
 	
 	
 	@Test
@@ -187,7 +187,7 @@ public class SpringMVCHeibrntTest {/*
 			Class[] classes = {};
 			Object[] objects = {};
 			try {
-				BatchTools.executeMethodByClassNameAndMethodName(jobGroupClassName, jobGroupMethodName, classes, objects);
+				BaseReflection.executeMethodByClassNameAndMethodName(jobGroupClassName, jobGroupMethodName, classes, objects);
 				// TODO:登记执行成功信息
 			} catch (Exception e) {
 				// TODO:异常信息
@@ -375,12 +375,12 @@ public class SpringMVCHeibrntTest {/*
 		String srcFileStr = "D:\\usr\\files\\ht\\report\\txtReport\\temp\\unzip\\";
 		delWithDataFile(srcFileStr, "GBK");
 	}
-	*//**
+	/**
 	 * @author LiuTao @date 2018年5月14日 上午10:54:18 
 	 * @Title: delWithDataFile 
 	 * @Description: TODO(Describe) 
 	 * @param srcFileStr
-	 *//*
+	 */
 	public void delWithDataFile(String srcFileStr, String charSet) {
 		 File srcFile = new File(srcFileStr);
 		 if(srcFile.exists()){
@@ -419,4 +419,4 @@ public class SpringMVCHeibrntTest {/*
 			 }
 		 }
 	}
-*/}
+}

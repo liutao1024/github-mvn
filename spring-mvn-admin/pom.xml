@@ -26,6 +26,8 @@
 	<fastjson.version>1.2.49</fastjson.version>
 	<c3p0.version>0.9.5.2</c3p0.version>
 	<junit.version>4.12</junit.version>
+	<redis.jedis.version>2.9.0</redis.jedis.version>
+	<spring.data.redis.version>2.0.10.RELEASE</spring.data.redis.version>
   </properties>
   <dependencies>
     <dependency>
@@ -138,12 +140,6 @@
 		<version>1.8.4</version>
 	</dependency>
 	<!-- aop结束 -->
-	<!-- StringUtils依赖 -->
-	<!-- <dependency>
-	    <groupId>org.apache.commons</groupId>
-	    <artifactId>commons-lang3</artifactId>
-	    <version>3.0</version>
-	</dependency> -->
 	<!-- 定时任务依赖 20180601 -->
 	<dependency>
 	    <groupId>org.springframework</groupId>
@@ -166,6 +162,18 @@
 	    <groupId>org.springframework.data</groupId>
 	    <artifactId>spring-data-mongodb</artifactId>
 	    <version>2.0.9.RELEASE</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis -->
+	<dependency>
+	    <groupId>org.springframework.data</groupId>
+	    <artifactId>spring-data-redis</artifactId>
+	    <version>${spring.data.redis.version}</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+	<dependency>
+	    <groupId>redis.clients</groupId>
+	    <artifactId>jedis</artifactId>
+	    <version>${redis.jedis.version}</version>
 	</dependency>
   </dependencies>
   <build>
