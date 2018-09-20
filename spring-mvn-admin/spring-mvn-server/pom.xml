@@ -14,6 +14,12 @@
   <url>http://maven.apache.org</url>
 
   <dependencies>
+  	<!-- 根据json文件生成实体类用到的依赖 20180914 -->
+  	<dependency>
+		<groupId>com.google.code.gson</groupId>
+		<artifactId>gson</artifactId>
+		<version>2.8.5</version>
+	</dependency>
     <dependency>
     	<groupId>spring</groupId>
     	<artifactId>spring-mvn-base</artifactId>

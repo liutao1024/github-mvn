@@ -13,11 +13,6 @@
   <packaging>war</packaging>
   <name>spring-mvn-web Maven Webapp</name>
   <url>http://maven.apache.org</url>
-  <properties>
-    <!-- <jcloverslf4j.version>1.7.6</jcloverslf4j.version> -->
-    <jstl.version>1.2</jstl.version>
-  </properties>
-  
   <dependencies>
 	<dependency>
 		<groupId>javax.servlet</groupId>
