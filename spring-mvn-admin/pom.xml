@@ -207,6 +207,6 @@
     <module>spring-mvn-base</module>
     <module>spring-mvn-comm</module>
     <module>spring-mvn-task</module>
-    <module>spring-mvn-server</module>
+    <module>spring-mvn-socket</module>
   </modules>
 </project>

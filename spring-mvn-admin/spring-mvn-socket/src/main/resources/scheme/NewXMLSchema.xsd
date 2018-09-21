@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="flowtran" type="flowTransactionConf" /><!-- 
+		定义标签(元素)其类型为type -->
+	<xs:complexType name="flowTransactionConf"><!-- 复合类型 -->
+		<xs:sequence><!-- 定义子标签 -->
+			<xs:element name="description" type="xs:string" minOccurs="0" />
+			<xs:element name="interface" type="dataInterface"
+				minOccurs="0" />
+			<xs:element name="error_prof" type="flowServiceNode"
+				minOccurs="0" />
+			<xs:element ref="flow" minOccurs="0" />
+			<xs:element name="outMapping" type="dataMapping"
+				minOccurs="0" />
+			<xs:element name="propertyToPrinterMapping" type="dataMapping"
+				minOccurs="0" />
+			<xs:element name="outToPrinterMapping" type="dataMapping"
+				minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" /><!-- 定义标签的属性 -->
+		<xs:attribute name="longname" type="xs:string" />
+		<xs:attribute name="kind" type="xs:string" />
+		<xs:attribute name="package" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="flowServiceNode">
+		<xs:complexContent>
+			<xs:extension base="flowNode">
+				<xs:sequence>
+					<xs:element name="in_mappings" type="dataMapping"
+						minOccurs="0" />
+					<xs:element name="out_mappings" type="dataMapping"
+						minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="mappingToProperty" type="xs:boolean" />
+				<xs:attribute name="serviceName" type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="dataInterface">
+		<xs:sequence>
+			<xs:element name="input" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="dataInterfaceElements">
+							<xs:sequence />
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="output" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="dataInterfaceElements">
+							<xs:sequence />
+							<xs:attribute name="asParm" type="xs:boolean" />
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="property" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="dataInterfaceElements">
+							<xs:sequence />
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="printer" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="dataInterfaceElements">
+							<xs:sequence />
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="class" type="xs:string" />
+		<xs:attribute name="package" type="xs:string" />
+	</xs:complexType>
+	<xs:element name="flow" type="flowConf" />
+	<xs:complexType name="dataMapping">
+		<xs:sequence>
+			<xs:element name="mapping" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence />
+					<xs:attribute name="src" type="xs:string" />
+					<xs:attribute name="dest" type="xs:string" />
+					<xs:attribute name="desc" type="xs:string" />
+					<xs:attribute name="dstype">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="tran" />
+								<xs:enumeration value="subtran" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+					<xs:attribute name="by_interface" type="xs:boolean" />
+					<xs:attribute name="on_top" type="xs:boolean" />
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="by_interface" type="xs:boolean" />
+	</xs:complexType>
+	<xs:attribute name="flowNode" type="xs:string" />
+	<xs:complexType name="dataInterfaceElements" abstract="true">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="fields" type="dataInterfaceFields" />
+				<xs:element name="field" type="dataInterfaceField" />
+			</xs:choice>
+			<xs:element name="validations" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="validation" type="validation" />
+							<xs:element name="expression" type="expressionRule" />
+						</xs:choice>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="packMode" type="xs:boolean" />
+	</xs:complexType>
+	<xs:complexType name="flowConf">
+		<xs:complexContent>
+			<xs:extension base="flowCompositeNode">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="dataInterfaceFields" type="dataInterfaceFields" />
+	<xs:complexType name="validation">
+		<xs:complexContent>
+			<xs:extension base="rule">
+				<xs:sequence />
+				<xs:attribute name="id" type="xs:string" />
+				<xs:attribute name="method" type="xs:string" />
+				<xs:attribute name="target" type="xs:string" />
+				<xs:attribute name="message" type="xs:string" />
+				<xs:attribute name="ajax" type="xs:boolean" />
+				<xs:attribute name="errorCode" type="xs:string" />
+				<xs:attribute name="depends">
+					<xs:simpleType>
+						<xs:list itemType="xs:string" />
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="expressionRule">
+		<xs:complexContent>
+			<xs:extension base="rule">
+				<xs:sequence />
+				<xs:attribute name="id" type="xs:string" />
+				<xs:attribute name="target" type="xs:string" />
+				<xs:attribute name="top" type="operateType" />
+				<xs:attribute name="tval" type="xs:string" />
+				<xs:attribute name="errorCode" type="xs:string" />
+				<xs:attribute name="ajax" type="xs:boolean" />
+				<xs:attribute name="message" type="xs:string" />
+				<xs:attribute name="depends">
+					<xs:simpleType>
+						<xs:list itemType="xs:string" />
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="flowCompositeNode" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="flowNode">
+				<xs:sequence>
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="case" type="flowCaseNode" />
+						<xs:element name="loop" type="flowLoopNode" />
+						<xs:element name="block" type="flowBlockNode" />
+						<xs:element name="expr" type="flowExprNode" />
+						<xs:element name="method" type="flowMethodNode" />
+						<xs:element name="report" type="flowReportNode" />
+						<xs:element name="service" type="flowServiceNode" />
+						<xs:element name="exit" type="flowExitNode" />
+					</xs:choice>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="dataInterfaceFields">
+		<xs:sequence>
+			<xs:element name="depends" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="depend" type="depend" minOccurs="0"
+							maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="validations" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="validation" type="validation" />
+							<xs:element name="expression" type="expressionRule" />
+						</xs:choice>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="fields" type="dataInterfaceFields" />
+				<xs:element name="field" type="dataInterfaceField" />
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" />
+		<xs:attribute name="alias" type="xs:string" />
+		<xs:attribute name="scope" type="xs:string" />
+		<xs:attribute name="required" type="xs:boolean" />
+		<xs:attribute name="multi" type="xs:boolean" />
+		<xs:attribute name="longname" type="xs:string" />
+		<xs:attribute name="desc" type="xs:string" />
+		<xs:attribute name="array" type="xs:boolean" />
+		<xs:attribute name="relation" type="xs:string" />
+		<xs:attribute name="values" type="xs:string" />
+		<xs:attribute name="cascade" type="cascade" />
+		<xs:attribute name="lazyLoad" type="xs:boolean" />
+		<xs:attribute name="property" type="xs:string" />
+		<xs:attribute name="ref" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="dataInterfaceField">
+		<xs:sequence>
+			<xs:element name="depends" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="depend" type="depend" minOccurs="0"
+							maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="validations" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="validation" type="validation" />
+							<xs:element name="expression" type="expressionRule" />
+						</xs:choice>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" />
+		<xs:attribute name="alias" type="xs:string" />
+		<xs:attribute name="type" type="xs:string" />
+		<xs:attribute name="required" type="xs:boolean" />
+		<xs:attribute name="enums" type="xs:string" />
+		<xs:attribute name="fixed" type="xs:string" />
+		<xs:attribute name="default" type="xs:string" />
+		<xs:attribute name="multi" type="xs:boolean" />
+		<xs:attribute name="array" type="xs:boolean" />
+		<xs:attribute name="longname" type="xs:string" />
+		<xs:attribute name="alias_name" type="xs:string" />
+		<xs:attribute name="additionalType" type="xs:string" />
+		<xs:attribute name="desc" type="xs:string" />
+		<xs:attribute name="lazyLoad" type="xs:boolean" />
+		<xs:attribute name="cascade" type="cascade" />
+		<xs:attribute name="values" type="xs:string" />
+		<xs:attribute name="relation" type="xs:string" />
+		<xs:attribute name="desplay" type="xs:boolean" />
+		<xs:attribute name="ref" type="xs:string" />
+		<xs:attribute name="property" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="rule">
+		<xs:sequence>
+			<xs:choice minOccurs="0">
+				<xs:element name="mvel" type="mvel" />
+				<xs:element name="javascript" type="javascript" />
+				<xs:element name="or" type="or" />
+				<xs:element name="and" type="and" />
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="not" type="xs:boolean" />
+		<xs:attribute name="when" type="xs:string" />
+		<xs:attribute name="op" type="operateType" />
+		<xs:attribute name="val" type="xs:string" />
+		<xs:attribute name="desc" type="xs:string" />
+	</xs:complexType>
+	<xs:simpleType name="operateType"><!-- 简单类型 -->
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="lt" /><!-- 枚举值 -->
+			<xs:enumeration value="gt" />
+			<xs:enumeration value="eq" />
+			<xs:enumeration value="neq" />
+			<xs:enumeration value="in" />
+			<xs:enumeration value="notIn" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="flowNode" abstract="true">
+		<xs:sequence />
+		<xs:attribute name="id" type="xs:string" />
+		<xs:attribute name="test" type="xs:string" />
+		<xs:attribute name="longname" type="xs:string" />
+		<xs:attribute name="desc" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="flowCaseNode">
+		<xs:complexContent>
+			<xs:extension base="flowNode">
+				<xs:sequence>
+					<xs:element name="when" type="flowWhenNode" minOccurs="0"
+						maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="flowLoopNode">
+		<xs:complexContent>
+			<xs:extension base="flowCompositeNode">
+				<xs:sequence />
+				<xs:attribute name="mode">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="times" />
+							<xs:enumeration value="do-while" />
+							<xs:enumeration value="while-do" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="flowBlockNode">
+		<xs:complexContent>
+			<xs:extension base="flowCompositeNode">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="flowExprNode">
+		<xs:complexContent>
+			<xs:extension base="flowNode">
+				<xs:sequence />
+				<xs:attribute name="expr" type="xs:string" />
+				<xs:attribute name="mode">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="invalid" />
+							<xs:enumeration value="valid" />
+							<xs:enumeration value="eval" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="flowMethodNode">
+		<xs:complexContent>
+			<xs:extension base="flowNode">
+				<xs:sequence />
+				<xs:attribute name="method" type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="flowReportNode">
+		<xs:complexContent>
+			<xs:extension base="flowNode">
+				<xs:sequence>
+					<xs:element name="in_mappings" type="dataMapping"
+						minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="reportId" type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="flowExitNode">
+		<xs:complexContent>
+			<xs:extension base="flowNode">
+				<xs:sequence />
+				<xs:attribute name="label" type="xs:string" />
+				<xs:attribute name="mode">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="break" />
+							<xs:enumeration value="return" />
+							<xs:enumeration value="continue" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="depend">
+		<xs:complexContent>
+			<xs:extension base="rule">
+				<xs:sequence />
+				<xs:attribute name="message" type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="cascade">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="insert" />
+			<xs:enumeration value="update" />
+			<xs:enumeration value="delete" />
+			<xs:enumeration value="save" />
+			<xs:enumeration value="all" />
+			<xs:enumeration value="none" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="mvel">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
+	<xs:simpleType name="javascript">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
+	<xs:complexType name="or">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="rule" type="rule" />
+				<xs:element name="or" type="or" />
+				<xs:element name="and" type="and" />
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="and">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="rule" type="rule" />
+				<xs:element name="or" type="or" />
+				<xs:element name="and" type="and" />
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="flowWhenNode">
+		<xs:complexContent>
+			<xs:extension base="flowCompositeNode">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

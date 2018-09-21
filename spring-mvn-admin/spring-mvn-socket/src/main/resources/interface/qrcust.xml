@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/2002/xmlspec/dtd/2.10/xmlspec.dtd">
+<opcust>
+	<sys>
+		<corpno>corpno</corpno>
+		<servtp>servtp</servtp>
+		<servno>servno</servno>
+	</sys>
+	<comm>
+		<corecd>corecd</corecd>
+		<asktyp>asktyp</asktyp>
+		<status>status</status>
+		<mesage>mesage</mesage>
+	</comm>
+	<request>
+		<idtftp>idtftp</idtftp>
+		<idtfno>idtfno</idtfno>
+		<custna>custna</custna>
+	</request>
+	<response>
+		<count>count</count>
+		<data>
+			<custno>custno</custno>
+			<custac>custac</custac>
+		</data>
+	</response>
+</opcust>
