@@ -38,7 +38,7 @@ import cn.spring.mvn.comm.tools.FileTool;
 import cn.spring.mvn.comm.tools.MD5Tool;
 import cn.spring.mvn.comm.util.CommUtil;
 import cn.spring.mvn.comm.util.SpringContextUtil;
-import cn.spring.mvn.server.SocketHandlerImpl;
+import cn.spring.mvn.socket.SocketHandlerImpl;
 import cn.spring.mvn.web.entity.SysAuth;
 import cn.spring.mvn.web.entity.SysDict;
 import cn.spring.mvn.web.entity.SysRole;
