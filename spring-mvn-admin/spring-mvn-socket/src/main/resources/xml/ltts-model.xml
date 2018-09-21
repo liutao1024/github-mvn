@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="" longname="" kind="1" package="cn.spring.mvn.model.scheme.entity" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ltts-model.xsd" >
+	<description></description>
+	<interface>
+		<input packMode="true">
+			<fields>
+				<field additionalType="" alias="" alias_name="" array="true" cascade="insert">
+					<depends></depends>
+					<validations></validations>
+				</field>
+			</fields>
+		</input>
+	</interface>
+	<flow></flow>
+</flowtran>
