@@ -49,7 +49,7 @@
   </listener>
   <!-- 开启socket服务 -->
   <listener>
-    <listener-class>cn.spring.mvn.server.socket.SocketServiceLoader</listener-class>
+    <listener-class>cn.spring.mvn.socket.server.SocketServiceLoader</listener-class>
   </listener>
   <servlet>
     <description>springMavenServlet</description>
