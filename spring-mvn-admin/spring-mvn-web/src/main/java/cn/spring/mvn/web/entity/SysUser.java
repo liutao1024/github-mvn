@@ -150,20 +150,24 @@ public class SysUser implements Serializable {
 		this.userlv = userlv;
 	}
 
-	/**
-	 * 重写hashCode
-	 */
 	@Override
-	public int hashCode(){
+	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((registCd == null) ? 0 : registCd.hashCode());
+		result = prime * result + ((brchno == null) ? 0 : brchno.hashCode());
+		result = prime * result + errort;
+		result = prime * result + maxert;
+		result = prime * result + ((passwd == null) ? 0 : passwd.hashCode());
+		result = prime * result
+				+ ((registCd == null) ? 0 : registCd.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((userid == null) ? 0 : userid.hashCode());
+		result = prime * result + ((userlv == null) ? 0 : userlv.hashCode());
+		result = prime * result + ((userna == null) ? 0 : userna.hashCode());
+		result = prime * result + ((userst == null) ? 0 : userst.hashCode());
 		return result;
-	} 
-	/**
-	 * 重写equals
-	 */
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -173,27 +177,60 @@ public class SysUser implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		SysUser other = (SysUser) obj;
+		if (brchno == null) {
+			if (other.brchno != null)
+				return false;
+		} else if (!brchno.equals(other.brchno))
+			return false;
+		if (errort != other.errort)
+			return false;
+		if (maxert != other.maxert)
+			return false;
+		if (passwd == null) {
+			if (other.passwd != null)
+				return false;
+		} else if (!passwd.equals(other.passwd))
+			return false;
 		if (registCd == null) {
-			if (other.registCd != null){
+			if (other.registCd != null)
 				return false;
-			}
-		} else if (!registCd.equals(other.registCd)){
+		} else if (!registCd.equals(other.registCd))
 			return false;
-		}
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
 		if (userid == null) {
-			if (other.userid != null){
+			if (other.userid != null)
 				return false;
-			}
-		} else if (!userid.equals(other.userid)){
+		} else if (!userid.equals(other.userid))
 			return false;
-		}
+		if (userlv == null) {
+			if (other.userlv != null)
+				return false;
+		} else if (!userlv.equals(other.userlv))
+			return false;
+		if (userna == null) {
+			if (other.userna != null)
+				return false;
+		} else if (!userna.equals(other.userna))
+			return false;
+		if (userst == null) {
+			if (other.userst != null)
+				return false;
+		} else if (!userst.equals(other.userst))
+			return false;
 		return true;
 	}
-	/**
-	 * 重写toString
-	 */
+
 	@Override
-	public String toString(){
-		return "SysUser [registCd = " + registCd + ", userid = " + userid + ", userna = " + userna + ", passwd = " + passwd + ", errort = " + errort + ", userst = " + userst + "]";
+	public String toString() {
+		return "SysUser [registCd=" + registCd + ", userid=" + userid
+				+ ", userna=" + userna + ", passwd=" + passwd + ", brchno="
+				+ brchno + ", errort=" + errort + ", maxert=" + maxert
+				+ ", userst=" + userst + ", status=" + status + ", userlv="
+				+ userlv + "]";
 	}
+
 }

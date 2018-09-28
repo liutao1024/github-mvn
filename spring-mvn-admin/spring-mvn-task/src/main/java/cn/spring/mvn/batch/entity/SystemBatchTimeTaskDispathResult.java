@@ -80,4 +80,90 @@ public class SystemBatchTimeTaskDispathResult implements Serializable{
 	public void setTimeTaskDispathStatus(String timeTaskDispathStatus) {
 		this.timeTaskDispathStatus = timeTaskDispathStatus;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((jobName == null) ? 0 : jobName.hashCode());
+		result = prime * result
+				+ ((jobNumber == null) ? 0 : jobNumber.hashCode());
+		result = prime
+				* result
+				+ ((timeTaskDispathDate == null) ? 0 : timeTaskDispathDate
+						.hashCode());
+		result = prime
+				* result
+				+ ((timeTaskDispathErrorMessage == null) ? 0
+						: timeTaskDispathErrorMessage.hashCode());
+		result = prime
+				* result
+				+ ((timeTaskDispathStatus == null) ? 0 : timeTaskDispathStatus
+						.hashCode());
+		result = prime
+				* result
+				+ ((triggerJobGroupName == null) ? 0 : triggerJobGroupName
+						.hashCode());
+		result = prime
+				* result
+				+ ((triggerJobGroupNumber == null) ? 0 : triggerJobGroupNumber
+						.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SystemBatchTimeTaskDispathResult other = (SystemBatchTimeTaskDispathResult) obj;
+		if (jobName == null) {
+			if (other.jobName != null)
+				return false;
+		} else if (!jobName.equals(other.jobName))
+			return false;
+		if (jobNumber == null) {
+			if (other.jobNumber != null)
+				return false;
+		} else if (!jobNumber.equals(other.jobNumber))
+			return false;
+		if (timeTaskDispathDate == null) {
+			if (other.timeTaskDispathDate != null)
+				return false;
+		} else if (!timeTaskDispathDate.equals(other.timeTaskDispathDate))
+			return false;
+		if (timeTaskDispathErrorMessage == null) {
+			if (other.timeTaskDispathErrorMessage != null)
+				return false;
+		} else if (!timeTaskDispathErrorMessage
+				.equals(other.timeTaskDispathErrorMessage))
+			return false;
+		if (timeTaskDispathStatus == null) {
+			if (other.timeTaskDispathStatus != null)
+				return false;
+		} else if (!timeTaskDispathStatus.equals(other.timeTaskDispathStatus))
+			return false;
+		if (triggerJobGroupName == null) {
+			if (other.triggerJobGroupName != null)
+				return false;
+		} else if (!triggerJobGroupName.equals(other.triggerJobGroupName))
+			return false;
+		if (triggerJobGroupNumber == null) {
+			if (other.triggerJobGroupNumber != null)
+				return false;
+		} else if (!triggerJobGroupNumber.equals(other.triggerJobGroupNumber))
+			return false;
+		return true;
+	}
+	@Override
+	public String toString() {
+		return "SystemBatchTimeTaskDispathResult [triggerJobGroupNumber="
+				+ triggerJobGroupNumber + ", timeTaskDispathDate="
+				+ timeTaskDispathDate + ", jobNumber=" + jobNumber
+				+ ", jobName=" + jobName + ", triggerJobGroupName="
+				+ triggerJobGroupName + ", timeTaskDispathErrorMessage="
+				+ timeTaskDispathErrorMessage + ", timeTaskDispathStatus="
+				+ timeTaskDispathStatus + "]";
+	}
 }

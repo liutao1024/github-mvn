@@ -84,19 +84,22 @@ public class SysRole implements Serializable{
 	}
 
 	@Override
-	public int hashCode(){
+	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((role_cd == null) ? 0 : role_cd.hashCode());
-		result = prime * result + ((role_name == null) ? 0 : role_name.hashCode());
 		result = prime * result + ((auth_cd == null) ? 0 : auth_cd.hashCode());
-		result = prime * result + ((regist_cd == null) ? 0 : regist_cd.hashCode());
-		result = prime * result + ((auth_type == null) ? 0 : auth_type.hashCode());
+		result = prime * result
+				+ ((auth_type == null) ? 0 : auth_type.hashCode());
+		result = prime * result
+				+ ((regist_cd == null) ? 0 : regist_cd.hashCode());
+		result = prime * result + ((role_cd == null) ? 0 : role_cd.hashCode());
+		result = prime * result
+				+ ((role_name == null) ? 0 : role_name.hashCode());
 		return result;
 	}
-	
+
 	@Override
-	public boolean equals(Object obj){
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -119,11 +122,24 @@ public class SysRole implements Serializable{
 				return false;
 		} else if (!regist_cd.equals(other.regist_cd))
 			return false;
+		if (role_cd == null) {
+			if (other.role_cd != null)
+				return false;
+		} else if (!role_cd.equals(other.role_cd))
+			return false;
+		if (role_name == null) {
+			if (other.role_name != null)
+				return false;
+		} else if (!role_name.equals(other.role_name))
+			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "SysRole [regist_cd=" + regist_cd + ", auth_type=" + auth_type + ", auth_cd=" + auth_cd + ", role_cd=" + role_cd + ", role_name=" + role_name + "]";
+		return "SysRole [regist_cd=" + regist_cd + ", auth_type=" + auth_type
+				+ ", role_cd=" + role_cd + ", auth_cd=" + auth_cd
+				+ ", role_name=" + role_name + "]";
 	}
+	
 }

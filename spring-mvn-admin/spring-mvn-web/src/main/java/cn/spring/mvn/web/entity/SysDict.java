@@ -93,6 +93,76 @@ public class SysDict implements Serializable {
 		this.sortNo = sortNo;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dictId == null) ? 0 : dictId.hashCode());
+		result = prime * result
+				+ ((dictName == null) ? 0 : dictName.hashCode());
+		result = prime * result
+				+ ((dictType == null) ? 0 : dictType.hashCode());
+		result = prime * result
+				+ ((parentDictId == null) ? 0 : parentDictId.hashCode());
+		result = prime * result
+				+ ((parentDictType == null) ? 0 : parentDictType.hashCode());
+		result = prime * result + sortNo;
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SysDict other = (SysDict) obj;
+		if (dictId == null) {
+			if (other.dictId != null)
+				return false;
+		} else if (!dictId.equals(other.dictId))
+			return false;
+		if (dictName == null) {
+			if (other.dictName != null)
+				return false;
+		} else if (!dictName.equals(other.dictName))
+			return false;
+		if (dictType == null) {
+			if (other.dictType != null)
+				return false;
+		} else if (!dictType.equals(other.dictType))
+			return false;
+		if (parentDictId == null) {
+			if (other.parentDictId != null)
+				return false;
+		} else if (!parentDictId.equals(other.parentDictId))
+			return false;
+		if (parentDictType == null) {
+			if (other.parentDictType != null)
+				return false;
+		} else if (!parentDictType.equals(other.parentDictType))
+			return false;
+		if (sortNo != other.sortNo)
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "SysDict [dictType=" + dictType + ", dictId=" + dictId
+				+ ", dictName=" + dictName + ", parentDictType="
+				+ parentDictType + ", parentDictId=" + parentDictId
+				+ ", status=" + status + ", sortNo=" + sortNo + "]";
+	}
+
 	
 	
 }

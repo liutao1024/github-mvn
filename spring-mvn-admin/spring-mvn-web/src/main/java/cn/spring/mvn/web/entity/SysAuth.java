@@ -116,7 +116,6 @@ public class SysAuth implements Serializable{
 	public void setHaschild(String haschild) {
 		this.haschild = haschild;
 	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -124,9 +123,25 @@ public class SysAuth implements Serializable{
 		result = prime * result + ((auth_cd == null) ? 0 : auth_cd.hashCode());
 		result = prime * result
 				+ ((auth_type == null) ? 0 : auth_type.hashCode());
+		result = prime * result
+				+ ((auth_url == null) ? 0 : auth_url.hashCode());
+		result = prime * result
+				+ ((children == null) ? 0 : children.hashCode());
+		result = prime * result
+				+ ((haschild == null) ? 0 : haschild.hashCode());
+		result = prime * result + ((iconfg == null) ? 0 : iconfg.hashCode());
+		result = prime * result
+				+ ((menu_name == null) ? 0 : menu_name.hashCode());
+		result = prime * result
+				+ ((parent_auth_cd == null) ? 0 : parent_auth_cd.hashCode());
+		result = prime * result + rank;
+		result = prime * result
+				+ ((regist_cd == null) ? 0 : regist_cd.hashCode());
+		result = prime * result + ((sortno == null) ? 0 : sortno.hashCode());
+		result = prime * result
+				+ ((target_flag == null) ? 0 : target_flag.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -146,15 +161,62 @@ public class SysAuth implements Serializable{
 				return false;
 		} else if (!auth_type.equals(other.auth_type))
 			return false;
+		if (auth_url == null) {
+			if (other.auth_url != null)
+				return false;
+		} else if (!auth_url.equals(other.auth_url))
+			return false;
+		if (children == null) {
+			if (other.children != null)
+				return false;
+		} else if (!children.equals(other.children))
+			return false;
+		if (haschild == null) {
+			if (other.haschild != null)
+				return false;
+		} else if (!haschild.equals(other.haschild))
+			return false;
+		if (iconfg == null) {
+			if (other.iconfg != null)
+				return false;
+		} else if (!iconfg.equals(other.iconfg))
+			return false;
+		if (menu_name == null) {
+			if (other.menu_name != null)
+				return false;
+		} else if (!menu_name.equals(other.menu_name))
+			return false;
+		if (parent_auth_cd == null) {
+			if (other.parent_auth_cd != null)
+				return false;
+		} else if (!parent_auth_cd.equals(other.parent_auth_cd))
+			return false;
+		if (rank != other.rank)
+			return false;
+		if (regist_cd == null) {
+			if (other.regist_cd != null)
+				return false;
+		} else if (!regist_cd.equals(other.regist_cd))
+			return false;
+		if (sortno == null) {
+			if (other.sortno != null)
+				return false;
+		} else if (!sortno.equals(other.sortno))
+			return false;
+		if (target_flag == null) {
+			if (other.target_flag != null)
+				return false;
+		} else if (!target_flag.equals(other.target_flag))
+			return false;
 		return true;
 	}
-
 	@Override
 	public String toString() {
-		return "SysAuth [regist_cd=" + regist_cd + ", auth_type="
-				+ auth_type + ", auth_cd=" + auth_cd + ", menu_name=" + menu_name
-				+ ", auth_url=" + auth_url + ", parent_auth_cd=" + parent_auth_cd
-				+ ", rank=" + rank + ", sortno=" + sortno + "]";
+		return "SysAuth [regist_cd=" + regist_cd + ", auth_type=" + auth_type
+				+ ", auth_cd=" + auth_cd + ", menu_name=" + menu_name
+				+ ", auth_url=" + auth_url + ", parent_auth_cd="
+				+ parent_auth_cd + ", rank=" + rank + ", sortno=" + sortno
+				+ ", iconfg=" + iconfg + ", target_flag=" + target_flag
+				+ ", children=" + children + ", haschild=" + haschild + "]";
 	}
-
 }

@@ -78,4 +78,81 @@ public class SystemBatchTaskDispathControl implements Serializable{
 	public void setJobExecuteFlag(String jobExecuteFlag) {
 		this.jobExecuteFlag = jobExecuteFlag;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((jobClassName == null) ? 0 : jobClassName.hashCode());
+		result = prime * result
+				+ ((jobDescription == null) ? 0 : jobDescription.hashCode());
+		result = prime * result
+				+ ((jobExecuteFlag == null) ? 0 : jobExecuteFlag.hashCode());
+		result = prime * result
+				+ ((jobExecuteTime == null) ? 0 : jobExecuteTime.hashCode());
+		result = prime * result
+				+ ((jobMethodName == null) ? 0 : jobMethodName.hashCode());
+		result = prime * result
+				+ ((jobNumber == null) ? 0 : jobNumber.hashCode());
+		result = prime
+				* result
+				+ ((triggerJobGroupNumber == null) ? 0 : triggerJobGroupNumber
+						.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SystemBatchTaskDispathControl other = (SystemBatchTaskDispathControl) obj;
+		if (jobClassName == null) {
+			if (other.jobClassName != null)
+				return false;
+		} else if (!jobClassName.equals(other.jobClassName))
+			return false;
+		if (jobDescription == null) {
+			if (other.jobDescription != null)
+				return false;
+		} else if (!jobDescription.equals(other.jobDescription))
+			return false;
+		if (jobExecuteFlag == null) {
+			if (other.jobExecuteFlag != null)
+				return false;
+		} else if (!jobExecuteFlag.equals(other.jobExecuteFlag))
+			return false;
+		if (jobExecuteTime == null) {
+			if (other.jobExecuteTime != null)
+				return false;
+		} else if (!jobExecuteTime.equals(other.jobExecuteTime))
+			return false;
+		if (jobMethodName == null) {
+			if (other.jobMethodName != null)
+				return false;
+		} else if (!jobMethodName.equals(other.jobMethodName))
+			return false;
+		if (jobNumber == null) {
+			if (other.jobNumber != null)
+				return false;
+		} else if (!jobNumber.equals(other.jobNumber))
+			return false;
+		if (triggerJobGroupNumber == null) {
+			if (other.triggerJobGroupNumber != null)
+				return false;
+		} else if (!triggerJobGroupNumber.equals(other.triggerJobGroupNumber))
+			return false;
+		return true;
+	}
+	@Override
+	public String toString() {
+		return "SystemBatchTaskDispathControl [triggerJobGroupNumber="
+				+ triggerJobGroupNumber + ", jobNumber=" + jobNumber
+				+ ", jobClassName=" + jobClassName + ", jobMethodName="
+				+ jobMethodName + ", jobDescription=" + jobDescription
+				+ ", jobExecuteTime=" + jobExecuteTime + ", jobExecuteFlag="
+				+ jobExecuteFlag + "]";
+	}
 }

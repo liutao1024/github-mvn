@@ -149,4 +149,127 @@ public class CustElectron implements Serializable {
 	public void setTimetm(String timetm) {
 		this.timetm = timetm;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((acctst == null) ? 0 : acctst.hashCode());
+		result = prime * result + ((accttp == null) ? 0 : accttp.hashCode());
+		result = prime * result + ((brchno == null) ? 0 : brchno.hashCode());
+		result = prime * result + ((cacttp == null) ? 0 : cacttp.hashCode());
+		result = prime * result + ((cardno == null) ? 0 : cardno.hashCode());
+		result = prime * result + ((closdt == null) ? 0 : closdt.hashCode());
+		result = prime * result + ((clossq == null) ? 0 : clossq.hashCode());
+		result = prime * result + ((corpno == null) ? 0 : corpno.hashCode());
+		result = prime * result + ((custac == null) ? 0 : custac.hashCode());
+		result = prime * result + ((custna == null) ? 0 : custna.hashCode());
+		result = prime * result + ((custno == null) ? 0 : custno.hashCode());
+		result = prime * result + ((datetm == null) ? 0 : datetm.hashCode());
+		result = prime * result + ((intrvl == null) ? 0 : intrvl.hashCode());
+		result = prime * result + ((opendt == null) ? 0 : opendt.hashCode());
+		result = prime * result + ((opensq == null) ? 0 : opensq.hashCode());
+		result = prime * result + ((timetm == null) ? 0 : timetm.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CustElectron other = (CustElectron) obj;
+		if (acctst == null) {
+			if (other.acctst != null)
+				return false;
+		} else if (!acctst.equals(other.acctst))
+			return false;
+		if (accttp == null) {
+			if (other.accttp != null)
+				return false;
+		} else if (!accttp.equals(other.accttp))
+			return false;
+		if (brchno == null) {
+			if (other.brchno != null)
+				return false;
+		} else if (!brchno.equals(other.brchno))
+			return false;
+		if (cacttp == null) {
+			if (other.cacttp != null)
+				return false;
+		} else if (!cacttp.equals(other.cacttp))
+			return false;
+		if (cardno == null) {
+			if (other.cardno != null)
+				return false;
+		} else if (!cardno.equals(other.cardno))
+			return false;
+		if (closdt == null) {
+			if (other.closdt != null)
+				return false;
+		} else if (!closdt.equals(other.closdt))
+			return false;
+		if (clossq == null) {
+			if (other.clossq != null)
+				return false;
+		} else if (!clossq.equals(other.clossq))
+			return false;
+		if (corpno == null) {
+			if (other.corpno != null)
+				return false;
+		} else if (!corpno.equals(other.corpno))
+			return false;
+		if (custac == null) {
+			if (other.custac != null)
+				return false;
+		} else if (!custac.equals(other.custac))
+			return false;
+		if (custna == null) {
+			if (other.custna != null)
+				return false;
+		} else if (!custna.equals(other.custna))
+			return false;
+		if (custno == null) {
+			if (other.custno != null)
+				return false;
+		} else if (!custno.equals(other.custno))
+			return false;
+		if (datetm == null) {
+			if (other.datetm != null)
+				return false;
+		} else if (!datetm.equals(other.datetm))
+			return false;
+		if (intrvl == null) {
+			if (other.intrvl != null)
+				return false;
+		} else if (!intrvl.equals(other.intrvl))
+			return false;
+		if (opendt == null) {
+			if (other.opendt != null)
+				return false;
+		} else if (!opendt.equals(other.opendt))
+			return false;
+		if (opensq == null) {
+			if (other.opensq != null)
+				return false;
+		} else if (!opensq.equals(other.opensq))
+			return false;
+		if (timetm == null) {
+			if (other.timetm != null)
+				return false;
+		} else if (!timetm.equals(other.timetm))
+			return false;
+		return true;
+	}
+	@Override
+	public String toString() {
+		return "CustElectron [corpno=" + corpno + ", custac=" + custac
+				+ ", custno=" + custno + ", custna=" + custna + ", cacttp="
+				+ cacttp + ", opendt=" + opendt + ", opensq=" + opensq
+				+ ", closdt=" + closdt + ", clossq=" + clossq + ", cardno="
+				+ cardno + ", accttp=" + accttp + ", brchno=" + brchno
+				+ ", acctst=" + acctst + ", intrvl=" + intrvl + ", datetm="
+				+ datetm + ", timetm=" + timetm + "]";
+	}
 }

@@ -9,7 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import cn.spring.mvn.socket.SocketHandlerImpl;
 import cn.spring.mvn.socket.client.SocketClient;
-import cn.spring.mvn.socket.tools.ServerTool;
+import cn.spring.mvn.socket.tools.SocketTool;
 
 public class ServerToolTest {
 	
@@ -88,9 +88,9 @@ public class ServerToolTest {
 		requestMap.put("idtfno", "511024199112030398");
 		requestMap.put("custna", "渣渣辉");
 		
-		String requestJsonStr = ServerTool.praseMapsToString(sysMap, commMap, requestMap);
+		String requestJsonStr = SocketTool.praseMapsToString(sysMap, commMap, requestMap);
 		System.out.println(requestJsonStr);
-		Map<String, Object> reqMap = ServerTool.praseRequestStringMap(requestJsonStr);
+		Map<String, Object> reqMap = SocketTool.praseRequestStringMap(requestJsonStr);
 		System.out.println(reqMap);
 		Map<String, Object> request = (Map<String, Object>) reqMap.get("request");
 		String custna = (String) request.get("custna");

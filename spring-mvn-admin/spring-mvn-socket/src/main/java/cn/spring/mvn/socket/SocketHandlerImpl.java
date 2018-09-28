@@ -22,7 +22,7 @@ import cn.spring.mvn.core.account.AccountServiceImpl;
 import cn.spring.mvn.core.account.Myinput;
 import cn.spring.mvn.core.account.Myoutput;
 import cn.spring.mvn.socket.service.CoreServerImpl;
-import cn.spring.mvn.socket.tools.ServerTool;
+import cn.spring.mvn.socket.tools.SocketTool;
 
 /**
  * @author LiuTao @date 2018年6月13日 下午10:32:13
@@ -64,7 +64,7 @@ public class SocketHandlerImpl {
 		String mesage = "";
 
 		try {
-			requestMap = ServerTool.praseRequestStringMap(jsonStr);
+			requestMap = SocketTool.praseRequestStringMap(jsonStr);
 			
 			requestSysMap = (Map<String, Object>) requestMap.get("sys");
 			requestCommMap = (Map<String, Object>) requestMap.get("comm");
@@ -193,7 +193,7 @@ public class SocketHandlerImpl {
 			responseMap.put("comm", responseCommMap);
 			
 		}
-		returnString = ServerTool.praseMapToString(responseMap);
+		returnString = SocketTool.praseMapToString(responseMap);
 		return returnString;
 	}
 }

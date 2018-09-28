@@ -116,4 +116,143 @@ public class SystemBatchTimeDispathControl implements Serializable {
 	public void setDispathStatus(String dispathStatus) {
 		this.dispathStatus = dispathStatus;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime
+				* result
+				+ ((dispathPeriodDay == null) ? 0 : dispathPeriodDay.hashCode());
+		result = prime
+				* result
+				+ ((dispathPeriodHour == null) ? 0 : dispathPeriodHour
+						.hashCode());
+		result = prime
+				* result
+				+ ((dispathPeriodMinute == null) ? 0 : dispathPeriodMinute
+						.hashCode());
+		result = prime
+				* result
+				+ ((dispathPeriodMonth == null) ? 0 : dispathPeriodMonth
+						.hashCode());
+		result = prime
+				* result
+				+ ((dispathPeriodSecond == null) ? 0 : dispathPeriodSecond
+						.hashCode());
+		result = prime
+				* result
+				+ ((dispathPeriodWeek == null) ? 0 : dispathPeriodWeek
+						.hashCode());
+		result = prime
+				* result
+				+ ((dispathPeriodYear == null) ? 0 : dispathPeriodYear
+						.hashCode());
+		result = prime * result
+				+ ((dispathStatus == null) ? 0 : dispathStatus.hashCode());
+		result = prime
+				* result
+				+ ((triggerJobGroupClassName == null) ? 0
+						: triggerJobGroupClassName.hashCode());
+		result = prime
+				* result
+				+ ((triggerJobGroupDescription == null) ? 0
+						: triggerJobGroupDescription.hashCode());
+		result = prime
+				* result
+				+ ((triggerJobGroupName == null) ? 0 : triggerJobGroupName
+						.hashCode());
+		result = prime
+				* result
+				+ ((triggerJobGroupNumber == null) ? 0 : triggerJobGroupNumber
+						.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SystemBatchTimeDispathControl other = (SystemBatchTimeDispathControl) obj;
+		if (dispathPeriodDay == null) {
+			if (other.dispathPeriodDay != null)
+				return false;
+		} else if (!dispathPeriodDay.equals(other.dispathPeriodDay))
+			return false;
+		if (dispathPeriodHour == null) {
+			if (other.dispathPeriodHour != null)
+				return false;
+		} else if (!dispathPeriodHour.equals(other.dispathPeriodHour))
+			return false;
+		if (dispathPeriodMinute == null) {
+			if (other.dispathPeriodMinute != null)
+				return false;
+		} else if (!dispathPeriodMinute.equals(other.dispathPeriodMinute))
+			return false;
+		if (dispathPeriodMonth == null) {
+			if (other.dispathPeriodMonth != null)
+				return false;
+		} else if (!dispathPeriodMonth.equals(other.dispathPeriodMonth))
+			return false;
+		if (dispathPeriodSecond == null) {
+			if (other.dispathPeriodSecond != null)
+				return false;
+		} else if (!dispathPeriodSecond.equals(other.dispathPeriodSecond))
+			return false;
+		if (dispathPeriodWeek == null) {
+			if (other.dispathPeriodWeek != null)
+				return false;
+		} else if (!dispathPeriodWeek.equals(other.dispathPeriodWeek))
+			return false;
+		if (dispathPeriodYear == null) {
+			if (other.dispathPeriodYear != null)
+				return false;
+		} else if (!dispathPeriodYear.equals(other.dispathPeriodYear))
+			return false;
+		if (dispathStatus == null) {
+			if (other.dispathStatus != null)
+				return false;
+		} else if (!dispathStatus.equals(other.dispathStatus))
+			return false;
+		if (triggerJobGroupClassName == null) {
+			if (other.triggerJobGroupClassName != null)
+				return false;
+		} else if (!triggerJobGroupClassName
+				.equals(other.triggerJobGroupClassName))
+			return false;
+		if (triggerJobGroupDescription == null) {
+			if (other.triggerJobGroupDescription != null)
+				return false;
+		} else if (!triggerJobGroupDescription
+				.equals(other.triggerJobGroupDescription))
+			return false;
+		if (triggerJobGroupName == null) {
+			if (other.triggerJobGroupName != null)
+				return false;
+		} else if (!triggerJobGroupName.equals(other.triggerJobGroupName))
+			return false;
+		if (triggerJobGroupNumber == null) {
+			if (other.triggerJobGroupNumber != null)
+				return false;
+		} else if (!triggerJobGroupNumber.equals(other.triggerJobGroupNumber))
+			return false;
+		return true;
+	}
+	@Override
+	public String toString() {
+		return "SystemBatchTimeDispathControl [triggerJobGroupNumber="
+				+ triggerJobGroupNumber + ", triggerJobGroupName="
+				+ triggerJobGroupName + ", triggerJobGroupClassName="
+				+ triggerJobGroupClassName + ", triggerJobGroupDescription="
+				+ triggerJobGroupDescription + ", dispathPeriodYear="
+				+ dispathPeriodYear + ", dispathPeriodWeek="
+				+ dispathPeriodWeek + ", dispathPeriodMonth="
+				+ dispathPeriodMonth + ", dispathPeriodDay=" + dispathPeriodDay
+				+ ", dispathPeriodHour=" + dispathPeriodHour
+				+ ", dispathPeriodMinute=" + dispathPeriodMinute
+				+ ", dispathPeriodSecond=" + dispathPeriodSecond
+				+ ", dispathStatus=" + dispathStatus + "]";
+	}
 }

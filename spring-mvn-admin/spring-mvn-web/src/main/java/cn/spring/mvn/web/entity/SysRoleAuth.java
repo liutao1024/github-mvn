@@ -80,22 +80,17 @@ public class SysRoleAuth implements Serializable{
 	}
 
 	@Override
-	public String toString() {
-		return "SysAuthRole [regist_cd=" + regist_cd + ", auth_type="
-				+ auth_type + ", role_cd=" + role_cd + ", auth_cd=" + auth_cd + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((auth_cd == null) ? 0 : auth_cd.hashCode());
-		result = prime * result + ((auth_type == null) ? 0 : auth_type.hashCode());
-		result = prime * result + ((regist_cd == null) ? 0 : regist_cd.hashCode());
+		result = prime * result
+				+ ((auth_type == null) ? 0 : auth_type.hashCode());
+		result = prime * result
+				+ ((regist_cd == null) ? 0 : regist_cd.hashCode());
 		result = prime * result + ((role_cd == null) ? 0 : role_cd.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -127,6 +122,10 @@ public class SysRoleAuth implements Serializable{
 			return false;
 		return true;
 	}
-
-	
+	@Override
+	public String toString() {
+		return "SysRoleAuth [regist_cd=" + regist_cd + ", auth_type="
+				+ auth_type + ", role_cd=" + role_cd + ", auth_cd=" + auth_cd
+				+ "]";
+	}
 }

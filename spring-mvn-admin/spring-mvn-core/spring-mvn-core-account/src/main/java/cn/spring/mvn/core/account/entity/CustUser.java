@@ -241,4 +241,168 @@ public class CustUser implements Serializable {
 	public void setEmplcu(String emplcu) {
 		this.emplcu = emplcu;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((addrcd == null) ? 0 : addrcd.hashCode());
+		result = prime * result + ((addres == null) ? 0 : addres.hashCode());
+		result = prime * result + ((birthd == null) ? 0 : birthd.hashCode());
+		result = prime * result + ((brchno == null) ? 0 : brchno.hashCode());
+		result = prime * result + ((closdt == null) ? 0 : closdt.hashCode());
+		result = prime * result + ((clossq == null) ? 0 : clossq.hashCode());
+		result = prime * result + ((corpno == null) ? 0 : corpno.hashCode());
+		result = prime * result + ((cuslvl == null) ? 0 : cuslvl.hashCode());
+		result = prime * result + ((custna == null) ? 0 : custna.hashCode());
+		result = prime * result + ((custno == null) ? 0 : custno.hashCode());
+		result = prime * result + ((custst == null) ? 0 : custst.hashCode());
+		result = prime * result + ((datetm == null) ? 0 : datetm.hashCode());
+		result = prime * result + ((emails == null) ? 0 : emails.hashCode());
+		result = prime * result + ((emplcu == null) ? 0 : emplcu.hashCode());
+		result = prime * result + ((idtfno == null) ? 0 : idtfno.hashCode());
+		result = prime * result + ((idtftp == null) ? 0 : idtftp.hashCode());
+		result = prime * result + ((opendt == null) ? 0 : opendt.hashCode());
+		result = prime * result + ((opensq == null) ? 0 : opensq.hashCode());
+		result = prime * result + ((postcd == null) ? 0 : postcd.hashCode());
+		result = prime * result + ((sextyp == null) ? 0 : sextyp.hashCode());
+		result = prime * result + ((teleno == null) ? 0 : teleno.hashCode());
+		result = prime * result + ((timetm == null) ? 0 : timetm.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CustUser other = (CustUser) obj;
+		if (addrcd == null) {
+			if (other.addrcd != null)
+				return false;
+		} else if (!addrcd.equals(other.addrcd))
+			return false;
+		if (addres == null) {
+			if (other.addres != null)
+				return false;
+		} else if (!addres.equals(other.addres))
+			return false;
+		if (birthd == null) {
+			if (other.birthd != null)
+				return false;
+		} else if (!birthd.equals(other.birthd))
+			return false;
+		if (brchno == null) {
+			if (other.brchno != null)
+				return false;
+		} else if (!brchno.equals(other.brchno))
+			return false;
+		if (closdt == null) {
+			if (other.closdt != null)
+				return false;
+		} else if (!closdt.equals(other.closdt))
+			return false;
+		if (clossq == null) {
+			if (other.clossq != null)
+				return false;
+		} else if (!clossq.equals(other.clossq))
+			return false;
+		if (corpno == null) {
+			if (other.corpno != null)
+				return false;
+		} else if (!corpno.equals(other.corpno))
+			return false;
+		if (cuslvl == null) {
+			if (other.cuslvl != null)
+				return false;
+		} else if (!cuslvl.equals(other.cuslvl))
+			return false;
+		if (custna == null) {
+			if (other.custna != null)
+				return false;
+		} else if (!custna.equals(other.custna))
+			return false;
+		if (custno == null) {
+			if (other.custno != null)
+				return false;
+		} else if (!custno.equals(other.custno))
+			return false;
+		if (custst == null) {
+			if (other.custst != null)
+				return false;
+		} else if (!custst.equals(other.custst))
+			return false;
+		if (datetm == null) {
+			if (other.datetm != null)
+				return false;
+		} else if (!datetm.equals(other.datetm))
+			return false;
+		if (emails == null) {
+			if (other.emails != null)
+				return false;
+		} else if (!emails.equals(other.emails))
+			return false;
+		if (emplcu == null) {
+			if (other.emplcu != null)
+				return false;
+		} else if (!emplcu.equals(other.emplcu))
+			return false;
+		if (idtfno == null) {
+			if (other.idtfno != null)
+				return false;
+		} else if (!idtfno.equals(other.idtfno))
+			return false;
+		if (idtftp == null) {
+			if (other.idtftp != null)
+				return false;
+		} else if (!idtftp.equals(other.idtftp))
+			return false;
+		if (opendt == null) {
+			if (other.opendt != null)
+				return false;
+		} else if (!opendt.equals(other.opendt))
+			return false;
+		if (opensq == null) {
+			if (other.opensq != null)
+				return false;
+		} else if (!opensq.equals(other.opensq))
+			return false;
+		if (postcd == null) {
+			if (other.postcd != null)
+				return false;
+		} else if (!postcd.equals(other.postcd))
+			return false;
+		if (sextyp == null) {
+			if (other.sextyp != null)
+				return false;
+		} else if (!sextyp.equals(other.sextyp))
+			return false;
+		if (teleno == null) {
+			if (other.teleno != null)
+				return false;
+		} else if (!teleno.equals(other.teleno))
+			return false;
+		if (timetm == null) {
+			if (other.timetm != null)
+				return false;
+		} else if (!timetm.equals(other.timetm))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "CustUser [corpno=" + corpno + ", custno=" + custno
+				+ ", custna=" + custna + ", idtftp=" + idtftp + ", idtfno="
+				+ idtfno + ", birthd=" + birthd + ", sextyp=" + sextyp
+				+ ", addrcd=" + addrcd + ", teleno=" + teleno + ", emails="
+				+ emails + ", postcd=" + postcd + ", addres=" + addres
+				+ ", brchno=" + brchno + ", opendt=" + opendt + ", opensq="
+				+ opensq + ", closdt=" + closdt + ", clossq=" + clossq
+				+ ", custst=" + custst + ", datetm=" + datetm + ", timetm="
+				+ timetm + ", cuslvl=" + cuslvl + ", emplcu=" + emplcu + "]";
+	}
 }

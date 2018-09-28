@@ -17,7 +17,7 @@ import com.alibaba.fastjson.JSONObject;
  * @ClassName: ServerTool 
  * @Description: 都是JSon格式的String
  */
-public class ServerTool {
+public class SocketTool {
 	/**
 	 * 			发送请求
 	 * @author LiuTao @date 2018年6月13日 下午1:44:00 

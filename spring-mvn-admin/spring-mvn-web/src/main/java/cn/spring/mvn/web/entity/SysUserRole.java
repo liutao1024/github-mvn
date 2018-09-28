@@ -78,8 +78,10 @@ public class SysUserRole implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((auth_type == null) ? 0 : auth_type.hashCode());
-		result = prime * result + ((regist_cd == null) ? 0 : regist_cd.hashCode());
+		result = prime * result
+				+ ((auth_type == null) ? 0 : auth_type.hashCode());
+		result = prime * result
+				+ ((regist_cd == null) ? 0 : regist_cd.hashCode());
 		result = prime * result + ((role_cd == null) ? 0 : role_cd.hashCode());
 		result = prime * result + ((user_cd == null) ? 0 : user_cd.hashCode());
 		return result;
@@ -119,8 +121,9 @@ public class SysUserRole implements Serializable{
 
 	@Override
 	public String toString() {
-		return "SysUserRole [regist_cd=" + regist_cd + ", auth_type=" + auth_type + ", role_cd=" + role_cd + ", user_cd=" + user_cd + "]";
+		return "SysUserRole [regist_cd=" + regist_cd + ", auth_type="
+				+ auth_type + ", role_cd=" + role_cd + ", user_cd=" + user_cd
+				+ "]";
 	}
-	
 	
 }
