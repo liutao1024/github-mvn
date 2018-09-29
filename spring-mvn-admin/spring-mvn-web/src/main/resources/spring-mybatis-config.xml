@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE configuration PUBLIC 
+"-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- https://www.cnblogs.com/domi22/p/8047885.html -->
+	<!-- <properties resource="mysql.properties">
+		<property name="jdbc.driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="jdbc.url" value="jdbc:mysql://localhost:3306/student_manager" />
+		<property name="username" value="root" />
+		<property name="password" value="limingnihao" />
+	</properties>
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<setting name="useColumnLabel" value="true" />
+		<setting name="useGeneratedKeys" value="false" />
+		<setting name="enhancementEnabled" value="false" />
+		<setting name="defaultExecutorType" value="SIMPLE" />
+	</settings> -->
+	<!-- 类的别名 -->
+	<typeAliases>
+		<!-- <typeAlias alias="SystemTransactionInformation" type="cn.spring.mvn.socket.entity.SystemTransactionInformation" /> -->
+		<!-- <typeAlias alias="CoreProduct" type="cn.spring.mvn.socket.entity.CoreProduct" /> -->
+		<package name="cn.spring.mvn.socket.entity"/>
+	</typeAliases>
+	<!-- <typeHandlers>
+		<typeHandler handler="" />
+	</typeHandlers>
+	<objectFactory type=""></objectFactory>
+	<plugins>
+		<plugin interceptor=""></plugin>
+	</plugins>
+	<environments default="">
+		<environment id="">
+			<transactionManager type=""></transactionManager>
+			<dataSource type=""></dataSource>
+		</environment>
+	</environments> -->
+</configuration>

@@ -26,7 +26,7 @@
 	<!-- 配置sqlSessionFactory -->
 	<bean id="mybatisSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="mybatisDataSource"></property>
-		<property name="configLocation" value="classpath:config.xml"></property>
+		<property name="configLocation" value="classpath:spring-mybatis-config.xml"></property>
 		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
 	</bean>
 	<!-- 自动扫描mapper文件对应的接口类,将其中的接口自动创建成 MapperFactoryBean -->

@@ -1,6 +1,7 @@
 package cn.spring.mvn.web.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import cn.spring.mvn.comm.tools.MD5Tool;
 import cn.spring.mvn.comm.util.CommUtil;
+import cn.spring.mvn.socket.entity.SystemTransactionInformation;
+import cn.spring.mvn.socket.entity.service.SystemTransactionInformationService;
 import cn.spring.mvn.web.entity.SysUser;
 import cn.spring.mvn.web.entity.service.SysUserService;
 
@@ -23,6 +26,8 @@ import cn.spring.mvn.web.entity.service.SysUserService;
 public class LoginController {
 	@Autowired
 	private SysUserService sysUserServiceImpl;
+	@Autowired
+	private SystemTransactionInformationService s;
 	//2重置登录状态
 	/**
 	 * @author LiuTao @date 2018年5月23日 上午10:12:36 
@@ -33,6 +38,10 @@ public class LoginController {
 	 */
 	@RequestMapping(value="/reset")
 	public Map<String, Object> reset(@RequestBody SysUser sysUser) {
+		List<SystemTransactionInformation> list = s.selectSystemTransactionInformationList();
+		for (SystemTransactionInformation systemTransactionInformation : list) {
+			System.out.println(systemTransactionInformation.getSerialNumber());
+		}
 		Map<String, Object> resMap = new HashMap<String, Object>();//
 		String cropno = sysUser.getRegistCd();
 		String userid = sysUser.getUserid();
