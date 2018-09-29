@@ -18,6 +18,10 @@
     <javax.servlet.api.version>4.0.1</javax.servlet.api.version> 
     <servlet.api.version>3.0-alpha-1</servlet.api.version>
 	<hibernate.version>5.3.6.Final</hibernate.version>
+	<!-- mybatis 版本号 -->
+	<mybatis.version>3.4.6</mybatis.version>
+	<!-- spring-mybatis 版本号 -->
+	<spring.mybatis.version>1.3.2</spring.mybatis.version>
 	<jackson.version>2.9.6</jackson.version>
 	<commons.dbcp.version>1.4</commons.dbcp.version>
 	<commons.long3.version>3.8</commons.long3.version>
@@ -89,6 +93,17 @@
 		<artifactId>hibernate-ehcache</artifactId>
 		<version>${hibernate.version}</version>
 	</dependency>
+	<!-- 添加mybatis依赖 -->
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis</artifactId>
+		<version>${mybatis.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis-spring</artifactId>
+		<version>${spring.mybatis.version}</version>
+	</dependency>
 	<!-- 二级缓存ehcache开始 -->
 	<dependency>
 		<groupId>net.sf.ehcache</groupId>
@@ -145,16 +160,16 @@
 	<dependency>
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-context-support</artifactId>
-	    <version>5.0.8.RELEASE</version>
+	    <version>${spring.version}</version>
 	</dependency>
 	<dependency>
 	    <groupId>org.quartz-scheduler</groupId>
 	    <artifactId>quartz</artifactId>
 	    <version>2.3.0</version>
 	</dependency>
-	<dependency>
 	<!-- dom4j依赖用于解析接口的xml配置文件 -->
-    <groupId>dom4j</groupId>
+	<dependency>
+    	<groupId>dom4j</groupId>
 	    <artifactId>dom4j</artifactId>
 	    <version>1.6.1</version>
 	</dependency>

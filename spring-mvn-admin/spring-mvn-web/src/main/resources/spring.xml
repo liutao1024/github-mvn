@@ -12,6 +12,7 @@
 	<context:component-scan base-package="cn.spring.mvn.base,
 										  cn.spring.mvn.base.entity.service.impl,
 										  cn.spring.mvn.batch.entity.service.impl,
+										  cn.spring.mvn.socket.entity.service.impl,
 										  cn.spring.mvn.web.entity.service.impl,
 										  cn.spring.mvn.core.**.entity.service.impl" /><!-- 最后一行为加载核心的bean -->
 	<!-- 将所有的service注入到spring容器中供其他类调用 
