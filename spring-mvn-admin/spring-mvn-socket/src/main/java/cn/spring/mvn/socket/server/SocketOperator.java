@@ -13,13 +13,13 @@ import cn.spring.mvn.socket.SocketHandlerImpl;
 
 /**
  * @author LiuTao @date 2018年9月3日 下午3:26:04
- * @ClassName: SocketOperate 
+ * @ClassName: SocketOperator socket接收数据后的操作员
  * @Description: TODO(多线程处理socket接收的数据)
  */
-public class SocketOperate extends Thread {
+public class SocketOperator extends Thread {
 	private Socket socket;
 	private String charSetStr = "UTF-8";
-	public SocketOperate(Socket socket) {
+	public SocketOperator(Socket socket) {
 		this.socket = socket;
 	}
 

@@ -23,6 +23,7 @@
 	<typeAliases>
 		<!-- <typeAlias alias="SystemTransactionInformation" type="cn.spring.mvn.socket.entity.SystemTransactionInformation" /> -->
 		<!-- <typeAlias alias="CoreProduct" type="cn.spring.mvn.socket.entity.CoreProduct" /> -->
+		<package name="cn.spring.mvn.core.loan.entity"/><!-- 指定到某个包下 -->
 		<package name="cn.spring.mvn.socket.entity"/>
 	</typeAliases>
 	<!-- <typeHandlers>

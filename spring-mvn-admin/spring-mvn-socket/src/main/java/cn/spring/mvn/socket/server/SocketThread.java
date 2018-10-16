@@ -32,7 +32,7 @@ public class SocketThread extends Thread {
 
 				if (null != socket && !socket.isClosed()) {
 					// 处理接受的数据
-					new SocketOperate(socket).start();
+					new SocketOperator(socket).start();
 				}
 				socket.setSoTimeout(30000);
 

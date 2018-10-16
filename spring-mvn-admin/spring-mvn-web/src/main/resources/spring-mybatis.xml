@@ -27,11 +27,21 @@
 	<bean id="mybatisSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="mybatisDataSource"></property>
 		<property name="configLocation" value="classpath:spring-mybatis-config.xml"></property>
-		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+		<!-- 20180929  备注:
+			之前一直用的classpath:mapper/*.xml 造成了工程只在web项目resources下取,而我的mapper都是配在自己工程中,在web项目中
+			是引用的jar包,而不会访问jar包中的**mapper.xml所以一直在报   invalid bound statement (not found)  异常
+			而改成现在的方式后就能访问jar中的mapper.xml
+			参考:https://www.cnblogs.com/wlgqo/articles/6001180.html
+		-->
+		<property name="mapperLocations" value="classpath*:mapper/*.xml"></property>
 	</bean>
 	<!-- 自动扫描mapper文件对应的接口类,将其中的接口自动创建成 MapperFactoryBean -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="cn.spring.mvn.*.entity.dao"></property>
+		<property name="basePackage" value="cn.spring.mvn.socket.entity.dao"></property><!-- 此方法是可以的 -->
+		<property name="sqlSessionFactoryBeanName" value="mybatisSqlSessionFactory" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.spring.mvn.core.loan.entity.dao"></property><!-- 此方法是可以的 -->
 		<property name="sqlSessionFactoryBeanName" value="mybatisSqlSessionFactory" />
 	</bean>
 	<!-- 配置事务管理器 -->
