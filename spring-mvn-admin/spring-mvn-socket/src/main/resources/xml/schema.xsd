@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.w3school.com.cn" xmlns="http://www.w3school.com.cn"
+	elementFormDefault="qualified">
+	<!-- type的枚举值为: xs:string xs:decimal xs:integer xs:boolean xs:date xs:time -->
+	<xs:element name="car" type="carType" /><!-- 简易元素 -->
+	<xs:simpleType name="carType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Audi" />
+			<xs:enumeration value="Golf" />
+			<xs:enumeration value="BMW" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:element name="shoesize" type="shoetype" /><!-- 复合类型 type所指的类型 -->
+
+	<xs:complexType name="shoetype">
+		<xs:simpleContent>
+			<xs:extension base="xs:integer">
+				<xs:attribute name="country" type="xs:string" /><!-- 属性 -->
+				<xs:attribute name="city" type="xs:string" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:attribute name="lang" type="xs:string" fixed="EN" />
+	<!-- 以上部分为实验,下部分是开始定义接口来 -->
+	<xs:element name="flowtran" type="flowtranConf" />
+	<xs:complexType name="flowtranConf">
+		<xs:sequence>
+			<xs:element name="description" type="xs:string" minOccurs="0" />
+			<xs:element name="interface" type="interfaceData" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" />
+		<xs:attribute name="longname" type="xs:string" />
+		<xs:attribute name="package" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="interfaceData">
+		<xs:sequence>
+			<xs:element name="sys" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="interfaceElements">
+							<xs:sequence />
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="comm" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="interfaceElements">
+							<xs:sequence />
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="input" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="interfaceElements">
+							<xs:sequence />
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="output" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="interfaceElements">
+							<xs:sequence />
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="interfaceElements" abstract="true">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="fields" type="interfaceFields" />
+				<xs:element name="field" type="interfaceField" />
+			</xs:choice>
+			<xs:element name="validations" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="validation" type="validation" />
+							<xs:element name="expression" type="expressionRule" />
+						</xs:choice>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="packMode" type="xs:boolean" />
+	</xs:complexType>
+
+	<xs:complexType name="interfaceFields">
+		<xs:sequence>
+			<xs:element name="depends" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="depend" type="depend" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="validations" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="validation" type="validation" />
+							<xs:element name="expression" type="expressionRule" />
+						</xs:choice>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="fields" type="interfaceFields" />
+				<xs:element name="field" type="interfaceField" />
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" />
+		<xs:attribute name="alias" type="xs:string" />
+		<xs:attribute name="scope" type="xs:string" />
+		<xs:attribute name="required" type="xs:boolean" />
+		<xs:attribute name="multi" type="xs:boolean" />
+		<xs:attribute name="longname" type="xs:string" />
+		<xs:attribute name="desc" type="xs:string" />
+		<xs:attribute name="array" type="xs:boolean" />
+		<xs:attribute name="relation" type="xs:string" />
+		<xs:attribute name="values" type="xs:string" />
+		<xs:attribute name="lazyLoad" type="xs:boolean" />
+		<xs:attribute name="property" type="xs:string" />
+		<xs:attribute name="ref" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="interfaceField">
+		<xs:sequence>
+			<xs:element name="depends" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="depend" type="depend" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="validations" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="validation" type="validation" />
+							<xs:element name="expression" type="expressionRule" />
+						</xs:choice>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" />
+		<xs:attribute name="alias" type="xs:string" />
+		<xs:attribute name="type" type="xs:string" />
+		<xs:attribute name="required" type="xs:boolean" />
+		<xs:attribute name="enums" type="xs:string" />
+		<xs:attribute name="fixed" type="xs:string" />
+		<xs:attribute name="default" type="xs:string" />
+		<xs:attribute name="multi" type="xs:boolean" />
+		<xs:attribute name="array" type="xs:boolean" />
+		<xs:attribute name="longname" type="xs:string" />
+		<xs:attribute name="alias_name" type="xs:string" />
+		<xs:attribute name="additionalType" type="xs:string" />
+		<xs:attribute name="desc" type="xs:string" />
+		<xs:attribute name="lazyLoad" type="xs:boolean" />
+		<xs:attribute name="values" type="xs:string" />
+		<xs:attribute name="relation" type="xs:string" />
+		<xs:attribute name="desplay" type="xs:boolean" />
+		<xs:attribute name="ref" type="xs:string" />
+		<xs:attribute name="property" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="validation">
+		<xs:complexContent>
+			<xs:extension base="rule">
+				<xs:sequence />
+				<xs:attribute name="id" type="xs:string" />
+				<xs:attribute name="method" type="xs:string" />
+				<xs:attribute name="target" type="xs:string" />
+				<xs:attribute name="message" type="xs:string" />
+				<xs:attribute name="ajax" type="xs:boolean" />
+				<xs:attribute name="errorCode" type="xs:string" />
+				<xs:attribute name="depends">
+					<xs:simpleType>
+						<xs:list itemType="xs:string" />
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="expressionRule">
+		<xs:complexContent>
+			<xs:extension base="rule">
+				<xs:sequence />
+				<xs:attribute name="id" type="xs:string" />
+				<xs:attribute name="target" type="xs:string" />
+				<xs:attribute name="top" type="operateType" />
+				<xs:attribute name="tval" type="xs:string" />
+				<xs:attribute name="errorCode" type="xs:string" />
+				<xs:attribute name="ajax" type="xs:boolean" />
+				<xs:attribute name="message" type="xs:string" />
+				<xs:attribute name="depends">
+					<xs:simpleType>
+						<xs:list itemType="xs:string" />
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="depend">
+		<xs:complexContent>
+			<xs:extension base="rule">
+				<xs:sequence />
+				<xs:attribute name="message" type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="rule">
+		<xs:sequence>
+			<xs:choice minOccurs="0">
+				<xs:element name="mvel" type="mvel" />
+				<xs:element name="javascript" type="javascript" />
+				<xs:element name="or" type="or" />
+				<xs:element name="and" type="and" />
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="not" type="xs:boolean" />
+		<xs:attribute name="when" type="xs:string" />
+		<xs:attribute name="op" type="operateType" /><!-- operateType -->
+		<xs:attribute name="val" type="xs:string" />
+		<xs:attribute name="desc" type="xs:string" />
+	</xs:complexType>
+
+	<xs:simpleType name="operateType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="lt" />
+			<xs:enumeration value="gt" />
+			<xs:enumeration value="eq" />
+			<xs:enumeration value="neq" />
+			<xs:enumeration value="in" />
+			<xs:enumeration value="notIn" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="mvel">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
+
+	<xs:simpleType name="javascript">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
+
+	<xs:complexType name="or">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="rule" type="rule" />
+				<xs:element name="or" type="or" />
+				<xs:element name="and" type="and" />
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="and">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="rule" type="rule" />
+				<xs:element name="or" type="or" />
+				<xs:element name="and" type="and" />
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	
+</xs:schema>

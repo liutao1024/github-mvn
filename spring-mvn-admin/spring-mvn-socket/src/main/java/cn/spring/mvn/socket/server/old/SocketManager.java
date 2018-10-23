@@ -1,4 +1,4 @@
-package cn.spring.mvn.socket;
+package cn.spring.mvn.socket.server.old;
 
 public class SocketManager {
 	/**

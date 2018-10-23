@@ -1,28 +1,19 @@
-package cn.spring.mvn.socket;
+package cn.spring.mvn.socket.server.old;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
-
-
-
-//import org.spring.mvn.core.account.ObjectToMapTest;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.spring.mvn.base.entity.SystemTransaction;
 import cn.spring.mvn.base.entity.service.SystemTransactionService;
-import cn.spring.mvn.base.entity.service.impl.SystemTransactionServiceImpl;
 import cn.spring.mvn.base.tools.BaseReflection;
 import cn.spring.mvn.base.tools.BaseTool;
 import cn.spring.mvn.base.util.BaseUtil;
-import cn.spring.mvn.comm.tools.SequenceTool;
 import cn.spring.mvn.comm.util.CommUtil;
 import cn.spring.mvn.comm.util.SpringContextUtil;
-import cn.spring.mvn.core.account.AccountServiceImpl;
 import cn.spring.mvn.core.account.Myinput;
 import cn.spring.mvn.core.account.Myoutput;
-import cn.spring.mvn.socket.service.CoreServerImpl;
 import cn.spring.mvn.socket.tools.SocketTool;
+//import org.spring.mvn.core.account.ObjectToMapTest;
 
 /**
  * @author LiuTao @date 2018年6月13日 下午10:32:13
@@ -37,149 +28,6 @@ public class SocketHandlerImpl {
 	private static String SUCCESS = "SUCCESS";
 	private static SystemTransactionService systemTransactionServiceImpl = (SystemTransactionService) SpringContextUtil.getBean("SystemTransactionService");
 	
-	/**
-	 * @author LiuTao @date 2018年10月16日 上午10:37:35 
-	 * @Title: call 
-	 * @Description: TODO(Describe) 
-	 * @param jsonStr
-	 * @return
-	 */
-	public static String call(String jsonStr){
-		/**
-		 * 1.请求报文格式为:
-		 * 	{
-		 * 		"sys_req":{
-		 * 					"servtp":"MGR",
-		 * 					"servno":"02",
-		 * 					"servdt":"20181016",
-		 * 					"servtm":"20:49:32:42",
-		 * 					"servsq":"201810161120398",
-		 * 					"tranbr":"01",
-		 * 					"tranus":"10001",
-		 * 					"trandt":"",
-		 * 					"trantm":"",
-		 * 					"transq":"",
-		 * 					"status":"",
-		 * 					"retcod":"",
-		 * 					"retmsg":""
-		 * 			  },
-		 * 		"comm_req":{
-		 * 					"corpno":"001",
-		 * 					"prcscd":"qrcust"
-		 * 				},
-		 * 		"input":{
-		 * 					"custno":"",
-		 * 					"custna":"刘涛"
-		 * 				}
-		 * 		
-		 * 	}
-		 * sys_reqp和comm_req中的字段固定,接口内容一般放在input中
-		 * 
-		 * 2.响应报文的格式为:
-		 * (查询类)
-		 * {
-		 * 		"sys_rsp":{
-		 * 					"servtp":"MGR",
-		 * 					"servno":"02",
-		 * 					"servdt":"20181016",
-		 * 					"servtm":"20:49:32:42",
-		 * 					"servsq":"201810161120398",
-		 * 					"tranbr":"01",
-		 * 					"tranus":"10001",
-		 * 					"trandt":"20181016",
-		 * 					"trantm":"20:49:33:42",
-		 * 					"transq":"0bfc22b296224axaa7b11fe7036a7c61",
-		 * 					"status":"SUCCUS",(ERROR)
-		 * 					"mesage":""
-		 * 			  	},
-		 * 		"comm_rsp":{
-		 * 					"corpno":"001",
-		 * 					"prcscd":"qrcust"
-		 * 				},
-		 * 		"output":{
-		 * 					"count":"4",
-		 * 					"infos":[
-		 *						      {"custna":"刘德华","custno":"201110241001","idtfno":"511024199112030398","idtftp":"SFZ","email":""},
-		 *			 				  {"custna":"张家辉","custno":"201110241002","idtfno":"511024198612030398","idtftp":"SFZ","email":""},
-		 *			 				  {"custna":"陈小春","custno":"201110241003","idtfno":"511024198512030398","idtftp":"SFZ","email":""},
-		 *			 				  {"custna":"古天乐","custno":"201110241004","idtfno":"511024198812030398","idtftp":"SFZ","email":""}
-		 *							]
-		 * 				},
-		 * 		"retCode":"0000",
-		 * 		"retMsg":""
-		 * }
-		 * (执行类)
-		 * {
-		 * 		"sys_rsp":{
-		 * 					"servtp":"MGR",
-		 * 					"servno":"02",
-		 * 					"servdt":"20181016",
-		 * 					"servtm":"20:49:32:42",
-		 * 					"servsq":"201810161120398",
-		 * 					"tranbr":"01",
-		 * 					"tranus":"10001",
-		 * 					"trandt":"20181016",
-		 * 					"trantm":"20:49:33:42",
-		 * 					"transq":"0bfc22b296224axaa7b11fe7036a7c61",
-		 * 					"status":"SUCCUS",(ERROR)
-		 * 					"mesage":"执行成功"
-		 * 			  	},
-		 * 		"comm_rsp":{
-		 * 					"corpno":"001",
-		 * 					"prcscd":"opcust"
-		 * 				},
-		 * 		"output":{
-		 * 					"opendt":"20181016",
-		 * 					"opensq":"0bfc22b296224axaa7b11fe7036a7c61",
-		 * 					"custno":"6010000123",
-		 * 					"trandt":"20181016"
-		 * 				},
-		 * 		"retCode":"0000",
-		 * 		"retMsg":""
-		 * }
-		 * sys_rsp和comm_rsp中的字段固定,接口字段在output
-		 */
-		Map<String, Object> requestMap = SocketTool.praseRequestStringMap(jsonStr);
-		
-//		requestMap = SocketTool.praseRequestStringMap(jsonStr);
-		/**
-		 * 做具体的实现和下面的方法类似的
-		 */
-		
-		String rspMsg = "{"
-				+ "\"sys_rsp\":{"
-							+ "\"servtp\":\" \","
-							+ "\"servno\":\" \","
-							+ "\"servdt\":\" \","
-							+ "\"servtm\":\" \","
-							+ "\"servsq\":\" \","
-							+ "\"tranbr\":\"\","
-							+ "\"tranus\":\"\","
-							+ "\"trandt\":\"\","
-							+ "\"trantm\":\"\","
-							+ "\"transq\":\"\","
-							+ "\"status\":\"ERROR\","
-							+ "\"mesage\":\"someExciption\","
-							+ "\"errcod\":\"\""
-							+ "},"
-				+ "\"comm_rsp\":{"
-							+ "\"corpno\":\"\","
-							+ "\"prcscd\":\"\""
-							+ "},"
-				+ "\"output\":{"
-							+ "\"count\":\"3\","
-	 						+ "\"infos\":["
-				 						 +  "{\"custna\":\"刘德华\",\"custac\":\"201110241001\",\"idtfno\":\"511024199112030398\",\"idtftp\":\"SFZ\"},"
-				 						 +  "{\"custna\":\"张家辉\",\"custac\":\"201110241001\",\"idtfno\":\"511024199112030398\",\"idtftp\":\"SFZ\"},"
-				 						 +  "{\"custna\":\"古天乐\",\"custac\":\"201110241001\",\"idtfno\":\"511024199112030398\",\"idtftp\":\"SFZ\"}"
-			 						 +  "]"
-				 			+ "},"
-				+ "\"retCode\":\"\","
-				+ "\"retMsg\":\"\""
-			+ "}";
-		String returnStr = rspMsg;
-		return returnStr;
-	}
 	/**
 	 * @author LiuTao @date 2018年10月16日 上午10:35:35 
 	 * @Title: callInterface 

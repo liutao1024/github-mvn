@@ -8,7 +8,7 @@
   <display-name>spring_mvn_web</display-name>
   <context-param><!-- classpath:spring-quartz.xml加载quartz的配置文件20180608 暂时先去掉不跑定时任务 -->
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring.xml,classpath:spring-hibernate.xml,classpath:spring-mybatis.xml<!-- ,classpath:spring-quartz.xml --></param-value>
+    <param-value>classpath:spring.xml<!-- ,classpath:spring-hibernate.xml,classpath:spring-mybatis.xml,classpath:spring-quartz.xml --></param-value>
   </context-param>
   <filter>
     <filter-name>encodingFilter</filter-name>
@@ -38,8 +38,9 @@
     <filter-name>openSessionInViewFilter</filter-name>
     <url-pattern>*.htmls</url-pattern>
   </filter-mapping>
+  <!-- 服务器session回话生命周期 (单位分钟,默认30分钟) -->
   <session-config>
-    <session-timeout>30</session-timeout>
+    <session-timeout>60</session-timeout>
   </session-config>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -47,9 +48,9 @@
   <listener>
     <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
   </listener>
-  <!-- 开启socket服务 -->
+  <!-- 开启socket监听服务 -->
   <listener>
-    <listener-class>cn.spring.mvn.socket.server.SocketServiceLoader</listener-class>
+    <listener-class>cn.spring.mvn.socket.server.SocketServerListener</listener-class>
   </listener>
   <servlet>
     <description>springMavenServlet</description>

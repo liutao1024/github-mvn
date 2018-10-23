@@ -19,9 +19,9 @@
 	</request>
 	<response>
 		<count>count</count>
-		<data>
+		<infos>
 			<custno>custno</custno>
 			<custac>custac</custac>
-		</data>
+		</infos>
 	</response>
 </opcust>

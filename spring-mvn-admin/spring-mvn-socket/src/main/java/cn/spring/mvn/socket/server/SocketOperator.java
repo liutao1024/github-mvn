@@ -7,8 +7,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-import cn.spring.mvn.socket.SocketHandlerImpl;
-
 //import javassist.util.proxy.MethodHandler;
 
 /**
@@ -40,7 +38,7 @@ public class SocketOperator extends Thread {
 			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 			requestStr = bufferedReader.readLine();
             System.out.println("[INFO]========请求json报文: " + requestStr);
-            responseStr = SocketHandlerImpl.call(requestStr);//responseMap.toString();
+            responseStr = SocketOperatorImpl.call(requestStr);//responseMap.toString();
 //            responseStr = requestStr;//测试直接将请求返回
             System.out.println("[INFO]========响应json报文: " + responseStr);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream(), charSetStr);

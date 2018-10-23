@@ -1,6 +1,7 @@
 package cn.spring.mvn.socket.tools;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,13 +12,64 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import cn.spring.mvn.socket.Comm;
+import cn.spring.mvn.socket.Sys;
+import cn.spring.mvn.socket.utils.SocketUtil;
+
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * @author LiuTao @date 2018年6月13日 下午2:08:16
  * @ClassName: ServerTool 
  * @Description: 都是JSon格式的String
  */
 public class SocketTool {
+	/**
+	 * @author LiuTao @date 2018年10月22日 下午3:12:11 
+	 * @Title: formatRequest 
+	 * @Description: 解析json请求报文 
+	 * @param sys
+	 * @param comm
+	 * @param object
+	 * @param jsonStr
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
+	public static void parseRequest(Sys sys, Comm comm, Object object, String jsonStr) throws JsonParseException, JsonMappingException, IOException{
+		ObjectMapper objectMapper = new ObjectMapper();
+		JSONObject jsonObject = JSONObject.parseObject(jsonStr);
+		String sysStr = jsonObject.get(SocketUtil.SYS_REQ).toString();
+		String commStr = jsonObject.get(SocketUtil.COMM_REQ).toString();
+		String objectStr = jsonObject.get(SocketUtil.INPUT).toString();
+		sys = objectMapper.readValue(sysStr, sys.getClass());
+		comm = objectMapper.readValue(commStr, comm.getClass());
+		object = objectMapper.readValue(objectStr, object.getClass());
+	}
+	/**
+	 * @author LiuTao @date 2018年10月22日 下午3:12:16 
+	 * @Title: formatResponse 
+	 * @Description: 封装响应为json字符串
+	 * @param sys
+	 * @param comm
+	 * @param object
+	 * @param jsonStr
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
+	public static String formatResponse(Sys sys, Comm comm, Object object) throws JsonParseException, JsonMappingException, IOException{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(SocketUtil.SYS_RSP, sys);
+		map.put(SocketUtil.COMM_RSP, comm);
+		map.put(SocketUtil.OUTPUT, object);
+		//------------------------------------------输出key时是否使用双引号,默认为true ------是否输出值为null的字段,默认为false-------数值字段如果为null,输出为0,而非null-----------List字段如果为null,输出为[],而非null--------字符类型字段如果为null,输出为"",而非null--------Boolean字段如果为null,输出为false,而非null
+		String rstStr = JSONObject.toJSONString(map, SerializerFeature.QuoteFieldNames, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullNumberAsZero, SerializerFeature.WriteNullListAsEmpty, SerializerFeature.WriteNullStringAsEmpty, SerializerFeature.WriteNullBooleanAsFalse);
+		return rstStr;
+	}
 	/**
 	 * 			发送请求
 	 * @author LiuTao @date 2018年6月13日 下午1:44:00 

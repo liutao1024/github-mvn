@@ -18,11 +18,12 @@ public class SystemTransaction implements Serializable{
 	@Id
 	@Column(name = "transactionCode", nullable = false, length = 24)
 	private String corecd;//trancd交易码
-	@Id
 	@Column(name = "transactionType", nullable = false, length = 24)
 	private String trantp;//交易类型 Q-查询,D-执行
 	@Column(name = "transactionName", length = 24)
 	private String tranna;//交易名称
+	@Column(name = "transactionPath", length = 100)
+	private String path;//代码路径(cn.spring.mvn...)主要是输入输出类的路径
 	@Column(name = "transactionModule", length = 36)
 	private String module;//代码模块 目前只有core/core.account(账户)/core.deposit(存款)/core.fund(基金)/core.loan(贷款)
 	@Column(name = "transactionClass", length = 36)
@@ -31,7 +32,6 @@ public class SystemTransaction implements Serializable{
 	private String method;//执行的方法
 	@Column(name = "transactionMark", length = 36)
 	private String runmak;//运行标志run mark
-	
 	public String getCorecd() {
 		return corecd;
 	}
@@ -49,6 +49,12 @@ public class SystemTransaction implements Serializable{
 	}
 	public void setTranna(String tranna) {
 		this.tranna = tranna;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
 	}
 	public String getModule() {
 		return module;
@@ -74,7 +80,6 @@ public class SystemTransaction implements Serializable{
 	public void setRunmak(String runmak) {
 		this.runmak = runmak;
 	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -83,12 +88,12 @@ public class SystemTransaction implements Serializable{
 		result = prime * result + ((eclass == null) ? 0 : eclass.hashCode());
 		result = prime * result + ((method == null) ? 0 : method.hashCode());
 		result = prime * result + ((module == null) ? 0 : module.hashCode());
+		result = prime * result + ((path == null) ? 0 : path.hashCode());
 		result = prime * result + ((runmak == null) ? 0 : runmak.hashCode());
 		result = prime * result + ((tranna == null) ? 0 : tranna.hashCode());
 		result = prime * result + ((trantp == null) ? 0 : trantp.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -118,6 +123,11 @@ public class SystemTransaction implements Serializable{
 				return false;
 		} else if (!module.equals(other.module))
 			return false;
+		if (path == null) {
+			if (other.path != null)
+				return false;
+		} else if (!path.equals(other.path))
+			return false;
 		if (runmak == null) {
 			if (other.runmak != null)
 				return false;
@@ -135,11 +145,11 @@ public class SystemTransaction implements Serializable{
 			return false;
 		return true;
 	}
-	
 	@Override
 	public String toString() {
 		return "SystemTransaction [corecd=" + corecd + ", trantp=" + trantp
-				+ ", tranna=" + tranna + ", module=" + module + ", eclass="
-				+ eclass + ", method=" + method + ", runmak=" + runmak + "]";
+				+ ", tranna=" + tranna + ", path=" + path + ", module="
+				+ module + ", eclass=" + eclass + ", method=" + method
+				+ ", runmak=" + runmak + "]";
 	}
 }

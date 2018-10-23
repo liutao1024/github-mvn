@@ -13,9 +13,12 @@ import cn.spring.mvn.base.util.BaseUtil;
 public class SystemTransactionServiceImpl extends BaseServiceImpl<SystemTransaction> implements SystemTransactionService{
 
 	@Override
-	public SystemTransaction selectOne(String corecd, String trantp) {
+	public SystemTransaction selectOne(String prcscd, String trantp) {
 		SystemTransaction transaction  = null;
-		String hqlStr = "from SystemTransaction where transactionCode = '" + corecd + "' and transactionType = '" + trantp + "'";
+		String hqlStr = "from SystemTransaction where transactionCode = '" + prcscd + "' ";
+		if(BaseUtil.isNotNull(trantp)){
+			hqlStr = hqlStr + "and transactionType = '" + trantp + "'";
+		}
 		List<SystemTransaction> list = this.findAllByHql(hqlStr);
 		if(BaseUtil.isNotNull(list) && list.size() > 0){
 			transaction = list.get(0);

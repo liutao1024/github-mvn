@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran id="qrcust" longname="客户信息查询" package="cn.spring.mvn.core.account.zRDI" xmlns="http://www.w3school.com.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3school.com.cn ../xml/schema.xsd"><!-- 引入自己的scheme -->
+	<description></description>
+	<interface>
+		<sys>
+			<field id="custno" type="xs:string" required="false" multi="false" array="false" longname="客户号 " ref="ClDict.CL.custno"/>
+		</sys>
+		<comm>
+			<field id="custno" type="xs:string" required="false" multi="false" array="false" longname="客户号 " ref="ClDict.CL.custno"/>
+		</comm>
+		<input>
+			<field id="custno" type="xs:string" required="false" multi="false" array="false" longname="客户号 " ref="ClDict.CL.custno"/>
+		</input>
+		<output>
+			<field id="custno" type="xs:string" required="false" multi="false" array="false" longname="客户号 " ref="ClDict.CL.custno"/>
+			<fields id="addlst" scope="IoClAdd.AddList" required="false" multi="true" longname="级别集合" array="false">
+                <field id="busino" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="产品号/账号/卡号/上级客户号/交易渠道" ref="ClDict.CL.busino"/>
+                <field id="crdlam" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="额度金额" ref="ClDict.CL.crdlam"/>
+                <field id="cllevl" type="ClEnumType.E_CLLEVL" required="false" multi="false" array="false" longname="额度级别" ref="ClDict.CL.cllevl"/>
+                <field id="status" type="ClEnumType.E_STATUS" required="false" multi="false" array="false" longname="额度状态" ref="ClDict.CL.status"/>
+            </fields>
+		</output>
+	</interface>
+</flowtran>
