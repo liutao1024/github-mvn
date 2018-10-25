@@ -1,16 +1,40 @@
 package cn.spring.mvn.web.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.spring.mvn.core.loan.entity.CoreProduct;
+import cn.spring.mvn.core.loan.entity.service.CoreProductService;
+import cn.spring.mvn.socket.entity.SystemTransactionInformation;
+import cn.spring.mvn.socket.entity.service.SystemTransactionInformationService;
 import cn.spring.mvn.socket.server.SocketOperatorImpl;
 
 @Controller("DemoController")
 @RequestMapping(value="/test")
 public class DemoController {
+	@Autowired
+	private SystemTransactionInformationService s;
+	@Autowired
+	private CoreProductService c;
+	
+	@RequestMapping()
+	public void Test001(HttpServletRequest request, HttpServletResponse response){
+		List<SystemTransactionInformation> list = s.selectSystemTransactionInformationList();
+		for (SystemTransactionInformation systemTransactionInformation : list) {
+			System.out.println(systemTransactionInformation.getSerialNumber());
+		}
+		List<CoreProduct> list1 = c.selectCorePorductList();
+		for (CoreProduct coreProduct : list1) {
+			System.out.println(coreProduct.getProdno());
+		}
+	}
+	
 	@RequestMapping("/test1")
 	public void Test(HttpServletRequest request, HttpServletResponse response){
 		String str = "{"+
