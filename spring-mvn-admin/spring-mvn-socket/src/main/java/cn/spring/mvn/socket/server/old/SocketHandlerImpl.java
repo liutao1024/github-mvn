@@ -10,10 +10,9 @@ import cn.spring.mvn.base.tools.BaseTool;
 import cn.spring.mvn.base.util.BaseUtil;
 import cn.spring.mvn.comm.util.CommUtil;
 import cn.spring.mvn.comm.util.SpringContextUtil;
-import cn.spring.mvn.core.account.Myinput;
-import cn.spring.mvn.core.account.Myoutput;
+import cn.spring.mvn.socket.Input;
+import cn.spring.mvn.socket.Output;
 import cn.spring.mvn.socket.tools.SocketTool;
-//import org.spring.mvn.core.account.ObjectToMapTest;
 
 /**
  * @author LiuTao @date 2018年6月13日 下午10:32:13
@@ -135,9 +134,9 @@ public class SocketHandlerImpl {
 						String method = systemTransaction.getMethod();
 						String className = "cn.spring.mvn." + module + "." + eclass;
 						String methodName = method;
-						Class[] classes = {Myinput.class, Myoutput.class};//接口的输入输出都需要封装成类 input.class,output.class
-						Myinput input = new Myinput();
-						Myoutput output = new Myoutput();
+						Class[] classes = {Input.class, Output.class};//接口的输入输出都需要封装成类 input.class,output.class
+						Input input = new Input();
+						Output output = new Output();
 						Object[] objects = {input, output};//input output
 						BaseReflection.executeMethodByClassNameAndMethodName(className, methodName, classes, objects);
 						rstMap = BaseUtil.objectToMap(output);

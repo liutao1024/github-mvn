@@ -1,5 +1,5 @@
 package cn.spring.mvn.socket;
 
-public interface Input {
+public class Input {
 
 }

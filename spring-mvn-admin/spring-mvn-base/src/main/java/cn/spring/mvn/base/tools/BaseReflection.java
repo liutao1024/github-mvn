@@ -2,6 +2,7 @@ package cn.spring.mvn.base.tools;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -13,6 +14,11 @@ import java.util.jar.JarFile;
 import org.apache.log4j.Logger;
 
 import cn.spring.mvn.base.util.BaseUtil;
+
+import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @SuppressWarnings({"rawtypes", "unchecked"})
@@ -34,18 +40,42 @@ public class BaseReflection {
 	 * @param methodName 类中的方法
 	 * @param classes 方法参数的类型  所以是不是需要将   输入和输出封装成单独的类
 	 * @param objects 方法的参数
+	 * @throws ClassNotFoundException 
+	 * @throws InstantiationException 
+	 * @throws IllegalAccessException 
+	 * @throws InvocationTargetException 
+	 * @throws NoSuchMethodException 
 	 * @throws Exception
 	 */
-	public static void executeMethodByClassNameAndMethodName(String className, String methodName, Class[] classes, Object[] objects) throws Exception{
+	public static void executeMethodByClassNameAndMethodName(String className, String methodName, Class[] classes, Object[] objects) throws ReflectiveOperationException{
 		try {
 			Class theClass = getClassByClassName(className);
 			Object obj = theClass.newInstance();
 			Method method = theClass.getMethod(methodName, classes);
 			method.setAccessible(true);//对于类中的private方法也可以通过这只后可以访问
 			method.invoke(obj, objects);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			throw e;
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			throw e;
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			throw e;
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			throw e;
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+			throw e;
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
-		} 
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 	/**
@@ -54,18 +84,64 @@ public class BaseReflection {
 	 * @Description: 通过反射根据className获取Class
 	 * @param className
 	 * @return
-	 * @throws Exception 
+	 * @throws ClassNotFoundException 
 	 */
-	public static Class getClassByClassName(String className) throws Exception{
+	public static Class getClassByClassName(String className) throws ClassNotFoundException {
 		try {
-			Class object = Class.forName(className);
-			return object;
-		} catch (Exception e) {
+			Class clazz = Class.forName(className);
+			return clazz;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 			LOGGER.info("根据字符串" + className + "获取类失败:" + e.getMessage());
-			throw new RuntimeException(e);
+			throw e;
 		}
 	}
-	
+	/**
+	 * @author LiuTao @date 2018年10月23日 下午5:10:55 
+	 * @Title: getEntityClass 
+	 * @Description: TODO(Describe) 
+	 * @param clazz
+	 * @param obj
+	 * @return
+	 */
+	public static <T> T getEntityClass(Class<T> clazz, Object obj){
+		if(clazz.isInstance(obj)){
+			return clazz.cast(obj);
+		}
+		return (T) clazz;
+	}
+	/**
+	 * @author LiuTao @date 2018年10月24日 上午11:25:49 
+	 * @Title: getObject 
+	 * @Description: TODO(Describe) 
+	 * @param clazz
+	 * @param obj
+	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public static Object getObject(Class clazz, Object obj) throws InstantiationException, IllegalAccessException{
+		Object object = clazz.newInstance();
+		object = clazz.cast(obj);
+		return object;
+	}
+	/**
+	 * @author LiuTao @date 2018年10月24日 下午1:55:37 
+	 * @Title: getObjectByClass
+	 * @Description: TODO(Describe) 
+	 * @param clazz
+	 * @param obj
+	 * @return
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
+	public static Object getObjectByClass(Class clazz, Object obj) throws JsonParseException, JsonMappingException, IOException{
+		ObjectMapper objectMapper = new ObjectMapper();
+		String objectJsonStr = JSONObject.toJSONString(obj);
+		Object object = objectMapper.readValue(objectJsonStr, clazz);
+		return object;
+	}
 	/**
 	 * @author LiuTao @date 2018年6月4日 下午8:18:10 
 	 * @Title: getSubFileNameListByFilePath 

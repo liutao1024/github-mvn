@@ -30,7 +30,13 @@ public class SocketTool {
 	/**
 	 * @author LiuTao @date 2018年10月22日 下午3:12:11 
 	 * @Title: formatRequest 
-	 * @Description: 解析json请求报文 
+	 * @Description: 解析json请求报文 ,这里发现的一个问题,对于形参和实参的延伸:1.形参--函数本身的属性或方法??;2.实参调用方法里的属性或方法
+	 * 										为什么这里传入的是map如果按之前的传入sys,comm,object在调用此函数后这几个传入的参数的值
+	 * 										没有改变,是因为进入此函数时,形参被赋予了值并在函数结束后释放掉内存,故实参的值为发生改变
+	 * 										当传入的是map时,由于map为指针类............
+	 * 			没说清楚,自己都有点晕了
+	 * 
+	 * 			貌似反射就不遵守这个规则了
 	 * @param sys
 	 * @param comm
 	 * @param object
@@ -39,15 +45,18 @@ public class SocketTool {
 	 * @throws JsonMappingException
 	 * @throws IOException
 	 */
-	public static void parseRequest(Sys sys, Comm comm, Object object, String jsonStr) throws JsonParseException, JsonMappingException, IOException{
+	public static void parseRequest(String jsonStr, Map<String, Object> map) throws JsonParseException, JsonMappingException, IOException{
 		ObjectMapper objectMapper = new ObjectMapper();
 		JSONObject jsonObject = JSONObject.parseObject(jsonStr);
 		String sysStr = jsonObject.get(SocketUtil.SYS_REQ).toString();
 		String commStr = jsonObject.get(SocketUtil.COMM_REQ).toString();
 		String objectStr = jsonObject.get(SocketUtil.INPUT).toString();
-		sys = objectMapper.readValue(sysStr, sys.getClass());
-		comm = objectMapper.readValue(commStr, comm.getClass());
-		object = objectMapper.readValue(objectStr, object.getClass());
+		Sys sys = objectMapper.readValue(sysStr, Sys.class);
+		Comm comm = objectMapper.readValue(commStr, Comm.class);
+		Object object = objectMapper.readValue(objectStr, Object.class);
+		map.put(SocketUtil.SYS_REQ, sys);
+		map.put(SocketUtil.COMM_REQ, comm);
+		map.put(SocketUtil.INPUT, object);
 	}
 	/**
 	 * @author LiuTao @date 2018年10月22日 下午3:12:16 

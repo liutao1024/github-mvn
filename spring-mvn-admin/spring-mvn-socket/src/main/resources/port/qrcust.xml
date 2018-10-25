@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran id="qrcust" longname="客户信息查询" package="cn.spring.mvn.core.account.zport" 
+	xmlns="http://www.w3school.com.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3school.com.cn ../xml/schema.xsd"><!-- 引入自己的scheme 为什么在../scheme/scheme.xsd不行? -->
+	<description></description>
+	<interface>
+		<sys packMode="true" class="cn.spring.mvn.socket.Sys">
+			<field id="servtp" type="xs:string" required="false" multi="false" array="false" longname="渠道类型 " ref=""/>
+			<field id="servno" type="xs:string" required="false" multi="false" array="false" longname="渠道号 " ref=""/>
+			<field id="servdt" type="xs:string" required="false" multi="false" array="false" longname="渠道日期 " ref=""/>
+			<field id="servtm" type="xs:string" required="false" multi="false" array="false" longname="渠道时间 " ref=""/>
+			<field id="servsq" type="xs:string" required="false" multi="false" array="false" longname="渠道流水 " ref=""/>
+			<field id="tranbr" type="xs:string" required="false" multi="false" array="false" longname="交易机构 " ref=""/>
+			<field id="tranus" type="xs:string" required="false" multi="false" array="false" longname="交易柜员" ref=""/>
+			<field id="trandt" type="xs:string" required="false" multi="false" array="false" longname="交易日期" ref=""/>
+			<field id="trantm" type="xs:string" required="false" multi="false" array="false" longname="交易时间" ref=""/>
+			<field id="transq" type="xs:string" required="false" multi="false" array="false" longname="交易流水 " ref=""/>
+			<field id="status" type="xs:string" required="false" multi="false" array="false" longname="交易状态" ref=""/>
+			<field id="mesage" type="xs:string" required="false" multi="false" array="false" longname="交易信息 " ref=""/>
+		</sys>
+		<comm packMode="true" class="cn.spring.mvn.socket.Comm">
+			<field id="corpno" type="xs:string" required="false" multi="false" array="false" longname="法人代码 " ref=""/>
+			<field id="prcscd" type="xs:string" required="false" multi="false" array="false" longname="交易处理码 " ref=""/>
+		</comm>
+		<input packMode="true" class="cn.spring.mvn.core.account.zport.QrcustInput" package="cn.spring.mvn.core.account.zport">
+			<field id="custno" type="xs:string" required="false" multi="false" array="false" longname="客户号 " ref=""/>
+			<field id="custna" type="xs:string" required="false" multi="false" array="false" longname="客户名称 " ref=""/>
+		</input>																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						
+		<output packMode="true" class="cn.spring.mvn.core.account.zport.QrcustOutput" package="cn.spring.mvn.core.account.zport">
+			<field id="count" type="xs:int" required="false" multi="false" array="false" longname="记录数 " ref=""/>
+			<fields id="infos" scope="" required="false" multi="true" longname="信息集合" array="false">
+                <field id="custno" type="xs:string" required="false" multi="false" array="false" longname="客户号" ref=""/>
+                <field id="custna" type="xs:string" required="false" multi="false" array="false" longname="客户名" ref=""/>
+                <field id="custsx" type="xs:string" required="false" multi="false" array="false" longname="客户性别" ref=""/>
+                <field id="idtftp" type="xs:string" required="false" multi="false" array="false" longname="证件类型" ref=""/>
+                <field id="idtfno" type="xs:string" required="false" multi="false" array="false" longname="证件号码" ref=""/>
+            </fields>
+		</output>
+	</interface>
+</flowtran>

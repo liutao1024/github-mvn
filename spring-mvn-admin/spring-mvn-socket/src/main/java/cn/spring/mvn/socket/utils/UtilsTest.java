@@ -3,6 +3,7 @@ package cn.spring.mvn.socket.utils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import cn.spring.mvn.base.tools.BaseReflection;
 import cn.spring.mvn.socket.Comm;
@@ -21,16 +22,32 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 //import com.demo.bean.Opcust;
 
-
+@SuppressWarnings({ "rawtypes", "unused" })
 public class UtilsTest {
 	
+	public static void Test006(){
+		String s = "wo";
+		int i = 2;
+		System.out.println("TEST0006"+"s="+s+",i="+i);
+		Change(s, i);
+		System.out.println("TEST0006"+"s="+s+",i="+i);
+		Set<String> str = System.getProperties().stringPropertyNames();
+		for (String string : str) {
+			System.out.println(string);
+		}
+	}
+	public static void Change(String s, int i){
+		System.out.println("s="+s+",i="+i);
+		s = "wo变了";
+		i = i+1;
+		System.out.println("s="+s+",i="+i);
+	}
 	/**
 	 * @author LiuTao @date 2018年10月23日 上午9:03:50 
 	 * @throws Exception 
 	 * @Title: Test005 
 	 * @Description: TODO(Describe)
 	 */
-	@SuppressWarnings("rawtypes")
 	public static void Test005() throws Exception{
 		String str = "{"+
 				"\"sys_req\":{"+
@@ -59,7 +76,7 @@ public class UtilsTest {
 		Sys sys = new Sys();
 		Comm comm = new Comm();
 		Object obj = new Object();
-		SocketTool.parseRequest(sys, comm, obj, str);
+//		SocketTool.parseRequest(sys, comm, obj, str);
 //		Qrcust q = new Qrcust();
 		
 		
@@ -149,7 +166,7 @@ public class UtilsTest {
 		Sys sys = new Sys();
 		Comm comm = new Comm();
 		Input input = new InputR();  
-		SocketTool.parseRequest(sys, comm, input, str);
+//		SocketTool.parseRequest(sys, comm, input, str);
 		System.out.println(sys);
 		System.out.println(comm);
 		System.out.println(input);
@@ -171,7 +188,7 @@ public class UtilsTest {
 	public static void main(String[] args) {
 		try {
 //			Test003();
-			Test005();
+			Test006();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

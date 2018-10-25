@@ -146,3 +146,8 @@ socket通讯时,消息进到SocketHandlerImpl.callInterface就停滞了,还有�
 发现个BUG页面上修改cust_user时custno会修改 √
 
 根据xml文件自动生成interface类 sunline是用的IDE的插件是否可以找到相同的插件
+
+
+20181023  问题是sys,comm,input传进去后
+SocketTool.parseRequest(sys, comm, objInput, reqJsonStr);
+值没有赋上呢?   -------------基本解决了

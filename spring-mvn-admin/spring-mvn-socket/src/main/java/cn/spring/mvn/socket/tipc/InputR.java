@@ -2,7 +2,7 @@ package cn.spring.mvn.socket.tipc;
 
 import cn.spring.mvn.socket.Input;
 
-public class InputR implements Input{
+public class InputR extends Input{
 	private String custno;
 	private String custna;
 	public String getCustno() {

@@ -2,11 +2,13 @@ package cn.spring.mvn.socket.client;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +21,22 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class SocketClient {
 	private static final String charSet = "UTF-8";
+	public static String callClientWithJsonStringReturnJsonString(String host, int port, String jsonStr) throws UnknownHostException, IOException{
+		Socket socket = new Socket(host, port);
+		InputStream inputStream = socket.getInputStream();
+		OutputStream outputStream = socket.getOutputStream();
+		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, charSet));
+		bufferedWriter.write(jsonStr);
+		bufferedWriter.flush();
+		socket.shutdownOutput();
+		//读取服务器端数据    
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, charSet));
+		String responseStr = bufferedReader.readLine();
+		socket.close();
+		System.out.println("输入的信息为："+ jsonStr); 
+		System.out.println("输出的信息为："+ responseStr); 
+		return responseStr;
+	}
 	/**
 	 * @author LiuTao @date 2018年6月13日 上午9:20:39 
 	 * @Title: callClientReturnString 
@@ -108,10 +126,33 @@ public class SocketClient {
 		requestMap.put("sys", sysMap);
 		requestMap.put("comm", commMap);
 		requestMap.put("request", srcMap);
-		
+		String jsonStr = "{"+
+				"\"sys_req\":{"+
+								"\"servtp\":\"MGR\","+
+								"\"servno\":\"02\","+
+								"\"servdt\":\"20181016\","+
+								"\"servtm\":\"20:49:32:42\","+
+								"\"servsq\":\"201810161120398\","+
+								"\"tranbr\":\"01\","+
+								"\"tranus\":\"10001\","+
+								"\"trandt\":\"\","+
+								"\"trantm\":\"\","+
+								"\"transq\":\"\","+
+								"\"status\":\"\","+
+								"\"mesage\":\"\""+
+							"},"+
+				"\"comm_req\":{"+
+								"\"corpno\":\"001\","+
+								"\"prcscd\":\"qrcust\""+
+							"},"+
+				"\"input\":{"+
+								"\"custna\":\"\""+
+							"}"+
+				"}";
 		try {
-			callClientReturnString("localhost", 8088, requestMap);//本地
-			callClientReturnString("192.168.1.128", 8088, requestMap);//linux
+//			callClientReturnString("localhost", 8088, requestMap);//本地
+			callClientWithJsonStringReturnJsonString("localhost", 8088, jsonStr);//本地
+//			callClientReturnString("192.168.1.128", 8088, requestMap);//linux
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,28 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://www.w3school.com.cn" xmlns="http://www.w3school.com.cn"
-	elementFormDefault="qualified">
-	<!-- type的枚举值为: xs:string xs:decimal xs:integer xs:boolean xs:date xs:time -->
-	<xs:element name="car" type="carType" /><!-- 简易元素 -->
-	<xs:simpleType name="carType">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="Audi" />
-			<xs:enumeration value="Golf" />
-			<xs:enumeration value="BMW" />
-		</xs:restriction>
-	</xs:simpleType>
-
-	<xs:element name="shoesize" type="shoetype" /><!-- 复合类型 type所指的类型 -->
-
-	<xs:complexType name="shoetype">
-		<xs:simpleContent>
-			<xs:extension base="xs:integer">
-				<xs:attribute name="country" type="xs:string" /><!-- 属性 -->
-				<xs:attribute name="city" type="xs:string" />
-			</xs:extension>
-		</xs:simpleContent>
-	</xs:complexType>
-
+	targetNamespace="http://www.w3school.com.cn" xmlns="http://www.w3school.com.cn" elementFormDefault="qualified">
 	<xs:attribute name="lang" type="xs:string" fixed="EN" />
 	<!-- 以上部分为实验,下部分是开始定义接口来 -->
 	<xs:element name="flowtran" type="flowtranConf" />
@@ -94,6 +72,8 @@
 			</xs:element>
 		</xs:sequence>
 		<xs:attribute name="packMode" type="xs:boolean" />
+		<xs:attribute name="class" type="xs:string" />
+		<xs:attribute name="package" type="xs:string" />
 	</xs:complexType>
 
 	<xs:complexType name="interfaceFields">

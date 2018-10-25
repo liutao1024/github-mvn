@@ -3,68 +3,60 @@ package cn.spring.mvn.socket.entity;
 public class SystemTransactionInformation {
 	private String serialNumber;
 	private String serialDate;
+	private String serialTime;
 	private String ipAddress;
 	private String input;
 	private String output;
 	private String errorMesage;
-	private String timestamp;
-
+	private String timesTamp;
 	public String getSerialNumber() {
 		return serialNumber;
 	}
-
 	public void setSerialNumber(String serialNumber) {
 		this.serialNumber = serialNumber;
 	}
-
 	public String getSerialDate() {
 		return serialDate;
 	}
-
 	public void setSerialDate(String serialDate) {
 		this.serialDate = serialDate;
 	}
-
+	public String getSerialTime() {
+		return serialTime;
+	}
+	public void setSerialTime(String serialTime) {
+		this.serialTime = serialTime;
+	}
 	public String getIpAddress() {
 		return ipAddress;
 	}
-
 	public void setIpAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
 	}
-
 	public String getInput() {
 		return input;
 	}
-
 	public void setInput(String input) {
 		this.input = input;
 	}
-
 	public String getOutput() {
 		return output;
 	}
-
 	public void setOutput(String output) {
 		this.output = output;
 	}
-
 	public String getErrorMesage() {
 		return errorMesage;
 	}
-
 	public void setErrorMesage(String errorMesage) {
 		this.errorMesage = errorMesage;
 	}
-
-	public String getTimestamp() {
-		return timestamp;
+	public String getTimesTamp() {
+		return timesTamp;
 	}
-
-	public void setTimestamp(String timestamp) {
-		this.timestamp = timestamp;
+	public void setTimesTamp(String timesTamp) {
+		this.timesTamp = timesTamp;
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -80,10 +72,11 @@ public class SystemTransactionInformation {
 		result = prime * result
 				+ ((serialNumber == null) ? 0 : serialNumber.hashCode());
 		result = prime * result
-				+ ((timestamp == null) ? 0 : timestamp.hashCode());
+				+ ((serialTime == null) ? 0 : serialTime.hashCode());
+		result = prime * result
+				+ ((timesTamp == null) ? 0 : timesTamp.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -123,19 +116,24 @@ public class SystemTransactionInformation {
 				return false;
 		} else if (!serialNumber.equals(other.serialNumber))
 			return false;
-		if (timestamp == null) {
-			if (other.timestamp != null)
+		if (serialTime == null) {
+			if (other.serialTime != null)
 				return false;
-		} else if (!timestamp.equals(other.timestamp))
+		} else if (!serialTime.equals(other.serialTime))
+			return false;
+		if (timesTamp == null) {
+			if (other.timesTamp != null)
+				return false;
+		} else if (!timesTamp.equals(other.timesTamp))
 			return false;
 		return true;
 	}
-
 	@Override
 	public String toString() {
 		return "SystemTransactionInformation [serialNumber=" + serialNumber
-				+ ", serialDate=" + serialDate + ", ipAddress=" + ipAddress
-				+ ", input=" + input + ", output=" + output + ", errorMesage="
-				+ errorMesage + ", timestamp=" + timestamp + "]";
+				+ ", serialDate=" + serialDate + ", serialTime=" + serialTime
+				+ ", ipAddress=" + ipAddress + ", input=" + input + ", output="
+				+ output + ", errorMesage=" + errorMesage + ", timesTamp="
+				+ timesTamp + "]";
 	}
 }

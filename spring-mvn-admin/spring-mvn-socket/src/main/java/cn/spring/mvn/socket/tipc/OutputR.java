@@ -4,7 +4,7 @@ import java.util.List;
 
 import cn.spring.mvn.socket.Output;
 
-public class OutputR implements Output{
+public class OutputR extends Output{
 	private int count;
 	private List<OutputI> ouputis;
 	public int getCount() {

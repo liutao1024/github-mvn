@@ -18,5 +18,9 @@ public class SystemTransactionInformationServiceImpl implements SystemTransactio
 	public List<SystemTransactionInformation> selectSystemTransactionInformationList() {
 		return systemTransactionInformationDao.selectSystemTransactionInformationList();
 	}
+	@Override
+	public int insertSystemTransactionInformation(SystemTransactionInformation systemTransactionInformation) {
+		return systemTransactionInformationDao.insertSystemTransactionInformation(systemTransactionInformation);
+	}
 	
 }

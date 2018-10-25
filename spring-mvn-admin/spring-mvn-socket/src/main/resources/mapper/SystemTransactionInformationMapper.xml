@@ -6,7 +6,7 @@
      
     <!-- 新增一条记录 -->
     <insert id="insertSystemTransactionInformation" parameterType="SystemTransactionInformation">
-      insert into sys_transaction_information(username,password,email,phone)values(#{username},#{password},#{email},#{phone})
+      insert into sys_transaction_information(serialNumber,serialDate,ipAddress,input,output,errorMesage,timesTamp)values(#{serialNumber},#{serialDate},#{ipAddress},#{input},#{output},#{errorMesage},#{timesTamp})
     </insert>
      
     <!-- 删除一条记录 -->

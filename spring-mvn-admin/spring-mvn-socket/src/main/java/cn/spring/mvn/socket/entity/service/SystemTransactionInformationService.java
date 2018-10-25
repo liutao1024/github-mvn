@@ -6,4 +6,5 @@ import cn.spring.mvn.socket.entity.SystemTransactionInformation;
 
 public interface SystemTransactionInformationService {
 	public List<SystemTransactionInformation> selectSystemTransactionInformationList();
+	public int insertSystemTransactionInformation(SystemTransactionInformation systemTransactionInformation);
 }
