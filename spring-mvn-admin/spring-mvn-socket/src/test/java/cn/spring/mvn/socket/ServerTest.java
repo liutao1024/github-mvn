@@ -1,11 +1,15 @@
 package cn.spring.mvn.socket;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -17,12 +21,165 @@ import org.junit.Test;
 import cn.spring.mvn.socket.tools.RequestMap;
 import cn.spring.mvn.base.util.BaseUtil;
 import cn.spring.mvn.core.account.entity.CustUser;
+import cn.spring.mvn.core.account.zport.QrcustInput;
+import cn.spring.mvn.core.account.zport.QrcustOutput;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+@SuppressWarnings("unused")
 public class ServerTest {
 	
-	
+	/**
+	 * @author LiuTao @date 2018年10月25日 下午1:12:57 
+	 * @throws Exception 
+	 * @Title: TestReflect 
+	 * @Description: TODO(Describe)
+	 */
+	@Test
+	public void TestReflect() throws Exception{
+//		String str = "{\"custna\":\"刘涛\",\"acctno\":\"9527\"}";
+		String str = "{\"count\":2,\"infos\":[{\"addrcd\":\"\",\"addres\":\"中国香港\",\"birthd\":\"\",\"brchno\":\"\",\"closdt\":\"\",\"clossq\":\"\",\"corpno\":\"\",\"cuslvl\":\"\",\"custna\":\"张家辉\",\"custno\":\"7011001100002\",\"custst\":\"1\",\"datetm\":\"\",\"emails\":\"\",\"emplcu\":\"\",\"idtfno\":\"511024198612030398\",\"idtftp\":\"01\",\"opendt\":\"\",\"opensq\":\"\",\"postcd\":\"\",\"sextyp\":\"1\",\"teleno\":\"18581598359\",\"timetm\":\"\"},{\"addrcd\":\"\",\"addres\":\"中国四川\",\"birthd\":\"\",\"brchno\":\"\",\"closdt\":\"\",\"clossq\":\"\",\"corpno\":\"\",\"cuslvl\":\"\",\"custna\":\"刘涛\",\"custno\":\"7011001100001\",\"custst\":\"2\",\"datetm\":\"\",\"emails\":\"\",\"emplcu\":\"\",\"idtfno\":\"511024199112030398\",\"idtftp\":\"01\",\"opendt\":\"\",\"opensq\":\"\",\"postcd\":\"\",\"sextyp\":\"1\",\"teleno\":\"15928435559\",\"timetm\":\"\"}]}";
+//		String className = "cn.spring.mvn.core.account.zport.QrcustInput";
+		String className = "cn.spring.mvn.core.account.zport.QrcustOutput";
+		JSONObject jsonObject = JSONObject.parseObject(str);
+		Object object = delWithNew(className, jsonObject);
+		
+		QrcustOutput out = (QrcustOutput)object;
+		int c = out.getCount();
+		List<CustUser> list = out.getInfos();
+		for (CustUser custUser : list) {
+			System.out.println(custUser.toString());
+		}
+		System.out.println(object);
+		//2.处理类的方法
+//		Method[] methods = clazz.getMethods();//获取所有的方法
+//		Method[] declaredMethods = clazz.getDeclaredMethods();//获取自己定义的方法
+//		for (Method method : declaredMethods) {
+//			methodNameList.add(method.getName());
+//		}
+//		System.out.println(object);
+	}
+
+	private Object delWith(String className, JSONObject jsonObject)
+			throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException {
+		Set<Entry<String, Object>> set = jsonObject.entrySet();
+		List<String> entryKeyList = new ArrayList<String>();
+		Map<String, Object> entryMap = new HashMap<String, Object>();
+		for (Entry<String, Object> entry : set) {
+			Object obj = entry.getValue();
+			
+			JSONObject childJsonObject = JSONObject.parseObject(obj.toString());
+			obj = delWith("", childJsonObject);
+			entryMap.put(entry.getKey(), obj);
+			entryKeyList.add(entry.getKey());
+		}
+		Class<?> clazz = Class.forName(className);
+		Object object = clazz.newInstance();
+		//
+		List<String> fieldNameList = new ArrayList<String>();
+		List<String> methodNameList = new ArrayList<String>();
+		
+		//1.处理类的属性
+		Field[] fields  = clazz.getFields();//获取所有public的属性
+		Field[] declaredFields  = clazz.getDeclaredFields();//获取自己定义的属性(是否包括父类的呢)
+		for (Field field : declaredFields) {
+			fieldNameList.add(field.getName());
+			String fieldName = field.getName();
+			if(entryKeyList.contains(fieldName)){
+				field.setAccessible(true);
+				field.set(object, entryMap.get(fieldName));
+			}
+		}
+		return object;
+	}
+	private Object delWithNew(String className, JSONObject jsonObject) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, NoSuchFieldException, SecurityException{
+		Class<?> clazz = Class.forName(className);
+		Object object = clazz.newInstance();
+		Field[] fields  = clazz.getDeclaredFields();//获取自己定义的属性(是否包括父类的呢? ---不包含)
+		Map<String, Field> fieldMap = new HashMap<String, Field>();
+		Map<String, Class<?>> fieldTypeMap = new HashMap<String, Class<?>>();
+		for (Field field : fields) {
+			String fieldName = field.getName();
+			Class<?> fieldType = field.getType();
+			fieldMap.put(fieldName, field);
+			fieldTypeMap.put(fieldName, fieldType);
+		}
+		Set<Entry<String, Object>> set = jsonObject.entrySet();
+		for (Entry<String, Object> entry : set) {
+			String entryKey = entry.getKey();
+			Object obj = entry.getValue();
+			if(fieldTypeMap.containsKey(entryKey)){
+				Field field = fieldMap.get(entryKey);
+				Class<?> fieldType = fieldTypeMap.get(entryKey);
+				/**
+				 * 判断fieldType 是什么类型
+				 * 1.基本类型int,double,float,long,short,boolean,byte,char
+				 * 2.引用类型String
+				 * 3.指针类型List Set Map Collection
+				 */
+				boolean b = isSimple(fieldType);
+				if(!b){
+					JSONObject childJsonObject = JSONObject.parseObject(obj.toString());
+					object = delWithNew(fieldType.toString(), childJsonObject);
+				}else {
+					field.setAccessible(true);
+					field.set(object, entry.getValue());
+				}
+			}
+		}
+		return object;
+	}
+	private boolean isSimple(Class<?> clazz){
+//		assertEquals
+		boolean b = false;
+		try {
+			Object obj = clazz.newInstance();
+			if(obj instanceof Integer){
+				b = true;
+			}
+			if(obj instanceof Double){
+				b = true;
+			}
+			if(obj instanceof Float){
+				b = true;
+			}
+			if(obj instanceof Long){
+				b = true;
+			}
+			if(obj instanceof Short){
+				b = true;
+			}
+			if(obj instanceof Boolean){
+				b = true;
+			}
+			if(obj instanceof Byte){
+				b = true;
+			}
+			if(obj instanceof Character){
+				b = true;
+			}
+			if(obj instanceof Void){
+				b = true;
+			}
+			if(obj instanceof String){
+				b = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			b = true;
+		}
+		return b;
+	}
+	@Test
+	public void Test00007() throws Exception{
+		QrcustOutput o = new QrcustOutput();
+		boolean a = isSimple(o.getClass());
+		int i = 1;
+		boolean b = isSimple(Boolean.class);
+		System.out.println(b);
+	}
 	@SuppressWarnings("unchecked")
 	@Test
 	public void TestXml() {

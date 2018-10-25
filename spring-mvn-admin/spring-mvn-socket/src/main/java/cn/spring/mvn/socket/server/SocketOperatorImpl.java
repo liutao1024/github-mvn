@@ -212,6 +212,7 @@ public class SocketOperatorImpl {
 					String outputClassStr = path + DOT + module + PREFIX + Prcscd + OUTPUT;
 					Class inClass = BaseReflection.getClassByClassName(inputClassStr);
 					Class outClass = BaseReflection.getClassByClassName(outputClassStr);
+					//当接收到的input的字段必我们自己定义的input类多时需要怎么处理
 					objInput = BaseReflection.getObjectByClass(inClass, objInput);
 					objOutput = BaseReflection.getObjectByClass(outClass, objOutput);
 					//就算objInput 和objOutput是null也要返回一个空对象
