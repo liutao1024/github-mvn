@@ -36,14 +36,14 @@ public class SocketOperator extends Thread {
 			 * 4.回复客户端"OK"
 			 */
 			LOGGER.info("========客户端地址: " + socket.getInetAddress().getHostAddress());
-//			System.out.println("[INFO]========客户端地址: " + socket.getInetAddress().getHostAddress());
+			System.out.println("[INFO]========客户端地址: " + socket.getInetAddress().getHostAddress());
 			InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream(), charSetStr);//解决中文字符乱码问题
 			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 			OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream(), charSetStr);
             bufferedWriter = new BufferedWriter(outputStreamWriter);
 			requestStr = bufferedReader.readLine();
 			LOGGER.info("========请求json报文: " + requestStr);
-//			System.out.println("[INFO]========请求json报文: " + requestStr);
+			System.out.println("[INFO]========请求json报文: " + requestStr);
             responseStr = SocketOperatorImpl.call(requestStr, socket.getInetAddress().getHostAddress());//responseMap.toString();
             bufferedWriter.write(responseStr);
 		} catch (Exception e) {
@@ -59,7 +59,7 @@ public class SocketOperator extends Thread {
 			System.out.println("[ERROR]========服务器 run()异常响应:" + e.getMessage()); 
 		} finally {
 			LOGGER.info("========响应json报文: " + responseStr);
-//			System.out.println("[INFO]========响应json报文: " + responseStr);
+			System.out.println("[INFO]========响应json报文: " + responseStr);
 			if (bufferedWriter != null) {
 				try {
 					bufferedWriter.flush();
@@ -79,7 +79,7 @@ public class SocketOperator extends Thread {
 				}
 			}
 			LOGGER.info("========Socket服务器响应结束!");
-//			System.out.println("[INFO]========Socket服务器响应结束!"); 
+			System.out.println("[INFO]========Socket服务器响应结束!"); 
 		}
 	}
 }

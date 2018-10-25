@@ -62,19 +62,23 @@ public class AccountServiceImpl extends SpringContextUtil {
 	 * @param output
 	 */
 	public static void queryCustUser(QrcustInput input, QrcustOutput output){
+		String custno = input.getCustno();
 		String custna = input.getCustna();
 		String idtftp = input.getIdtftp();
 		String idtfno = input.getIdtfno();
 		String hqlStr = "from CustUser where 1 = 1";
 		String appendStr = "";
+		if(CommUtil.isNotNull(custno)){
+			appendStr += " and custno = '" + custno + "'";
+		}
+		if(CommUtil.isNotNull(custna)){
+			appendStr += " and custna like '%" + custna + "%'";
+		}
 		if(CommUtil.isNotNull(idtftp)){
 			appendStr += " and idtftp = '" + idtftp + "'";
 		}
 		if(CommUtil.isNotNull(idtfno)){
 			appendStr += " and idtfno = '" + idtfno + "'";
-		}
-		if(CommUtil.isNotNull(custna)){
-			appendStr += " and custna like '%" + custna + "%'";
 		}
 		hqlStr = hqlStr + appendStr;
 		List<CustUser> custUserList = custUserServiceImpl.findAllByHql(hqlStr);

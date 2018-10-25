@@ -2,9 +2,16 @@ package cn.spring.mvn.core.account.zport;
 
 
 public class QrcustInput{
+	String custno;
 	String custna;
 	String idtftp;
 	String idtfno;
+	public String getCustno() {
+		return custno;
+	}
+	public void setCustno(String custno) {
+		this.custno = custno;
+	}
 	public String getCustna() {
 		return custna;
 	}
@@ -23,4 +30,5 @@ public class QrcustInput{
 	public void setIdtfno(String idtfno) {
 		this.idtfno = idtfno;
 	}
+	
 }
