@@ -19,6 +19,10 @@ public class QrcustOutput{
 	public void setInfos(List<CustUser> infos) {
 		this.infos = infos;
 	}
+	@Override
+	public String toString() {
+		return "QrcustOutput [count=" + count + ", infos=" + infos + "]";
+	}
 	
 }
 

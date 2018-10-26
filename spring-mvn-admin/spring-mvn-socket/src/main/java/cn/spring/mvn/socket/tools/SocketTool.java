@@ -21,6 +21,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 /**
  * @author LiuTao @date 2018年6月13日 下午2:08:16
  * @ClassName: ServerTool 
@@ -78,6 +79,22 @@ public class SocketTool {
 		//------------------------------------------输出key时是否使用双引号,默认为true ------是否输出值为null的字段,默认为false-------数值字段如果为null,输出为0,而非null-----------List字段如果为null,输出为[],而非null--------字符类型字段如果为null,输出为"",而非null--------Boolean字段如果为null,输出为false,而非null
 		String rstStr = JSONObject.toJSONString(map, SerializerFeature.QuoteFieldNames, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullNumberAsZero, SerializerFeature.WriteNullListAsEmpty, SerializerFeature.WriteNullStringAsEmpty, SerializerFeature.WriteNullBooleanAsFalse);
 		return rstStr;
+	}
+	/**
+	 * @author LiuTao @date 2018年10月26日 下午4:58:57 
+	 * @Title: praseToClass 
+	 * @Description: TODO(Describe) 
+	 * @param clazz
+	 * @param obj
+	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public static Object praseToClass(Class<?> clazz, Object obj) throws InstantiationException, IllegalAccessException{
+		Object object = clazz.newInstance();
+		String json = JSONObject.toJSONString(obj);
+		object = new Gson().fromJson(json, clazz);
+		return object;
 	}
 	/**
 	 * 			发送请求

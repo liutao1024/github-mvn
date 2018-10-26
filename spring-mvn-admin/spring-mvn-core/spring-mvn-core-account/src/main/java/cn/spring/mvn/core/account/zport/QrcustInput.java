@@ -30,5 +30,11 @@ public class QrcustInput{
 	public void setIdtfno(String idtfno) {
 		this.idtfno = idtfno;
 	}
+	@Override
+	public String toString() {
+		return "QrcustInput [custno=" + custno + ", custna=" + custna
+				+ ", idtftp=" + idtftp + ", idtfno=" + idtfno + "]";
+	}
+	
 	
 }

@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.spring.mvn.base.entity.SystemTransaction;
 import cn.spring.mvn.base.entity.service.SystemTransactionService;
@@ -32,12 +31,12 @@ import com.fasterxml.jackson.databind.JsonMappingException;
  * 接口定义表字段:交易码,交易所在类,交易对应方法.....
  * 交易记录表字段:交易码,执行时间,执行结果,信息,输入报文,输出报文
  */
-@SuppressWarnings({"unused", "rawtypes"})
+//@SuppressWarnings({"unused", "rawtypes"})
 public class SocketOperatorImpl {
 	private static String ERROR = "ERROR";
 	private static String SUCCESS = "SUCCESS";
-	private static String PATH = "classpath:port/";
-	private static String POSTFIX = ".xml";
+//	private static String PATH = "classpath:port/";
+//	private static String POSTFIX = ".xml";
 	private static String PREFIX = ".zport.";
 	private static String DOT = ".";
 	private static String INPUT = "Input";
@@ -173,6 +172,7 @@ public class SocketOperatorImpl {
 			comm = (Comm) map.get(SocketUtil.COMM_REQ);
 			objInput = map.get(SocketUtil.INPUT);
 			String prcscd = comm.getPrcscd();
+			LOGGER.info("=====prcscd=====" + prcscd);
 			//根据prcscd在系统中获取prcscd.xml文件
 			/**
 			 * 需要加载配置的接口文件.xml吗?貌似没有必要了,因为最后的input和output还都得定义成public的java类,否则涉及到权限访问问题
@@ -189,7 +189,8 @@ public class SocketOperatorImpl {
 //			File xmlFile = ResourceUtils.getFile("classpath:ehcache" + POSTFIX);//
 //			File xmlFile = new File(PATH + prcscd + POSTFIX);//
 //			String s = SocketOperatorImpl.class.getClassLoader().getResource("/xml/" + prcscd + POSTFIX).getPath();
-			if(true){//xmlFile.exists()
+			boolean exists = true;//xmlFile.exists()
+			if(exists){
 				SystemTransaction systemTransaction = systemTransactionServiceImpl.selectOne(prcscd, "");
 				if(CommUtil.isNotNull(systemTransaction) && "YES".equals(systemTransaction.getRunmak())){
 					String path = systemTransaction.getPath();
@@ -210,16 +211,16 @@ public class SocketOperatorImpl {
 					String Prcscd = prcscd.substring(0, 1).toUpperCase() + prcscd.substring(1);
 					String inputClassStr = path + DOT + module + PREFIX + Prcscd + INPUT;
 					String outputClassStr = path + DOT + module + PREFIX + Prcscd + OUTPUT;
-					Class inClass = BaseReflection.getClassByClassName(inputClassStr);
-					Class outClass = BaseReflection.getClassByClassName(outputClassStr);
-					//当接收到的input的字段必我们自己定义的input类多时需要怎么处理
-					objInput = BaseReflection.getObjectByClass(inClass, objInput);
-					objOutput = BaseReflection.getObjectByClass(outClass, objOutput);
+					Class<?> inClass = BaseReflection.getClassByClassName(inputClassStr);
+					Class<?> outClass = BaseReflection.getClassByClassName(outputClassStr);
+					//当接收到的input的字段比我们自己定义的input类多时需要怎么处理
+					objInput = SocketTool.praseToClass(inClass, objInput);
+					objOutput = SocketTool.praseToClass(outClass, objOutput);
 					//就算objInput 和objOutput是null也要返回一个空对象
 //					Qrcust.input;
 //					Qrcust i = new Qrcust();
 					//接口的输入输出都需要封装成类 input.class,output.class
-					Class[] classes = {inClass, outClass};
+					Class<?>[] classes = {inClass, outClass};
 					//input output
 					Object[] objects = {objInput, objOutput};
 					
@@ -269,7 +270,7 @@ public class SocketOperatorImpl {
 			systemTransactionInformation.setOutput(rspJsonStr);
 			systemTransactionInformation.setErrorMesage(mesage);
 			systemTransactionInformation.setTimesTamp(String.valueOf(System.currentTimeMillis()));
-			int i = systemTransactionInformationServiceImpl.insertSystemTransactionInformation(systemTransactionInformation);
+			systemTransactionInformationServiceImpl.insertSystemTransactionInformation(systemTransactionInformation);
 		}
 		return rspJsonStr;
 	}

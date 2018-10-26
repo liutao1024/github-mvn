@@ -21,17 +21,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-@SuppressWarnings({"rawtypes", "unchecked"})
+//@SuppressWarnings({"rawtypes", "unchecked"})
 public class BaseReflection {
 	private static final Logger LOGGER = Logger.getLogger(BaseReflection.class);
-	/**
-	 * @author LiuTao @date 2018年6月2日 下午9:15:07 
-	 * @Title: executeMethodByClassNameAndMethodName 
-	 * @Description: 
-	 * @param className
-	 * @param methodName
-	 * @throws Exception 
-	 */
 	/**
 	 * @author LiuTao @date 2018年9月4日 下午4:07:40 
 	 * @Title: executeMethodByClassNameAndMethodName 
@@ -47,9 +39,9 @@ public class BaseReflection {
 	 * @throws NoSuchMethodException 
 	 * @throws Exception
 	 */
-	public static void executeMethodByClassNameAndMethodName(String className, String methodName, Class[] classes, Object[] objects) throws ReflectiveOperationException{
+	public static void executeMethodByClassNameAndMethodName(String className, String methodName, Class<?>[] classes, Object[] objects) throws ReflectiveOperationException{
 		try {
-			Class theClass = getClassByClassName(className);
+			Class<?> theClass = getClassByClassName(className);
 			Object obj = theClass.newInstance();
 			Method method = theClass.getMethod(methodName, classes);
 			method.setAccessible(true);//对于类中的private方法也可以通过这只后可以访问
@@ -86,9 +78,9 @@ public class BaseReflection {
 	 * @return
 	 * @throws ClassNotFoundException 
 	 */
-	public static Class getClassByClassName(String className) throws ClassNotFoundException {
+	public static Class<?> getClassByClassName(String className) throws ClassNotFoundException {
 		try {
-			Class clazz = Class.forName(className);
+			Class<?> clazz = Class.forName(className);
 			return clazz;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -104,11 +96,11 @@ public class BaseReflection {
 	 * @param obj
 	 * @return
 	 */
-	public static <T> T getEntityClass(Class<T> clazz, Object obj){
+	public static Class<?> getEntityClass(Class<?> clazz, Object obj){
 		if(clazz.isInstance(obj)){
-			return clazz.cast(obj);
+			return (Class<?>) clazz.cast(obj);
 		}
-		return (T) clazz;
+		return clazz;
 	}
 	/**
 	 * @author LiuTao @date 2018年10月24日 上午11:25:49 
@@ -120,7 +112,7 @@ public class BaseReflection {
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
-	public static Object getObject(Class clazz, Object obj) throws InstantiationException, IllegalAccessException{
+	public static Object getObject(Class<?> clazz, Object obj) throws InstantiationException, IllegalAccessException{
 		Object object = clazz.newInstance();
 		object = clazz.cast(obj);
 		return object;
@@ -136,7 +128,7 @@ public class BaseReflection {
 	 * @throws JsonMappingException
 	 * @throws IOException
 	 */
-	public static Object getObjectByClass(Class clazz, Object obj) throws JsonParseException, JsonMappingException, IOException{
+	public static Object getObjectByClass(Class<?> clazz, Object obj) throws JsonParseException, JsonMappingException, IOException{
 		ObjectMapper objectMapper = new ObjectMapper();
 		String objectJsonStr = JSONObject.toJSONString(obj);
 		Object object = objectMapper.readValue(objectJsonStr, clazz);
@@ -202,10 +194,10 @@ public class BaseReflection {
      * @param parentClazz
      * @return
      */
-    public static boolean isChildClass(String className, Class parentClazz){  
+    public static boolean isChildClass(String className, Class<?> parentClazz){  
         if(className == null) return false;  
           
-        Class clazz = null;  
+        Class<?> clazz = null;  
         try {  
             clazz = Class.forName(className);  
             if(Modifier.isAbstract(clazz.getModifiers())){//抽象类忽略  

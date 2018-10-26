@@ -36,4 +36,11 @@ public class QrcustOutputInfo{
 	public void setIdtfno(String idtfno) {
 		this.idtfno = idtfno;
 	}
+	@Override
+	public String toString() {
+		return "QrcustOutputInfo [custno=" + custno + ", custna=" + custna
+				+ ", custsx=" + custsx + ", idtftp=" + idtftp + ", idtfno="
+				+ idtfno + "]";
+	}
+	
 }
