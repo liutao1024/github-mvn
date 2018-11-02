@@ -18,7 +18,12 @@ import org.springframework.data.domain.Sort;
 
 public class CommUtil {
 	
-	public final  static String SORT="ASC";
+	public final static String SORT="ASC";
+
+	public final static String DOT = ".";
+	public final static String JOB = ".job.";
+	public final static String JOBIMPL = ".job.impl.";
+	public final static String PREFIX = ".zport.";
 	
 	/**
 	 * @author LiuTao @date 2018年6月6日 下午1:12:45 

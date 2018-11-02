@@ -13,11 +13,11 @@
 	<!-- 引入mybatis配置文件 -->
 	<import resource="spring-mybatis.xml"/>
 	<!-- 引入quartz配置文件 -->
-	<!-- <import resource="spring-quartz.xml"/> -->
+	<import resource="spring-quartz.xml"/>
 	<!-- 扫描service自动注入为bean -->
 	<context:component-scan base-package="cn.spring.mvn.base,
 										  cn.spring.mvn.base.entity.service.impl,
-										  cn.spring.mvn.batch.entity.service.impl,
+										  cn.spring.mvn.task.entity.service.impl,
 										  cn.spring.mvn.socket.entity.service.impl,
 										  cn.spring.mvn.web.entity.service.impl,
 										  cn.spring.mvn.core.**.entity.service.impl" /><!-- 最后一行为加载核心的bean -->

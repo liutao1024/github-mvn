@@ -30,15 +30,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.spring.mvn.base.tools.BaseReflection;
 import cn.spring.mvn.base.util.BaseUtil;
-import cn.spring.mvn.batch.QuartzManager;
-import cn.spring.mvn.batch.entity.SystemBatchTaskDispathControl;
-import cn.spring.mvn.batch.entity.service.SystemBatchTaskDispathControlService;
-import cn.spring.mvn.batch.task.BatchJobGroup10001;
 import cn.spring.mvn.comm.tools.FileTool;
 import cn.spring.mvn.comm.tools.MD5Tool;
 import cn.spring.mvn.comm.util.CommUtil;
 import cn.spring.mvn.comm.util.SpringContextUtil;
 import cn.spring.mvn.socket.server.old.SocketHandlerImpl;
+import cn.spring.mvn.task.TaskManager;
+import cn.spring.mvn.task.entity.SystemBatchTaskDispathControl;
+import cn.spring.mvn.task.entity.service.SystemBatchTaskDispathControlService;
+import cn.spring.mvn.task.job.TaskJobGroup;
 import cn.spring.mvn.web.entity.SysAuth;
 import cn.spring.mvn.web.entity.SysDict;
 import cn.spring.mvn.web.entity.SysRole;
@@ -166,7 +166,7 @@ public class SpringMVCHeibrntTest {
 	public void TestQuartz(){
 		String jobName = "测试";
 		long time = 2000;
-		QuartzManager.addJobByTime(BatchJobGroup10001.class, jobName, "triggerGroupName", "jobGroupName", time);
+		TaskManager.addJobByTime(TaskJobGroup.class, jobName, "triggerGroupName", "jobGroupName", time);
 	}
 	
 	@Test
@@ -178,8 +178,8 @@ public class SpringMVCHeibrntTest {
 				systemBatchTaskDispathControlImpl.findAllByHql(hqlStr_Flage_Y);
 		System.out.println(systemBatchTaskDispathControlList.size());
 		for (SystemBatchTaskDispathControl systemBatchTaskDispathControl : systemBatchTaskDispathControlList) {
-			String jobGroupClassName = "cn.spring.mvc.global.comm.batch.task.impl." + systemBatchTaskDispathControl.getJobClassName();
-			String jobGroupMethodName = systemBatchTaskDispathControl.getJobMethodName();
+			String jobGroupClassName = "cn.spring.mvc.global.comm.batch.task.impl." + systemBatchTaskDispathControl.getJobClass();
+			String jobGroupMethodName = systemBatchTaskDispathControl.getJobMethod();
 			System.out.println("jobGroupClassName:"+jobGroupClassName);
 			System.out.println("jobGroupMethodName:"+jobGroupMethodName);
 			//同样通过发射找到类调用对应的方法

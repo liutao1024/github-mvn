@@ -11,7 +11,7 @@ import cn.spring.mvn.base.entity.SystemTransaction;
 import cn.spring.mvn.base.entity.service.SystemTransactionService;
 import cn.spring.mvn.base.tools.BaseReflection;
 import cn.spring.mvn.base.tools.BaseTool;
-import cn.spring.mvn.base.tools.DateTool;
+import cn.spring.mvn.comm.tools.DateTool;
 import cn.spring.mvn.comm.util.CommUtil;
 import cn.spring.mvn.comm.util.SpringContextUtil;
 import cn.spring.mvn.socket.Comm;
@@ -31,14 +31,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
  * 接口定义表字段:交易码,交易所在类,交易对应方法.....
  * 交易记录表字段:交易码,执行时间,执行结果,信息,输入报文,输出报文
  */
-//@SuppressWarnings({"unused", "rawtypes"})
 public class SocketOperatorImpl {
 	private static String ERROR = "ERROR";
 	private static String SUCCESS = "SUCCESS";
-//	private static String PATH = "classpath:port/";
-//	private static String POSTFIX = ".xml";
-	private static String PREFIX = ".zport.";
-	private static String DOT = ".";
 	private static String INPUT = "Input";
 	private static String OUTPUT = "Output";
 	private static final Logger LOGGER = LoggerFactory.getLogger(SocketOperatorImpl.class);
@@ -198,7 +193,7 @@ public class SocketOperatorImpl {
 					String eclass = systemTransaction.getEclass();
 					String method = systemTransaction.getMethod();
 					//获取实现类
-					String className = path + DOT + module + DOT + eclass;
+					String className = path + CommUtil.DOT + module + CommUtil.DOT + eclass;
 					//方法名
 					String methodName = method;
 					/**
@@ -209,8 +204,8 @@ public class SocketOperatorImpl {
 					//input 和 output如何精确的定位到该方法对应的两个类
 					//prcscd首字母大写
 					String Prcscd = prcscd.substring(0, 1).toUpperCase() + prcscd.substring(1);
-					String inputClassStr = path + DOT + module + PREFIX + Prcscd + INPUT;
-					String outputClassStr = path + DOT + module + PREFIX + Prcscd + OUTPUT;
+					String inputClassStr = path + CommUtil.DOT + module + CommUtil.PREFIX + Prcscd + INPUT;
+					String outputClassStr = path + CommUtil.DOT + module + CommUtil.PREFIX + Prcscd + OUTPUT;
 					Class<?> inClass = BaseReflection.getClassByClassName(inputClassStr);
 					Class<?> outClass = BaseReflection.getClassByClassName(outputClassStr);
 					//当接收到的input的字段比我们自己定义的input类多时需要怎么处理

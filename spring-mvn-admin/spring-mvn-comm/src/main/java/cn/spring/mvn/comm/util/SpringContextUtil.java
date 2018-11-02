@@ -5,7 +5,7 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-@SuppressWarnings({"static-access", "rawtypes", "unchecked" })
+@SuppressWarnings("static-access")
 public class SpringContextUtil implements ApplicationContextAware{
 
 	protected static ApplicationContext applicationContext;// Spring应用上下文环境
@@ -23,14 +23,22 @@ public class SpringContextUtil implements ApplicationContextAware{
         return applicationContext.getBean(beanName);
     }
 
-	public static Object getBean(Class c) throws BeansException {
-        return applicationContext.getBean(c);
-    }
+//	public static Object getBean(Class c) throws BeansException {
+//        return applicationContext.getBean(c);
+//    }
 	
-	public static Object getBean(String name, Class requiredType) throws BeansException {
-        return applicationContext.getBean(name, requiredType);
-    }
+//	public static Object getBean(String name, Class requiredType) throws BeansException {
+//        return applicationContext.getBean(name, requiredType);
+//    }
  
+	public static <T> T getBean(Class<T> c) throws BeansException {
+		return applicationContext.getBean(c);
+	}
+	
+	public static <T> T getBean(String name, Class<T> requiredType) throws BeansException {
+		return applicationContext.getBean(name, requiredType);
+	}
+	
     public static boolean containsBean(String name) {
         return applicationContext.containsBean(name);
     }
@@ -39,7 +47,7 @@ public class SpringContextUtil implements ApplicationContextAware{
         return applicationContext.isSingleton(name);
     }
  
-    public static Class getType(String name)    throws NoSuchBeanDefinitionException {
+    public static Class<?> getType(String name)    throws NoSuchBeanDefinitionException {
         return applicationContext.getType(name);
     }
  
