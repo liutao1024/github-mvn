@@ -193,7 +193,7 @@ public class SocketOperatorImpl {
 					String eclass = systemTransaction.getEclass();
 					String method = systemTransaction.getMethod();
 					//获取实现类
-					String className = path + CommUtil.DOT + module + CommUtil.DOT + eclass;
+					String className = path + CommUtil.DOT + module + CommUtil.ZPORTIMPL + eclass;
 					//方法名
 					String methodName = method;
 					/**
@@ -204,8 +204,8 @@ public class SocketOperatorImpl {
 					//input 和 output如何精确的定位到该方法对应的两个类
 					//prcscd首字母大写
 					String Prcscd = prcscd.substring(0, 1).toUpperCase() + prcscd.substring(1);
-					String inputClassStr = path + CommUtil.DOT + module + CommUtil.PREFIX + Prcscd + INPUT;
-					String outputClassStr = path + CommUtil.DOT + module + CommUtil.PREFIX + Prcscd + OUTPUT;
+					String inputClassStr = path + CommUtil.DOT + module + CommUtil.ZPORT + Prcscd + INPUT;
+					String outputClassStr = path + CommUtil.DOT + module + CommUtil.ZPORT + Prcscd + OUTPUT;
 					Class<?> inClass = BaseReflection.getClassByClassName(inputClassStr);
 					Class<?> outClass = BaseReflection.getClassByClassName(outputClassStr);
 					//当接收到的input的字段比我们自己定义的input类多时需要怎么处理
