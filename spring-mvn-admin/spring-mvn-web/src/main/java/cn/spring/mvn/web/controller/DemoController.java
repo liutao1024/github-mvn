@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.spring.mvn.core.loan.entity.CoreProduct;
-import cn.spring.mvn.core.loan.entity.service.CoreProductService;
-import cn.spring.mvn.socket.entity.SystemTransactionInformation;
-import cn.spring.mvn.socket.entity.service.SystemTransactionInformationService;
+import cn.spring.mvn.base.entity.SystemTransactionInformation;
+import cn.spring.mvn.base.entity.service.SystemTransactionInformationService;
+import cn.spring.mvn.core.loan.entity.CoreLoanEntity;
+import cn.spring.mvn.core.loan.entity.service.CoreLoanEntityService;
 import cn.spring.mvn.socket.server.SocketOperatorImpl;
 
 @Controller("DemoController")
@@ -21,7 +21,7 @@ public class DemoController {
 	@Autowired
 	private SystemTransactionInformationService s;
 	@Autowired
-	private CoreProductService c;
+	private CoreLoanEntityService c;
 	
 	@RequestMapping()
 	public void Test001(HttpServletRequest request, HttpServletResponse response){
@@ -29,8 +29,8 @@ public class DemoController {
 		for (SystemTransactionInformation systemTransactionInformation : list) {
 			System.out.println(systemTransactionInformation.getSerialNumber());
 		}
-		List<CoreProduct> list1 = c.selectCorePorductList();
-		for (CoreProduct coreProduct : list1) {
+		List<CoreLoanEntity> list1 = c.selectCorePorductList();
+		for (CoreLoanEntity coreProduct : list1) {
 			System.out.println(coreProduct.getProdno());
 		}
 	}

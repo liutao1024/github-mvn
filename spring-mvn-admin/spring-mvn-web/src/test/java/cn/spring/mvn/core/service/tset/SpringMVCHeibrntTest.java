@@ -28,6 +28,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import cn.spring.mvn.base.entity.SystemBatchTaskDispathControl;
+import cn.spring.mvn.base.entity.service.SystemBatchTaskDispathControlService;
 import cn.spring.mvn.base.tools.BaseReflection;
 import cn.spring.mvn.base.util.BaseUtil;
 import cn.spring.mvn.comm.tools.FileTool;
@@ -36,8 +38,6 @@ import cn.spring.mvn.comm.util.CommUtil;
 import cn.spring.mvn.comm.util.SpringContextUtil;
 import cn.spring.mvn.socket.server.old.SocketHandlerImpl;
 import cn.spring.mvn.task.TaskManager;
-import cn.spring.mvn.task.entity.SystemBatchTaskDispathControl;
-import cn.spring.mvn.task.entity.service.SystemBatchTaskDispathControlService;
 import cn.spring.mvn.task.job.TaskJobGroup;
 import cn.spring.mvn.web.entity.SysAuth;
 import cn.spring.mvn.web.entity.SysDict;

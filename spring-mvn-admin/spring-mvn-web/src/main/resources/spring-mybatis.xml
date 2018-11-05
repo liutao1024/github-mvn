@@ -35,7 +35,7 @@
 	</bean>
 	<!-- 自动扫描mapper文件对应的接口类,将其中的接口自动创建成 MapperFactoryBean -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="cn.spring.mvn.socket.entity.dao"></property><!-- 此方法是可以的 -->
+		<property name="basePackage" value="cn.spring.mvn.base.entity.dao"></property><!-- 此方法是可以的 -->
 		<property name="sqlSessionFactoryBeanName" value="mybatisSqlSessionFactory" />
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

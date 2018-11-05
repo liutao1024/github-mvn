@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cn.spring.mvn.base.entity.SystemTransaction;
+import cn.spring.mvn.base.entity.SystemTransactionInformation;
+import cn.spring.mvn.base.entity.service.SystemTransactionInformationService;
 import cn.spring.mvn.base.entity.service.SystemTransactionService;
 import cn.spring.mvn.base.tools.BaseReflection;
 import cn.spring.mvn.base.tools.BaseTool;
@@ -16,8 +18,6 @@ import cn.spring.mvn.comm.util.CommUtil;
 import cn.spring.mvn.comm.util.SpringContextUtil;
 import cn.spring.mvn.socket.Comm;
 import cn.spring.mvn.socket.Sys;
-import cn.spring.mvn.socket.entity.SystemTransactionInformation;
-import cn.spring.mvn.socket.entity.service.SystemTransactionInformationService;
 import cn.spring.mvn.socket.tools.SocketTool;
 import cn.spring.mvn.socket.utils.SocketUtil;
 

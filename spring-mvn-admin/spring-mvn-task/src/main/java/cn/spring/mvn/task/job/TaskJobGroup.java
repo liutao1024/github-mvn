@@ -13,14 +13,14 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import cn.spring.mvn.base.entity.SystemBatchTaskDispathControl;
+import cn.spring.mvn.base.entity.SystemBatchTimeTaskDispathResult;
+import cn.spring.mvn.base.entity.service.SystemBatchTaskDispathControlService;
+import cn.spring.mvn.base.entity.service.SystemBatchTimeTaskDispathResultService;
 import cn.spring.mvn.base.tools.BaseReflection;
 import cn.spring.mvn.comm.util.CommUtil;
 import cn.spring.mvn.comm.util.SpringContextUtil;
 //import cn.spring.mvn.batch.tools.BatchTools;
-import cn.spring.mvn.task.entity.SystemBatchTaskDispathControl;
-import cn.spring.mvn.task.entity.SystemBatchTimeTaskDispathResult;
-import cn.spring.mvn.task.entity.service.SystemBatchTaskDispathControlService;
-import cn.spring.mvn.task.entity.service.SystemBatchTimeTaskDispathResultService;
 
 /**
  * @author LiuTao @date 2018年11月2日 上午9:13:42
