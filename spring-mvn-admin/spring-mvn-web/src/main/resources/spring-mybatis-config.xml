@@ -24,7 +24,10 @@
 		<!-- <typeAlias alias="SystemTransactionInformation" type="cn.spring.mvn.socket.entity.SystemTransactionInformation" /> -->
 		<!-- <typeAlias alias="CoreProduct" type="cn.spring.mvn.socket.entity.CoreProduct" /> -->
 		<package name="cn.spring.mvn.base.entity"/><!-- 指定到某个包下 -->
-		<package name="cn.spring.mvn.core.loan.entity"/>
+		<package name="cn.spring.mvn.core.account.entity"/><!-- 核心主模块账户/利率/产品等信息定义 -->
+		<package name="cn.spring.mvn.core.deposit.entity"/><!-- 核心存款模块 -->
+		<package name="cn.spring.mvn.core.fund.entity"/><!-- 核心基金模块 -->
+		<package name="cn.spring.mvn.core.loan.entity"/><!-- 核心贷款模块 -->
 	</typeAliases>
 	<!-- <typeHandlers>
 		<typeHandler handler="" />

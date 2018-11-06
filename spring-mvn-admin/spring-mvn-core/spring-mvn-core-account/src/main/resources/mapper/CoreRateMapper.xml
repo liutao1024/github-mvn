@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<mapper namespace="cn.spring.mvn.core.deposit.entity.dao.CoreDepositEntityDao">
+<mapper namespace="cn.spring.mvn.core.account.entity.dao.CoreRateDao">
     <!-- 查询多条记录 -->
     <select id="selectCoreRateList" resultType="CoreRate">
        select * from core_rate 

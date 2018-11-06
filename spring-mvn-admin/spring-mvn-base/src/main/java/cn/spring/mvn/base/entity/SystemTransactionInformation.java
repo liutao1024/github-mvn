@@ -1,14 +1,37 @@
 package cn.spring.mvn.base.entity;
 
-public class SystemTransactionInformation {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "sys_transaction_information")
+public class SystemTransactionInformation implements Serializable{
+	/**@Fields serialVersionUID : TODO(Describe) 
+	 */
+	private static final long serialVersionUID = 1202136411320989201L;
+	@Id
+	@Column(name = "serialNumber", nullable = false, length = 100)
 	private String serialNumber;
+	@Id
+	@Column(name = "serialDate", nullable = false, length = 100)
 	private String serialDate;
+	@Column(name = "serialTime", length = 24)
 	private String serialTime;
+	@Column(name = "ipAddress", length = 100)
 	private String ipAddress;
+	@Column(name = "input")
 	private String input;
+	@Column(name = "output")
 	private String output;
+	@Column(name = "errorMesage")
 	private String errorMesage;
+	@Column(name = "timesTamp", length = 100)
 	private String timesTamp;
+	
 	public String getSerialNumber() {
 		return serialNumber;
 	}

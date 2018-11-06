@@ -3,7 +3,7 @@
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="cn.spring.mvn.core.loan.entity.dao.CoreLoanEntityDao">
     <!-- 查询多条记录 -->
-    <select id="selectCorePorductList" resultType="CoreEntity">
-       select * from core_product 
+    <select id="selectCoreLoanEntityList" resultType="CoreLoanEntity">
+       select * from core_loan 
     </select>
 </mapper>

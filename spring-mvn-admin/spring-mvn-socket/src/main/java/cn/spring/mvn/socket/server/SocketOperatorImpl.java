@@ -265,7 +265,7 @@ public class SocketOperatorImpl {
 			systemTransactionInformation.setOutput(rspJsonStr);
 			systemTransactionInformation.setErrorMesage(mesage);
 			systemTransactionInformation.setTimesTamp(String.valueOf(System.currentTimeMillis()));
-			systemTransactionInformationServiceImpl.insertSystemTransactionInformation(systemTransactionInformation);
+			systemTransactionInformationServiceImpl.saveOrUpdate(systemTransactionInformation);
 		}
 		return rspJsonStr;
 	}

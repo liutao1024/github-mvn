@@ -1,4 +1,4 @@
-package cn.spring.mvn.core.entity;
+package cn.spring.mvn.core.account.entity;
 
 /**
  * @author LiuTao @date 2018年11月5日 下午5:31:22

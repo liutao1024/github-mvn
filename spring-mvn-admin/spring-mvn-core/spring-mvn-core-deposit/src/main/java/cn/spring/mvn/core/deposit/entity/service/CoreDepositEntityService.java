@@ -1,5 +1,9 @@
 package cn.spring.mvn.core.deposit.entity.service;
 
-public interface CoreDepositEntityService {
+import java.util.List;
 
+import cn.spring.mvn.core.deposit.entity.CoreDepositEntity;
+
+public interface CoreDepositEntityService {
+	public List<CoreDepositEntity> selectCoreDepositEntityList();
 }

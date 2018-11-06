@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.spring.mvn.base.entity.SystemTransactionInformation;
 import cn.spring.mvn.base.entity.service.SystemTransactionInformationService;
+import cn.spring.mvn.core.account.entity.service.CoreAccountEntityService;
+import cn.spring.mvn.core.account.entity.service.CoreProductService;
+import cn.spring.mvn.core.deposit.entity.service.CoreDepositEntityService;
+import cn.spring.mvn.core.fund.entity.service.CoreFundEntityService;
 import cn.spring.mvn.core.loan.entity.CoreLoanEntity;
 import cn.spring.mvn.core.loan.entity.service.CoreLoanEntityService;
 import cn.spring.mvn.socket.server.SocketOperatorImpl;
@@ -21,15 +25,23 @@ public class DemoController {
 	@Autowired
 	private SystemTransactionInformationService s;
 	@Autowired
-	private CoreLoanEntityService c;
+	private CoreAccountEntityService a;
+	@Autowired
+	private CoreProductService p;
+	@Autowired
+	private CoreDepositEntityService d;
+	@Autowired
+	private CoreFundEntityService f;
+	@Autowired
+	private CoreLoanEntityService l;
 	
 	@RequestMapping()
 	public void Test001(HttpServletRequest request, HttpServletResponse response){
-		List<SystemTransactionInformation> list = s.selectSystemTransactionInformationList();
+		List<SystemTransactionInformation> list = s.findAll(null);
 		for (SystemTransactionInformation systemTransactionInformation : list) {
 			System.out.println(systemTransactionInformation.getSerialNumber());
 		}
-		List<CoreLoanEntity> list1 = c.selectCorePorductList();
+		List<CoreLoanEntity> list1 = l.selectCoreLoanEntityList();
 		for (CoreLoanEntity coreProduct : list1) {
 			System.out.println(coreProduct.getProdno());
 		}
@@ -62,7 +74,7 @@ public class DemoController {
 				"}";
 		try {
 //			Map<String, Object> map = new HashMap<String, Object>();
-			String s = SocketOperatorImpl.call(str, new String());
+			String s = SocketOperatorImpl.call(str, "127.0.0.1");
 //			response.s
 			System.out.println("==================="+s);
 		} catch (Exception e) {

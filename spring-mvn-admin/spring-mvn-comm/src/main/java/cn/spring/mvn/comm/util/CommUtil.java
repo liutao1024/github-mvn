@@ -24,7 +24,7 @@ public class CommUtil {
 	public final static String JOB = ".job.";
 	public final static String JOBIMPL = ".job.impl.";
 	public final static String ZPORT = ".zport.";
-	public final static String ZPORTIMPL = ".zport.impl";
+	public final static String ZPORTIMPL = ".zport.impl.";
 	
 	/**
 	 * @author LiuTao @date 2018年6月6日 下午1:12:45 

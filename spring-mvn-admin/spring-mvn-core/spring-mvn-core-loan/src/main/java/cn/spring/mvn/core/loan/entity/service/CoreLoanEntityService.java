@@ -6,5 +6,5 @@ import cn.spring.mvn.core.loan.entity.CoreLoanEntity;
 
 
 public interface CoreLoanEntityService {
-	public List<CoreLoanEntity> selectCorePorductList();
+	public List<CoreLoanEntity> selectCoreLoanEntityList();
 }

@@ -11,13 +11,13 @@ import cn.spring.mvn.core.loan.entity.dao.CoreLoanEntityDao;
 import cn.spring.mvn.core.loan.entity.service.CoreLoanEntityService;
 
 
-@Service("CoreProductService")
+@Service("CoreLoanEntityService")
 public class CoreLoanEntityServiceImpl implements CoreLoanEntityService{
 	@Resource
-	private CoreLoanEntityDao coreProductDao;
+	private CoreLoanEntityDao dao;
 	@Override
-	public List<CoreLoanEntity> selectCorePorductList() {
-		return coreProductDao.selectCorePorductList();
+	public List<CoreLoanEntity> selectCoreLoanEntityList() {
+		return dao.selectCoreLoanEntityList();
 	}
 
 }
