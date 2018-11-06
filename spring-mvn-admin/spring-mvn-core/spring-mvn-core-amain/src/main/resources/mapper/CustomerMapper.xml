@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.spring.mvn.core.amain.entity.dao.CustomerDao">
+    <!-- 查询多条记录 -->
+    <select id="selectAll" resultType="Customer">
+       select * from customer
+    </select>
+     <select id="selectListByParamMap" parameterType="map" resultType="Customer">
+     	select * from customer
+     	<where>
+	   		<if test="custno != null and custno != ''">
+	   			and custno = #{custno}
+	   		</if>
+	   		<if test="custna != null and custna != ''">
+	   			and custna like #{custna}
+	   		</if>
+	   		<if test="idtftp != null and idtftp != ''">
+	   			and idtftp = #{idtftp}
+	   		</if>
+	   		<if test="idtfno != null and idtfno != ''">
+	   			and idtfno = #{idtfno}
+	   		</if>
+     	</where>
+     	<!-- 当page=0 时,若不加orpage==0这个if代不上,导致查的是全表 -->
+   		<if test="(page != null and page != '' or page == 0) and size != null and size != ''">
+       		limit #{page}, #{size}
+   		</if>
+    </select>
+</mapper>
