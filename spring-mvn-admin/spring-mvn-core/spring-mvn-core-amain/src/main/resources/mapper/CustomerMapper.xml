@@ -6,8 +6,11 @@
    	<select id="selectOneEntity" parameterType="Customer" resultType="Customer">
    		select * from customer
    		<where>
-   			<if test=""></if>
+   			<if test="custno != null and custno != ''">
+   				and custno = #{custno}
+   			</if>
    		</where>
+   		limit 1<!-- 保证有只取出一条若存在 -->
    	</select>
     <!-- 查询多条记录 -->
     <select id="selectAll" resultType="Customer">
