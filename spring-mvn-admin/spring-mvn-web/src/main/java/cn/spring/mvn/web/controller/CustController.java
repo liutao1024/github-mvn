@@ -13,12 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-
-
 //import cn.spring.mvn.comm.tools.SequenceTool;
 import cn.spring.mvn.comm.util.CommUtil;
-import cn.spring.mvn.core.account.entity.CustUser;
-import cn.spring.mvn.core.account.entity.service.CustUserService;
+import cn.spring.mvn.core.amain.entity.Customer;
+import cn.spring.mvn.core.amain.entity.service.CustomerService;
 import cn.spring.mvn.web.entity.SysUser;
 /**
  * @author LiuTao @date 2018年6月9日 下午10:21:54
@@ -31,7 +29,7 @@ import cn.spring.mvn.web.entity.SysUser;
 @SessionAttributes("SysUser")
 public class CustController {
 	@Autowired
-	private CustUserService custUserServiceImpl;
+	private CustomerService customerServiceImpl;
 	/**
 	 * @author LiuTao @date 2018年6月9日 下午7:21:05 
 	 * @Title: getCust 
@@ -43,14 +41,14 @@ public class CustController {
 	@RequestMapping(value ="/custinfo")
 	public Map<String,Object> getCustInfo(@RequestParam Map<String, Object> reqMap, @ModelAttribute("SysUser") SysUser sysUser){
 		Map<String, Object> rstMap = new HashMap<String, Object>();
-		CustUser custUser = new CustUser();
-		custUser.setCustno(reqMap.get("custno").toString());
-		custUser.setCustna(reqMap.get("custna").toString());
-		custUser.setIdtftp(reqMap.get("idtftp").toString());
-		custUser.setIdtfno(reqMap.get("idtfno").toString());
+		Customer customer = new Customer();
+		customer.setCustno(reqMap.get("custno").toString());
+		customer.setCustna(reqMap.get("custna").toString());
+		customer.setIdtftp(reqMap.get("idtftp").toString());
+		customer.setIdtfno(reqMap.get("idtfno").toString());
 		int page = Integer.parseInt((String) reqMap.get("start"));
 		int size = Integer.parseInt((String) reqMap.get("length"));
-		Map<String, Object> listWithCount = custUserServiceImpl.findAllByEntityPageSizeWithCount(custUser, page, size);
+		Map<String, Object> listWithCount = customerServiceImpl.selectAllWithCountByPageSize(customer, page, size);
 		try {
 			rstMap = CommUtil.transSrcMapToWebMap(listWithCount);
 		} catch (Exception e) {
@@ -76,18 +74,18 @@ public class CustController {
 			System.out.println(s);
 			System.out.println(sb);
 		}
-		CustUser custUser = new CustUser();
-		custUser.setIdtftp(idtftp);
-		custUser.setIdtfno(idtfno);
-		custUser = custUserServiceImpl.selectOneEntity(custUser);
+		Customer customer = new Customer();
+		customer.setIdtftp(idtftp);
+		customer.setIdtfno(idtfno);
+		customer = customerServiceImpl.selectOneEntity(customer);
 		try {
 //			custUser.setCustno(SequenceTool.getSequence("USER"));
-			custUser.setTeleno((String) reqMap.get("teleno"));
-			custUser.setCustst((String) reqMap.get("custst"));
-			custUser.setAddres((String) reqMap.get("addres"));
-			custUser.setCustno((String) reqMap.get("custno"));
-			custUser.setCustna((String) reqMap.get("custna"));
-			custUserServiceImpl.saveOrUpdate(custUser);
+			customer.setTeleno((String) reqMap.get("teleno"));
+			customer.setCustst((String) reqMap.get("custst"));
+			customer.setAddres((String) reqMap.get("addres"));
+			customer.setCustno((String) reqMap.get("custno"));
+			customer.setCustna((String) reqMap.get("custna"));
+//			customerServiceImpl.saveOrUpdate(customer);
 			rspMap.put("retCode", "0000");
 		} catch (Exception e) {
 			rspMap.put("retCode", "101");

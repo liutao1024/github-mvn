@@ -199,4 +199,23 @@ public class CommUtil {
 		}
 		return i;
 	}
+	
+	/**
+	 * @author LiuTao @date 2018年11月6日 下午3:57:29 
+	 * @Title: getListWithCountByPageSize 
+	 * @Description: TODO(Describe) 
+	 * @param page
+	 * @param size
+	 * @param count
+	 * @param list
+	 * @return
+	 */
+	public static Map<String, Object> getListWithCountByPageSize(List<?> list, long count, int page, int size) {
+		Map<String, Object> rstMap = new HashMap<String, Object>();
+		rstMap.put("result", list);
+		rstMap.put("count", count);
+		rstMap.put("page", page);
+		rstMap.put("size", size);
+		return rstMap;
+	}
 }

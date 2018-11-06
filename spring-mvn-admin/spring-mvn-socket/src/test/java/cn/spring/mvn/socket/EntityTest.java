@@ -15,8 +15,8 @@ import java.util.Set;
 import org.junit.Test;
 
 import cn.spring.mvn.base.tools.BaseReflection;
-import cn.spring.mvn.core.account.entity.CustUser;
-import cn.spring.mvn.core.account.zport.QrcustOutput;
+import cn.spring.mvn.core.amain.entity.Customer;
+import cn.spring.mvn.core.amain.zport.QrcustOutput;
 import cn.spring.mvn.socket.tools.SocketTool;
 
 import com.alibaba.fastjson.JSONObject;
@@ -48,8 +48,8 @@ public class EntityTest {
 		System.out.println(obj);
 		QrcustOutput out = (QrcustOutput)obj;
 		System.out.println(out.getCount());
-		List<CustUser> infos = out.getInfos();
-		for (CustUser custUser : infos) {
+		List<Customer> infos = out.getInfos();
+		for (Customer custUser : infos) {
 			System.out.println(custUser.getCustna());
 		}
 		
@@ -58,8 +58,8 @@ public class EntityTest {
 		obj1 = om.readValue(str, clazz);
 		QrcustOutput out1 = (QrcustOutput)obj1;
 		System.out.println(out1.getCount());
-		List<CustUser> infos1 = out1.getInfos();
-		for (CustUser custUser : infos1) {
+		List<Customer> infos1 = out1.getInfos();
+		for (Customer custUser : infos1) {
 			System.out.println(custUser.getCustna());
 		}
 		System.out.println(obj);
@@ -109,8 +109,8 @@ public class EntityTest {
 		
 		QrcustOutput out = (QrcustOutput)object;
 //		int count = out.getCount();
-		List<CustUser> list = out.getInfos();
-		for (CustUser custUser : list) {
+		List<Customer> list = out.getInfos();
+		for (Customer custUser : list) {
 			System.out.println(custUser.toString());
 		}
 		System.out.println(object);

@@ -31,9 +31,9 @@
     	<artifactId>spring-mvn-comm</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
-    <dependency>
+   <!--  <dependency>
     	<groupId>core</groupId>
-    	<artifactId>spring-mvn-core-account</artifactId>
+    	<artifactId>spring-mvn-core-amain</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
@@ -50,7 +50,7 @@
     	<groupId>core</groupId>
     	<artifactId>spring-mvn-core-loan</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
-    </dependency>
+    </dependency> -->
   </dependencies>
   <build>
   	<plugins>

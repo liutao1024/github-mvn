@@ -2,7 +2,6 @@ package cn.spring.mvn.socket;
 
 import java.io.File;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,14 +17,12 @@ import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 import org.junit.Test;
 
-import cn.spring.mvn.socket.tools.RequestMap;
 import cn.spring.mvn.base.util.BaseUtil;
-import cn.spring.mvn.core.account.entity.CustUser;
-import cn.spring.mvn.core.account.zport.QrcustInput;
-import cn.spring.mvn.core.account.zport.QrcustOutput;
+import cn.spring.mvn.core.amain.entity.Customer;
+import cn.spring.mvn.core.amain.zport.QrcustOutput;
+import cn.spring.mvn.socket.tools.RequestMap;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SuppressWarnings("unused")
 public class ServerTest {
@@ -47,8 +44,8 @@ public class ServerTest {
 		
 		QrcustOutput out = (QrcustOutput)object;
 		int c = out.getCount();
-		List<CustUser> list = out.getInfos();
-		for (CustUser custUser : list) {
+		List<Customer> list = out.getInfos();
+		for (Customer custUser : list) {
 			System.out.println(custUser.toString());
 		}
 		System.out.println(object);
@@ -309,10 +306,10 @@ public class ServerTest {
 //		responseMap.put("opensq", "763728388979454954773272"); 
 		
 		/**--------------------------------查询类-----对应的request的报文中也应该要多点东西出来----------------------*/
-		List<CustUser> custUserList = new ArrayList<CustUser>();//通过heibrnt查询出来的结果
-		CustUser one = new CustUser();
-		CustUser two = new CustUser();
-		CustUser three = new CustUser();
+		List<Customer> customerList = new ArrayList<Customer>();//通过heibrnt查询出来的结果
+		Customer one = new Customer();
+		Customer two = new Customer();
+		Customer three = new Customer();
 		one.setCustno("979494372");
 		one.setCustna("古天乐");
 		one.setIdtftp("01");
@@ -331,16 +328,16 @@ public class ServerTest {
 		three.setIdtfno("51102419910297633");
 		three.setTeleno("15928835557");
 		
-		custUserList.add(one);
-		custUserList.add(two);
-		custUserList.add(three);
-		for (CustUser custUser : custUserList) {
+		customerList.add(one);
+		customerList.add(two);
+		customerList.add(three);
+		for (Customer customer : customerList) {
 			//将对象的custUser转化成属性为key,属性对应值为value的map,不管这个属性上是否有值均需要写在map中无值时,赋值为""
 			//commUtil中的那个方法不够用需要改造
-			Map<String, Object> map = BaseUtil.getObjectMapByReflectObject(custUser);
+			Map<String, Object> map = BaseUtil.getObjectMapByReflectObject(customer);
 			dataList.add(map);
 		}
-		responseMap.put("count", custUserList.size());
+		responseMap.put("count", customerList.size());
 		responseMap.put("data", dataList);
 		
 		dstMap.put("sys", sysMap);

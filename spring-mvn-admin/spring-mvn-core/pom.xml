@@ -40,7 +40,7 @@
   	</plugins>
   </build>
   <modules>
-    <module>spring-mvn-core-account</module>
+    <module>spring-mvn-core-amain</module>
     <module>spring-mvn-core-deposit</module>
   	<module>spring-mvn-core-loan</module>
     <module>spring-mvn-core-fund</module>

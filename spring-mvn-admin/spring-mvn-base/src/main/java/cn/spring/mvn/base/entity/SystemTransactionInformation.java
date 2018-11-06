@@ -15,22 +15,22 @@ public class SystemTransactionInformation implements Serializable{
 	private static final long serialVersionUID = 1202136411320989201L;
 	@Id
 	@Column(name = "serialNumber", nullable = false, length = 100)
-	private String serialNumber;
+	private String serialNumber;//流水号
 	@Id
 	@Column(name = "serialDate", nullable = false, length = 100)
-	private String serialDate;
+	private String serialDate;//流水日期
 	@Column(name = "serialTime", length = 24)
-	private String serialTime;
+	private String serialTime;//流水时间
 	@Column(name = "ipAddress", length = 100)
-	private String ipAddress;
+	private String ipAddress;//ip地址
 	@Column(name = "input")
-	private String input;
+	private String input;//输入
 	@Column(name = "output")
-	private String output;
+	private String output;//输出
 	@Column(name = "errorMesage")
-	private String errorMesage;
+	private String errorMesage;//错误信息
 	@Column(name = "timesTamp", length = 100)
-	private String timesTamp;
+	private String timesTamp;//时间戳
 	
 	public String getSerialNumber() {
 		return serialNumber;

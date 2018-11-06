@@ -219,7 +219,7 @@ public class BaseUtil {
 	/**
 	 * @author LiuTao @date 2018年5月31日 下午1:27:55 
 	 * @Title: getParamMapByReflectObjectWithOutNullValue 
-	 * @Description: 通过反射一个类对象获取没有空值的paramMap对象 
+	 * @Description: 通过反射一个类对象获取没有空值的paramMap对象 需要用到Entity属性的注解  适用于Hibernat
 	 * @param object
 	 * @return
 	 */
@@ -256,7 +256,7 @@ public class BaseUtil {
 	/**
 	 * @author LiuTao @date 2018年6月13日 上午11:46:44 
 	 * @Title: getParamMapByReflectObject 
-	 * @Description:  通过反射一个类对象获取该对象的paramMap对象 
+	 * @Description:  通过反射一个类对象获取该对象的paramMap对象   适合MyBatis
 	 * @param object
 	 * @return
 	 */
@@ -271,7 +271,10 @@ public class BaseUtil {
 				//得到属性对应的值
 				String fieldName = field.getName();
 				Object fieldValue = field.get(object);
-				rstMap.put(fieldName, isNull(fieldValue) ? "" : fieldValue);
+				if(!isNull(fieldValue)){//20181106
+					rstMap.put(fieldName, fieldValue);
+				}
+//				rstMap.put(fieldName, isNull(fieldValue) ? "" : fieldValue);
 			} catch (Exception e) {
 				System.out.println("类转换成map时遇到:" + e.getMessage());
 			} 
@@ -516,5 +519,16 @@ public class BaseUtil {
 		}
 		return srcStr;
 	}
-	
+	/**
+	 * @author LiuTao @date 2018年11月6日 下午9:08:58 
+	 * @Title: setPageSizeToParamMap 
+	 * @Description: TODO(Describe) 
+	 * @param page
+	 * @param size
+	 * @param paramMap
+	 */
+	public static void setPageSizeToParamMap(int page, int size, Map<String, Object> paramMap) {
+		paramMap.put("page", page);
+		paramMap.put("size", size);
+	}
 }

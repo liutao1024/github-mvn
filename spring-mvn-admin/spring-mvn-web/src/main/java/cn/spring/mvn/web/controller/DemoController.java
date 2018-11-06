@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.spring.mvn.base.entity.SystemTransactionInformation;
 import cn.spring.mvn.base.entity.service.SystemTransactionInformationService;
-import cn.spring.mvn.core.account.entity.service.CoreAccountEntityService;
-import cn.spring.mvn.core.account.entity.service.CoreProductService;
+import cn.spring.mvn.core.amain.entity.service.AccountService;
+import cn.spring.mvn.core.amain.entity.service.ProductService;
 import cn.spring.mvn.core.deposit.entity.service.CoreDepositEntityService;
 import cn.spring.mvn.core.fund.entity.service.CoreFundEntityService;
 import cn.spring.mvn.core.loan.entity.CoreLoanEntity;
@@ -25,9 +25,9 @@ public class DemoController {
 	@Autowired
 	private SystemTransactionInformationService s;
 	@Autowired
-	private CoreAccountEntityService a;
+	private AccountService a;
 	@Autowired
-	private CoreProductService p;
+	private ProductService p;
 	@Autowired
 	private CoreDepositEntityService d;
 	@Autowired
