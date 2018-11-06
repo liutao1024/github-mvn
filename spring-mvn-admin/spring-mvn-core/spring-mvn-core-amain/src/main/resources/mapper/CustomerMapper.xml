@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="cn.spring.mvn.core.amain.entity.dao.CustomerDao">
+	<!-- 查询一条 -->
+   	<select id="selectOneEntity" parameterType="Customer" resultType="Customer">
+   		select * from customer
+   		<where>
+   			<if test=""></if>
+   		</where>
+   	</select>
     <!-- 查询多条记录 -->
     <select id="selectAll" resultType="Customer">
        select * from customer
