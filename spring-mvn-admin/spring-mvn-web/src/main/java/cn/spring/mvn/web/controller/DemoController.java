@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.spring.mvn.base.entity.SystemTransactionInformation;
 import cn.spring.mvn.base.entity.service.SystemTransactionInformationService;
+import cn.spring.mvn.core.amain.entity.CoreMain;
 import cn.spring.mvn.core.amain.entity.service.AccountService;
+import cn.spring.mvn.core.amain.entity.service.CoreMainService;
 import cn.spring.mvn.core.amain.entity.service.ProductService;
 import cn.spring.mvn.core.deposit.entity.service.CoreDepositEntityService;
 import cn.spring.mvn.core.fund.entity.service.CoreFundEntityService;
@@ -34,6 +36,20 @@ public class DemoController {
 	private CoreFundEntityService f;
 	@Autowired
 	private CoreLoanEntityService l;
+	@Autowired
+	private CoreMainService m;
+	
+	@RequestMapping("/test002")
+	public void Test002(HttpServletRequest request, HttpServletResponse response){
+		CoreMain entity = new CoreMain();
+		entity.setId("1001");
+		entity.setName("渣渣灰");
+		m.insertEntity(entity);
+		List<CoreMain> list = m.selectEntityList("1001");
+		for (CoreMain coreMain : list) {
+			System.out.println(coreMain);
+		}
+	}
 	
 	@RequestMapping()
 	public void Test001(HttpServletRequest request, HttpServletResponse response){
@@ -47,8 +63,8 @@ public class DemoController {
 		}
 	}
 	
-	@RequestMapping("/test1")
-	public void Test(HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping("/test000")
+	public void Test000(HttpServletRequest request, HttpServletResponse response){
 		String str = "{"+
 				"\"sys_req\":{"+
 								"\"servtp\":\"MGR\","+
