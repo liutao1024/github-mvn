@@ -6,6 +6,9 @@ import java.util.Map;
 import cn.spring.mvn.core.amain.entity.Customer;
 
 public interface CustomerService {
+	public int insertEntity(Customer entity);
+	public int deleteEntity(Customer entity);
+	public int updateEntity(Customer entity);
 	public Customer selectOneEntity(Customer customer);
 	public List<Customer> selectAll();
 	public Map<String, Object> selectAllWithCountByPageSize(Customer customer, int page, int size);

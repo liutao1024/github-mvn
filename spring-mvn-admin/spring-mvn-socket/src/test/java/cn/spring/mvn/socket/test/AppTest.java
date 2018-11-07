@@ -1,4 +1,4 @@
-package cn.spring.mvn.core;
+package cn.spring.mvn.socket.test;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

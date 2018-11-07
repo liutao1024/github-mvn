@@ -20,6 +20,21 @@ public class CustomerServiceImpl implements CustomerService{
 	private CustomerDao dao;
 	
 	@Override
+	public int insertEntity(Customer entity) {
+		return dao.insertEntity(entity);
+	}
+	
+	@Override
+	public int deleteEntity(Customer entity) {
+		return dao.deleteEntity(entity);
+	}
+	
+	@Override
+	public int updateEntity(Customer entity) {
+		return dao.updateEntity(entity);
+	}
+	
+	@Override
 	public Customer selectOneEntity(Customer entity) {
 		return dao.selectOneEntity(entity);
 	}

@@ -1,4 +1,4 @@
-package cn.spring.mvn.socket;
+package cn.spring.mvn.socket.test;
 
 import java.util.HashMap;
 import java.util.Map;

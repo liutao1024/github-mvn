@@ -79,13 +79,13 @@ public class CustController {
 		customer.setIdtfno(idtfno);
 		customer = customerServiceImpl.selectOneEntity(customer);
 		try {
-//			custUser.setCustno(SequenceTool.getSequence("USER"));
 			customer.setTeleno((String) reqMap.get("teleno"));
 			customer.setCustst((String) reqMap.get("custst"));
 			customer.setAddres((String) reqMap.get("addres"));
 			customer.setCustno((String) reqMap.get("custno"));
 			customer.setCustna((String) reqMap.get("custna"));
-//			customerServiceImpl.saveOrUpdate(customer);
+			int a = customerServiceImpl.updateEntity(customer);
+			System.out.println(a);
 			rspMap.put("retCode", "0000");
 		} catch (Exception e) {
 			rspMap.put("retCode", "101");

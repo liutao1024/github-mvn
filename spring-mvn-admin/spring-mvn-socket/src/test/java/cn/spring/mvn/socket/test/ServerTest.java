@@ -1,4 +1,4 @@
-package cn.spring.mvn.socket;
+package cn.spring.mvn.socket.test;
 
 import java.io.File;
 import java.lang.reflect.Field;
