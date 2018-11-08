@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import cn.spring.mvn.base.tools.BaseReflection;
-import cn.spring.mvn.base.util.BaseUtil;
+import cn.spring.mvn.basic.tools.BasicReflection;
+import cn.spring.mvn.basic.util.BasicUtil;
 
 /**
  * @author LiuTao @date 2018年11月2日 下午3:02:10
@@ -29,15 +29,15 @@ public class TaskTool {
 		try {
 			for(String classStr : fileList){
 				//反射的得到子类
-				if(BaseReflection.isChildClass(classStr, parentClass)){
+				if(BasicReflection.isChildClass(classStr, parentClass)){
 					subFileList.add(classStr);
 				}
 			}
 			for(String subClassStr : subFileList){
-				Class<?> subClass = BaseReflection.getClassByClassName(subClassStr);
+				Class<?> subClass = BasicReflection.getClassByClassName(subClassStr);
 				Object obj = subClass.newInstance();
 				Map<Type, Object> map = new HashMap<Type, Object>();
-				map = BaseUtil.getAttributeAnnotationByReflectAutowired(obj);
+				map = BasicUtil.getAttributeAnnotationByReflectAutowired(obj);
 				for (Entry<Type, Object> entry : map.entrySet()) {
 					Class<?> s = (Class<?>) entry.getKey();
 					Object object = entry.getValue();

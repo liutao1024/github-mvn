@@ -2,8 +2,8 @@ package cn.spring.mvn.comm.tools;
 
 import org.springframework.context.ApplicationContext;
 
-import cn.spring.mvn.base.entity.SystemSequence;
-import cn.spring.mvn.base.entity.service.SystemSequenceService;
+import cn.spring.mvn.basic.entity.SystemSequence;
+import cn.spring.mvn.basic.entity.service.SystemSequenceService;
 import cn.spring.mvn.comm.util.CommUtil;
 import cn.spring.mvn.comm.util.SpringContextUtil;
 

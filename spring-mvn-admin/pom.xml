@@ -217,11 +217,11 @@
 		</plugins>
   </build>
   <modules>
-  	<module>spring-mvn-core</module>
-  	<module>spring-mvn-web</module>
-    <module>spring-mvn-base</module>
+    <module>spring-mvn-basic</module>
     <module>spring-mvn-comm</module>
+  	<module>spring-mvn-core</module>
     <module>spring-mvn-task</module>
     <module>spring-mvn-socket</module>
+  	<module>spring-mvn-web</module>
   </modules>
 </project>

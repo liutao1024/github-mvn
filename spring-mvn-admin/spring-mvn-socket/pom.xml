@@ -22,7 +22,7 @@
 	</dependency>
     <dependency>
     	<groupId>spring</groupId>
-    	<artifactId>spring-mvn-base</artifactId>
+    	<artifactId>spring-mvn-basic</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>

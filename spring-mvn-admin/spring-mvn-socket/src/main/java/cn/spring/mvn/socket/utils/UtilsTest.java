@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import cn.spring.mvn.base.tools.BaseReflection;
+import cn.spring.mvn.basic.tools.BasicReflection;
 import cn.spring.mvn.socket.Comm;
 import cn.spring.mvn.socket.Input;
 import cn.spring.mvn.socket.Output;
@@ -83,7 +83,7 @@ public class UtilsTest {
 		  
 		String className = "cn.spring.mvn.core.account.I.Qrcust.Input";
 //		Interface i = Interface.
-		Class c = BaseReflection.getClassByClassName(className);
+		Class c = BasicReflection.getClassByClassName(className);
 		c.cast(obj);
 		System.out.println(obj);
 		

@@ -9,8 +9,9 @@ public interface CustomerService {
 	public int insertEntity(Customer entity);
 	public int deleteEntity(Customer entity);
 	public int updateEntity(Customer entity);
-	public Customer selectOneEntity(Customer customer);
+	public Customer selectOneEntity(Customer entity);
 	public List<Customer> selectAll();
-	public Map<String, Object> selectAllWithCountByPageSize(Customer customer, int page, int size);
+	public List<Customer> selectListByEntity(Customer entity);
+	public Map<String, Object> selectMapWithCountAndListByEntityAndPageSize(Customer entity, int page, int size);
 	
 }

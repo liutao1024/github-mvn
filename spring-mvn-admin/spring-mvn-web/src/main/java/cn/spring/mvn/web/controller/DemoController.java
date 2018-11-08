@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.spring.mvn.base.entity.SystemTransactionInformation;
-import cn.spring.mvn.base.entity.service.SystemTransactionInformationService;
+import cn.spring.mvn.basic.entity.SystemTransactionInformation;
+import cn.spring.mvn.basic.entity.service.SystemTransactionInformationService;
 import cn.spring.mvn.core.amain.entity.CoreMain;
 import cn.spring.mvn.core.amain.entity.service.AccountService;
 import cn.spring.mvn.core.amain.entity.service.CoreMainService;

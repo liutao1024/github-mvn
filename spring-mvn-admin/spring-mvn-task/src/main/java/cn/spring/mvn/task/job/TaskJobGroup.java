@@ -13,11 +13,11 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import cn.spring.mvn.base.entity.SystemBatchTaskDispathControl;
-import cn.spring.mvn.base.entity.SystemBatchTimeTaskDispathResult;
-import cn.spring.mvn.base.entity.service.SystemBatchTaskDispathControlService;
-import cn.spring.mvn.base.entity.service.SystemBatchTimeTaskDispathResultService;
-import cn.spring.mvn.base.tools.BaseReflection;
+import cn.spring.mvn.basic.entity.SystemBatchTaskDispathControl;
+import cn.spring.mvn.basic.entity.SystemBatchTimeTaskDispathResult;
+import cn.spring.mvn.basic.entity.service.SystemBatchTaskDispathControlService;
+import cn.spring.mvn.basic.entity.service.SystemBatchTimeTaskDispathResultService;
+import cn.spring.mvn.basic.tools.BasicReflection;
 import cn.spring.mvn.comm.util.CommUtil;
 import cn.spring.mvn.comm.util.SpringContextUtil;
 //import cn.spring.mvn.batch.tools.BatchTools;
@@ -117,7 +117,7 @@ public class TaskJobGroup implements Job{
 			Class[] classes = {};
 			Object[] objects = {};
 			try {
-				BaseReflection.executeMethodByClassNameAndMethodName(jobClassName, jobMethodName, classes, objects);
+				BasicReflection.executeMethodByClassNameAndMethodName(jobClassName, jobMethodName, classes, objects);
 				// TODO:登记执行成功信息
 				status = "SUCCESS";//jobDataMap.getString("STATUS");
 			} catch (Exception e) {

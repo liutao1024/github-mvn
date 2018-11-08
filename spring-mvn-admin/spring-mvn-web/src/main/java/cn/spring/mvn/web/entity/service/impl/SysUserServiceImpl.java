@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import cn.spring.mvn.base.BaseServiceImpl;
+import cn.spring.mvn.basic.hibernat.HibernatServiceImpl;
 import cn.spring.mvn.web.entity.SysUser;
 import cn.spring.mvn.web.entity.service.SysUserService;
 
 @Service("SysUserService")
-public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysUserService{
+public class SysUserServiceImpl extends HibernatServiceImpl<SysUser> implements SysUserService{
 	
 	@Override
 	public SysUser add(SysUser entity) throws Exception {

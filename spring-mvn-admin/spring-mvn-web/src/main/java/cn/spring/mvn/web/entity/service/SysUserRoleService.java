@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import cn.spring.mvn.base.BaseService;
+import cn.spring.mvn.basic.hibernat.HibernatService;
 import cn.spring.mvn.web.entity.SysUserRole;
 /**
  * @author LiuTao @date 2018年5月23日 下午1:55:29
  * @ClassName: SysRoleUserService 
  * @Description: TODO(定义sysRoleUser的业务方法)
  */
-public interface SysUserRoleService extends BaseService<SysUserRole>{
+public interface SysUserRoleService extends HibernatService<SysUserRole>{
 	/**
 	 * 检查主键是否唯一
 	 * @param id 主键对象
@@ -40,7 +40,7 @@ public interface SysUserRoleService extends BaseService<SysUserRole>{
 	/**
 	 * @author LiuTao @date 2018年5月26日 下午5:15:09 
 	 * @Title: queryEntitiesByParameterMap 
-	 * @Description: 通过参数查询List   已改写在BaseDao里的接口
+	 * @Description: 通过参数查询List   已改写在HibernatDao里的接口
 	 * @param parmMap
 	 * @return
 	 */

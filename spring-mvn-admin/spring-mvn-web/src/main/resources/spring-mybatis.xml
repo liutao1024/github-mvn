@@ -40,7 +40,7 @@
 	</bean>
 	<!-- 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="cn.spring.mvn.base.entity.dao"></property>此方法是可以的
+		<property name="basePackage" value="cn.spring.mvn.basic.entity.dao"></property>此方法是可以的
 		<property name="sqlSessionFactoryBeanName" value="mybatisSqlSessionFactory" />
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

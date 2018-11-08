@@ -15,10 +15,11 @@
 	<!-- 引入quartz配置文件 -->
 	<import resource="spring-quartz.xml"/>
 	<!-- 扫描service自动注入为bean -->
-	<context:component-scan base-package="cn.spring.mvn.base,
-										  cn.spring.mvn.base.entity.service.impl,
+	<context:component-scan base-package="cn.spring.mvn.basic.hibernat,
+										  cn.spring.mvn.basic.entity.service.impl,
 										  cn.spring.mvn.web.entity.service.impl,
-										  cn.spring.mvn.core.**.entity.service.impl" /><!-- 最后一行为加载核心的bean -->
+										  cn.spring.mvn.core.**.entity.service.impl" />
+										  <!-- 第一行为hibernat的impl(原来的BaseDao/IMPL),最后一行为加载核心的bean -->
 	<!-- 将所有的service注入到spring容器中供其他类调用 
 		包括comm下的CommDao,CommServiceImpl,以及各模块下的Impl
 	 -->

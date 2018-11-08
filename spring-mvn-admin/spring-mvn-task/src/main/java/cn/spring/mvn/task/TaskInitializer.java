@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import cn.spring.mvn.base.entity.SystemBatchTimeDispathControl;
-import cn.spring.mvn.base.entity.service.SystemBatchTaskDispathControlService;
-import cn.spring.mvn.base.entity.service.SystemBatchTimeDispathControlService;
-import cn.spring.mvn.base.entity.service.SystemDateService;
-import cn.spring.mvn.base.tools.BaseReflection;
+import cn.spring.mvn.basic.entity.SystemBatchTimeDispathControl;
+import cn.spring.mvn.basic.entity.service.SystemBatchTaskDispathControlService;
+import cn.spring.mvn.basic.entity.service.SystemBatchTimeDispathControlService;
+import cn.spring.mvn.basic.entity.service.SystemDateService;
+import cn.spring.mvn.basic.tools.BasicReflection;
 import cn.spring.mvn.comm.util.CommUtil;
 //import cn.spring.mvn.batch.tools.BatchTools;
 /**
@@ -94,7 +94,7 @@ public class TaskInitializer{
 						(day == null ? "*":day) +" "+ (month == null ? "":month) +" "+ (week == null ? "":week) +" "+ (year == null ? "*":year);
 				cron = "0/30 * * * * ?";//每分钟的每15秒执行一次  ----具体的cron配置不太懂,需要看一看
 				try {
-					Class<?> jobClass = BaseReflection.getClassByClassName(className);
+					Class<?> jobClass = BasicReflection.getClassByClassName(className);
 					//添加或修改定时任务
 					TaskManager.addOrModifyJobByCron(jobClass, jobName, jobGroupName, triggerGroupName, triggerGroupNumber, cron);
 					// TODO:登记成功信息

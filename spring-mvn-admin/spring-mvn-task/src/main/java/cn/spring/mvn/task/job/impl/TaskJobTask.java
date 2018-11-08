@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import cn.spring.mvn.base.entity.SystemDate;
-import cn.spring.mvn.base.entity.service.SystemDateService;
-import cn.spring.mvn.base.util.BaseUtil;
+import cn.spring.mvn.basic.entity.SystemDate;
+import cn.spring.mvn.basic.entity.service.SystemDateService;
+import cn.spring.mvn.basic.util.BasicUtil;
 //import cn.spring.mvn.comm.tools.SequenceTool;
 import cn.spring.mvn.comm.util.SpringContextUtil;
 
@@ -49,21 +49,21 @@ public class TaskJobTask{
 		System.out.println("-----changeDate-----coreToDay:" + coreToDay);
 		System.out.println("-----changeDate-----accaToDay:" + accaToDay);
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		coreDate.setTheDayBeforeYesterday(BaseUtil.toGetDateStrByDateStr(coreDate.getTheDayBeforeYesterday(), 1));
-		coreDate.setYesterday(BaseUtil.toGetDateStrByDateStr(coreDate.getYesterday(), 1));
-		coreDate.setToday(BaseUtil.toGetDateStrByDateStr(coreDate.getToday(), 1));
-		coreDate.setTomorrow(BaseUtil.toGetDateStrByDateStr(coreDate.getTomorrow(), 1));
-		coreDate.setTheDayAfterTomorrow(BaseUtil.toGetDateStrByDateStr(coreDate.getTheDayAfterTomorrow(), 1));
+		coreDate.setTheDayBeforeYesterday(BasicUtil.toGetDateStrByDateStr(coreDate.getTheDayBeforeYesterday(), 1));
+		coreDate.setYesterday(BasicUtil.toGetDateStrByDateStr(coreDate.getYesterday(), 1));
+		coreDate.setToday(BasicUtil.toGetDateStrByDateStr(coreDate.getToday(), 1));
+		coreDate.setTomorrow(BasicUtil.toGetDateStrByDateStr(coreDate.getTomorrow(), 1));
+		coreDate.setTheDayAfterTomorrow(BasicUtil.toGetDateStrByDateStr(coreDate.getTheDayAfterTomorrow(), 1));
 		
-		accaDate.setTheDayBeforeYesterday(BaseUtil.toGetDateStrByDateStr(accaDate.getTheDayBeforeYesterday(), 1));
-		accaDate.setYesterday(BaseUtil.toGetDateStrByDateStr(accaDate.getYesterday(), 1));
-		accaDate.setToday(BaseUtil.toGetDateStrByDateStr(accaDate.getToday(), 1));
-		accaDate.setTomorrow(BaseUtil.toGetDateStrByDateStr(accaDate.getTomorrow(), 1));
-		accaDate.setTheDayAfterTomorrow(BaseUtil.toGetDateStrByDateStr(accaDate.getTheDayAfterTomorrow(), 1));
+		accaDate.setTheDayBeforeYesterday(BasicUtil.toGetDateStrByDateStr(accaDate.getTheDayBeforeYesterday(), 1));
+		accaDate.setYesterday(BasicUtil.toGetDateStrByDateStr(accaDate.getYesterday(), 1));
+		accaDate.setToday(BasicUtil.toGetDateStrByDateStr(accaDate.getToday(), 1));
+		accaDate.setTomorrow(BasicUtil.toGetDateStrByDateStr(accaDate.getTomorrow(), 1));
+		accaDate.setTheDayAfterTomorrow(BasicUtil.toGetDateStrByDateStr(accaDate.getTheDayAfterTomorrow(), 1));
 		
 		systemDateServiceImpl.saveOrUpdate(coreDate);
 		systemDateServiceImpl.saveOrUpdate(accaDate);
-//		BaseUtil.toGetDateStrByDateStr(coreToDay, 1);
+//		BasicUtil.toGetDateStrByDateStr(coreToDay, 1);
 //		Date d1 = DateTool.addDays(sdf.parse(coreToDay), 1);
 //		Date d2 = DateTool.addDays(sdf.parse(coreToDay), 1);
 		

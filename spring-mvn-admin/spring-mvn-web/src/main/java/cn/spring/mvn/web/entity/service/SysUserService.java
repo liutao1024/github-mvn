@@ -2,10 +2,10 @@ package cn.spring.mvn.web.entity.service;
 
 import java.util.List;
 
-import cn.spring.mvn.base.BaseService;
+import cn.spring.mvn.basic.hibernat.HibernatService;
 import cn.spring.mvn.web.entity.SysUser;
 
-public interface SysUserService extends BaseService<SysUser>{
+public interface SysUserService extends HibernatService<SysUser>{
 
 	SysUser add(SysUser entity) throws Exception;
 	

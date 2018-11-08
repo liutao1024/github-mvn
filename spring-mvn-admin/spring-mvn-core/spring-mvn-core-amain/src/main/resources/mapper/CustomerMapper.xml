@@ -41,7 +41,7 @@
 	   			and custno = #{custno}
 	   		</if>
 	   		<if test="custna != null and custna != ''">
-	   			and custna like #{custna}
+	   			and custna like CONCAT('%',#{custna},'%')
 	   		</if>
 	   		<if test="idtftp != null and idtftp != ''">
 	   			and idtftp = #{idtftp}

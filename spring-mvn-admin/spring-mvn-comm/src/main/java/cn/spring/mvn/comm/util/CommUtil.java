@@ -27,6 +27,44 @@ public class CommUtil {
 	public final static String ZPORTIMPL = ".zport.impl.";
 	
 	/**
+	 * @author LiuTao @date 2018年11月8日 下午12:31:02 
+	 * @Title: formatMapForWeb 
+	 * @Description: 为WEB端返回分页查询的map 
+	 * @param list
+	 * @param count
+	 * @param page
+	 * @param size
+	 * @return
+	 * @throws Exception
+	 */
+	public static Map<String, Object> formatMapForWeb(List<?> list, long count, int page, int size) throws Exception{
+		Map<String,Object> rstMap=new HashMap<String, Object>();
+		try {
+//			if(list.isEmpty()){//data主体
+//				rstMap.put("iDisplayStart", page);
+//				rstMap.put("iDisplayLength", size);
+//				rstMap.put("iColumns", list.size());
+//				rstMap.put("sEcho", System.currentTimeMillis());
+//				rstMap.put("data", list);
+//				rstMap.put("iTotalDisplayRecords", count);
+//				rstMap.put("iTotalRecords", count);
+//				rstMap.put("customActionMessage", "暂无返回数据数据");
+//				rstMap.put("customActionStatus", "ok");
+//			}else {
+				rstMap.put("iDisplayStart", page);
+				rstMap.put("iDisplayLength", size);
+				rstMap.put("iColumns", list.size());
+				rstMap.put("sEcho", System.currentTimeMillis());
+				rstMap.put("data", list);
+				rstMap.put("iTotalDisplayRecords", count);
+				rstMap.put("iTotalRecords", count);
+//			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return rstMap;	
+	}
+	/**
 	 * @author LiuTao @date 2018年6月6日 下午1:12:45 
 	 * @Title: transSrcMapToWebMap 
 	 * @Description: 将带count的Map转换成web页面需要的Map 

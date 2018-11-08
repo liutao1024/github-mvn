@@ -14,7 +14,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import cn.spring.mvn.base.tools.BaseReflection;
+import cn.spring.mvn.basic.tools.BasicReflection;
 import cn.spring.mvn.core.amain.entity.Customer;
 import cn.spring.mvn.core.amain.zport.QrcustOutput;
 import cn.spring.mvn.socket.tools.SocketTool;
@@ -33,7 +33,7 @@ public class EntityTest {
 //		String className = "cn.spring.mvn.core.account.zport.QrcustInput";
 		String className = "cn.spring.mvn.core.account.zport.QrcustOutput";
 		Object obj = JSONObject.parse(str);
-		Class<?> clazz = BaseReflection.getClassByClassName(className);
+		Class<?> clazz = BasicReflection.getClassByClassName(className);
 		obj = SocketTool.praseToClass(clazz, obj);
 		System.out.println(obj);
 	}

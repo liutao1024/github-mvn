@@ -54,7 +54,7 @@
 			</props>
 		</property>
 		<!-- 扫描hibernate注解配置的entity -->
-		<property name="packagesToScan" value="cn.spring.mvn.base.entity,
+		<property name="packagesToScan" value="cn.spring.mvn.basic.entity,
 											   cn.spring.mvn.web.entity" />
 											   <!-- cn.spring.mvn.core.*.entity, core部分不进hibernat-->
 	</bean>

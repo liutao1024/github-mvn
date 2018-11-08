@@ -6,7 +6,7 @@
     <artifactId>spring-mvn-admin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <!-- <groupId>spring</groupId> -->
+  <!-- <groupId>core</groupId> -->
   <artifactId>spring-mvn-core</artifactId>
   <!-- <version>0.0.1-SNAPSHOT</version> -->
   <packaging>pom</packaging>
@@ -18,7 +18,7 @@
   <dependencies>
     <dependency>
     	<groupId>spring</groupId>
-    	<artifactId>spring-mvn-base</artifactId>
+    	<artifactId>spring-mvn-basic</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>

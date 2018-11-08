@@ -28,10 +28,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import cn.spring.mvn.base.entity.SystemBatchTaskDispathControl;
-import cn.spring.mvn.base.entity.service.SystemBatchTaskDispathControlService;
-import cn.spring.mvn.base.tools.BaseReflection;
-import cn.spring.mvn.base.util.BaseUtil;
+import cn.spring.mvn.basic.entity.SystemBatchTaskDispathControl;
+import cn.spring.mvn.basic.entity.service.SystemBatchTaskDispathControlService;
+import cn.spring.mvn.basic.tools.BasicReflection;
+import cn.spring.mvn.basic.util.BasicUtil;
 import cn.spring.mvn.comm.tools.FileTool;
 import cn.spring.mvn.comm.tools.MD5Tool;
 import cn.spring.mvn.comm.util.CommUtil;
@@ -187,7 +187,7 @@ public class SpringMVCHeibrntTest {
 			Class[] classes = {};
 			Object[] objects = {};
 			try {
-				BaseReflection.executeMethodByClassNameAndMethodName(jobGroupClassName, jobGroupMethodName, classes, objects);
+				BasicReflection.executeMethodByClassNameAndMethodName(jobGroupClassName, jobGroupMethodName, classes, objects);
 				// TODO:登记执行成功信息
 			} catch (Exception e) {
 				// TODO:异常信息
@@ -200,7 +200,7 @@ public class SpringMVCHeibrntTest {
 	public void TestToGetAMap(){
 		SysDict object = new SysDict();
 		object.setDictType("U_DDSDF");
-		Map<String, Object> map = BaseUtil.getParamMapWithOutNullValueByReflectObject(object);
+		Map<String, Object> map = BasicUtil.getParamMapWithOutNullValueByReflectObject(object);
 		System.out.println(map);
 	}
 	
@@ -208,10 +208,10 @@ public class SpringMVCHeibrntTest {
 	public void TestAnnotation(){
 		SysDict object = new SysDict();
 		
-		BaseUtil.getAttributeAnnotationByReflectColumn(object);
-		BaseUtil.getAttributeAnnotationsByReflect(object);
-		BaseUtil.getClassAnnotationsByReflect(object);
-		BaseUtil.getMethodAnnotationsByReflect(object);
+		BasicUtil.getAttributeAnnotationByReflectColumn(object);
+		BasicUtil.getAttributeAnnotationsByReflect(object);
+		BasicUtil.getClassAnnotationsByReflect(object);
+		BasicUtil.getMethodAnnotationsByReflect(object);
 	}
 	
 	

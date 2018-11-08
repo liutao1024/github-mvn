@@ -7,12 +7,12 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cn.spring.mvn.base.entity.SystemTransaction;
-import cn.spring.mvn.base.entity.SystemTransactionInformation;
-import cn.spring.mvn.base.entity.service.SystemTransactionInformationService;
-import cn.spring.mvn.base.entity.service.SystemTransactionService;
-import cn.spring.mvn.base.tools.BaseReflection;
-import cn.spring.mvn.base.tools.BaseTool;
+import cn.spring.mvn.basic.entity.SystemTransaction;
+import cn.spring.mvn.basic.entity.SystemTransactionInformation;
+import cn.spring.mvn.basic.entity.service.SystemTransactionInformationService;
+import cn.spring.mvn.basic.entity.service.SystemTransactionService;
+import cn.spring.mvn.basic.tools.BasicReflection;
+import cn.spring.mvn.basic.tools.BasicTool;
 import cn.spring.mvn.comm.tools.DateTool;
 import cn.spring.mvn.comm.util.CommUtil;
 import cn.spring.mvn.comm.util.SpringContextUtil;
@@ -149,7 +149,7 @@ public class SocketOperatorImpl {
 	 */
 	public static String call(String reqJsonStr, String ipAddress) throws JsonParseException, JsonMappingException, IOException{
 		//每次调用重新创建生成否则发布后这个这些值将不变
-		String serial = BaseTool.getSerial();
+		String serial = BasicTool.getSerial();
 		String trandt = DateTool.getNow(DateTool.YYYYMMDD);
 		String trantm = DateTool.getNow(DateTool.YYYYMMDDHHMMSS);
 		
@@ -206,8 +206,8 @@ public class SocketOperatorImpl {
 					String Prcscd = prcscd.substring(0, 1).toUpperCase() + prcscd.substring(1);
 					String inputClassStr = path + CommUtil.DOT + module + CommUtil.ZPORT + Prcscd + INPUT;
 					String outputClassStr = path + CommUtil.DOT + module + CommUtil.ZPORT + Prcscd + OUTPUT;
-					Class<?> inClass = BaseReflection.getClassByClassName(inputClassStr);
-					Class<?> outClass = BaseReflection.getClassByClassName(outputClassStr);
+					Class<?> inClass = BasicReflection.getClassByClassName(inputClassStr);
+					Class<?> outClass = BasicReflection.getClassByClassName(outputClassStr);
 					//当接收到的input的字段比我们自己定义的input类多时需要怎么处理
 					objInput = SocketTool.praseToClass(inClass, objInput);
 					objOutput = SocketTool.praseToClass(outClass, objOutput);
@@ -222,7 +222,7 @@ public class SocketOperatorImpl {
 					/**
 					 * 分割线
 					 */
-					BaseReflection.executeMethodByClassNameAndMethodName(className, methodName, classes, objects);
+					BasicReflection.executeMethodByClassNameAndMethodName(className, methodName, classes, objects);
 					status = SUCCESS;
 				}else {
 					status =  ERROR;

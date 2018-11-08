@@ -3,11 +3,11 @@ package cn.spring.mvn.socket.server.old;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.spring.mvn.base.entity.SystemTransaction;
-import cn.spring.mvn.base.entity.service.SystemTransactionService;
-import cn.spring.mvn.base.tools.BaseReflection;
-import cn.spring.mvn.base.tools.BaseTool;
-import cn.spring.mvn.base.util.BaseUtil;
+import cn.spring.mvn.basic.entity.SystemTransaction;
+import cn.spring.mvn.basic.entity.service.SystemTransactionService;
+import cn.spring.mvn.basic.tools.BasicReflection;
+import cn.spring.mvn.basic.tools.BasicTool;
+import cn.spring.mvn.basic.util.BasicUtil;
 import cn.spring.mvn.comm.util.CommUtil;
 import cn.spring.mvn.comm.util.SpringContextUtil;
 import cn.spring.mvn.socket.Input;
@@ -38,7 +38,7 @@ public class SocketHandlerImpl {
 		String returnString = "";
 		String responseStatus = "";
 		String responseMesage = "";
-		String responseSerial = BaseTool.getSerial();
+		String responseSerial = BasicTool.getSerial();
 		
 		Map<String, Object> requestMap = new HashMap<String, Object>();
 		Map<String, Object> requestSysMap = new HashMap<String, Object>();
@@ -138,8 +138,8 @@ public class SocketHandlerImpl {
 						Input input = new Input();
 						Output output = new Output();
 						Object[] objects = {input, output};//input output
-						BaseReflection.executeMethodByClassNameAndMethodName(className, methodName, classes, objects);
-						rstMap = BaseUtil.objectToMap(output);
+						BasicReflection.executeMethodByClassNameAndMethodName(className, methodName, classes, objects);
+						rstMap = BasicUtil.objectToMap(output);
 //						rstMap = AccountServiceImpl.queryCustUser("01", "", "测试");
 //						rstMap = CoreServerImpl.openAccount(corpno, (String) requestDataMap.get("idtftp"), (String) requestDataMap.get("idtfno"), (String) requestDataMap.get("custna"));
 //						rstMap.put("custno", SequenceTool.getSequence("USER"));

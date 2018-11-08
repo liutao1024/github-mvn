@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
 
-import cn.spring.mvn.base.util.BaseUtil;
+import cn.spring.mvn.basic.util.BasicUtil;
 import cn.spring.mvn.comm.util.CommUtil;
 import cn.spring.mvn.core.amain.entity.Customer;
 import cn.spring.mvn.core.amain.entity.dao.CustomerDao;
@@ -45,10 +45,16 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
-	public Map<String, Object> selectAllWithCountByPageSize(Customer entity, int page, int size) {
-		Map<String, Object> paramMap = BaseUtil.getObjectMapByReflectObject(entity);
+	public List<Customer> selectListByEntity(Customer entity){
+		Map<String, Object> paramMap = BasicUtil.getObjectMapByReflectObject(entity);
+		return dao.selectListByParamMap(paramMap);
+	}
+	
+	@Override
+	public Map<String, Object> selectMapWithCountAndListByEntityAndPageSize(Customer entity, int page, int size) {
+		Map<String, Object> paramMap = BasicUtil.getObjectMapByReflectObject(entity);
 		long count = dao.selectListByParamMap(paramMap).size();
-		BaseUtil.setPageSizeToParamMap(page, size, paramMap);
+		BasicUtil.setPageSizeToParamMap(page, size, paramMap);
 		List<Customer> list = dao.selectListByParamMap(paramMap);
 		return CommUtil.getListWithCountByPageSize(list, count, page, size);
 	}
