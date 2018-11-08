@@ -38,6 +38,10 @@
 		<property name="basePackage" value="cn.spring.mvn.core.*.entity.dao"></property><!-- 只有core里面的才使用mybatis -->
 		<property name="sqlSessionFactoryBeanName" value="mybatisSqlSessionFactory" />
 	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.spring.mvn.basic.ibatis"></property><!-- Basic项目中额IBatisDao -->
+		<property name="sqlSessionFactoryBeanName" value="mybatisSqlSessionFactory" />
+	</bean>
 	<!-- 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="cn.spring.mvn.basic.entity.dao"></property>此方法是可以的

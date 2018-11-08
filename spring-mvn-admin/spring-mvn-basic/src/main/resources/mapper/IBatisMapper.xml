@@ -3,7 +3,11 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="cn.spring.mvn.core.amain.dao.Dao">
+<mapper namespace="cn.spring.mvn.basic.ibatis.IBatisDao">
+    <select id="selectEntities" resultType="CoreMain">
+    	select * from core_main
+    </select>
+    
     <!-- 局部新增 -->
     <insert id="addLocal">
         ${value}

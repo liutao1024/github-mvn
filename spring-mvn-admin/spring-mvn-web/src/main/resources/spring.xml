@@ -13,7 +13,7 @@
 	<!-- 引入mybatis配置文件 -->
 	<import resource="spring-mybatis.xml"/>
 	<!-- 引入quartz配置文件 -->
-	<import resource="spring-quartz.xml"/>
+	<!-- <import resource="spring-quartz.xml"/> -->
 	<!-- 扫描service自动注入为bean -->
 	<context:component-scan base-package="cn.spring.mvn.basic.hibernat,
 										  cn.spring.mvn.basic.entity.service.impl,

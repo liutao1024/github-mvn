@@ -2,6 +2,8 @@ package cn.spring.mvn.basic.ibatis;
 
 import java.util.List;
 
+//import org.apache.ibatis.annotations.Select;
+
 /**
  * @author LiuTao @date 2018年11月8日 下午1:37:05
  * @ClassName: IBatisDao 
@@ -56,6 +58,7 @@ public interface IBatisDao<T> {
 	 * @param t
 	 * @return
 	 */
+//	@Select("select * from core_main")
 	List<T> selectEntities(T t);
 	/**
 	 * @author LiuTao @date 2018年11月8日 下午1:06:37 

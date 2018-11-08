@@ -30,4 +30,9 @@ public class CoreMainServiceImpl implements CoreMainService{
 		return dao.insertOneEntity(entity);
 	}
 
+	@Override
+	public List<CoreMain> selectAll(CoreMain entity) {
+		return dao.selectEntities(entity);
+	}
+
 }

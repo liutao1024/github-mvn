@@ -6,9 +6,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
+import cn.spring.mvn.basic.ibatis.IBatisDao;
 import cn.spring.mvn.core.amain.entity.CoreMain;
 
-public interface CoreMainDao{
+public interface CoreMainDao extends IBatisDao<CoreMain>{
 	@Insert("insert into core_main(id, name) values(#{id}, #{name})")
     Integer insertOneEntity(CoreMain entity);
 	@Select("select * from core_main where id = #{id}")

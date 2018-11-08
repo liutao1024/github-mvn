@@ -8,4 +8,5 @@ public interface CoreMainService {
 	CoreMain selectEntity(String id);
 	List<CoreMain> selectEntityList(String id);
 	Integer insertEntity(CoreMain coreMain);
+	List<CoreMain> selectAll(CoreMain entity);
 }

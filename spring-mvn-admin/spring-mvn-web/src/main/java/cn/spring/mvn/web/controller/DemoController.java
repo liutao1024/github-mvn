@@ -49,6 +49,10 @@ public class DemoController {
 		for (CoreMain coreMain : list) {
 			System.out.println(coreMain);
 		}
+		List<CoreMain> thlist = m.selectAll(entity); 
+		for (CoreMain coreMain : thlist) {
+			System.out.println(coreMain);
+		}
 	}
 	
 	@RequestMapping()

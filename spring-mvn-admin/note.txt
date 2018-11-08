@@ -151,3 +151,12 @@ socket通讯时,消息进到SocketHandlerImpl.callInterface就停滞了,还有�
 20181023  问题是sys,comm,input传进去后
 SocketTool.parseRequest(sys, comm, objInput, reqJsonStr);
 值没有赋上呢?   -------------基本解决了
+
+
+
+20181108
+mybatis 如何定义公共的Dao和mapper.xml
+
+
+
+
