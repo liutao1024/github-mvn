@@ -19,7 +19,6 @@ import cn.spring.mvn.core.amain.entity.service.CoreMainService;
 import cn.spring.mvn.core.amain.entity.service.ProductService;
 import cn.spring.mvn.core.deposit.entity.service.CoreDepositEntityService;
 import cn.spring.mvn.core.fund.entity.service.CoreFundEntityService;
-import cn.spring.mvn.core.loan.entity.CoreLoanEntity;
 import cn.spring.mvn.core.loan.entity.Student;
 import cn.spring.mvn.core.loan.entity.dao.StudentDao;
 import cn.spring.mvn.core.loan.entity.service.CoreLoanEntityService;
@@ -144,19 +143,28 @@ public class DemoController {
 			System.out.println(coreMain);
 		}
 	}
-	
-	@RequestMapping()
+	/**
+	 * @author LiuTao @date 2018年11月9日 下午8:32:43 
+	 * @Title: Test001 
+	 * @Description: Hibernat的测试 
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/test001")
 	public void Test001(HttpServletRequest request, HttpServletResponse response){
-		List<SystemTransactionInformation> list = s.findAll(null);
+		SystemTransactionInformation sti = new SystemTransactionInformation();
+		List<SystemTransactionInformation> list = s.findAll(sti);
 		for (SystemTransactionInformation systemTransactionInformation : list) {
 			System.out.println(systemTransactionInformation.getSerialNumber());
 		}
-		List<CoreLoanEntity> list1 = l.selectCoreLoanEntityList();
-		for (CoreLoanEntity coreProduct : list1) {
-			System.out.println(coreProduct.getProdno());
-		}
 	}
-	
+	/**
+	 * @author LiuTao @date 2018年11月9日 下午8:33:28 
+	 * @Title: Test000 
+	 * @Description: SocketOperatorImpl的测试 
+	 * @param request
+	 * @param response
+	 */
 	@RequestMapping("/test000")
 	public void Test000(HttpServletRequest request, HttpServletResponse response){
 		String str = "{"+

@@ -34,13 +34,15 @@
 		<property name="mapperLocations" value="classpath*:mapper/*.xml"></property>
 	</bean>
 	<!-- 自动扫描mapper文件对应的接口类,将其中的接口自动创建成 MapperFactoryBean -->
-	<!-- Basic项目中额IBatisDao 是否可以不要,因为每个dao其实都在下面的配置中包含了 可以的亲测可行-->
+	<!-- Basic项目中额IBatisDao 是否可以不要,因为每个dao其实都在下面的配置中包含了 亲测可行-->
 	<!-- 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="cn.spring.mvn.basic.ibatis"></property>
 		<property name="sqlSessionFactoryBeanName" value="mybatisSqlSessionFactory" />
 	</bean> -->
-	<!-- 只有core里面的才使用mybatis,这个是否可以放开在基础的Mybatis时使用呢 -->
+	<!-- 只有core里面的才使用MyBatis,这个是否可以放开在基础的MyBatis时使用呢 
+					不行若放开报错NOSuchClassExciption,大概的猜想:同时存在时MyBatis不知道该执行谁了
+	-->
 	<!-- 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="cn.spring.mvn.core.*.entity.dao"></property>
