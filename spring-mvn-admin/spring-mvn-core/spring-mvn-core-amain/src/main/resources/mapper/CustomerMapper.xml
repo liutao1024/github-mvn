@@ -21,6 +21,7 @@
    	<select id="selectOneEntity" parameterType="Customer" resultType="Customer">
    		select * from customer
    		<where>
+   			<!-- 在 if test=''语句中idtftp应该为实体类的属性,而不是表的字段,且 #{}里面也应该为实体类的属性 -->
    			<if test="idtftp != null and idtftp != ''">
    				and idtftp = #{idtftp}
    			</if>

@@ -156,7 +156,17 @@ SocketTool.parseRequest(sys, comm, objInput, reqJsonStr);
 
 20181108
 mybatis 如何定义公共的Dao和mapper.xml
+有叫做通用mapper/mybatis-pagehelper/mybatis.tk的东西,
+https://github.com/abel533/Mybatis-Spring
+https://blog.csdn.net/ckhy5guohao/article/details/54909235
+https://blog.csdn.net/shikaiwencn/article/details/52485883(TKmybatis的框架介绍和原理分析及Mybatis新特性演示)
+http://fanshuyao.iteye.com/blog/2413143(介绍mapper接口的作用)
+https://blog.csdn.net/u013521531/article/details/78811077<同下>
+https://blog.csdn.net/biandous/article/details/65630783(Example和Example.Criteria的用法)
+http://makaidong.com/fanshuyao/10353_17463791.html
+(Mybatis整合通用Dao，Mybatis整合通用Mapper,MyBatis3.x整合通用 Mapper3.5.x)
 
-
-
+20181109
+接下来继续研究如何能实现根据参数自己组装一个sql来执行
+听说TKMapper可以和PageHelper一起使用
 

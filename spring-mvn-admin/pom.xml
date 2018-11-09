@@ -104,6 +104,12 @@
 		<artifactId>mybatis-spring</artifactId>
 		<version>${spring.mybatis.version}</version>
 	</dependency>
+	<!-- 添加TKMapper的依赖 -->
+	<dependency>
+		<groupId>tk.mybatis</groupId>
+		<artifactId>mapper</artifactId>
+		<version>4.0.4</version>
+	</dependency>
 	<!-- 二级缓存ehcache开始 -->
 	<dependency>
 		<groupId>net.sf.ehcache</groupId>

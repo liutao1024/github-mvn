@@ -52,7 +52,7 @@
     <update id="updateLocal">${value}</update>
     
     <!-- 更新全部 -->
-    <update id="update">${value}</update>
+    <!-- <update id="update">${value}</update> -->
     
     <!-- 条件更新局部 -->
     <update id="updateLocalByPram">${value}</update>
@@ -87,9 +87,9 @@
  
  
     <!-- 查询总数量 -->
-    <select id="selectCount" resultType="Long">
+   <!--  <select id="selectCount" resultType="Long">
         ${value}
-    </select>
+    </select> -->
     
     <!-- 内查询 -->
     <select id="selectIn" resultType="hashmap">
