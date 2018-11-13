@@ -3,12 +3,17 @@ package cn.spring.mvn.basic.ibatis;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IBatisPageResult<T> {
+public class IBatisTResult<T> {
 	// 总共记录条数
 	private Integer totalCount;
 	// 结果集
 	private List<T> resultList = new ArrayList<T>();
 	
+	public IBatisTResult(Integer totalCount, List<T> resultList) {
+		super();
+		this.totalCount = totalCount;
+		this.resultList = resultList;
+	}
 	public Integer getTotalCount() {
 		return totalCount;
 	}

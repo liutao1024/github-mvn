@@ -1,5 +1,6 @@
 package cn.spring.mvn.web.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,6 +51,29 @@ public class DemoController {
 	private StudentService st;
 	@Autowired
 	private StudentDao sd;
+	/**
+	 * @author LiuTao @date 2018年11月12日 下午8:44:36 
+	 * @Title: Test005 
+	 * @Description: 测试自己设计的 BINGO
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/test005")
+	public void Test005(HttpServletRequest request, HttpServletResponse response) {
+		Student student = new Student();
+		student.setAge(28);
+		List<Student> list = st.selectEntities(student);
+		for (Student entity : list) {
+			System.out.println(entity);
+		}
+		student.setBirth(new Date());
+		student.setId(119L);
+		student.setName("杨过");
+		student.setNo("9925");
+		student.setPhone("18982598359");
+		student.setSex('M');
+		st.insertEntity(student);
+	}
 	
 	/**
 	 * @author LiuTao @date 2018年11月9日 下午7:52:19 
@@ -131,10 +155,10 @@ public class DemoController {
 	@RequestMapping("/test002")
 	public void Test002(HttpServletRequest request, HttpServletResponse response){
 		CoreMain entity = new CoreMain();
-		entity.setId("1001");
+		entity.setId("1002");
 		entity.setName("渣渣灰");
 		m.insertEntity(entity);
-		List<CoreMain> list = m.selectEntityList("1001");
+		List<CoreMain> list = m.selectEntityList("1002");
 		for (CoreMain coreMain : list) {
 			System.out.println(coreMain);
 		}

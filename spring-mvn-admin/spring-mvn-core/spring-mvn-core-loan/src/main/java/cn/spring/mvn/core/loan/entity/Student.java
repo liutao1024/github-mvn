@@ -1,6 +1,7 @@
 package cn.spring.mvn.core.loan.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class Student implements Serializable{
 	
 //	private String IDNUMBER;
 //	@Transient
-	private String birth;
+	private Date birth;
 	
 	private String phone;
 
@@ -63,11 +64,11 @@ public class Student implements Serializable{
 		this.sex = sex;
 	}
 
-	public String getBirth() {
+	public Date getBirth() {
 		return birth;
 	}
 
-	public void setBirth(String birth) {
+	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
 

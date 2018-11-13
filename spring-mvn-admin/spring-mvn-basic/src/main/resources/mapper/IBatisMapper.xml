@@ -1,103 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper   
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="cn.spring.mvn.basic.ibatis.IBatisDao">
-    <select id="selectEntities" resultType="CoreMain">
-    	select * from core_main
-    </select>
-    
-    <!-- 局部新增 -->
-    <insert id="addLocal">
-        ${value}
+    <!-- 根据SQL新增 -->
+    <insert id="insertBySQL" parameterType="String">
+        ${SQL}
     </insert>
- 
-    <!-- 整体新增 -->
-    <insert id="add">
-        ${value}
+    <!-- 根据类IBatisPageEntity新增 -->
+    <insert id="insertByCondition" parameterType="IBatisTParam">
+        insert into ${tableName} 
     </insert>
-    
-    <!-- 根据ID查询单个 -->
-    <select id="getById" resultType="hashmap">
-        ${value}
-    </select>
-    
-    <!-- 根据ID查询单个字段 -->
-    <select id="getFieldById" resultType="hashmap">
-        ${value}
-    </select>
-    
-    <!-- 根据条件查询单个 -->
-    <select id="getByParm" resultType="hashmap">
-        ${value}
-    </select>
-    
-    <!-- 根据条件查询单个字段 -->
-    <select id="getFieldByParm" resultType="hashmap">
-        ${value}
-    </select>
-    
-    <!-- 条件查询列表 -->
-    <select id="selectList" resultType="hashmap">
-        ${value}
-    </select>
-    
-    <!-- 条件查询字段列表 -->
-    <select id="selectListField" resultType="hashmap">
-        ${value}
-    </select>
-    
-   	<!-- 更新局部 -->
-    <update id="updateLocal">${value}</update>
-    
-    <!-- 更新全部 -->
-    <!-- <update id="update">${value}</update> -->
-    
-    <!-- 条件更新局部 -->
-    <update id="updateLocalByPram">${value}</update>
-    
-    <!-- 条件更新全部 -->
-    <update id="updateByPram">${value}</update>
-    
- 
-    <!-- 根据ID删除 -->
-    <delete id="deleteById">
-        ${value}
+    <!-- 根据SQL删除 -->
+    <delete id="deleteBySQL" parameterType="String">
+        ${SQL}
     </delete>
- 
-    <!-- 批量删除 -->
-    <delete id="deleteByparm">
-        ${value}
+    <!-- 根据IBatisPageEntity做条件删除 -->
+    <delete id="deleteByCondition" parameterType="IBatisTParam">
+        delete ${tableName} where 
     </delete>
-    
-    <!-- 自定义语句查询 -->
-    <select id="selectBySql" resultType="hashmap">
-        ${value}
+   	<!-- 自定义语句查询 SQL在Java代码中组装-->
+   	<select id="selectBySQL" parameterType="String" resultType="java.util.Map">
+   		${SQL}
+   	</select> 
+   	<!-- 试探根据自定义类IBatisPageEntity在Mapper中组装SQL语句,resultType可能有问题,那就直接用Map了 -->
+    <select id="selectByCondition" parameterType="IBatisTParam" resultType="IBatisTResult">
+    	select * from #{tableName}
+    	<where>
+    		<foreach collection="${paramMap}" item="param"><!-- IBatisPageEntity中map的循环赋值 -->
+    			and #{param.key} = #{param.value} 
+    		</foreach>
+    	</where>
+    	<if test="orderColumn != null and orderColumn != ''">
+    		order by #{orderColumn} #{orderTurn}
+    	</if> 
     </select>
-    
-    <!-- 自定义语句执行 -->
-    <update id="excuse">${value}</update>
-    
-    
-    <!-- 查询符合条件的数量 -->
-    <select id="selectCountByParm" resultType="Long">
-        ${value}
+    <!-- 使用SQL计数 -->
+    <select id="selectCountBySQL" resultType="Long">
+    	${SQL}
     </select>
+    <!-- 根据IBatisPageEntity做条件计数 -->
+    <select id="selectCountByCondition" parameterType="IBatisTParam" resultType="Long">
+    	select count(*) from #{tableName} where
+    </select>
+   	<!-- 根据SQL语句更新 -->
+    <update id="updateBySQL" parameterType="String">
+    	${SQL}
+    </update>
+    <!-- 根据IBatisPageEntity做条件更新 -->
+    <update id="updateByCondition" parameterType="IBatisTParam">
+    	update ${tableName} set 
+    </update>
  
- 
-    <!-- 查询总数量 -->
-   <!--  <select id="selectCount" resultType="Long">
-        ${value}
-    </select> -->
+   
     
-    <!-- 内查询 -->
-    <select id="selectIn" resultType="hashmap">
-        ${value}
-    </select>
-     
-    <!-- 获取下一个序列的值 -->
-    <select id="fetchSeqNextval" resultType="Long" flushCache="true">
-        ${value}
-    </select>
 </mapper>

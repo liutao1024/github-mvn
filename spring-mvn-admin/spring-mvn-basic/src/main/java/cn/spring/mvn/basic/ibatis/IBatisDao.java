@@ -4,6 +4,11 @@ import java.util.List;
 
 //import org.apache.ibatis.session.RowBounds;
 
+
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
 import tk.mybatis.mapper.common.Mapper;
 
 //import org.apache.ibatis.annotations.Select;
@@ -345,76 +350,82 @@ public interface IBatisDao<T> extends Mapper<T>{
 
 	/**
 	 * @author LiuTao @date 2018年11月8日 下午1:05:45 
-	 * @Title: insertEntity 
-	 * @Description: 插入一条记录
-	 * @param t
+	 * @Title: insertBySQl 
+	 * @Description: 根据SQL插入记录
+	 * @param SQL
 	 * @return
 	 */
-	int insertEntity(T t);
+	int insertBySQL(@Param(value = "SQL")String SQL);
 	/**
 	 * @author LiuTao @date 2018年11月8日 下午1:05:50 
-	 * @Title: insertEntities 
-	 * @Description: 批量插入记录
+	 * @Title: insertByCondition 
+	 * @Description: 根据IBatisPageEntity条件插入记录
 	 * @param list
 	 * @return
 	 */
-	int insertEntities(List<T> list);
+	int insertByCondition(IBatisTParam<T> iBatisParam);
 	/**
-	 * @author LiuTao @date 2018年11月8日 下午1:05:54 
-	 * @Title: updateEntity 
-	 * @Description: 更新一条记录 
-	 * @param t
+	 * @author LiuTao @date 2018年11月13日 上午9:42:28 
+	 * @Title: deleteBySQL 
+	 * @Description: 根据SQL删除记录 
+	 * @param SQL
 	 * @return
 	 */
-	int updateEntity(T t);
+	int deleteBySQL(@Param(value = "SQL")String SQL);
 	/**
-	 * @author LiuTao @date 2018年11月8日 下午1:06:24 
-	 * @Title: updateEntities 
-	 * @Description: 批量更新记录 
-	 * @param list
+	 * @author LiuTao @date 2018年11月13日 上午9:42:31 
+	 * @Title: deleteByCondition 
+	 * @Description: 根据 IBatisPageEntity条件删除记录
+	 * @param iBatisParam
 	 * @return
 	 */
-	int updateEntities(List<T> list);
+	int deleteByCondition(IBatisTParam<T> iBatisParam);
+	/**
+	 * @author LiuTao @date 2018年11月12日 下午5:05:01 
+	 * @Title: selectBySQL 
+	 * @Description: 根据SQL查询记录 
+	 * @param SQL
+	 * @return
+	 */
+	List<Map<String, Object>> selectBySQL(@Param(value = "SQL") String SQL);
 	/**
 	 * @author LiuTao @date 2018年11月8日 下午1:06:28 
-	 * @Title: selectEntity 
-	 * @Description: 查询一条记录
-	 * @param t
+	 * @Title: selectByCondition 
+	 * @Description: 根据IBatis条件查询记录
+	 * @param iBatisParam
 	 * @return
 	 */
-	T selectEntity(T t);
+	IBatisTResult<T> selectByCondition(IBatisTParam<T> iBatisParam);
 	/**
 	 * @author LiuTao @date 2018年11月8日 下午1:06:33 
-	 * @Title: selectEntities 
-	 * @Description: 查询list记录
-	 * @param t
+	 * @Title: selectCountBySQL 
+	 * @Description: 根据SQL查询记录数 
+	 * @param SQL
 	 * @return
 	 */
-//	@Select("select * from core_main")
-	List<T> selectEntities(T t);
+	Long selectCountBySQL(@Param(value = "SQL") String SQL);
 	/**
 	 * @author LiuTao @date 2018年11月8日 下午1:06:37 
 	 * @Title: selectEntitiesCount 
-	 * @Description: 查询记录数
+	 * @Description: 根据条件查询记录数
 	 * @param t
 	 * @return
 	 */
-	int selectEntitiesCount(T t);
+	Long selectCountByCondition(IBatisTParam<T> iBatisParam);
 	/**
-	 * @author LiuTao @date 2018年11月8日 下午1:06:41 
-	 * @Title: selectEntitiesWithCount 
-	 * @Description: 查询记录并返回记录数 
-	 * @param BPEntity
+	 * @author LiuTao @date 2018年11月8日 下午1:05:54 
+	 * @Title: updateBySQL 
+	 * @Description: 根据SQL更新记录 
+	 * @param t
 	 * @return
 	 */
-	IBatisPageResult<T> selectEntitiesWithCount(IBatisPageEntity<T> BPEntity);
+	int updateBySQL(T t);
 	/**
-	 * @author LiuTao @date 2018年11月8日 下午1:10:19 
-	 * @Title: selectPageEntitiesWithCount 
-	 * @Description: 分页查询记录并返回记录数 
-	 * @param BPEntity
+	 * @author LiuTao @date 2018年11月8日 下午1:06:24 
+	 * @Title: updateByCondition 
+	 * @Description: 根据条件更新记录 
+	 * @param list
 	 * @return
 	 */
-	IBatisPageResult<T> selectPageEntitiesWithCount(IBatisPageEntity<T> BPEntity);
-	
+	int updateByCondition(List<T> list);
 }

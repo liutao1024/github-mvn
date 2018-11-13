@@ -6,13 +6,14 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import cn.spring.mvn.basic.ibatis.IBatisServiceImpl;
 import cn.spring.mvn.core.loan.entity.Student;
 import cn.spring.mvn.core.loan.entity.dao.StudentDao;
 import cn.spring.mvn.core.loan.entity.service.StudentService;
 
 
 @Service("StudentService")
-public class StudentServiceImpl implements StudentService{
+public class StudentServiceImpl extends IBatisServiceImpl<Student> implements StudentService{
 	@Resource
 	private StudentDao dao;
 	@Override

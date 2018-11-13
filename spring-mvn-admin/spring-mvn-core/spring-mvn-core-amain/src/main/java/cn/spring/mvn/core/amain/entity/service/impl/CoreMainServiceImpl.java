@@ -32,7 +32,7 @@ public class CoreMainServiceImpl implements CoreMainService{
 
 	@Override
 	public List<CoreMain> selectAll(CoreMain entity) {
-		return dao.selectEntities(entity);
+		return dao.select(entity);
 	}
 
 }

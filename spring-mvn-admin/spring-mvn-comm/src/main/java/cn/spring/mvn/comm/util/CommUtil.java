@@ -4,11 +4,14 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+//import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.domain.Sort;
+
+import cn.spring.mvn.basic.util.BasicUtil;
 
 /**
  * @author LiuTao @date 2018年5月25日 下午1:03:27
@@ -16,7 +19,7 @@ import org.springframework.data.domain.Sort;
  * @Description: 公共工具类/反射运用
  */
 
-public class CommUtil {
+public class CommUtil extends BasicUtil{//继承自BasicUtil
 	
 	public final static String SORT="ASC";
 
@@ -184,15 +187,45 @@ public class CommUtil {
 	 * @param object
 	 * @return
 	 */
-	public static boolean isNull(Object object){
-		boolean rstBoolean = false;
-		if(null == object){
-			rstBoolean = true;
-		}else if("".equals(object)){
-			rstBoolean = true;
-		}
-		return rstBoolean;
-	}
+//	@SuppressWarnings("rawtypes")
+//	public static boolean isNull(Object object){
+//		boolean rstBoolean = false;
+//		if(null == object){
+//			rstBoolean = true;
+//		}else if("".equals(object)){
+//			rstBoolean = true;
+//		}
+//		return rstBoolean;
+//		boolean b = false;
+//		if(object == null){
+//			b = true;
+//		}
+//		if(object instanceof CharSequence){
+//			b = ((CharSequence) object).length() == 0;
+//		}
+//		if (object instanceof Collection) {
+//			b = ((Collection) object).isEmpty();
+//		}
+//		if(object instanceof Map){
+//			b = ((Map) object).isEmpty();
+//		}
+//		if(object instanceof Object[]){
+//			Object[] objects = (Object[]) object;
+//			if(objects.length == 0){
+//				b = true;
+//			}else {
+//				boolean nb = false;
+//				for(int i = 0; i < objects.length; i++){
+//					if(isNull(objects[i])){
+//						nb = true;
+//						break;
+//					}
+//				}
+//				b = nb;
+//			}
+//		}
+//		return b;
+//	}
 	/**
 	 * @author LiuTao @date 2018年5月22日 下午11:06:35 
 	 * @Title: isNotNull 
@@ -200,9 +233,9 @@ public class CommUtil {
 	 * @param object
 	 * @return
 	 */
-	public static boolean isNotNull(Object object){
-		return !isNull(object);
-	}
+//	public static boolean isNotNull(Object object){
+//		return !isNull(object);
+//	}
 	/**
 	 * @author LiuTao @date 2018年5月22日 下午9:48:39 
 	 * @Title: equal 

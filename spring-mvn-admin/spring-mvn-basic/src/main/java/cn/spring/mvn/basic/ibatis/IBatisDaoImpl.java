@@ -1,19 +1,19 @@
 package cn.spring.mvn.basic.ibatis;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.session.RowBounds;
-import org.mybatis.spring.support.SqlSessionDaoSupport;
-
-import cn.spring.mvn.basic.util.BasicUtil;
+//import java.util.List;
+//import java.util.Map;
+//
+//import org.apache.ibatis.session.RowBounds;
+//import org.mybatis.spring.support.SqlSessionDaoSupport;
+//
+//import cn.spring.mvn.basic.util.BasicUtil;
 /**
  * @author LiuTao @date 2018年11月8日 下午1:37:15
  * @ClassName: IBatisDaoImpl 
  * @Description: TODO(主要是懒不想每个实体类都要写一些重复的sql以及在mapper中配置,目前想到的能抽象出来的就这些) 
  * @param <T>
  */
-public class IBatisDaoImpl<T> extends SqlSessionDaoSupport implements IBatisDao<T> {
+public class IBatisDaoImpl<T> /*extends SqlSessionDaoSupport implements IBatisDao<T> */{/*
 
 	@Override
 	public int insertEntity(T t) {
@@ -202,4 +202,10 @@ public class IBatisDaoImpl<T> extends SqlSessionDaoSupport implements IBatisDao<
 		return null;
 	}
 
-}
+	@Override
+	public List<Map<String, Object>> selectEntitiesBySQL(String SQL) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+*/}

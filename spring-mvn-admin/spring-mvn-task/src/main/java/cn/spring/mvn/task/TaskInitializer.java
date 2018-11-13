@@ -61,6 +61,11 @@ public class TaskInitializer{
 					systemBatchTimeDispathControlImpl.findAllByHql(hqlStr_StatusStop);
 			for (SystemBatchTimeDispathControl entity : systemBatchTimeDispathControlStatusStopList) {
 				entity.setDispathStatus("STOPPED");
+				//需要就这些定时任务从内存中删除   20181112
+				String jobName = entity.getTriggerJobGroupName();
+				String triggerGroupName = entity.getTriggerJobGroupName();
+				String jobGroupName = entity.getTriggerJobGroupName();
+				TaskManager.removeJob(jobName, triggerGroupName, jobGroupName);
 			}
 			systemBatchTimeDispathControlImpl.updateEntities(systemBatchTimeDispathControlStatusStopList);
 			/**

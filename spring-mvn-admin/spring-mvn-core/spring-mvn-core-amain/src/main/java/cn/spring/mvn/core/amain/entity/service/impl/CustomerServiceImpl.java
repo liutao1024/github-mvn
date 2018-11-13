@@ -46,13 +46,13 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Override
 	public List<Customer> selectListByEntity(Customer entity){
-		Map<String, Object> paramMap = BasicUtil.getObjectMapByReflectObject(entity);
+		Map<String, Object> paramMap = BasicUtil.getMapByReflectWithObject(entity);
 		return dao.selectListByParamMap(paramMap);
 	}
 	
 	@Override
 	public Map<String, Object> selectMapWithCountAndListByEntityAndPageSize(Customer entity, int page, int size) {
-		Map<String, Object> paramMap = BasicUtil.getObjectMapByReflectObject(entity);
+		Map<String, Object> paramMap = BasicUtil.getMapByReflectWithObject(entity);
 		long count = dao.selectListByParamMap(paramMap).size();
 		BasicUtil.setPageSizeToParamMap(page, size, paramMap);
 		List<Customer> list = dao.selectListByParamMap(paramMap);
