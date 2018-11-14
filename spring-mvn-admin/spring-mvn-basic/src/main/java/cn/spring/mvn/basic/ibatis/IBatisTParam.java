@@ -11,7 +11,7 @@ public class IBatisTParam<T> {
 	private T entity; //传入的参数
 	
 	private Integer page; //目前是第几页
-	private Integer size; //每页大小
+	private Integer size; //每页记录数
 	private String tableName;//数据库表名
 	private Map<String, Object> paramMap;//
 	private String orderColumn;//排序的列
@@ -22,7 +22,7 @@ public class IBatisTParam<T> {
 	public IBatisTParam(T entity, Integer page, Integer size, String orderColumn, String orderTurn) {
 		super();
 		this.entity = entity;
-		
+		//需要考虑到非分页
 		this.page = page;
 		this.size = size;
 		this.tableName = this.getTableName();

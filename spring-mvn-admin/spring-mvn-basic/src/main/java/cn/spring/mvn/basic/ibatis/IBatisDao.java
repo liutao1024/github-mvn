@@ -395,7 +395,7 @@ public interface IBatisDao<T> extends Mapper<T>{
 	 * @param iBatisParam
 	 * @return
 	 */
-	IBatisTResult<T> selectByCondition(IBatisTParam<T> iBatisParam);
+	List<Map<String, Object>> selectByCondition(IBatisTParam<T> iBatisParam);
 	/**
 	 * @author LiuTao @date 2018年11月8日 下午1:06:33 
 	 * @Title: selectCountBySQL 

@@ -105,11 +105,25 @@
 		<version>${spring.mybatis.version}</version>
 	</dependency>
 	<!-- 添加TKMapper的依赖 -->
+	<!-- https://mvnrepository.com/artifact/tk.mybatis/mapper -->
 	<dependency>
 		<groupId>tk.mybatis</groupId>
 		<artifactId>mapper</artifactId>
 		<version>4.0.4</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper -->
+	<dependency>
+	    <groupId>com.github.pagehelper</groupId>
+	    <artifactId>pagehelper</artifactId>
+	    <version>5.1.8</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+	<!-- <dependency>
+		<groupId>org.projectlombok</groupId>
+		<artifactId>lombok</artifactId>
+		<version>1.18.4</version>
+		<scope>provided</scope>
+	</dependency> -->
 	<!-- 二级缓存ehcache开始 -->
 	<dependency>
 		<groupId>net.sf.ehcache</groupId>

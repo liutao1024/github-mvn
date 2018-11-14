@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import tk.mybatis.mapper.entity.Example;
 import cn.spring.mvn.basic.entity.SystemTransactionInformation;
 import cn.spring.mvn.basic.entity.service.SystemTransactionInformationService;
+import cn.spring.mvn.basic.ibatis.IBatisTParam;
+import cn.spring.mvn.basic.ibatis.IBatisTResult;
 import cn.spring.mvn.core.amain.entity.CoreMain;
 import cn.spring.mvn.core.amain.entity.service.AccountService;
 import cn.spring.mvn.core.amain.entity.service.CoreMainService;
@@ -51,6 +53,27 @@ public class DemoController {
 	private StudentService st;
 	@Autowired
 	private StudentDao sd;
+	
+	/**
+	 * @author LiuTao @date 2018年11月13日 下午4:36:14 
+	 * @Title: Test006 
+	 * @Description: 测试IBatisTParam的运用
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/test006")
+	public void Test006(HttpServletRequest request, HttpServletResponse response) {
+		Student t = new Student();
+//		t.setAge(28);
+		IBatisTParam<Student> iBatisParam = new IBatisTParam<Student>(t, 0, 5, null, null);
+		IBatisTResult<Student> ibts = st.selectPageEntitiesWithCountByCondition(iBatisParam);//st.selectEntitiesWithCount(t);
+		Long count = ibts.getCount();
+		List<Student> ls = ibts.getResultList();
+		System.out.println(count);
+		for (Student student : ls) {
+			System.out.println(student);
+		}
+	}
 	/**
 	 * @author LiuTao @date 2018年11月12日 下午8:44:36 
 	 * @Title: Test005 

@@ -4,13 +4,17 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<!-- https://www.cnblogs.com/domi22/p/8047885.html -->
-	<!-- <properties resource="mysql.properties">
+	<!-- 数据库配置
+	<properties resource="mysql.properties">
 		<property name="jdbc.driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="jdbc.url" value="jdbc:mysql://localhost:3306/student_manager" />
 		<property name="username" value="root" />
 		<property name="password" value="limingnihao" />
 	</properties>
+	-->
+	<!-- 系统设置?? -->
 	<settings>
+		<!-- 
 		<setting name="cacheEnabled" value="true" />
 		<setting name="lazyLoadingEnabled" value="true" />
 		<setting name="multipleResultSetsEnabled" value="true" />
@@ -18,8 +22,7 @@
 		<setting name="useGeneratedKeys" value="false" />
 		<setting name="enhancementEnabled" value="false" />
 		<setting name="defaultExecutorType" value="SIMPLE" />
-	</settings> -->
-	<settings>
+		-->
 		<!-- 打印查询语句 -->
        	<setting name="logImpl" value="STDOUT_LOGGING" />
 	</settings>
@@ -34,17 +37,29 @@
 		<package name="cn.spring.mvn.core.fund.entity"/><!-- 核心基金模块 -->
 		<package name="cn.spring.mvn.core.loan.entity"/><!-- 核心贷款模块 -->
 	</typeAliases>
-	<!-- <typeHandlers>
+	<!-- 不知道是什么 1
+	<typeHandlers>
 		<typeHandler handler="" />
-	</typeHandlers>
-	<objectFactory type=""></objectFactory>
-	<plugins>
-		<plugin interceptor=""></plugin>
-	</plugins>
+	</typeHandlers> 
+	-->
+	<!-- 不知道是什么 2
+	<objectFactory type=""></objectFactory> 
+	-->
+	<!-- batis插件 -->
+    <!-- 
+    <plugins>
+		配置分页插件
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            设置数据库类型 Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库
+            <property name="helperDialect" value="mysql"/>
+        </plugin>
+    </plugins> -->
+    <!-- 环境变量设置
 	<environments default="">
 		<environment id="">
 			<transactionManager type=""></transactionManager>
 			<dataSource type=""></dataSource>
 		</environment>
-	</environments> -->
+	</environments> 
+	-->
 </configuration>

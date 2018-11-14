@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- 
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="cn.spring.mvn.basic.ibatis.IBatisDao">
     <!-- 根据SQL新增 -->
     <insert id="insertBySQL" parameterType="String">
@@ -23,16 +23,21 @@
    		${SQL}
    	</select> 
    	<!-- 试探根据自定义类IBatisPageEntity在Mapper中组装SQL语句,resultType可能有问题,那就直接用Map了 -->
-    <select id="selectByCondition" parameterType="IBatisTParam" resultType="IBatisTResult">
-    	select * from #{tableName}
-    	<where>
-    		<foreach collection="${paramMap}" item="param"><!-- IBatisPageEntity中map的循环赋值 -->
-    			and #{param.key} = #{param.value} 
-    		</foreach>
-    	</where>
+    <select id="selectByCondition" parameterType="IBatisTParam" resultType="java.util.Map">
+    	select * from ${tableName}
+    	<if test="paramMap != null">
+	    	<where> 																		<!-- open="(" separator="),(" close=")" -->
+	    		<foreach item="value" index="key" collection="paramMap.entrySet()"><!-- IBatisPageEntity中map的循环赋值 -->
+	    			and ${key} = ${value} 
+	    		</foreach>
+	    	</where>
+    	</if>
     	<if test="orderColumn != null and orderColumn != ''">
     		order by #{orderColumn} #{orderTurn}
     	</if> 
+    	<if test="(page != null and page != '' or page == 0) and size != null and size != ''">
+       		limit #{page}, #{size}
+   		</if>
     </select>
     <!-- 使用SQL计数 -->
     <select id="selectCountBySQL" resultType="Long">

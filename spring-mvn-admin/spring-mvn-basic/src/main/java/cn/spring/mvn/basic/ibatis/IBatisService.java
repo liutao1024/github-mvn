@@ -11,8 +11,10 @@ public interface IBatisService<T> {
 	List<T> selectEntities(T t);
 	Long selectEntitiesCount(T t);
 	IBatisTResult<T> selectEntitiesWithCount(T t);
-	IBatisTResult<T> selectPageEntitiesWithCount(T t);
+	IBatisTResult<T> selectPageEntitiesWithCount(T t, Integer page, Integer size);
 	IBatisTResult<T> selectEntitiesWithCountByCondition(IBatisTParam<T> iBatisParam);
 	IBatisTResult<T> selectPageEntitiesWithCountByCondition(IBatisTParam<T> iBatisParam);
+	IBatisTResult<T> selectEntitiesWithCountByTK(IBatisTParam<T> iBatisParam);
+	IBatisTResult<T> selectPageEntitiesWithCountByTKAndPageHelper(IBatisTParam<T> iBatisParam);
 	
 }
