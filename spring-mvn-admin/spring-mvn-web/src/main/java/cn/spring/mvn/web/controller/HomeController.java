@@ -3,8 +3,7 @@ package cn.spring.mvn.web.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value="/home/path")//一个@RequestMapping添加多个value值value={"auth","boot-path"}
 public class HomeController {
 	//打印日志工具
-	public static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
+	public static final Logger LOGGER = Logger.getLogger(HomeController.class);
 	/**
 	 * 不写在LoginController中是因为LoginController中用@ResponseBody注解导致页面显示的不是想要的登录页面,
 	 * 而是字符串login

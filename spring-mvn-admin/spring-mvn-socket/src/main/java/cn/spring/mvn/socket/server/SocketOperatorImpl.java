@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 import cn.spring.mvn.basic.entity.SystemTransaction;
 import cn.spring.mvn.basic.entity.SystemTransactionInformation;
@@ -36,7 +35,7 @@ public class SocketOperatorImpl {
 	private static String SUCCESS = "SUCCESS";
 	private static String INPUT = "Input";
 	private static String OUTPUT = "Output";
-	private static final Logger LOGGER = LoggerFactory.getLogger(SocketOperatorImpl.class);
+	private static final Logger LOGGER = Logger.getLogger(SocketOperatorImpl.class);
 	//
 	private static SystemTransactionService systemTransactionServiceImpl = (SystemTransactionService) SpringContextUtil.getBean("SystemTransactionService");
 	private static SystemTransactionInformationService systemTransactionInformationServiceImpl = (SystemTransactionInformationService) SpringContextUtil.getBean("SystemTransactionInformationService");

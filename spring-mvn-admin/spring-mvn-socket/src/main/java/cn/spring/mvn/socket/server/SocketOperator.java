@@ -7,8 +7,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
+
 
 /**
  * @author LiuTao @date 2018年9月3日 下午3:26:04
@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  * @Description: TODO(多线程处理socket接收的数据)
  */
 public class SocketOperator extends Thread {
-	private static final Logger LOGGER = LoggerFactory.getLogger(SocketOperator.class);
+	private static final Logger LOGGER = Logger.getLogger(SocketOperator.class);
 	private Socket socket;
 	private String charSetStr = "UTF-8";
 	public SocketOperator(Socket socket) {

@@ -18,8 +18,9 @@ import java.util.Map.Entry;
 
 import javax.persistence.Column;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class BasicUtil {
@@ -29,7 +30,7 @@ public class BasicUtil {
 	public static final String UPDATE = "update";
 	public static final String SCOUNT = "count";
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(BasicUtil.class);
+	private static final Logger LOGGER = Logger.getLogger(BasicUtil.class);
 	private static final String JAVAP = "java.";
 	private static final String JAVADATESTR = "java.util.Date";
 	private static final String SETPR = "set";//setXxxx前缀

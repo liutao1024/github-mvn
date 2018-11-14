@@ -12,14 +12,16 @@
 						http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
 						http://www.springframework.org/schema/aop 
 						http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+	<!-- 加载IBatis数据库配置文件 在spring容器中只有存在一个实例不能分别加载-->
+	<!-- <context:property-placeholder location="classpath:jdbc.mybatis.properties" /> -->						
 	<!-- 开启AOP注解扫描 -->
     <aop:aspectj-autoproxy proxy-target-class="true" />
 	<!-- 配置数据源 -->
 	<bean id="mybatisDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="${jdbc.driver}"></property>
-		<property name="url" value="${jdbc.url}"></property>
-		<property name="username" value="${jdbc.username}"></property>
-		<property name="password" value="${jdbc.password}"></property>
+		<property name="driverClassName" value="${mybatis.jdbc.driver}"></property>
+		<property name="url" value="${mybatis.jdbc.url}"></property>
+		<property name="username" value="${mybatis.jdbc.username}"></property>
+		<property name="password" value="${mybatis.jdbc.password}"></property>
 	</bean>
 	<!-- 配置sqlSessionFactory -->
 	<bean id="mybatisSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
