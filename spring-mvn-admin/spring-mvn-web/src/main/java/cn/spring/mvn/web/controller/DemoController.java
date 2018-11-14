@@ -65,7 +65,7 @@ public class DemoController {
 	public void Test006(HttpServletRequest request, HttpServletResponse response) {
 		Student t = new Student();
 //		t.setAge(28);
-		IBatisTParam<Student> iBatisParam = new IBatisTParam<Student>(t, 0, 5, null, null);
+		IBatisTParam<Student> iBatisParam = new IBatisTParam<Student>(t, 1, 5, "age", null);
 		IBatisTResult<Student> ibts = st.selectPageEntitiesWithCountByCondition(iBatisParam);//st.selectEntitiesWithCount(t);
 		Long count = ibts.getCount();
 		List<Student> ls = ibts.getResultList();

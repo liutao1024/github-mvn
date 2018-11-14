@@ -205,8 +205,8 @@ public class SocketOperatorImpl {
 					String Prcscd = prcscd.substring(0, 1).toUpperCase() + prcscd.substring(1);
 					String inputClassStr = path + CommUtil.DOT + module + CommUtil.ZPORT + Prcscd + INPUT;
 					String outputClassStr = path + CommUtil.DOT + module + CommUtil.ZPORT + Prcscd + OUTPUT;
-					Class<?> inClass = BasicReflection.getClassByClassName(inputClassStr);
-					Class<?> outClass = BasicReflection.getClassByClassName(outputClassStr);
+					Class<?> inClass = BasicReflection.getClassByReflectClassName(inputClassStr);
+					Class<?> outClass = BasicReflection.getClassByReflectClassName(outputClassStr);
 					//当接收到的input的字段比我们自己定义的input类多时需要怎么处理
 					objInput = SocketTool.praseToClass(inClass, objInput);
 					objOutput = SocketTool.praseToClass(outClass, objOutput);
@@ -221,7 +221,7 @@ public class SocketOperatorImpl {
 					/**
 					 * 分割线
 					 */
-					BasicReflection.executeMethodByClassNameAndMethodName(className, methodName, classes, objects);
+					BasicReflection.executeMethodByReflectClassNameAndMethodName(className, methodName, classes, objects);
 					status = SUCCESS;
 				}else {
 					status =  ERROR;

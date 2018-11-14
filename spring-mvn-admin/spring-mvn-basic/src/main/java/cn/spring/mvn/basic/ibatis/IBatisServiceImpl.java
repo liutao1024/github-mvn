@@ -8,11 +8,10 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import tk.mybatis.mapper.entity.Example;
+import cn.spring.mvn.basic.tools.BasicReflection;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-
-import cn.spring.mvn.basic.util.BasicUtil;
 
 public class IBatisServiceImpl<T> implements IBatisService<T>{
 	@Autowired
@@ -20,7 +19,7 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 	
 	@Override
 	public Integer insertEntity(T t) {
-		String insertSQL = BasicUtil.getIBatisSQl(t, BasicUtil.INSERT);
+		String insertSQL = BasicReflection.getSQLStringByReflectForIBatis(t, BasicReflection.INSERT);
 		return iBatisDao.insertBySQL(insertSQL);
 	}
 	@Override
@@ -33,7 +32,7 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 	}
 	@Override
 	public Integer deleteEntity(T t) {
-		String deletSQL = BasicUtil.getIBatisSQl(t, BasicUtil.DELETE);
+		String deletSQL = BasicReflection.getSQLStringByReflectForIBatis(t, BasicReflection.DELETE);
 //		iBatisDao.delete(t);
 		return iBatisDao.deleteBySQL(deletSQL);
 	}
@@ -57,15 +56,15 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 	@Override
 	public List<T> selectEntities(T t) {
 		Class<?> clazz = t.getClass();
-		String selectSQL = BasicUtil.getIBatisSQl(t, BasicUtil.SELECT);
+		String selectSQL = BasicReflection.getSQLStringByReflectForIBatis(t, BasicReflection.SELECT);
 		List<Map<String, Object>> daoResult = iBatisDao.selectBySQL(selectSQL);
-		List<T> result = BasicUtil.preseMapListToObjectList(clazz, daoResult);
+		List<T> result = BasicReflection.getObjectListByReflectClassAndMapList(clazz, daoResult);
 		return result;
 	}
 	
 	@Override
 	public Long selectEntitiesCount(T t) {
-		String countSQL = BasicUtil.getIBatisSQl(t, BasicUtil.SCOUNT);
+		String countSQL = BasicReflection.getSQLStringByReflectForIBatis(t, BasicReflection.SCOUNT);
 		return iBatisDao.selectCountBySQL(countSQL);
 	}
 	@Override
@@ -82,7 +81,7 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 	public IBatisTResult<T> selectEntitiesWithCountByCondition(IBatisTParam<T> iBatisParam) {//不用考虑分页
 		T t = iBatisParam.getEntity();
 		List<Map<String, Object>> daoResult = iBatisDao.selectByCondition(iBatisParam);
-		List<T> resultList = BasicUtil.preseMapListToObjectList(t.getClass(), daoResult);
+		List<T> resultList = BasicReflection.getObjectListByReflectClassAndMapList(t.getClass(), daoResult);
 		IBatisTResult<T> ibatisResult = new IBatisTResult<T>(resultList);
 		return ibatisResult;
 	}
@@ -92,7 +91,7 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 		Integer page = iBatisParam.getPage();
 		Integer size = iBatisParam.getSize();
 		List<Map<String, Object>> daoResult = iBatisDao.selectByCondition(iBatisParam);
-		List<T> resultList = BasicUtil.preseMapListToObjectList(t.getClass(), daoResult);
+		List<T> resultList = BasicReflection.getObjectListByReflectClassAndMapList(t.getClass(), daoResult);
 		IBatisTResult<T> ibatisResult = new IBatisTResult<T>(page, size, resultList);
 		return ibatisResult;
 	}

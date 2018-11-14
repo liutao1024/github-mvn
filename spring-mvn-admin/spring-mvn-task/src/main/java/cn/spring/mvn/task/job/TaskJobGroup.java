@@ -117,7 +117,7 @@ public class TaskJobGroup implements Job{
 			Class[] classes = {};
 			Object[] objects = {};
 			try {
-				BasicReflection.executeMethodByClassNameAndMethodName(jobClassName, jobMethodName, classes, objects);
+				BasicReflection.executeMethodByReflectClassNameAndMethodName(jobClassName, jobMethodName, classes, objects);
 				// TODO:登记执行成功信息
 				status = "SUCCESS";//jobDataMap.getString("STATUS");
 			} catch (Exception e) {

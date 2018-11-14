@@ -33,7 +33,7 @@ public class EntityTest {
 //		String className = "cn.spring.mvn.core.account.zport.QrcustInput";
 		String className = "cn.spring.mvn.core.account.zport.QrcustOutput";
 		Object obj = JSONObject.parse(str);
-		Class<?> clazz = BasicReflection.getClassByClassName(className);
+		Class<?> clazz = BasicReflection.getClassByReflectClassName(className);
 		obj = SocketTool.praseToClass(clazz, obj);
 		System.out.println(obj);
 	}

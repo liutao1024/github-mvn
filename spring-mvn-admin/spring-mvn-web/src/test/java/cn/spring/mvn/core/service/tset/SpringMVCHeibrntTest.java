@@ -31,7 +31,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import cn.spring.mvn.basic.entity.SystemBatchTaskDispathControl;
 import cn.spring.mvn.basic.entity.service.SystemBatchTaskDispathControlService;
 import cn.spring.mvn.basic.tools.BasicReflection;
-import cn.spring.mvn.basic.util.BasicUtil;
 import cn.spring.mvn.comm.tools.FileTool;
 import cn.spring.mvn.comm.tools.MD5Tool;
 import cn.spring.mvn.comm.util.CommUtil;
@@ -187,7 +186,7 @@ public class SpringMVCHeibrntTest {
 			Class[] classes = {};
 			Object[] objects = {};
 			try {
-				BasicReflection.executeMethodByClassNameAndMethodName(jobGroupClassName, jobGroupMethodName, classes, objects);
+				BasicReflection.executeMethodByReflectClassNameAndMethodName(jobGroupClassName, jobGroupMethodName, classes, objects);
 				// TODO:登记执行成功信息
 			} catch (Exception e) {
 				// TODO:异常信息
@@ -200,7 +199,7 @@ public class SpringMVCHeibrntTest {
 	public void TestToGetAMap(){
 		SysDict object = new SysDict();
 		object.setDictType("U_DDSDF");
-		Map<String, Object> map = BasicUtil.getParamMapWithOutNullValueByReflectObject(object);
+		Map<String, Object> map = BasicReflection.getMapByReflectWithOutNullValueObject(object);
 		System.out.println(map);
 	}
 	
@@ -208,10 +207,10 @@ public class SpringMVCHeibrntTest {
 	public void TestAnnotation(){
 		SysDict object = new SysDict();
 		
-		BasicUtil.getAttributeAnnotationByReflectColumn(object);
-		BasicUtil.getAttributeAnnotationsByReflect(object);
-		BasicUtil.getClassAnnotationsByReflect(object);
-		BasicUtil.getMethodAnnotationsByReflect(object);
+		BasicReflection.getAttributeColumnAnnotationMapByReflectObject(object);
+		BasicReflection.getAttributeAnnotationsByReflectObject(object);
+		BasicReflection.getClassAnnotationListByReflectObject(object);
+		BasicReflection.getMethodAnnotationsByReflectObject(object);
 	}
 	
 	

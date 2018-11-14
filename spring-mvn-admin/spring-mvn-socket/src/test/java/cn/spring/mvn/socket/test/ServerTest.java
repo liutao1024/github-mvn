@@ -17,7 +17,7 @@ import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 import org.junit.Test;
 
-import cn.spring.mvn.basic.util.BasicUtil;
+import cn.spring.mvn.basic.tools.BasicReflection;
 import cn.spring.mvn.core.amain.entity.Customer;
 import cn.spring.mvn.core.amain.zport.QrcustOutput;
 import cn.spring.mvn.socket.tools.RequestMap;
@@ -334,7 +334,7 @@ public class ServerTest {
 		for (Customer customer : customerList) {
 			//将对象的custUser转化成属性为key,属性对应值为value的map,不管这个属性上是否有值均需要写在map中无值时,赋值为""
 			//commUtil中的那个方法不够用需要改造
-			Map<String, Object> map = BasicUtil.getMapByReflectWithObject(customer);
+			Map<String, Object> map = BasicReflection.getMapByReflectWithOutNullObject(customer);
 			dataList.add(map);
 		}
 		responseMap.put("count", customerList.size());

@@ -99,7 +99,7 @@ public class TaskInitializer{
 						(day == null ? "*":day) +" "+ (month == null ? "":month) +" "+ (week == null ? "":week) +" "+ (year == null ? "*":year);
 				cron = "0/30 * * * * ?";//每分钟的每15秒执行一次  ----具体的cron配置不太懂,需要看一看
 				try {
-					Class<?> jobClass = BasicReflection.getClassByClassName(className);
+					Class<?> jobClass = BasicReflection.getClassByReflectClassName(className);
 					//添加或修改定时任务
 					TaskManager.addOrModifyJobByCron(jobClass, jobName, jobGroupName, triggerGroupName, triggerGroupNumber, cron);
 					// TODO:登记成功信息

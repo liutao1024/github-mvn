@@ -83,7 +83,7 @@ public class UtilsTest {
 		  
 		String className = "cn.spring.mvn.core.account.I.Qrcust.Input";
 //		Interface i = Interface.
-		Class c = BasicReflection.getClassByClassName(className);
+		Class c = BasicReflection.getClassByReflectClassName(className);
 		c.cast(obj);
 		System.out.println(obj);
 		

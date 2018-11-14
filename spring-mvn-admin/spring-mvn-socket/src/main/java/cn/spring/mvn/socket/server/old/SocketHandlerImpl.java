@@ -7,7 +7,6 @@ import cn.spring.mvn.basic.entity.SystemTransaction;
 import cn.spring.mvn.basic.entity.service.SystemTransactionService;
 import cn.spring.mvn.basic.tools.BasicReflection;
 import cn.spring.mvn.basic.tools.BasicTool;
-import cn.spring.mvn.basic.util.BasicUtil;
 import cn.spring.mvn.comm.util.CommUtil;
 import cn.spring.mvn.comm.util.SpringContextUtil;
 import cn.spring.mvn.socket.Input;
@@ -138,8 +137,8 @@ public class SocketHandlerImpl {
 						Input input = new Input();
 						Output output = new Output();
 						Object[] objects = {input, output};//input output
-						BasicReflection.executeMethodByClassNameAndMethodName(className, methodName, classes, objects);
-						rstMap = BasicUtil.objectToMap(output);
+						BasicReflection.executeMethodByReflectClassNameAndMethodName(className, methodName, classes, objects);
+						rstMap = BasicReflection.getMapByReflecObject(output);
 //						rstMap = AccountServiceImpl.queryCustUser("01", "", "测试");
 //						rstMap = CoreServerImpl.openAccount(corpno, (String) requestDataMap.get("idtftp"), (String) requestDataMap.get("idtfno"), (String) requestDataMap.get("custna"));
 //						rstMap.put("custno", SequenceTool.getSequence("USER"));

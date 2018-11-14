@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import cn.spring.mvn.basic.tools.BasicReflection;
 import cn.spring.mvn.basic.util.BasicUtil;
 import cn.spring.mvn.basic.util.BasicUtilHqlFilter;
 
@@ -130,21 +131,21 @@ public class HibernatServiceImpl<T> implements HibernatService<T>{
 	@Override
 	public T selectOneEntity(T entity) {
 		String entityName = entity.getClass().getSimpleName();
-		Map<String, Object> paramMap = BasicUtil.getParamMapWithOutNullValueByReflectObject(entity);
+		Map<String, Object> paramMap = BasicReflection.getMapByReflectWithOutNullValueObject(entity);
 		String hqlStr = BasicUtil.getSqlStrByEntityNameAndParamMap(entityName, paramMap);
 		return baseDaoImpl.findOneByHqlParamMap(hqlStr, paramMap);
 	}
 	@Override
 	public List<T> selectAllEntities(T entity) {
 		String entityName = entity.getClass().getSimpleName();
-		Map<String, Object> paramMap = BasicUtil.getParamMapWithOutNullValueByReflectObject(entity);
+		Map<String, Object> paramMap = BasicReflection.getMapByReflectWithOutNullValueObject(entity);
 		String hqlStr = BasicUtil.getSqlStrByEntityNameAndParamMap(entityName, paramMap);
 		return baseDaoImpl.findAllByHqlParamMap(hqlStr, paramMap);
 	}
 	@Override
 	public List<T> selectAllEntitiesWihtPageSize(T entity, int page, int size) {
 		String entityName = entity.getClass().getSimpleName();
-		Map<String, Object> paramMap = BasicUtil.getParamMapWithOutNullValueByReflectObject(entity);
+		Map<String, Object> paramMap = BasicReflection.getMapByReflectWithOutNullValueObject(entity);
 		String hqlStr = BasicUtil.getSqlStrByEntityNameAndParamMap(entityName, paramMap);
 		return baseDaoImpl.findAllByHqlParamMapPageSize(hqlStr, paramMap, page, size);
 	}
@@ -189,7 +190,7 @@ public class HibernatServiceImpl<T> implements HibernatService<T>{
 	@Override
 	public long count(T entity) {
 		String entityName = entity.getClass().getSimpleName();
-		Map<String, Object> paramMap = BasicUtil.getParamMapWithOutNullValueByReflectObject(entity);
+		Map<String, Object> paramMap = BasicReflection.getMapByReflectWithOutNullValueObject(entity);
 		String hqlStr = BasicUtil.getSqlStrByEntityNameAndParamMap(entityName, paramMap);
 		return baseDaoImpl.countByHqlParamMap(hqlStr, paramMap);
 	}
@@ -230,7 +231,7 @@ public class HibernatServiceImpl<T> implements HibernatService<T>{
 	@Override
 	public List<T> findAllByEntity(T entity){
 		String entityName = entity.getClass().getSimpleName();
-		Map<String, Object> paramMap = BasicUtil.getParamMapWithOutNullValueByReflectObject(entity);
+		Map<String, Object> paramMap = BasicReflection.getMapByReflectWithOutNullValueObject(entity);
 		String hqlStr = BasicUtil.getSqlStrByEntityNameAndParamMap(entityName, paramMap);
 		return baseDaoImpl.findAllByHqlParamMap(hqlStr, paramMap);
 	}
@@ -262,7 +263,7 @@ public class HibernatServiceImpl<T> implements HibernatService<T>{
 	@Override
 	public List<T> findAllByEntityPageSize(T entity, int page, int size) {
 		String entityName = entity.getClass().getSimpleName();
-		Map<String, Object> paramMap = BasicUtil.getParamMapWithOutNullValueByReflectObject(entity);
+		Map<String, Object> paramMap = BasicReflection.getMapByReflectWithOutNullValueObject(entity);
 		String hqlStr = BasicUtil.getSqlStrByEntityNameAndParamMap(entityName, paramMap);
 		return baseDaoImpl.findAllByHqlParamMapPageSize(hqlStr, paramMap, page, size);
 	}
@@ -285,7 +286,7 @@ public class HibernatServiceImpl<T> implements HibernatService<T>{
 		Map<String, Object> rstMap = new HashMap<String, Object>();
 		List<T> list = findAllByEntityPageSize(entity, page, size);
 		String entityName = entity.getClass().getSimpleName();
-		Map<String, Object> paramMap = BasicUtil.getParamMapWithOutNullValueByReflectObject(entity);
+		Map<String, Object> paramMap = BasicReflection.getMapByReflectWithOutNullValueObject(entity);
 		String hqlStr = BasicUtil.getHqlByEntityNameAndParamMap(entityName, paramMap);
 		long count = findAllByHql(hqlStr).size();
 		rstMap.put("count", count);
