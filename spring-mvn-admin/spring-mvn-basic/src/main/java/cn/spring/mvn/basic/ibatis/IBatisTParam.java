@@ -1,6 +1,7 @@
 package cn.spring.mvn.basic.ibatis;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -33,6 +34,9 @@ public class IBatisTParam<T> {
 	private String orderTurn = "ASC";//排序方式(顺序[ASC],倒序[DSC])
 	
 	
+	public IBatisTParam(){
+		super();
+	}
 	
 	public IBatisTParam(T entity, Integer page, Integer size, String orderColumn, String orderTurn) {
 		super();
@@ -88,7 +92,13 @@ public class IBatisTParam<T> {
 		this.paramMap = paramMap;
 	}
 	public Map<String, Object> getPKMap() {
-		PKMap = BasicReflection.getMapByReflectAttributeAnnotationClassObejct(this.entity, Id.class);;
+		PKMap = BasicReflection.getMapByReflectAttributeAnnotationClassObejct(this.entity, Id.class);
+		if(BasicUtil.isNull(PKMap)){//如果实体类T中没有定义@Id时
+			for (Entry<String, Object> entry : paramMap.entrySet()) {
+				PKMap.put(entry.getKey(), entry.getValue());
+				break;
+			}
+		}
 		return PKMap;
 	}
 	public void setPKMap(Map<String, Object> PKMap) {

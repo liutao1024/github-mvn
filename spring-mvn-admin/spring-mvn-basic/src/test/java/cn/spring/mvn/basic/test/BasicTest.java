@@ -1,12 +1,19 @@
 package cn.spring.mvn.basic.test;
 
+import java.util.Map;
+
+import javax.persistence.Id;
+
+import cn.spring.mvn.basic.entity.SystemDate;
+import cn.spring.mvn.basic.tools.BasicReflection;
+
 //import javax.persistence.Table;
 
 //import cn.spring.mvn.basic.util.BasicUtil;
 
 public class BasicTest {
 	public static void main(String[] args) {
-		test002();
+		test003();
 	}
 	
 	public static void test001() {
@@ -34,5 +41,13 @@ public class BasicTest {
 		System.out.println(c);
 //		Class<?> clazz = Table.class;
 //		Table annotation = (Table) BasicUtil.getClassAnnotationByReflectAnnotationClass(this.entity, clazz);
+	}
+	
+	public static void test003(){
+		SystemDate date = new SystemDate();
+		date.setDateType("1213");
+		date.setToday("20181114");
+		Map<String, Object> map = BasicReflection.getMapByReflectAttributeAnnotationClassObejct(date, Id.class);
+		System.out.println(map);
 	}
 }

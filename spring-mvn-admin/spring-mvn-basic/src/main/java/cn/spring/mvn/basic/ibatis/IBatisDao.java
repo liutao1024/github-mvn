@@ -412,7 +412,7 @@ public interface IBatisDao<T> extends Mapper<T>{
 	 * @param t
 	 * @return
 	 */
-	int updateBySQL(T t);
+	int updateBySQL(@Param(value = "SQL") String SQL);
 	/**
 	 * @author LiuTao @date 2018年11月8日 下午1:06:24 
 	 * @Title: updateByCondition 
@@ -420,5 +420,5 @@ public interface IBatisDao<T> extends Mapper<T>{
 	 * @param list
 	 * @return
 	 */
-	int updateByCondition(List<T> list);
+	int updateByCondition(IBatisTParam<T> iBatisParam);
 }

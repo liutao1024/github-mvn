@@ -36,10 +36,18 @@ public class IBatisTResult<T> {
 	}
 	public IBatisTResult(Integer page, Integer size, List<T> resultList){
 		super();
-		this.count = (long) resultList.size();
-		int start = page * size;
-		int end = (page + 1) * size;
-		this.resultList = resultList.subList(start, end);//此处的List需要根据page和size进行组装
+		Integer totalCount = resultList.size();
+		this.count = (long) totalCount;
+		Integer start = page * size;
+		Integer end = (page + 1) * size;
+		List<T> realList = new ArrayList<T>();
+		if(start <= totalCount){//起始数不大于总数时
+			if(end > totalCount){
+				end = totalCount;
+			}
+			realList = resultList.subList(start, end);//此处的List需要根据page和size进行组装
+		}
+		this.resultList = realList;
 	}
 	public T getEntity() {
 		return entity;

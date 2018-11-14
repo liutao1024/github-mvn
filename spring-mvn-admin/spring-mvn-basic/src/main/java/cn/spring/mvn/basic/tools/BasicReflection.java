@@ -653,42 +653,46 @@ public class BasicReflection {
 	/**
 	 * @author LiuTao @date 2018年5月31日 下午12:55:09 
 	 * @Title: getAttributeAnnotationByReflectAnnotationObejct 
-	 * @Description: 通过反射获取指定注解的Map 
-	 * ---暂时不用:因为注解annotation不知道如何获取属性,而且在调用时需要送一个注解对象,这个注解对象实例化存在问题
+	 * @Description: 通过反射获取指定对象属性有指定注解的Map<field, fieldValue>
+	 *  因为注解annotation不知道如何获取属性,而且在调用时需要送一个注解对象,这个注解对象实例化存在问题
 	 * @param object
 	 * @param annotationObejct
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static Map<String, Object> getMapByReflectAttributeAnnotationClassObejct(Object object, Class<?> clazz){
 		Map<String, Object> rstMap = new HashMap<String, Object>();
-		String clazzName = clazz.getName();
-		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+//		String clazzName = clazz.getName();
+//		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+//		Class theClass = classLoader.loadClass(clazzName);
 		Field[] fields = object.getClass().getDeclaredFields();
 		try {
-			Class theClass = classLoader.loadClass(clazzName);
 			for (Field field : fields) {
 				// 属性名称
 				String fieldName = field.getName();
-				// 属性类型
-				Class<?> fieldClazz = field.getType();
-				// 获取属性上的指定类型的注解
-				Annotation annotation = field.getAnnotation(theClass);
-				// 有该类型的注解存在
-				if (annotation != null) {
-					if(!BasicUtil.equals("serialVersionUID", fieldName)){//非serialVersionUID
-						Method method = clazz.getMethod(BasicUtil.convertKey(fieldName, GETPR));
+				if(!BasicUtil.equals("serialVersionUID", fieldName)){//非serialVersionUID
+					// 属性类型
+					Class<?> fieldClazz = field.getType();
+					// 获取属性上的指定类型的注解
+					Annotation annotation = field.getDeclaredAnnotation((Class) clazz);
+					// 有该类型的注解存在
+					if (annotation != null) {
+						String getMethod = BasicUtil.convertKey(fieldName, GETPR);
+						Method method = object.getClass().getMethod(getMethod);
 						method.setAccessible(true);
 						Object filedValue = method.invoke(object);
 						if(BasicUtil.isNotNull(filedValue)){
 							filedValue = BasicUtil.convertValueTypeForDB(filedValue, fieldClazz);
 							String filedKey = BasicUtil.presentHumpNamedToUnderScoreString(fieldName, false);
+							Column column = field.getDeclaredAnnotation(Column.class);//
+							if(BasicUtil.isNotNull(column)){
+								filedKey = BasicUtil.isNull(column.name()) ? filedKey : column.name();
+							}
 							rstMap.put(filedKey, filedValue);
 						}
 					}
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return rstMap;

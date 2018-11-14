@@ -69,7 +69,7 @@
 	    	</where>
     	</if>
     	<if test="orderColumn != null and orderColumn != ''">
-    		order by ${orderColumn} #{orderTurn}
+    		order by ${orderColumn} ${orderTurn}
     	</if> 
     	<if test="(page != null and page != '' or page == 0) and size != null and size != ''">
        		limit ${page}, ${size}

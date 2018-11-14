@@ -170,3 +170,8 @@ http://makaidong.com/fanshuyao/10353_17463791.html
 接下来继续研究如何能实现根据参数自己组装一个sql来执行
 听说TKMapper可以和PageHelper一起使用
 
+
+selectByCondition的时候IBatisTParam中穿了page和size后就作为条件了返回的List<Map<K, V>>就只有size条记录了,
+再在IBatisTResult中去用构造方法IBatisTResult(Integer page, Integer size, List<T> resultList),就不行了
+
+以上问题解决,现在待测试IBatisServiceImpl中提供的方法的可用性了

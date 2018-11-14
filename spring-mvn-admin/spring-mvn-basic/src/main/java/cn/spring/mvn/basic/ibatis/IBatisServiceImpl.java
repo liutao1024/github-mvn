@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import tk.mybatis.mapper.entity.Example;
 import cn.spring.mvn.basic.tools.BasicReflection;
+import cn.spring.mvn.basic.util.BasicUtil;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -17,11 +18,26 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 	@Autowired
 	private IBatisDao<T> iBatisDao;
 	
+	/********************************增********************************/
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: SQL语句插入实体类T记录
+	 * @Title: insertEntity 
+	 * @param t 实体类
+	 * @return 
+	 */
 	@Override
 	public Integer insertEntity(T t) {
 		String insertSQL = BasicReflection.getSQLStringByReflectForIBatis(t, BasicReflection.INSERT);
 		return iBatisDao.insertBySQL(insertSQL);
 	}
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: SQL语句插入实体类T的List记录
+	 * @Title: insertEntities
+	 * @param ts 实体类的List
+	 * @return 
+	 */
 	@Override
 	public Integer insertEntities(List<T> ts) {
 		Integer rst = 0;
@@ -30,12 +46,37 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 		}
 		return rst;
 	}
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: IBatis根据IBatisTParam类按配置插入实体类T记录
+	 * @Title: insertEntityByCondition
+	 * @param iBatisParam IBatisTParam
+	 * @return 
+	 */
+	@Override
+	public Integer insertEntityByCondition(IBatisTParam<T> iBatisParam) {
+		return iBatisDao.insertByCondition(iBatisParam);
+	}
+	/********************************删********************************/
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: SQL语句删除实体类T记录
+	 * @Title: deleteEntity
+	 * @param t 实体类
+	 * @return 
+	 */
 	@Override
 	public Integer deleteEntity(T t) {
 		String deletSQL = BasicReflection.getSQLStringByReflectForIBatis(t, BasicReflection.DELETE);
-//		iBatisDao.delete(t);
 		return iBatisDao.deleteBySQL(deletSQL);
 	}
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: SQL语句删除实体类T的List记录
+	 * @Title: deleteEntities
+	 * @param ts 实体类List
+	 * @return 
+	 */
 	@Override
 	public Integer deleteEntities(List<T> ts) {
 		Integer rst = 0;
@@ -44,6 +85,25 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 		}
 		return rst;
 	}
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: IBatis根据IBatisTParam类按配置删除实体类T记录
+	 * @Title: deleteEntityByCondition
+	 * @param iBatisParam IBatisTParam
+	 * @return 
+	 */
+	@Override
+	public Integer deleteEntityByCondition(IBatisTParam<T> iBatisParam) {
+		return iBatisDao.deleteByCondition(iBatisParam);
+	}
+	/********************************查********************************/
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: SQL语句查询一条实体类T记录
+	 * @Title: selectOneEntity
+	 * @param t 实体类
+	 * @return 
+	 */
 	@Override
 	public T selectOneEntity(T t) {
 		List<T> list = this.selectEntities(t);
@@ -53,6 +113,13 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 			return null;
 		}
 	}
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: SQL语句查询实体类T的List
+	 * @Title: selectEntities
+	 * @param t 实体类
+	 * @return 
+	 */
 	@Override
 	public List<T> selectEntities(T t) {
 		Class<?> clazz = t.getClass();
@@ -61,40 +128,83 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 		List<T> result = BasicReflection.getObjectListByReflectClassAndMapList(clazz, daoResult);
 		return result;
 	}
-	
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: SQL语句查询实体类T的数据量
+	 * @Title: selectEntitiesCount
+	 * @param t 实体类
+	 * @return 
+	 */
 	@Override
 	public Long selectEntitiesCount(T t) {
 		String countSQL = BasicReflection.getSQLStringByReflectForIBatis(t, BasicReflection.SCOUNT);
 		return iBatisDao.selectCountBySQL(countSQL);
 	}
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: SQL语句查询实体类T记录数
+	 * @Title: selectEntitiesWithCount
+	 * @param t 实体类
+	 * @return IBatisTResult
+	 */
 	@Override
-	public IBatisTResult<T> selectEntitiesWithCount(T t) {//
-		IBatisTParam<T> iBatisParam = new IBatisTParam<T>(t, null, null, null, null);
-		return this.selectEntitiesWithCountByCondition(iBatisParam);
+	public IBatisTResult<T> selectEntitiesWithCount(T t) {
+		List<T> resultList = this.selectEntities(t);
+		IBatisTResult<T> ibatisResult = new IBatisTResult<T>(resultList);
+		return ibatisResult;
 	}
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: SQL语句查询实体类T记录并根据page和size分页返回
+	 * @Title: selectPageEntitiesWithCount
+	 * @param t 实体类
+	 * @param page 当前页数
+	 * @param size 每页记录数
+	 * @return 
+	 */
 	@Override
 	public IBatisTResult<T> selectPageEntitiesWithCount(T t, Integer page, Integer size) {
-		IBatisTParam<T> iBatisParam = new IBatisTParam<T>(t, page, size, null, null);
-		return this.selectPageEntitiesWithCountByCondition(iBatisParam);
+		List<T> resultList = this.selectEntities(t);
+		IBatisTResult<T> ibatisResult = new IBatisTResult<T>(page, size, resultList);
+		return ibatisResult;
 	}
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: IBatis根据IBatisTParam类按配置查询实体类T
+	 * @Title: selectEntitiesWithCountByCondition
+	 * @param iBatisParam IBatisTParam
+	 * @return 
+	 */
 	@Override
-	public IBatisTResult<T> selectEntitiesWithCountByCondition(IBatisTParam<T> iBatisParam) {//不用考虑分页
+	public IBatisTResult<T> selectEntitiesWithCountByCondition(IBatisTParam<T> iBatisParam) {
 		T t = iBatisParam.getEntity();
 		List<Map<String, Object>> daoResult = iBatisDao.selectByCondition(iBatisParam);
 		List<T> resultList = BasicReflection.getObjectListByReflectClassAndMapList(t.getClass(), daoResult);
 		IBatisTResult<T> ibatisResult = new IBatisTResult<T>(resultList);
 		return ibatisResult;
 	}
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: IBatis根据IBatisTParam类按配置查询实体类T
+	 * @Title: selectPageEntitiesWithCountByCondition
+	 * @param iBatisParam IBatisTParam
+	 * @return 
+	 */
 	@Override
 	public IBatisTResult<T> selectPageEntitiesWithCountByCondition(IBatisTParam<T> iBatisParam) {//需要修改因为他是Page的...
 		T t = iBatisParam.getEntity();
-		Integer page = iBatisParam.getPage();
-		Integer size = iBatisParam.getSize();
 		List<Map<String, Object>> daoResult = iBatisDao.selectByCondition(iBatisParam);
 		List<T> resultList = BasicReflection.getObjectListByReflectClassAndMapList(t.getClass(), daoResult);
-		IBatisTResult<T> ibatisResult = new IBatisTResult<T>(page, size, resultList);
+		IBatisTResult<T> ibatisResult = new IBatisTResult<T>(resultList);
 		return ibatisResult;
 	}
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: IBatis根据IBatisTParam类按TK查询实体类T
+	 * @Title: selectEntitiesWithCountByTK
+	 * @param iBatisParam IBatisTParam
+	 * @return 
+	 */
 	@Override
 	public IBatisTResult<T> selectEntitiesWithCountByTK(IBatisTParam<T> iBatisParam){//不用考虑分页
 		T t = iBatisParam.getEntity();
@@ -105,6 +215,13 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 		IBatisTResult<T> ibatisResult = new IBatisTResult<T>(pageInfo.getTotal(), pageInfo.getList());
 		return ibatisResult;
 	}
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: IBatis根据IBatisTParam类按TK+PageHelper查询实体类T
+	 * @Title: selectPageEntitiesWithCountByTKAndPageHelper
+	 * @param iBatisParam IBatisTParam
+	 * @return 
+	 */
 	@Override
 	public IBatisTResult<T> selectPageEntitiesWithCountByTKAndPageHelper(IBatisTParam<T> iBatisParam) {//分页的
 		T t = iBatisParam.getEntity();
@@ -123,6 +240,51 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 		PageInfo<T> pageInfo = new PageInfo<T>(resultList);
 		IBatisTResult<T> ibatisResult = new IBatisTResult<T>(pageInfo.getTotal(), pageInfo.getList());
 		return ibatisResult;
+	}
+	/********************************改********************************/
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: SQL语句更新实体T
+	 * @Title: updateEntity
+	 * @param t 实体类
+	 * @return 
+	 */
+	@Override
+	public Integer updateEntity(T t) {
+		String updateSQL = BasicReflection.getSQLStringByReflectForIBatis(t, BasicReflection.UPDATE);
+		return iBatisDao.updateBySQL(updateSQL);
+	}
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: SQL语句更新实体类T的List
+	 * @Title: updateEntities 
+	 * @param ts 实体类的List
+	 * @return 
+	 */
+	@Override
+	public Integer updateEntities(List<T> ts) {
+		Integer rst = 0;
+		for (T t : ts) {
+			rst +=  this.updateEntity(t);
+		}
+		return rst;
+	}
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: IBatis根据IBatisTParam类按配置更新实体类T
+	 * @Title: updateEntityByCondition
+	 * @param iBatisParam IBatisTParam
+	 * @return 
+	 */
+	@Override
+	public Integer updateEntityByCondition(IBatisTParam<T> iBatisParam) {
+		//保障iBatisParam中PKMap中有值
+		Map<String, Object> PKMap = iBatisParam.getPKMap();
+		if(BasicUtil.isNull(PKMap)){
+			iBatisParam = new IBatisTParam<T>(iBatisParam.getEntity(), iBatisParam.getPage(), iBatisParam.getSize(), iBatisParam.getOrderColumn(), iBatisParam.getOrderTurn());
+		}
+		
+		return iBatisDao.updateByCondition(iBatisParam);
 	}
 	
 }
