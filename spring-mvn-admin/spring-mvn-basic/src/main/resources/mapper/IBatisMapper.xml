@@ -3,7 +3,7 @@
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="cn.spring.mvn.basic.ibatis.IBatisDao">
 	<!-- 一波说明 
-		1.$()和#{}的区别:在于对拿到的参数做的处理,前者直接用后者会转成String(貌似因为之前出现过这个错误)
+		1.$()和#{}的区别:在于对拿到的参数做的处理,前者直接用后者会将其看作一个参数(?)做处理(貌似因为之前出现过这个错误)
 		2.insert标签
 		3.select标签
 		4.delete标签
@@ -23,13 +23,13 @@
     <insert id="insertByCondition" parameterType="IBatisTParam">
         <choose>
         	<when test="paramMap != null">
-        		insert into #{tableName} 
+        		insert into ${tableName}
         		<foreach item="value" index="key" collection="paramMap.entrySet()" open="(" separator="," close=")">
-        			#{key}
+        			${key}
         		</foreach>
         		values
         		<foreach item="value" index="key" collection="paramMap.entrySet()" open="(" separator="," close=")">
-        			#{value}
+        			${value}
         		</foreach>
         	</when>
         </choose>
@@ -42,7 +42,7 @@
     <delete id="deleteByCondition" parameterType="IBatisTParam">
     	<choose><!-- 相当与if...else... -->
     		<when test="paramMap != null">
-    			delete from #{tableName}
+    			delete from ${tableName}
     			<where>
 	    			<foreach item="value" index="key" collection="paramMap.entrySet()">
 	    				and ${key} = ${value}
@@ -81,7 +81,7 @@
     </select>
     <!-- 根据IBatisPageEntity做条件计数 -->
     <select id="selectCountByCondition" parameterType="IBatisTParam" resultType="Long">
-    	select count(*) from #{tableName} 
+    	select count(*) from ${tableName} 
     	<where>
     		<if test="paramMap != null">
     			<foreach item="value" index="key" collection="paramMap.entrySet()">
@@ -99,7 +99,7 @@
     <update id="updateByCondition" parameterType="IBatisTParam">
     	<choose>
     		<when test="paramMap != null and PKMap != null">
-    			update #{tableName} set  
+    			update ${tableName} set  
     			<foreach item="value" index="key" collection="paramMap.entrySet()" separator=",">
     				${key} = ${value}
     			</foreach>

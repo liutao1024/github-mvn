@@ -19,12 +19,12 @@ public class TestJob {
 		SystemDate systemDate = systemDateList.get(0);
 		System.out.println("-----数据库中toDay是------" + systemDate.getToday());
 		String today = systemDate.getToday();
-		String newToDay = BasicUtil.toGetDateStrByDateStr(today, 1);
-		systemDate.setTheDayBeforeYesterday(BasicUtil.toGetDateStrByDateStr(newToDay,-2));
-		systemDate.setYesterday(BasicUtil.toGetDateStrByDateStr(newToDay,-1));
+		String newToDay = BasicUtil.getDateStrByDateStrAddDays(today, 1);
+		systemDate.setTheDayBeforeYesterday(BasicUtil.getDateStrByDateStrAddDays(newToDay,-2));
+		systemDate.setYesterday(BasicUtil.getDateStrByDateStrAddDays(newToDay,-1));
 		systemDate.setToday(newToDay);
-		systemDate.setTomorrow(BasicUtil.toGetDateStrByDateStr(newToDay,1));
-		systemDate.setTheDayAfterTomorrow(BasicUtil.toGetDateStrByDateStr(newToDay,2));
+		systemDate.setTomorrow(BasicUtil.getDateStrByDateStrAddDays(newToDay,1));
+		systemDate.setTheDayAfterTomorrow(BasicUtil.getDateStrByDateStrAddDays(newToDay,2));
 		systemDateServiceImpl.saveOrUpdate(systemDate);
 		String time = simpleDateFormat.format(System.currentTimeMillis());
         System.out.println("time:"+time);  

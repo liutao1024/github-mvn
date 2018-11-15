@@ -45,9 +45,18 @@ public class IBatisTResult<T> {
 			if(end > totalCount){
 				end = totalCount;
 			}
-			realList = resultList.subList(start, end);//此处的List需要根据page和size进行组装
+			realList = resultList.subList(start, end);//此处的List需要根据start和end进行组装
 		}
 		this.resultList = realList;
+	}
+	//国际惯例全参的构造函数
+	public IBatisTResult(T entity, Long count, Integer page, Integer size, List<T> resultList) {
+		super();
+		this.entity = entity;
+		this.count = count;
+		this.page = page;
+		this.size = size;
+		this.resultList = resultList;
 	}
 	public T getEntity() {
 		return entity;

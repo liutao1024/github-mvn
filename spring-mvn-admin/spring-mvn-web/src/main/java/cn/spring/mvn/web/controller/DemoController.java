@@ -1,5 +1,6 @@
 package cn.spring.mvn.web.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -65,11 +66,53 @@ public class DemoController {
 	public void Test006(HttpServletRequest request, HttpServletResponse response) {
 		Student t = new Student();
 //		t.setAge(28);
-		IBatisTParam<Student> iBatisParam = new IBatisTParam<Student>(t, 1, 5, "age", null);
-		IBatisTResult<Student> ibts = st.selectPageEntitiesWithCountByCondition(iBatisParam);//st.selectEntitiesWithCount(t);
-		Long count = ibts.getCount();
-		List<Student> ls = ibts.getResultList();
+//		t.setAge(32);
+//		t.setBirth(new Date());
+//		t.setId(911L);
+//		t.setName("测试用户");
+//		t.setNo("910");
+//		t.setPhone("979497772");
+//		t.setSex('M');
+		List<Student> ts = new ArrayList<Student>();
+		ts.add(t);
+		IBatisTParam<Student> iBatisParam = new IBatisTParam<Student>(t);
+		iBatisParam.setPage(0);
+		iBatisParam.setSize(5);
+		iBatisParam.setOrderColumn("age");
+		IBatisTResult<Student> iBatisResult = //st.selectEntitiesWithCount(t);
+//		List<Student> list = 
+//		Integer i =
+//		Long lg = 
+				
+				
+//		st.insertEntity(t);
+//		st.insertEntities(ts);
+//		st.insertEntityByCondition(iBatisParam);
+//		
+//		st.deleteEntity(t);
+//		st.deleteEntities(ts);
+//		st.deleteEntityByCondition(iBatisParam);
+//		
+//		st.selectEntities(t);
+//		st.selectEntitiesCount(t);
+//		st.selectEntitiesWithCount(t);		
+//		st.selectEntitiesWithCountByCondition(iBatisParam);
+//		st.selectEntitiesWithCountByTK(iBatisParam);
+//		st.selectOneEntity(t);
+//		st.selectPageEntitiesWithCount(t, 3, 10);
+//		st.selectPageEntitiesWithCountByCondition(iBatisParam);
+		st.selectPageEntitiesWithCountByTKAndRowBounds(iBatisParam);
+//		
+//		st.updateEntity(t);
+//		st.updateEntities(ts);
+//		st.updateEntityByCondition(iBatisParam);
+		
+		
+		
+		System.out.println("++++++++++++++++++");
+		Long count = iBatisResult.getCount();
 		System.out.println(count);
+		List<Student> ls = iBatisResult.getResultList();
 		for (Student student : ls) {
 			System.out.println(student);
 		}

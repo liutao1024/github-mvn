@@ -37,11 +37,11 @@ public class SystemDate implements Serializable{
 	}
 	public SystemDate(String dateType, String today){
 		this.dateType = dateType;
-		this.theDayBeforeYesterday = BasicUtil.toGetDateStrByDateStr(today, -2);
-		this.yesterday = BasicUtil.toGetDateStrByDateStr(today, -1);
+		this.theDayBeforeYesterday = BasicUtil.getDateStrByDateStrAddDays(today, -2);
+		this.yesterday = BasicUtil.getDateStrByDateStrAddDays(today, -1);
 		this.today = today;
-		this.tomorrow = BasicUtil.toGetDateStrByDateStr(today, 1);
-		this.theDayAfterTomorrow = BasicUtil.toGetDateStrByDateStr(today, 2);
+		this.tomorrow = BasicUtil.getDateStrByDateStrAddDays(today, 1);
+		this.theDayAfterTomorrow = BasicUtil.getDateStrByDateStrAddDays(today, 2);
 	}
 	
 	

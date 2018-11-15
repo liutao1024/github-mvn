@@ -14,6 +14,8 @@ import org.apache.log4j.Logger;
 
 public class BasicUtil{
 	private static final Logger LOGGER = Logger.getLogger(BasicUtil.class);
+	private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+	private static final SimpleDateFormat SIMPLEDATEFORMAT = new SimpleDateFormat("yyyyMMdd");
 	
 	/**
 	 * @author LiuTao @date 2018年9月5日 下午8:05:23 
@@ -44,15 +46,14 @@ public class BasicUtil{
 	 * @param num
 	 * @return
 	 */
-	public static String toGetDateStrByDateStr(String srcDateStr, int num){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	public static String getDateStrByDateStrAddDays(String srcDateStr, int num){
 		try {
-			Date date = sdf.parse(srcDateStr);
+			Date date = SIMPLEDATEFORMAT.parse(srcDateStr);
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(date);
 			calendar.add(Calendar.DATE, num);
 			date = calendar.getTime();
-			return sdf.format(date);
+			return SIMPLEDATEFORMAT.format(date);
 		} catch (Exception e) {
 			System.out.println("日期:"+ srcDateStr +",格式不对");
 		}
@@ -80,7 +81,7 @@ public class BasicUtil{
 					appendStr = appendStr + "and " + keyStr + " = '" + value + "' ";
 				}
 				//处理appendStr
-				appendStr = dealWith("and", appendStr);
+				appendStr = sourceStrCastHeadStr("and", appendStr);
 				rstSqlStr = rstSqlStr + str + appendStr; 
 			}
 		}
@@ -107,7 +108,7 @@ public class BasicUtil{
 					appendStr = appendStr + "and " + keyStr + " = :" + keyStr + " ";
 				}
 				//处理appendStr
-				appendStr = dealWith("and", appendStr);
+				appendStr = sourceStrCastHeadStr("and", appendStr);
 				rstSqlStr = rstSqlStr + str + appendStr; 
 			}
 		}
@@ -129,7 +130,7 @@ public class BasicUtil{
 	 * @param fieldType 属性的类型
 	 * @return 转换后的值
 	 */
-	public static Object convertValueType(Object value, Class<?> fieldType) {
+	public static Object convertValueTypeForJava(Object value, Class<?> fieldType) {
 		Object retVal = null;
 		if (Long.class.getName().equals(fieldType.getName()) || long.class.getName().equals(fieldType.getName())) {
 			retVal = Long.parseLong(value.toString());
@@ -185,10 +186,9 @@ public class BasicUtil{
 	 * @return
 	 */
 	public static Date strConvertDate(String dateStr){
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date parse = null;
 		try {
-			parse = format.parse(dateStr);
+			parse = SIMPLE_DATE_FORMAT.parse(dateStr);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -203,9 +203,12 @@ public class BasicUtil{
 	 * @return
 	 */
 	public static String dateConvertStr(Object object){
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String dateStr = null;
-		dateStr = format.format(object);
+		try {
+			dateStr = SIMPLE_DATE_FORMAT.format(object);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return dateStr;
 	}
 	
@@ -219,7 +222,7 @@ public class BasicUtil{
 	 * @param to
 	 * @return
 	 */
-	public static String makeNeedString(String srcStr, boolean flag, int from, int to){
+	public static String sourceStrCastItemFromTo(String srcStr, boolean flag, int from, int to){
 		String oneStr = srcStr.substring(0, from);
 		String twoStr = srcStr.substring(from, to);
 		String threeStr = srcStr.substring(to,srcStr.length());
@@ -316,7 +319,7 @@ public class BasicUtil{
 	 * @param srcStr
 	 * @return
 	 */
-	public static String dealWith(String headStr, String srcStr){
+	public static String sourceStrCastHeadStr(String headStr, String srcStr){
 		if(srcStr.indexOf(headStr) == 0){
 			srcStr = srcStr.substring(headStr.length());
 		}

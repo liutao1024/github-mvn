@@ -33,15 +33,32 @@ public class IBatisTParam<T> {
 	private String orderColumn;//排序的列
 	private String orderTurn = "ASC";//排序方式(顺序[ASC],倒序[DSC])
 	
-	
-	public IBatisTParam(){
+	//不能有这个无参构造因为需要保证在new IBatisTParam<T>时entity必传
+//	public IBatisTParam(){
+//		super();
+//	}
+	//insert,delete,update时的构造函数
+	public IBatisTParam(T entity){
 		super();
+		this.entity = entity;
+		this.tableName = this.getTableName();
+		this.paramMap = this.getParamMap();
+		this.PKMap = this.getPKMap();
 	}
-	
+	//select不分页查询时构造函数
+	public IBatisTParam(T entity, String orderColumn, String orderTurn) {
+		super();
+		this.entity = entity;
+		this.tableName = this.getTableName();
+		this.paramMap = this.getParamMap();
+		this.PKMap = this.getPKMap();
+		this.orderColumn = orderColumn;
+		this.orderTurn = BasicUtil.isNull(orderTurn) ? this.orderTurn : orderTurn;
+	}
+	//select分页查询时的构造函数
 	public IBatisTParam(T entity, Integer page, Integer size, String orderColumn, String orderTurn) {
 		super();
 		this.entity = entity;
-		//需要考虑到非分页
 		this.page = page;
 		this.size = size;
 		this.tableName = this.getTableName();
@@ -49,6 +66,18 @@ public class IBatisTParam<T> {
 		this.PKMap = this.getPKMap();
 		this.orderColumn = orderColumn;
 		this.orderTurn = BasicUtil.isNull(orderTurn) ? this.orderTurn : orderTurn;
+	}
+	//国际惯例全参的构造函数
+	public IBatisTParam(T entity, Integer page, Integer size, String tableName, Map<String, Object> paramMap, Map<String, Object> pKMap, String orderColumn, String orderTurn) {
+		super();
+		this.entity = entity;
+		this.page = page;
+		this.size = size;
+		this.tableName = tableName;
+		this.paramMap = paramMap;
+		this.PKMap = pKMap;
+		this.orderColumn = orderColumn;
+		this.orderTurn = orderTurn;
 	}
 	
 	public T getEntity() {
@@ -72,10 +101,9 @@ public class IBatisTParam<T> {
 	public String getTableName() {
 		Class<?> clazz = Table.class;
 		Table annotation = (Table) BasicReflection.getClassAnnotationByReflectObjectAnnotationClass(this.entity, clazz);
-		String annotationName = annotation.name();
-		String ClassName = entity.getClass().getSimpleName();
-		if(BasicUtil.isNotNull(annotationName)){//Table注解不为空且name属性有值时取其值
-			tableName = annotationName;
+		String ClassName = this.entity.getClass().getSimpleName();
+		if(BasicUtil.isNotNull(annotation)){//Table注解不为空且name属性有值时取其值
+			tableName = annotation.name();
 		}else {//否则按照驼峰命名规则将类名转成表明,如 UserInfo----->user_info
 			tableName = BasicUtil.presentHumpNamedToUnderScoreString(ClassName, false);
 		}

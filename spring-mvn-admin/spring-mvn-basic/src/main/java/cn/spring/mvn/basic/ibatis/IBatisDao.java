@@ -374,6 +374,22 @@ public interface IBatisDao<T> extends Mapper<T>{
 	 */
 	int deleteByCondition(IBatisTParam<T> iBatisParam);
 	/**
+	 * @author LiuTao @date 2018年11月8日 下午1:05:54 
+	 * @Title: updateBySQL 
+	 * @Description: 根据SQL更新记录 
+	 * @param t
+	 * @return
+	 */
+	int updateBySQL(@Param(value = "SQL") String SQL);
+	/**
+	 * @author LiuTao @date 2018年11月8日 下午1:06:24 
+	 * @Title: updateByCondition 
+	 * @Description: 根据条件更新记录 
+	 * @param list
+	 * @return
+	 */
+	int updateByCondition(IBatisTParam<T> iBatisParam);
+	/**
 	 * @author LiuTao @date 2018年11月12日 下午5:05:01 
 	 * @Title: selectBySQL 
 	 * @Description: 根据SQL查询记录 
@@ -405,20 +421,4 @@ public interface IBatisDao<T> extends Mapper<T>{
 	 * @return
 	 */
 	Long selectCountByCondition(IBatisTParam<T> iBatisParam);
-	/**
-	 * @author LiuTao @date 2018年11月8日 下午1:05:54 
-	 * @Title: updateBySQL 
-	 * @Description: 根据SQL更新记录 
-	 * @param t
-	 * @return
-	 */
-	int updateBySQL(@Param(value = "SQL") String SQL);
-	/**
-	 * @author LiuTao @date 2018年11月8日 下午1:06:24 
-	 * @Title: updateByCondition 
-	 * @Description: 根据条件更新记录 
-	 * @param list
-	 * @return
-	 */
-	int updateByCondition(IBatisTParam<T> iBatisParam);
 }

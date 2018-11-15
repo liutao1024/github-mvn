@@ -10,7 +10,7 @@ public class JustTest {
 	@Test
 	public void Test0004(){
 		String s = "20180707";
-		String t = BasicUtil.toGetDateStrByDateStr(s, 0);
+		String t = BasicUtil.getDateStrByDateStrAddDays(s, 0);
 		System.out.println(s);
 		System.out.println(t);
 	}

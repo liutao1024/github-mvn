@@ -228,17 +228,17 @@ public class BasicReflection {
 		switch (sqlType) {
 		case INSERT://增
 			stringBuilder.append("insert into " + tableName );
-			String f = "";
+			String k = "";
 			String v = "";
 			for (Entry<String, Object> entry : paramMap.entrySet()) {
 				String key = entry.getKey();
 				Object value = entry.getValue();
-				f += ", " + key;
+				k += ", " + key;
 				v += ", " + value;//需要根据T的属性类型进行处理,在获取paramMap时已经处理
 			}
-			f = BasicUtil.dealWith(", ", f);
-			v = BasicUtil.dealWith(", ", v);
-			stringBuilder.append("(" + f + ") values("+ v + ")");
+			k = BasicUtil.sourceStrCastHeadStr(", ", k);
+			v = BasicUtil.sourceStrCastHeadStr(", ", v);
+			stringBuilder.append("(" + k + ") values("+ v + ")");
 			break;
 		case DELETE://删
 			stringBuilder.append("delete from " + tableName + " where 1 = 1 ");
@@ -277,7 +277,7 @@ public class BasicReflection {
 			break;
 		}
 		String SQL = stringBuilder.toString();
-		System.out.println("===SQL===" + SQL);
+		LOGGER.info("===SQL===" + SQL);
 //		SQL = "insert into student(no, phone, sex, name, birth, id, age) values(9925, 18982598359, 'M', '杨过', 20181113, 119, 28)";
 		return SQL;
 	}
@@ -372,11 +372,11 @@ public class BasicReflection {
 				try {
 					Method method = clazz.getMethod(BasicUtil.convertKey(fieldName, GETPR));
 					method.setAccessible(true);
-					Object filedValue = method.invoke(object);
-					if(BasicUtil.isNotNull(filedValue)){
-						filedValue = BasicUtil.convertValueTypeForDB(filedValue, fieldClazz);
+					Object fieldValue = method.invoke(object);
+					if(BasicUtil.isNotNull(fieldValue)){
+						fieldValue = BasicUtil.convertValueTypeForDB(fieldValue, fieldClazz);
 						String filedKey = BasicUtil.presentHumpNamedToUnderScoreString(fieldName, false);
-						rstMap.put(filedKey, filedValue);
+						rstMap.put(filedKey, fieldValue);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -442,7 +442,8 @@ public class BasicReflection {
 				Object fieldValue = field.get(object);
 				if(!BasicUtil.equals("serialVersionUID", fieldName)){//排除序列化的参数
 					if(!BasicUtil.isNull(fieldValue)){//20181106
-						rstMap.put(BasicUtil.presentHumpNamedToUnderScoreString(fieldName, false), fieldValue);
+						rstMap.put(BasicUtil.presentHumpNamedToUnderScoreString(fieldName, false), 
+								BasicUtil.convertValueTypeForDB(fieldValue, field.getType()));
 					}
 //					rstMap.put(fieldName, isNull(fieldValue) ? "" : fieldValue);
 				}
@@ -479,14 +480,10 @@ public class BasicReflection {
 				if (field != null) {
 					// 获取属性类型
 					Class<?> fieldType = field.getType();
-					value  = BasicUtil.convertValueType(value, fieldType);
-					LOGGER.info("===field.getName()===" + field.getName() + "===field.getType()===" + field.getType() + "===value.getClass()===" + value.getClass());
+					value  = BasicUtil.convertValueTypeForJava(value, fieldType);
 					Method method = null;
 						// 得到属性set方法名
 						String setMethodName = BasicUtil.convertKey(key, SETPR);
-						String getMethodName = BasicUtil.convertKey(key, GETPR);
-						LOGGER.info("===setMethodName===" + setMethodName);
-						LOGGER.info("===getMethodName===" + getMethodName);
 						try {
 							// 得到实体类属性set方法
 							method = clazz.getMethod(setMethodName, field.getType());
@@ -579,26 +576,61 @@ public class BasicReflection {
 	/**
 	 * @author LiuTao @date 2018年11月12日 下午1:59:21 
 	 * @Title: getClassAnnotationByReflectObjectAnnotationClass 
-	 * @Description: 通过反射获取类上指定注解类型的注解
-	 * @param object
-	 * @param annotation
+	 * @Description: 通过反射获取类上指定类型的注解
+	 * @param object 实体类
+	 * @param clazz  指定注解类型
 	 * @return
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static Annotation getClassAnnotationByReflectObjectAnnotationClass(Object object, Class<?> clazz){
-		//获取类上的所有注解    
-//		Annotation[] annotations = object.getClass().getAnnotations();
-//		for (Annotation anno : annotations) {
-//			if (anno.equals(annotation)) {
-//				return anno;
-//			}
-//		}
-		Annotation annotation = null;
-//		String className = annotationObejct.getClass().getName();
-//		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-//		Class clazz = classLoader.loadClass(className);
-		annotation = object.getClass().getAnnotation((Class) clazz);
+		Annotation annotation = BasicUtil.isNull(object) ? null : object.getClass().getAnnotation((Class) clazz);
 		return annotation;
+	}
+	/**
+	 * @author LiuTao @date 2018年5月31日 下午12:55:09 
+	 * @Title: getAttributeAnnotationByReflectAnnotationObejct 
+	 * @Description: 通过反射获取实体类对象指定注解的属性Map<field, fieldValue>
+	 *  因为注解annotation不知道如何获取属性,而且在调用时需要送一个注解对象,这个注解对象实例化存在问题
+	 * @param object 实体对象
+	 * @param clazz 注解类型
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static Map<String, Object> getMapByReflectAttributeAnnotationClassObejct(Object object, Class<?> clazz){
+		Map<String, Object> rstMap = new HashMap<String, Object>();
+		if(BasicUtil.isNotNull(object)){
+			Field[] fields = object.getClass().getDeclaredFields();
+			try {
+				for (Field field : fields) {
+					// 属性名称
+					String fieldName = field.getName();
+					if(!BasicUtil.equals("serialVersionUID", fieldName)){//非serialVersionUID
+						// 属性类型
+						Class<?> fieldClazz = field.getType();
+						// 获取属性上的指定类型的注解
+						Annotation annotation = field.getDeclaredAnnotation((Class) clazz);
+						// 有该类型的注解存在
+						if (annotation != null) {
+							String getMethod = BasicUtil.convertKey(fieldName, GETPR);
+							Method method = object.getClass().getMethod(getMethod);
+							method.setAccessible(true);
+							Object fieldValue = method.invoke(object);
+							if(BasicUtil.isNotNull(fieldValue)){
+								fieldValue = BasicUtil.convertValueTypeForDB(fieldValue, fieldClazz);
+								String filedKey = BasicUtil.presentHumpNamedToUnderScoreString(fieldName, false);
+								Column column = field.getDeclaredAnnotation(Column.class);//
+								if(BasicUtil.isNotNull(column)){
+									filedKey = BasicUtil.isNull(column.name()) ? filedKey : column.name();
+								}
+								rstMap.put(filedKey, fieldValue);
+							}
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return rstMap;
 	}
 	/**
 	 * @author LiuTao @date 2018年5月31日 上午10:42:40 
@@ -649,53 +681,6 @@ public class BasicReflection {
 			}
 		}
 		return outterList;
-	}
-	/**
-	 * @author LiuTao @date 2018年5月31日 下午12:55:09 
-	 * @Title: getAttributeAnnotationByReflectAnnotationObejct 
-	 * @Description: 通过反射获取指定对象属性有指定注解的Map<field, fieldValue>
-	 *  因为注解annotation不知道如何获取属性,而且在调用时需要送一个注解对象,这个注解对象实例化存在问题
-	 * @param object
-	 * @param annotationObejct
-	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static Map<String, Object> getMapByReflectAttributeAnnotationClassObejct(Object object, Class<?> clazz){
-		Map<String, Object> rstMap = new HashMap<String, Object>();
-//		String clazzName = clazz.getName();
-//		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-//		Class theClass = classLoader.loadClass(clazzName);
-		Field[] fields = object.getClass().getDeclaredFields();
-		try {
-			for (Field field : fields) {
-				// 属性名称
-				String fieldName = field.getName();
-				if(!BasicUtil.equals("serialVersionUID", fieldName)){//非serialVersionUID
-					// 属性类型
-					Class<?> fieldClazz = field.getType();
-					// 获取属性上的指定类型的注解
-					Annotation annotation = field.getDeclaredAnnotation((Class) clazz);
-					// 有该类型的注解存在
-					if (annotation != null) {
-						String getMethod = BasicUtil.convertKey(fieldName, GETPR);
-						Method method = object.getClass().getMethod(getMethod);
-						method.setAccessible(true);
-						Object filedValue = method.invoke(object);
-						if(BasicUtil.isNotNull(filedValue)){
-							filedValue = BasicUtil.convertValueTypeForDB(filedValue, fieldClazz);
-							String filedKey = BasicUtil.presentHumpNamedToUnderScoreString(fieldName, false);
-							Column column = field.getDeclaredAnnotation(Column.class);//
-							if(BasicUtil.isNotNull(column)){
-								filedKey = BasicUtil.isNull(column.name()) ? filedKey : column.name();
-							}
-							rstMap.put(filedKey, filedValue);
-						}
-					}
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return rstMap;
 	}
 	/**
 	 * @author LiuTao @date 2018年6月4日 下午9:14:19 

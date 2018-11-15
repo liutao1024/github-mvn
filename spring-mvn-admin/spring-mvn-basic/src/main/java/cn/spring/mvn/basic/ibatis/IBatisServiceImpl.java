@@ -96,6 +96,51 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 	public Integer deleteEntityByCondition(IBatisTParam<T> iBatisParam) {
 		return iBatisDao.deleteByCondition(iBatisParam);
 	}
+	/********************************改********************************/
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: SQL语句更新实体T
+	 * @Title: updateEntity
+	 * @param t 实体类
+	 * @return 
+	 */
+	@Override
+	public Integer updateEntity(T t) {
+		String updateSQL = BasicReflection.getSQLStringByReflectForIBatis(t, BasicReflection.UPDATE);
+		return iBatisDao.updateBySQL(updateSQL);
+	}
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: SQL语句更新实体类T的List
+	 * @Title: updateEntities 
+	 * @param ts 实体类的List
+	 * @return 
+	 */
+	@Override
+	public Integer updateEntities(List<T> ts) {
+		Integer rst = 0;
+		for (T t : ts) {
+			rst +=  this.updateEntity(t);
+		}
+		return rst;
+	}
+	/**
+	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
+	 * @Description: IBatis根据IBatisTParam类按配置更新实体类T
+	 * @Title: updateEntityByCondition
+	 * @param iBatisParam IBatisTParam
+	 * @return 
+	 */
+	@Override
+	public Integer updateEntityByCondition(IBatisTParam<T> iBatisParam) {
+		//保障iBatisParam中PKMap中有值
+		Map<String, Object> PKMap = iBatisParam.getPKMap();
+		if(BasicUtil.isNull(PKMap)){
+			iBatisParam = new IBatisTParam<T>(iBatisParam.getEntity(), iBatisParam.getPage(), iBatisParam.getSize(), iBatisParam.getOrderColumn(), iBatisParam.getOrderTurn());
+		}
+		
+		return iBatisDao.updateByCondition(iBatisParam);
+	}
 	/********************************查********************************/
 	/**
 	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
@@ -130,7 +175,7 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 	}
 	/**
 	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
-	 * @Description: SQL语句查询实体类T的数据量
+	 * @Description: SQL语句查询实体类T的记录数
 	 * @Title: selectEntitiesCount
 	 * @param t 实体类
 	 * @return 
@@ -201,6 +246,7 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 	/**
 	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
 	 * @Description: IBatis根据IBatisTParam类按TK查询实体类T
+	 * 				当t有Date类型的属性时会出现问题
 	 * @Title: selectEntitiesWithCountByTK
 	 * @param iBatisParam IBatisTParam
 	 * @return 
@@ -209,10 +255,11 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 	public IBatisTResult<T> selectEntitiesWithCountByTK(IBatisTParam<T> iBatisParam){//不用考虑分页
 		T t = iBatisParam.getEntity();
 		Example example = new Example(t.getClass());
+		Example.Criteria criteria = example.createCriteria();
+		criteria.andEqualTo(t);//当t有Date类型的属性时会出现问题Criteria中将时间按最长的类型进行转的
 		List<T> resultList = new ArrayList<T>();//这个还可以用如下三种方式获取
 		resultList = iBatisDao.selectByExample(example);
-		PageInfo<T> pageInfo = new PageInfo<T>(resultList);
-		IBatisTResult<T> ibatisResult = new IBatisTResult<T>(pageInfo.getTotal(), pageInfo.getList());
+		IBatisTResult<T> ibatisResult = new IBatisTResult<T>(resultList);
 		return ibatisResult;
 	}
 	/**
@@ -223,68 +270,49 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 	 * @return 
 	 */
 	@Override
-	public IBatisTResult<T> selectPageEntitiesWithCountByTKAndPageHelper(IBatisTParam<T> iBatisParam) {//分页的
+	public IBatisTResult<T> selectPageEntitiesWithCountByTKAndRowBounds(IBatisTParam<T> iBatisParam) {//分页的
 		T t = iBatisParam.getEntity();
 		Integer page = iBatisParam.getPage();
 		Integer size = iBatisParam.getSize();
 		String orderColumn = iBatisParam.getOrderColumn();
 		String orderTurn = iBatisParam.getOrderTurn();
-		PageHelper.startPage(page, size);
-		RowBounds rowBounds = new RowBounds(page, size);
+		RowBounds rowBounds = new RowBounds(page * size, size);
 		Example example = new Example(t.getClass());
-		example.setOrderByClause(orderColumn + orderTurn);
+		if(BasicUtil.isNotNull(orderColumn)){
+			example.setOrderByClause(orderColumn + " " +orderTurn);
+		}
+		Example.Criteria criteria = example.createCriteria();
+		criteria.andEqualTo(t);
 		List<T> resultList = new ArrayList<T>();//这个还可以用如下三种方式获取
-		resultList = iBatisDao.selectByExample(example);
-		resultList = iBatisDao.selectByRowBounds(t, rowBounds);
 		resultList = iBatisDao.selectByExampleAndRowBounds(example, rowBounds);
-		PageInfo<T> pageInfo = new PageInfo<T>(resultList);
-		IBatisTResult<T> ibatisResult = new IBatisTResult<T>(pageInfo.getTotal(), pageInfo.getList());
+		IBatisTResult<T> ibatisResult = new IBatisTResult<T>(resultList);
+		ibatisResult.setCount((long) iBatisDao.selectByExample(example).size());
 		return ibatisResult;
 	}
-	/********************************改********************************/
-	/**
-	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
-	 * @Description: SQL语句更新实体T
-	 * @Title: updateEntity
-	 * @param t 实体类
-	 * @return 
-	 */
-	@Override
-	public Integer updateEntity(T t) {
-		String updateSQL = BasicReflection.getSQLStringByReflectForIBatis(t, BasicReflection.UPDATE);
-		return iBatisDao.updateBySQL(updateSQL);
-	}
-	/**
-	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
-	 * @Description: SQL语句更新实体类T的List
-	 * @Title: updateEntities 
-	 * @param ts 实体类的List
-	 * @return 
-	 */
-	@Override
-	public Integer updateEntities(List<T> ts) {
-		Integer rst = 0;
-		for (T t : ts) {
-			rst +=  this.updateEntity(t);
-		}
-		return rst;
-	}
-	/**
-	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
-	 * @Description: IBatis根据IBatisTParam类按配置更新实体类T
-	 * @Title: updateEntityByCondition
-	 * @param iBatisParam IBatisTParam
-	 * @return 
-	 */
-	@Override
-	public Integer updateEntityByCondition(IBatisTParam<T> iBatisParam) {
-		//保障iBatisParam中PKMap中有值
-		Map<String, Object> PKMap = iBatisParam.getPKMap();
-		if(BasicUtil.isNull(PKMap)){
-			iBatisParam = new IBatisTParam<T>(iBatisParam.getEntity(), iBatisParam.getPage(), iBatisParam.getSize(), iBatisParam.getOrderColumn(), iBatisParam.getOrderTurn());
-		}
-		
-		return iBatisDao.updateByCondition(iBatisParam);
-	}
 	
+	@Override
+	public List<T> selectEntitiesByTKExample(T t) {
+		Example example = new Example(t.getClass());
+		return iBatisDao.selectByExample(example);
+	}
+	@Override
+	public List<T> selectPageEntitiesByTKExample(T t, Integer page, Integer size) {
+		Example example = new Example(t.getClass());
+		PageHelper.startPage(page, size);
+		List<T> resultList = iBatisDao.selectByExample(example);
+		PageInfo<T> pageInfo = new PageInfo<T>(resultList);
+		return pageInfo.getList();
+	}
+	@Override
+	public List<T> selectEntitiesByTKExampleCriteria(T t) {
+		Example example = new Example(t.getClass());
+		Example.Criteria c = example.createCriteria();
+		c.andEqualTo(t);
+		return null;
+	}
+	@Override
+	public List<T> selectPageEntitiesByTKExampleCriteria(T t, Integer page, Integer size) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -49,21 +49,21 @@ public class TaskJobTask{
 		System.out.println("-----changeDate-----coreToDay:" + coreToDay);
 		System.out.println("-----changeDate-----accaToDay:" + accaToDay);
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		coreDate.setTheDayBeforeYesterday(BasicUtil.toGetDateStrByDateStr(coreDate.getTheDayBeforeYesterday(), 1));
-		coreDate.setYesterday(BasicUtil.toGetDateStrByDateStr(coreDate.getYesterday(), 1));
-		coreDate.setToday(BasicUtil.toGetDateStrByDateStr(coreDate.getToday(), 1));
-		coreDate.setTomorrow(BasicUtil.toGetDateStrByDateStr(coreDate.getTomorrow(), 1));
-		coreDate.setTheDayAfterTomorrow(BasicUtil.toGetDateStrByDateStr(coreDate.getTheDayAfterTomorrow(), 1));
+		coreDate.setTheDayBeforeYesterday(BasicUtil.getDateStrByDateStrAddDays(coreDate.getTheDayBeforeYesterday(), 1));
+		coreDate.setYesterday(BasicUtil.getDateStrByDateStrAddDays(coreDate.getYesterday(), 1));
+		coreDate.setToday(BasicUtil.getDateStrByDateStrAddDays(coreDate.getToday(), 1));
+		coreDate.setTomorrow(BasicUtil.getDateStrByDateStrAddDays(coreDate.getTomorrow(), 1));
+		coreDate.setTheDayAfterTomorrow(BasicUtil.getDateStrByDateStrAddDays(coreDate.getTheDayAfterTomorrow(), 1));
 		
-		accaDate.setTheDayBeforeYesterday(BasicUtil.toGetDateStrByDateStr(accaDate.getTheDayBeforeYesterday(), 1));
-		accaDate.setYesterday(BasicUtil.toGetDateStrByDateStr(accaDate.getYesterday(), 1));
-		accaDate.setToday(BasicUtil.toGetDateStrByDateStr(accaDate.getToday(), 1));
-		accaDate.setTomorrow(BasicUtil.toGetDateStrByDateStr(accaDate.getTomorrow(), 1));
-		accaDate.setTheDayAfterTomorrow(BasicUtil.toGetDateStrByDateStr(accaDate.getTheDayAfterTomorrow(), 1));
+		accaDate.setTheDayBeforeYesterday(BasicUtil.getDateStrByDateStrAddDays(accaDate.getTheDayBeforeYesterday(), 1));
+		accaDate.setYesterday(BasicUtil.getDateStrByDateStrAddDays(accaDate.getYesterday(), 1));
+		accaDate.setToday(BasicUtil.getDateStrByDateStrAddDays(accaDate.getToday(), 1));
+		accaDate.setTomorrow(BasicUtil.getDateStrByDateStrAddDays(accaDate.getTomorrow(), 1));
+		accaDate.setTheDayAfterTomorrow(BasicUtil.getDateStrByDateStrAddDays(accaDate.getTheDayAfterTomorrow(), 1));
 		
 		systemDateServiceImpl.saveOrUpdate(coreDate);
 		systemDateServiceImpl.saveOrUpdate(accaDate);
-//		BasicUtil.toGetDateStrByDateStr(coreToDay, 1);
+//		BasicUtil.getDateStrByDateStrAddDays(coreToDay, 1);
 //		Date d1 = DateTool.addDays(sdf.parse(coreToDay), 1);
 //		Date d2 = DateTool.addDays(sdf.parse(coreToDay), 1);
 		
