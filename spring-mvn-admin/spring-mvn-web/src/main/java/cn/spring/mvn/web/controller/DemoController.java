@@ -13,10 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import tk.mybatis.mapper.entity.Example;
+//import tk.mybatis.mapper.entity.Example.Criteria;
 import cn.spring.mvn.basic.entity.SystemTransactionInformation;
 import cn.spring.mvn.basic.entity.service.SystemTransactionInformationService;
 import cn.spring.mvn.basic.ibatis.IBatisTParam;
-import cn.spring.mvn.basic.ibatis.IBatisTResult;
+//import cn.spring.mvn.basic.ibatis.IBatisTResult;
 import cn.spring.mvn.core.amain.entity.CoreMain;
 import cn.spring.mvn.core.amain.entity.service.AccountService;
 import cn.spring.mvn.core.amain.entity.service.CoreMainService;
@@ -67,19 +68,19 @@ public class DemoController {
 		Student t = new Student();
 //		t.setAge(28);
 //		t.setAge(32);
-//		t.setBirth(new Date());
-//		t.setId(911L);
-//		t.setName("测试用户");
+		t.setBirth(new Date());
+		t.setId(911L);
+		t.setName("测试用户001");
 //		t.setNo("910");
 //		t.setPhone("979497772");
-//		t.setSex('M');
+		t.setSex('X');
 		List<Student> ts = new ArrayList<Student>();
 		ts.add(t);
 		IBatisTParam<Student> iBatisParam = new IBatisTParam<Student>(t);
 		iBatisParam.setPage(0);
 		iBatisParam.setSize(5);
 		iBatisParam.setOrderColumn("age");
-		IBatisTResult<Student> iBatisResult = //st.selectEntitiesWithCount(t);
+//		IBatisTResult<Student> iBatisResult = //st.selectEntitiesWithCount(t);
 //		List<Student> list = 
 //		Integer i =
 //		Long lg = 
@@ -93,6 +94,10 @@ public class DemoController {
 //		st.deleteEntities(ts);
 //		st.deleteEntityByCondition(iBatisParam);
 //		
+//		st.updateEntity(t);
+//		st.updateEntities(ts);
+//		st.updateEntityByCondition(iBatisParam);
+		
 //		st.selectEntities(t);
 //		st.selectEntitiesCount(t);
 //		st.selectEntitiesWithCount(t);		
@@ -101,21 +106,15 @@ public class DemoController {
 //		st.selectOneEntity(t);
 //		st.selectPageEntitiesWithCount(t, 3, 10);
 //		st.selectPageEntitiesWithCountByCondition(iBatisParam);
-		st.selectPageEntitiesWithCountByTKAndRowBounds(iBatisParam);
-//		
-//		st.updateEntity(t);
-//		st.updateEntities(ts);
-//		st.updateEntityByCondition(iBatisParam);
-		
-		
-		
+//		st.selectPageEntitiesWithCountByTK(iBatisParam);
+
 		System.out.println("++++++++++++++++++");
-		Long count = iBatisResult.getCount();
-		System.out.println(count);
-		List<Student> ls = iBatisResult.getResultList();
-		for (Student student : ls) {
-			System.out.println(student);
-		}
+//		Long count = iBatisResult.getCount();
+//		System.out.println(count);
+//		List<Student> ls = iBatisResult.getResultList();
+//		for (Student student : ls) {
+//			System.out.println(student);
+//		}
 	}
 	/**
 	 * @author LiuTao @date 2018年11月12日 下午8:44:36 
@@ -209,7 +208,81 @@ public class DemoController {
 //		int r18 = sd.delete(student);//根据实体属性作为条件进行删除,查询条件使用等号,
 //		int r19 = sd.deleteByExample(example);//根据Example条件删除数据
 //		int r20 = sd.deleteByPrimaryKey(student);//根据主键字段进行删除,方法参数必须包含完整的主键属性
+		
+		
+		//20181116
+//		st.selectEntitiesByTK(t);
+//		st.selectEntitiesByTKExample(t);
+//		Example example = new Example(student.getClass());
+//		Example.Criteria criteria = example.createCriteria();
+//		//
+//		example.and();
+//		example.and(criteria);
+//		example.clear();
+//		example.createCriteria();
+//		example.equals(obj);
+//		example.excludeProperties(arg0);
+//		example.getCountColumn();
+//		example.getDynamicTableName();
+//		example.getEntityClass();
+//		example.getOrderByClause();
+//		example.getOredCriteria();
+//		example.getSelectColumns();
+//		example.isDistinct();
+//		example.isForUpdate();
+//		example.or();
+//		example.or(criteria);
+//		example.orderBy(property);
+//		example.selectProperties(arg0);
+//		example.setCountProperty(property);
+//		example.setDistinct(distinct);
+//		example.setForUpdate(forUpdate);
+//		example.setOrderByClause(orderByClause);
+//		example.setTableName(tableName);
 //		
+//		//and
+//		criteria.andAllEqualTo(arg0);
+//		criteria.andBetween(property, value1, value2);
+//		criteria.andCondition(condition);
+//		criteria.andCondition(condition, value);
+//		criteria.andEqualTo(arg0);
+//		criteria.andEqualTo(property, value);
+//		criteria.andGreaterThan(property, value);
+//		criteria.andGreaterThanOrEqualTo(property, value);
+//		criteria.andIn(property, values);
+//		criteria.andIsNotNull(property);
+//		criteria.andIsNull(property);
+//		criteria.andLessThan(property, value);
+//		criteria.andLessThanOrEqualTo(property, value);
+//		criteria.andLike(property, value);
+//		criteria.andNotBetween(property, value1, value2);
+//		criteria.andNotEqualTo(property, value);
+//		criteria.andNotIn(property, values);
+//		criteria.andNotLike(property, value);
+//		//
+//		criteria.orAllEqualTo(arg0);
+//		criteria.orBetween(property, value1, value2);
+//		criteria.orCondition(condition);
+//		criteria.orCondition(condition, value);
+//		criteria.orEqualTo(arg0);
+//		criteria.orEqualTo(property, value);
+//		criteria.orGreaterThan(property, value);
+//		criteria.orGreaterThanOrEqualTo(property, value);
+//		criteria.orIn(property, values);
+//		criteria.orIsNotNull(property);
+//		criteria.orIsNull(property);
+//		criteria.orLessThan(property, value);
+//		criteria.orLessThanOrEqualTo(property, value);
+//		criteria.orLike(property, value);
+//		criteria.orNotBetween(property, value1, value2);
+//		criteria.orNotEqualTo(property, value);
+//		criteria.orNotIn(property, values);
+//		criteria.orNotLike(property, value);
+//		//
+//		
+//		st.selectEntitiesByTKExampleCriteria(example);
+//		st.selectEntitiesByTKRowBounds(t, 0, 5);
+//		st.selectEntitiesByTKExampleRowBounds(t, 0, 5);
 		
 		List<Student> list = st.selectStudents();
 		for (Student stu : list) {

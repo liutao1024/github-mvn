@@ -1,9 +1,7 @@
 package cn.spring.mvn.basic.ibatis;
 
 import java.util.Map;
-import java.util.Map.Entry;
 
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import cn.spring.mvn.basic.tools.BasicReflection;
@@ -120,12 +118,9 @@ public class IBatisTParam<T> {
 		this.paramMap = paramMap;
 	}
 	public Map<String, Object> getPKMap() {
-		PKMap = BasicReflection.getMapByReflectAttributeAnnotationClassObejct(this.entity, Id.class);
+		PKMap = BasicReflection.getPKMapByReflectObejct(this.entity);
 		if(BasicUtil.isNull(PKMap)){//如果实体类T中没有定义@Id时
-			for (Entry<String, Object> entry : paramMap.entrySet()) {
-				PKMap.put(entry.getKey(), entry.getValue());
-				break;
-			}
+			BasicUtil.takeTheFirstOfSourceMap(this.paramMap);
 		}
 		return PKMap;
 	}

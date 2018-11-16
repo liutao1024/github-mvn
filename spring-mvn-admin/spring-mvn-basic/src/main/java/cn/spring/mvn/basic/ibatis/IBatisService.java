@@ -2,6 +2,8 @@ package cn.spring.mvn.basic.ibatis;
 
 import java.util.List;
 
+import tk.mybatis.mapper.entity.Example;
+
 public interface IBatisService<T> {
 	//增
 	/**
@@ -152,10 +154,12 @@ public interface IBatisService<T> {
 	 * @param iBatisParam
 	 * @return
 	 */
-	IBatisTResult<T> selectPageEntitiesWithCountByTKAndRowBounds(IBatisTParam<T> iBatisParam);
+	IBatisTResult<T> selectPageEntitiesWithCountByTK(IBatisTParam<T> iBatisParam);
 	
+	List<T> selectEntitiesByTK(T t);
 	List<T> selectEntitiesByTKExample(T t);
-	List<T> selectPageEntitiesByTKExample(T t, Integer page, Integer size);
-	List<T> selectEntitiesByTKExampleCriteria(T t);
-	List<T> selectPageEntitiesByTKExampleCriteria(T t, Integer page, Integer size);
+	List<T> selectEntitiesByTKExampleCriteria(Example example);
+	List<T> selectEntitiesByTKRowBounds(T t, Integer page, Integer size);
+	List<T> selectEntitiesByTKExampleRowBounds(T t, Integer page, Integer size);
+	
 }

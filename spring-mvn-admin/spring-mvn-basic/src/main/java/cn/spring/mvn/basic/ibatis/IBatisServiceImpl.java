@@ -11,9 +11,6 @@ import tk.mybatis.mapper.entity.Example;
 import cn.spring.mvn.basic.tools.BasicReflection;
 import cn.spring.mvn.basic.util.BasicUtil;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-
 public class IBatisServiceImpl<T> implements IBatisService<T>{
 	@Autowired
 	private IBatisDao<T> iBatisDao;
@@ -265,12 +262,12 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 	/**
 	 * @Author LiuTao @Date 2018年11月14日 下午3:53:28
 	 * @Description: IBatis根据IBatisTParam类按TK+PageHelper查询实体类T
-	 * @Title: selectPageEntitiesWithCountByTKAndPageHelper
+	 * @Title: selectPageEntitiesWithCountByTK
 	 * @param iBatisParam IBatisTParam
 	 * @return 
 	 */
 	@Override
-	public IBatisTResult<T> selectPageEntitiesWithCountByTKAndRowBounds(IBatisTParam<T> iBatisParam) {//分页的
+	public IBatisTResult<T> selectPageEntitiesWithCountByTK(IBatisTParam<T> iBatisParam) {//分页的
 		T t = iBatisParam.getEntity();
 		Integer page = iBatisParam.getPage();
 		Integer size = iBatisParam.getSize();
@@ -291,28 +288,31 @@ public class IBatisServiceImpl<T> implements IBatisService<T>{
 	}
 	
 	@Override
+	public List<T> selectEntitiesByTK(T t){
+		return iBatisDao.select(t);
+	}
+	@Override
 	public List<T> selectEntitiesByTKExample(T t) {
 		Example example = new Example(t.getClass());
+		Example.Criteria criteria = example.createCriteria();
+		criteria.andEqualTo(t);
 		return iBatisDao.selectByExample(example);
 	}
 	@Override
-	public List<T> selectPageEntitiesByTKExample(T t, Integer page, Integer size) {
-		Example example = new Example(t.getClass());
-		PageHelper.startPage(page, size);
-		List<T> resultList = iBatisDao.selectByExample(example);
-		PageInfo<T> pageInfo = new PageInfo<T>(resultList);
-		return pageInfo.getList();
+	public List<T> selectEntitiesByTKExampleCriteria(Example example){
+		return iBatisDao.selectByExample(example);
 	}
 	@Override
-	public List<T> selectEntitiesByTKExampleCriteria(T t) {
-		Example example = new Example(t.getClass());
-		Example.Criteria c = example.createCriteria();
-		c.andEqualTo(t);
-		return null;
+	public List<T> selectEntitiesByTKRowBounds(T t, Integer page, Integer size) {
+		RowBounds rowBounds = new RowBounds(page * size, size);
+		return iBatisDao.selectByRowBounds(t, rowBounds);
 	}
 	@Override
-	public List<T> selectPageEntitiesByTKExampleCriteria(T t, Integer page, Integer size) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<T> selectEntitiesByTKExampleRowBounds(T t, Integer page, Integer size) {
+		Example example = new Example(t.getClass());
+		Example.Criteria criteria = example.createCriteria();
+		criteria.andEqualTo(t);
+		RowBounds rowBounds = new RowBounds(page * size, size);
+		return iBatisDao.selectByExampleAndRowBounds(example, rowBounds);
 	}
 }

@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -325,7 +326,21 @@ public class BasicUtil{
 		}
 		return srcStr;
 	}
-	
+	/**
+	 * @Author LiuTao @Date 2018年11月16日 上午10:13:11 
+	 * @Title: takeTheFirstOfSourceMap 
+	 * @Description: 获取SourceMap中的第一对key和value 
+	 * @param srcMap
+	 * @return
+	 */
+	public static Map<String, Object> takeTheFirstOfSourceMap(Map<String, Object> srcMap){
+		Map<String, Object> desMap = new HashMap<String, Object>();
+		for (Entry<String, Object> entry : srcMap.entrySet()) {
+			desMap.put(entry.getKey(), entry.getValue());
+			break;
+		}
+		return desMap;
+	}
 	/**
 	 * @author LiuTao @date 2018年11月6日 下午9:08:58 
 	 * @Title: setPageSizeToParamMap 

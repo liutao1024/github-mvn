@@ -20,6 +20,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -257,13 +258,22 @@ public class BasicReflection {
 			}
 			break;
 		case UPDATE://改
-			stringBuilder.append("update " + tableName + "set ");
+			stringBuilder.append("update " + tableName + " set");
+			String str = "";
 			for (Entry<String, Object> entry : paramMap.entrySet()) {
 				String key = entry.getKey();
 				Object value = entry.getValue();
-				stringBuilder.append(key + " = " + value);
+				str += ", " + key + " = " + value;
 			}
-			stringBuilder.append("where ");
+			stringBuilder.append(BasicUtil.sourceStrCastHeadStr(",", str) + " where 1 = 1");
+			//根据t获取实体类的主键列若没有时则返回第一个不为空的属性作为主键
+			Map<String, Object> PKMap = BasicReflection.getPKMapByReflectObejct(t);
+			if(BasicUtil.isNull(PKMap)){
+				BasicUtil.takeTheFirstOfSourceMap(paramMap);
+			}
+			for (Entry<String, Object> entry : PKMap.entrySet()) {
+				stringBuilder.append(" and ").append(entry.getKey()).append(" = ").append(entry.getValue());
+			}
 			break;
 		case SCOUNT://计数
 			stringBuilder.append("select count(*) from " + tableName + " where 1 = 1");
@@ -595,7 +605,7 @@ public class BasicReflection {
 	 * @param clazz 注解类型
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static Map<String, Object> getMapByReflectAttributeAnnotationClassObejct(Object object, Class<?> clazz){
+	public static Map<String, Object> getPKMapByReflectObejct(Object object){
 		Map<String, Object> rstMap = new HashMap<String, Object>();
 		if(BasicUtil.isNotNull(object)){
 			Field[] fields = object.getClass().getDeclaredFields();
@@ -607,7 +617,7 @@ public class BasicReflection {
 						// 属性类型
 						Class<?> fieldClazz = field.getType();
 						// 获取属性上的指定类型的注解
-						Annotation annotation = field.getDeclaredAnnotation((Class) clazz);
+						Annotation annotation = field.getDeclaredAnnotation((Class) Id.class);
 						// 有该类型的注解存在
 						if (annotation != null) {
 							String getMethod = BasicUtil.convertKey(fieldName, GETPR);

@@ -2,8 +2,6 @@ package cn.spring.mvn.basic.test;
 
 import java.util.Map;
 
-import javax.persistence.Id;
-
 import cn.spring.mvn.basic.entity.SystemDate;
 import cn.spring.mvn.basic.tools.BasicReflection;
 
@@ -47,7 +45,7 @@ public class BasicTest {
 		SystemDate date = new SystemDate();
 		date.setDateType("1213");
 		date.setToday("20181114");
-		Map<String, Object> map = BasicReflection.getMapByReflectAttributeAnnotationClassObejct(date, Id.class);
+		Map<String, Object> map = BasicReflection.getPKMapByReflectObejct(date);
 		System.out.println(map);
 	}
 }
