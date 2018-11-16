@@ -1,13 +1,18 @@
 package cn.spring.mvn.core.amain.entity;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * @author LiuTao @date 2018年11月5日 下午5:31:22
  * @ClassName: CoreProduct 
  * @Description: 核心产品表
  */
+@Table(name = "product")
 public class Product {
 	private String corpno;//法人代码
 	private String prodtp;//产品类型
+	@Id
 	private String prodno;//产品代码
 	private String prodna;//产品名称
 	private String descri;//产品描述

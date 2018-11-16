@@ -1,14 +1,20 @@
 package cn.spring.mvn.core.amain.entity;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * @author LiuTao @date 2018年6月9日 下午2:49:33
  * @ClassName: CustElectron 
  * @Description: 客户电子帐号
  */
+@Table(name = "electron")
 public class Electron {
 	
 	private String corpno;// 法人代码
+	@Id
 	private String custac;// 电子账号
+	@Id
 	private String custno;// 客户号
 	private String custna;// 客户名称
 	private String cacttp;// 客户账号类型

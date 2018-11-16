@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
 
+import cn.spring.mvn.basic.ibatis.IBatisServiceImpl;
 import cn.spring.mvn.basic.tools.BasicReflection;
 import cn.spring.mvn.basic.util.BasicUtil;
 import cn.spring.mvn.comm.util.CommUtil;
@@ -15,25 +16,25 @@ import cn.spring.mvn.core.amain.entity.dao.CustomerDao;
 import cn.spring.mvn.core.amain.entity.service.CustomerService;
 
 @Repository("CustomerService")
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl  extends IBatisServiceImpl<Customer> implements CustomerService{
 
 	@Resource
 	private CustomerDao dao;
 	
-	@Override
-	public int insertEntity(Customer entity) {
-		return dao.insertEntity(entity);
-	}
-	
-	@Override
-	public int deleteEntity(Customer entity) {
-		return dao.deleteEntity(entity);
-	}
-	
-	@Override
-	public int updateEntity(Customer entity) {
-		return dao.updateEntity(entity);
-	}
+//	@Override
+//	public int insertEntity(Customer entity) {
+//		return dao.insertEntity(entity);
+//	}
+//	
+//	@Override
+//	public int deleteEntity(Customer entity) {
+//		return dao.deleteEntity(entity);
+//	}
+//	
+//	@Override
+//	public int updateEntity(Customer entity) {
+//		return dao.updateEntity(entity);
+//	}
 	
 	@Override
 	public Customer selectOneEntity(Customer entity) {

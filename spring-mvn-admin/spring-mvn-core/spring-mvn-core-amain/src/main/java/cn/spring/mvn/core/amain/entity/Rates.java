@@ -1,12 +1,17 @@
 package cn.spring.mvn.core.amain.entity;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * @author LiuTao @date 2018年11月6日 下午1:54:25
  * @ClassName: Rates 
  * @Description: 利率信息表
  */
+@Table(name = "rates")
 public class Rates {
 	private String corpno;//法人代码
+	@Id
 	private String rateno;//利率编号
 	private String ratena;//利率名称
 	private String ratevl;//利率值

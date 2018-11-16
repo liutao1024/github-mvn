@@ -6,12 +6,13 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import cn.spring.mvn.basic.ibatis.IBatisServiceImpl;
 import cn.spring.mvn.core.amain.entity.Organization;
 import cn.spring.mvn.core.amain.entity.dao.OrganizationDao;
 import cn.spring.mvn.core.amain.entity.service.OrganizationService;
 
 @Service("OrganizationService")
-public class OrganizationServiceImpl implements OrganizationService {
+public class OrganizationServiceImpl extends IBatisServiceImpl<Organization> implements OrganizationService {
 	@Resource
 	private OrganizationDao dao;
 

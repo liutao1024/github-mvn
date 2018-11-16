@@ -1,17 +1,23 @@
 package cn.spring.mvn.core.amain.entity;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 
 /**
  * @author LiuTao @date 2018年6月9日 下午2:02:05
  * @ClassName: CustUser
  * @Description: 个人客户信息
  */
+@Table(name = "customer")
 public class Customer {
 
 	private String corpno;// 法人代码
 	private String custno;// 客户号
 	private String custna;// 客户名称
+	@Id
 	private String idtftp;// 证件类型
+	@Id
 	private String idtfno;// 证件号码
 	private String birthd;// 出生日期
 	private String sextyp;// 性别

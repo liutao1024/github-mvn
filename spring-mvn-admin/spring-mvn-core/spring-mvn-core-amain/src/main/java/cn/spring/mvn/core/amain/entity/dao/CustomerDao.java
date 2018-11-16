@@ -3,9 +3,10 @@ package cn.spring.mvn.core.amain.entity.dao;
 import java.util.List;
 import java.util.Map;
 
+import cn.spring.mvn.basic.ibatis.IBatisDao;
 import cn.spring.mvn.core.amain.entity.Customer;
 
-public interface CustomerDao {
+public interface CustomerDao extends IBatisDao<Customer> {
 	public int insertEntity(Customer entity);
 	public int deleteEntity(Customer entity);
 	public int updateEntity(Customer entity);

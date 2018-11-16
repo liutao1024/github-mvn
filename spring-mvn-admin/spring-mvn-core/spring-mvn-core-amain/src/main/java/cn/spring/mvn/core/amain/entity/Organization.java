@@ -1,13 +1,18 @@
 package cn.spring.mvn.core.amain.entity;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * @author LiuTao @date 2018年11月6日 下午1:52:58
  * @ClassName: Organization 
  * @Description: 组织机构表
  */
+@Table(name = "organization")
 public class Organization {
 	
 	private String corpno;//法人代码
+	@Id
 	private String brchno;//机构号
 	private String brchna;//机构名称
 	private String parbrc;//父级机构号

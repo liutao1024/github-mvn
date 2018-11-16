@@ -17,10 +17,7 @@ import tk.mybatis.mapper.entity.Example;
 import cn.spring.mvn.basic.entity.SystemTransactionInformation;
 import cn.spring.mvn.basic.entity.service.SystemTransactionInformationService;
 import cn.spring.mvn.basic.ibatis.IBatisTParam;
-//import cn.spring.mvn.basic.ibatis.IBatisTResult;
-import cn.spring.mvn.core.amain.entity.CoreMain;
 import cn.spring.mvn.core.amain.entity.service.AccountService;
-import cn.spring.mvn.core.amain.entity.service.CoreMainService;
 import cn.spring.mvn.core.amain.entity.service.ProductService;
 import cn.spring.mvn.core.deposit.entity.service.CoreDepositEntityService;
 import cn.spring.mvn.core.fund.entity.service.CoreFundEntityService;
@@ -29,6 +26,7 @@ import cn.spring.mvn.core.loan.entity.dao.StudentDao;
 import cn.spring.mvn.core.loan.entity.service.CoreLoanEntityService;
 import cn.spring.mvn.core.loan.entity.service.StudentService;
 import cn.spring.mvn.socket.server.SocketOperatorImpl;
+//import cn.spring.mvn.basic.ibatis.IBatisTResult;
 /**
  * @author LiuTao @date 2018年11月9日 下午8:03:53
  * @ClassName: DemoController 
@@ -49,8 +47,6 @@ public class DemoController {
 	private CoreFundEntityService f;
 	@Autowired
 	private CoreLoanEntityService l;
-	@Autowired
-	private CoreMainService m;
 	@Autowired
 	private StudentService st;
 	@Autowired
@@ -293,18 +289,18 @@ public class DemoController {
 	
 	@RequestMapping("/test002")
 	public void Test002(HttpServletRequest request, HttpServletResponse response){
-		CoreMain entity = new CoreMain();
-		entity.setId("1002");
-		entity.setName("渣渣灰");
-		m.insertEntity(entity);
-		List<CoreMain> list = m.selectEntityList("1002");
-		for (CoreMain coreMain : list) {
-			System.out.println(coreMain);
-		}
-		List<CoreMain> thlist = m.selectAll(entity); 
-		for (CoreMain coreMain : thlist) {
-			System.out.println(coreMain);
-		}
+//		CoreMain entity = new CoreMain();
+//		entity.setId("1002");
+//		entity.setName("渣渣灰");
+//		m.insertEntity(entity);
+//		List<CoreMain> list = m.selectEntityList("1002");
+//		for (CoreMain coreMain : list) {
+//			System.out.println(coreMain);
+//		}
+//		List<CoreMain> thlist = m.selectAll(entity); 
+//		for (CoreMain coreMain : thlist) {
+//			System.out.println(coreMain);
+//		}
 	}
 	/**
 	 * @author LiuTao @date 2018年11月9日 下午8:32:43 

@@ -1,16 +1,23 @@
 package cn.spring.mvn.core.amain.entity;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 
 /**
  * @author LiuTao @date 2018年6月9日 下午2:02:33
  * @ClassName: CustAcct
  * @Description: 个人客户帐号(负债帐号)
  */
+@Table(name = "account")
 public class Account {
 
 	private String corpno;// 法人代码
-	private String custac;// 客户账号
+	@Id
 	private String custno;// 客户号
+	@Id
+	private String custac;// 电子账号
+	@Id
 	private String acctno;// 负债账号
 	private String acctna;// 账户名称
 	private String crcycd;// 货币代号

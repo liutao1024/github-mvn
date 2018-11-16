@@ -14,6 +14,7 @@
 		9.where标签
 		10.foreach标签
 		11.if标签
+		实体类Entity特有的sql查询将其配置在EntityMapper.xml中
 	 -->
     <!-- 根据SQL新增 -->
     <insert id="insertBySQL" parameterType="String">
