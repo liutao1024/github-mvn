@@ -13,7 +13,7 @@ public class Electron {
 	
 	private String corpno;// 法人代码
 	@Id
-	private String custac;// 电子账号
+	private String elecno;// 电子账号
 	@Id
 	private String custno;// 客户号
 	private String custna;// 客户名称
@@ -36,11 +36,11 @@ public class Electron {
 	public void setCorpno(String corpno) {
 		this.corpno = corpno;
 	}
-	public String getCustac() {
-		return custac;
+	public String getElecno() {
+		return elecno;
 	}
-	public void setCustac(String custac) {
-		this.custac = custac;
+	public void setElecno(String elecno) {
+		this.elecno = elecno;
 	}
 	public String getCustno() {
 		return custno;
@@ -138,7 +138,7 @@ public class Electron {
 		result = prime * result + ((closdt == null) ? 0 : closdt.hashCode());
 		result = prime * result + ((clossq == null) ? 0 : clossq.hashCode());
 		result = prime * result + ((corpno == null) ? 0 : corpno.hashCode());
-		result = prime * result + ((custac == null) ? 0 : custac.hashCode());
+		result = prime * result + ((elecno == null) ? 0 : elecno.hashCode());
 		result = prime * result + ((custna == null) ? 0 : custna.hashCode());
 		result = prime * result + ((custno == null) ? 0 : custno.hashCode());
 		result = prime * result + ((datetm == null) ? 0 : datetm.hashCode());
@@ -197,10 +197,10 @@ public class Electron {
 				return false;
 		} else if (!corpno.equals(other.corpno))
 			return false;
-		if (custac == null) {
-			if (other.custac != null)
+		if (elecno == null) {
+			if (other.elecno != null)
 				return false;
-		} else if (!custac.equals(other.custac))
+		} else if (!elecno.equals(other.elecno))
 			return false;
 		if (custna == null) {
 			if (other.custna != null)
@@ -241,7 +241,7 @@ public class Electron {
 	}
 	@Override
 	public String toString() {
-		return "Electron [corpno=" + corpno + ", custac=" + custac
+		return "Electron [corpno=" + corpno + ", elecno=" + elecno
 				+ ", custno=" + custno + ", custna=" + custna + ", cacttp="
 				+ cacttp + ", opendt=" + opendt + ", opensq=" + opensq
 				+ ", closdt=" + closdt + ", clossq=" + clossq + ", cardno="

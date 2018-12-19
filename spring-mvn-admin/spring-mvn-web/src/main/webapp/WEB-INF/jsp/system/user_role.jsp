@@ -1,32 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/common/taglib.jsp"%>
-<div aria-hidden="true" style="display: none;" id="edit_setting" class="modal fade" tabindex="-1" data-width="900">
+<div aria-hidden="true" style="display: none;" id="edit_setting"
+	class="modal fade" tabindex="-1" data-width="900">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close closeModal" data-dismiss="modal" aria-hidden="true"></button>
+				<button type="button" class="close closeModal" data-dismiss="modal"
+					aria-hidden="true"></button>
 				<h4 class="modal-title">角色信息</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="table-container" id="add_role_set">
-							<table class="table table-striped table-bordered table-hover" id="role_auth_ajax">
+							<table class="table table-striped table-bordered table-hover"
+								id="role_auth_ajax">
 								<thead>
 									<tr role="row" class="heading">
 										<th width="20%">注册机构号</th>
 										<th width="20%">权限类型</th>
 										<th width="20%">角色号</th>
 										<th width="20%">柜员编号</th>
-										<th width="20%" >操作</th>
+										<th width="20%">操作</th>
 									</tr>
 									<tr role="row" class="filter">
 										<td></td>
 										<td></td>
 										<td></td>
 										<td></td>
-										<td >						
-										</td>
+										<td></td>
 									</tr>
 								</thead>
 								<tbody>
@@ -36,7 +38,8 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default closeModal" data-dismiss="modal" >关闭</button>
+					<button type="button" class="btn btn-default closeModal"
+						data-dismiss="modal">关闭</button>
 					<button type="button" class="btn blue" id="sub_btn">保存</button>
 				</div>
 			</div>
