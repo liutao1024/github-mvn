@@ -178,4 +178,4 @@ selectByCondition的时候IBatisTParam中穿了page和size后就作为条件了�
 还有update和新加的那几个没有测//20181115
 
 https://blog.csdn.net/zx520sun/article/details/52797034
-20181231
+20181231 pm
