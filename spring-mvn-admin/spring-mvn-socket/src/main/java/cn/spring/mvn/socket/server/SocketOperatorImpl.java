@@ -234,19 +234,19 @@ public class SocketOperatorImpl {
 		} catch (JsonParseException e) {
 			e.printStackTrace();
 			status =  ERROR;
-			mesage = e.getMessage();
+			mesage = CommUtil.isNull(e.getMessage()) ? "系统内部错误" : e.getMessage();
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 			status =  ERROR;
-			mesage = e.getMessage();
+			mesage = CommUtil.isNull(e.getMessage()) ? "系统内部错误" : e.getMessage();
 		} catch (IOException e) {
 			e.printStackTrace();
 			status =  ERROR;
-			mesage = e.getMessage();
+			mesage = CommUtil.isNull(e.getMessage()) ? "系统内部错误" : e.getMessage();
 		} catch (Exception e) {
 			e.printStackTrace();
 			status =  ERROR;
-			mesage = e.getMessage();
+			mesage = CommUtil.isNull(e.getMessage()) ? "系统内部错误" : e.getMessage();
 		}finally{
 			sys.setTrandt(trandt);
 			sys.setTrantm(trantm);

@@ -254,6 +254,17 @@ public class CommUtil extends BasicUtil{//继承自BasicUtil
 		return rstBoolean;
 	}
 	/**
+	 * @Author LiuTao @Date 2019年1月2日 下午8:20:46 
+	 * @Title: notEqual 
+	 * @Description: TODO(Describe) 
+	 * @param objectOne
+	 * @param objectTwo
+	 * @return
+	 */
+	public static boolean notEqual(Object objectOne, Object objectTwo){
+		return !equal(objectOne, objectTwo);
+	}
+	/**
 	 * @author LiuTao @date 2018年5月22日 下午11:15:33 
 	 * @Title: compare 
 	 * @Description: TODO(比较两个整数的大小) 

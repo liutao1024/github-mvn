@@ -97,7 +97,7 @@ public class LoginController {
 					int time = checkSysUser.getErrort() + 1;//密码错误次数加1
 					checkSysUser.setErrort(time);
 					ret = "error";
-					msg = "登录失败,密码错误:" + time +"次";
+					msg = "登录失败,密码错误:" + time + "次";
 				}
 			}else {
 				checkSysUser.setErrort(0);
